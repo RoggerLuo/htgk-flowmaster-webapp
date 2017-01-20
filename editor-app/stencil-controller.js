@@ -332,15 +332,23 @@ angular.module('activitiModeler')
                 这个EVENT_SELECTION_CHANGED是为了实时切换property
             */
             
+            /* 取消边框颜色的代码部分 */
+            $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE, function(event) {
+                if($scope.lastSelectedId){
+                    jQuery('#'+$scope.lastSelectedId)[0].children[1].style.stroke='rgb(187, 187, 187)'
+                    $scope.lastSelectedId = false   
+                }                    
+
+            })
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_DRAGDOCKER_DOCKED, function(event) {
                 debugger
             })
-            
+
+            $scope.lastSelectedId = false
             $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
                 var shapes = event.elements;
                 var selectedShape = shapes.first(); //first方法..again
-                
                 if (!selectedShape) {
                     $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
                     return;
@@ -352,6 +360,15 @@ angular.module('activitiModeler')
                 */
                 reduxStore.dispatch({type:'closeSuperDialogue'})
                 reduxStore.dispatch({type:'closeOrgDialogue'})
+
+                /* 改变选中边框颜色的代码部分 */
+                $timeout(function() {
+                    if(selectedShape._stencil._jsonStencil.title == 'User task'){
+                        //控制边框颜色的办法
+                        jQuery('#'+selectedShape.id)[0].children[1].style.stroke='red'
+                        $scope.lastSelectedId = selectedShape.id                        
+                    }
+                }, 100);
 
 
                 if(selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title == 'Exclusive gateway') {
