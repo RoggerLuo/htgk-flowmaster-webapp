@@ -1,0 +1,249 @@
+.big-cover {
+    // background-color: grey;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+
+.popup-dialogue {
+    -webkit-user-select: none;
+    /* Chrome all / Safari all /opera15+*/
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    position: absolute;
+    // width:100%;
+    // height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: flex;
+    background-color: rgba(130, 130, 130, 0.5);
+    .popup-dialogue-visible {
+        height: 150px;
+        width: 95%;
+        margin: auto;
+        text-align: center;
+        font-size: 14px;
+        padding: 20px;
+        border: 1px solid #868686;
+        background-color: white;
+        // margin: 5px 0px;        
+    }
+    .main-text {
+        margin-top: 5px;
+        padding: 5px;
+    }
+    .button-group {
+        color: white;
+        margin-top: 20px;
+        .cancel {
+            display: inline-block;
+            width: 60px;
+            height: 25px;
+            line-height: 25px;
+            background-color: #868686;
+        }
+        .placeholder {
+            display: inline-block;
+            width: 30px;
+            height: 1px;
+        }
+        .confirm {
+            display: inline-block;
+            width: 60px;
+            height: 25px;
+            line-height: 25px;
+            background-color: #009aff;
+        }
+    }
+}
+
+.drop-down {
+    display: inline-block;
+    // margin: 0px 4px;
+    background-color: white;
+    -webkit-user-select: none;
+    /* Chrome all / Safari all /opera15+*/
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+
+    margin:0 1px;
+    .drop-down-placeholder {
+        font-size: 14px;
+        padding: 0px 14px;
+        height: 1px;
+        display: hidden;
+    }
+    .drop-down-table {
+        margin-top: -5px;
+        position: absolute;
+        text-align: left;
+        background-color: white;
+        .drop-down-choosed {
+            border: 1px solid #bac2ce;
+            height: 26px;
+            line-height: 26px;
+            font-size: 14px;
+            padding: 0px 5px;
+            // color: #bac2ce;
+        }
+        .drop-down-choosed:hover {
+            border: 1px solid black;
+            color: black;
+        }
+        .drop-down-options {
+            background-color: white;
+            border-left: 1px solid #bac2ce;
+            border-bottom: 1px solid #bac2ce;
+            border-right: 1px solid #bac2ce;
+            .drop-down-option {
+                padding: 0px 5px;
+                height: 20px;
+                line-height: 20px;
+                font-size: 14px;
+            }
+            .drop-down-option:hover {
+                // border: 1px solid black;
+                background-color: #ccc;
+            }
+            .drop-down-option:active {
+                border: 1px solid black;
+                background-color: #828282;
+            }
+        }
+    }
+}
+
+.characters {
+    -webkit-user-select: none;
+    /* Chrome all / Safari all /opera15+*/
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    // margin-left: 5px;
+    // margin-bottom: 20px;
+
+    // margin-left: 10px;
+    .single-container {
+        display: inline-block;
+        // margin: 5px 0px 5px 0px;
+        .or {
+            font-size: 14px;
+            padding: 0 2px;
+            color: #9fc1d6;
+        }
+        .character {
+            // margin: 0px 5px;
+            background-color: #9fc1d6;
+            color: white;
+            display: inline-block;
+            padding: 0px 8px;
+            height: 26px;
+            line-height: 26px;
+            .cross {
+                display: inline-block;
+                padding-left: 8px;
+            }
+            .cross:active {
+                color: black;
+            }
+
+        }
+    }
+}
+
+.soft-container-container {
+    white-space: nowrap;
+    .soft-container {
+        .container-title {
+            font-size: 16px;
+        }
+        .container-header {
+            display: flex;
+            justify-content: space-between;
+        }
+        .container-row {
+            margin: 10px 0px;
+            .input-text{
+                height: 29px;
+                line-height: 29px;
+                font-size: 14px;
+                width: 60px;
+            }
+        }
+        border: 1px solid #bac2ce;
+        border-radius: 5px;
+        display: inline-block;
+        padding: 7px 7px;
+        margin: 5px 0px;
+        vertical-align: middle;
+        width: 287px;
+        margin-left: 5px;
+    }
+}
+
+.boardbutton {
+    -webkit-user-select: none;
+    /* Chrome all / Safari all /opera15+*/
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    .mybutton {
+        font-size: 14px;
+        flex: 1;
+        // width: 120px;
+        line-height: 30px;
+        text-align: center;
+        height: 30px;
+        background-color: #009aff;
+        color: white;
+        display: inline-block;
+        cursor: pointer;
+        padding: 0 11px;
+    }
+    .mybutton:active {
+        background-color: #0273bd;
+    }
+    .myoption {
+        z-index: 9999;
+        position: absolute;
+        border: 1px solid #868686;
+        display: inline-block;
+        .option {
+            background-color: white;
+            width: auto;
+            line-height: 30px;
+            height: 30px;
+            font-size: 14px;
+            // display: inline-block;
+            padding: 0px 10px;
+        }
+        .option+.option {
+            border-top: 1px solid #868686;
+        }
+        .option:hover {
+            background-color: #ccc;
+        }
+        .option:active {
+            background-color: #828282;
+            color: white;
+        }
+    }
+}
