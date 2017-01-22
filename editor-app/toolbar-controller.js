@@ -1,7 +1,7 @@
 
 'use strict';
 angular.module('activitiModeler')
-    .controller('ToolbarController', ['$scope', '$http', '$modal', '$q', '$rootScope', '$translate', '$location', function ($scope, $http, $modal, $q, $rootScope, $translate, $location) {
+    .controller('ToolbarController', ['$scope', '$http', '$modal', '$q', '$rootScope', '$translate', '$location','$timeout', function ($scope, $http, $modal, $q, $rootScope, $translate, $location,$timeout) {
 
         /* 这个promise还可以then多次？还是说这个只是这个controller的editorFactory? */
     	$scope.editorFactory.promise.then(function () {
@@ -88,7 +88,42 @@ angular.module('activitiModeler')
         $scope.undoStack = [];
         $scope.redoStack = [];
 
+
         $scope.editorFactory.promise.then(function() {
+
+            /* my event */
+            /* 
+                这里是每次移动sequence flow之后要做判断，是否满足条件，所有的userTask不能超过一个outgoing，
+                这里比较麻烦
+            */
+            /* 不知道为什么，会触发两次，而且事件对象是一模一样的*/
+            window.eventObj = {};//为什么一定要用window才可以，用scope和局部变量每次都会被覆盖
+            $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_DRAGDOCKER_DOCKED, function(event) {
+                
+                if(window.eventObj != event){
+                    window.eventObj = event
+
+                    if(event.target._stencil._jsonStencil.title == 'User task'){
+                        var branchCounter=0;
+                        event.target.outgoing.forEach(function(el){
+                                branchCounter+=1;
+                        });
+                        
+                        if(branchCounter>=2){
+                            /* 还是运行顺序冲突的问题，EVENT_EXECUTE_COMMANDS比EVENT_DRAGDOCKER_DOCKED要后触发，所以会出现问题，当前动作还没被写进stack就执行undo了 */
+                            $timeout(function() {
+                                alert('审批节点分支不能大于1');
+                                var services = { '$scope' : $scope, '$rootScope' : $rootScope, '$http' : $http, '$modal' : $modal};
+                                KISBPM.TOOLBAR.ACTIONS.undo(services);
+                            }, 100);
+                        }
+                    }              
+                } 
+                // if(event.target._stencil._jsonStencil.title == 'Exclusive gateway'){
+                // }
+            })
+
+
 
             // Catch all command that are executed and store them on the respective stacks
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_EXECUTE_COMMANDS, function( evt ){

@@ -333,19 +333,20 @@ angular.module('activitiModeler')
             */
             
             /* 取消边框颜色的代码部分 */
+            /* 只使用 selection_changed 事件则 点击画布的时候 抓不到取消选择事件
+                所以增加一个highlight hide事件用来 弥补上面的效果
+                但是highlight hide事件每次都在selection_changed后面出发，所以需要一个timeout来解决冲突
+             */
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE, function(event) {
                 if($scope.lastSelectedId){
                     jQuery('#'+$scope.lastSelectedId)[0].children[1].style.stroke='rgb(187, 187, 187)'
                     $scope.lastSelectedId = false   
                 }                    
-
-            })
-            $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_DRAGDOCKER_DOCKED, function(event) {
-                debugger
             })
 
             $scope.lastSelectedId = false
             $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
+
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
                 var shapes = event.elements;
                 var selectedShape = shapes.first(); //first方法..again
@@ -353,11 +354,8 @@ angular.module('activitiModeler')
                     $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
                     return;
                 }
-                
 
-                /* 
-                    mini router 
-                */
+                /* 每次改变选择都关闭之前的对话框 */
                 reduxStore.dispatch({type:'closeSuperDialogue'})
                 reduxStore.dispatch({type:'closeOrgDialogue'})
 
@@ -371,6 +369,9 @@ angular.module('activitiModeler')
                 }, 100);
 
 
+                /* 
+                    mini router 
+                */
                 if(selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title == 'Exclusive gateway') {
                     $scope.propertyTpl = './editor-app/property-tpl/branchSequenceFlow.html';
                 }else{
@@ -381,15 +382,12 @@ angular.module('activitiModeler')
                         case 'Mule task':
                             $scope.propertyTpl = './editor-app/property-tpl/parallelApprove.html';
                             break;
-
                         case 'Sequence flow':
                             $scope.propertyTpl = './editor-app/property-tpl/sequenceFlow.html';
                             break;
-
                         default:
                             $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
                             break;
-
                     }
                 }
             });
@@ -1344,13 +1342,21 @@ angular.module('activitiModeler')
                         if (targetStencil) {
                             var associationConnect = false;
                             
-                            if(stencil){
-                                if (stencil.idWithoutNs() === 'Association' && (curCan.getStencil().idWithoutNs() === 'TextAnnotation' || curCan.getStencil().idWithoutNs() === 'BoundaryCompensationEvent')) {
-                                    associationConnect = true;
-                                } else if (stencil.idWithoutNs() === 'DataAssociation' && curCan.getStencil().idWithoutNs() === 'DataStore') {
-                                    associationConnect = true;
-                                }
+                            try
+                            {
+                               if(stencil){
+                                   if (stencil.idWithoutNs() === 'Association' && (curCan.getStencil().idWithoutNs() === 'TextAnnotation' || curCan.getStencil().idWithoutNs() === 'BoundaryCompensationEvent')) {
+                                       associationConnect = true;
+                                   } else if (stencil.idWithoutNs() === 'DataAssociation' && curCan.getStencil().idWithoutNs() === 'DataStore') {
+                                       associationConnect = true;
+                                   }
+                               }
                             }
+                            catch(err)
+                            {
+                               //在此处理错误
+                            }
+                            
 
                             if (targetStencil.canConnectTo || associationConnect) {
                                 canConnect = true;
