@@ -96,50 +96,47 @@ const Button=(props)=>{
     )
 }
 
+
+const publicDropdown = (data)=>{
+    const publicMethod = function(){
+        // props.dispatch({type:'updateSuperDropDownChoosedOption','text':this.text})
+    }
+    let options = data.map((el,index)=>{
+        return {text:el,onClick:publicMethod}
+    })
+
+    return {
+        choosedOption:'字段',
+        options:options
+    }
+       
+}
 const Condition = (props) => {
     return (
         <div className="container-row">
-            <Dropdown {...categoryDropdown(props).props}/>
-            <Dropdown {...entryDropdown(props).props}/>
-            <Dropdown {...symbolDropdown(props).props}/>
+            <Dropdown {...publicDropdown(props.entry1)} choosedOption="字段"/>
+            <Dropdown {...publicDropdown(props.entry2)} choosedOption="请选择"/>
+            <Dropdown {...publicDropdown(props.entry3)} choosedOption="="/>
             <input type='text' className="input-text"/>
             <i className="icon qingicon icon-jian" style={{verticalAlign: 'middle'}}></i>
         </div>       
     )
 }
-const ConditionBlock = (props) => {
-    return (
-        <SoftContainer>
-            <div className="container-header">
-                <span className="container-title">条件1</span><Button />  
-            </div>       
-            <Condition />
-            <div className="and" style={{margin:'0px'}}>与</div>
-            <Condition />
-        </SoftContainer>
-    )
-}
+// const ConditionBlock = (props) => {
+//     return (
+//         <SoftContainer>
+//             <div className="container-header">
+//                 <span className="container-title">条件1</span><Button />  
+//             </div>       
+//             <Condition />
+//             <div className="and" style={{margin:'0px'}}>与</div>
+//             <Condition />
+//         </SoftContainer>
+//     )
+// }
 
 
-const Approve = (props) => {
-
-    const superDialogueParams={
-        visibleStatus:props.superDialogueVisibilityStatus,
-        close(){
-            props.dispatch({type:'closeSuperDialogue'})
-        },
-        confirm(){}
-    }
-
-    const orgDialogueParams={
-        visibleStatus:props.orgDialogueVisibilityStatus,
-        close(){
-            props.dispatch({type:'closeOrgDialogue'})
-        },
-        confirm(){}
-    }
-
-    
+const Approve = ({conditionGroups}) => {
 
     return(
         <div className="react-approve" >
@@ -149,10 +146,31 @@ const Approve = (props) => {
                 <label className="radio-lable"><input className="radio" name="condition" type="radio" value="" />手动选择 </label> 
                 <label className="radio-lable"><input className="radio" name="condition" type="radio" value="" />编写公式 </label> 
             </div>
+            {conditionGroups.map((el,index)=>{
+                return (
+                    <SoftContainer key={index}>
+                        <div className="container-header">
+                            <span className="container-title">条件{index}</span><Button />  
+                        </div>
+                        
+                        
+                        {el.map((el2,index2)=>{
+                            let and = ''
+                            if(index2>=1){
+                                and = (<div className="and" style={{margin:'0px'}}>与</div>)
+                            }
+                            return (
+                                <div key={index2}>
+                                    {and}
+                                    <Condition {...el2}/>
+                                </div>
+                            )
+                        })}   
 
-            <ConditionBlock />
-            <div className="and">与</div>
-            <ConditionBlock />
+                    </SoftContainer>
+                )
+            })}
+            
 
             <div className="addmoreContainer"><a className="addmore">添加多一会条件 >></a></div>
             
@@ -161,13 +179,12 @@ const Approve = (props) => {
                 条件与条件间是“或”的关系<br/>
                 规则与规则间是“与”的关系
             </div>
-
         </div>
     )
 }
 
 const mapStateToProps = (state) => {
-    return state.approve
+    return state.branch
 }
 
 const mapDispatchToProps = (dispatch) => {
