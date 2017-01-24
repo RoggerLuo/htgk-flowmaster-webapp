@@ -205,7 +205,7 @@ activitiModeler
 	                });
 	
 	                $rootScope.$watch('window.forceRefresh', function(newValue) { //forceRefresh是啥？
-	                    if(newValue) {
+                        if(newValue) {
 	                        $timeout(function() {
 	                            updateWindowSize();
 	                            $rootScope.window.forceRefresh = false;
@@ -259,7 +259,9 @@ activitiModeler
                         canvas.height(totalAvailable);
                         
 
-	                    jQuery('#paletteSection').height(totalAvailable);
+	                    // jQuery('#paletteSection').height(totalAvailable);
+                        jQuery('#paletteSection').height('768');
+
 
 	                    // Update positions of the resize-markers, according to the canvas
 
