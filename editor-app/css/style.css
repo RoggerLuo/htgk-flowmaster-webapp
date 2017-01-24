@@ -88,7 +88,7 @@
 }
 
 .stencils {
-	border-right: 12px solid #f1f1f1;
+	border-right: 10px solid #f1f1f1;
 	overflow: auto;
 	z-index: 5000;
 }
@@ -238,11 +238,9 @@ div.propertySection {
 
 
 .selected-item-bottom {
-    height: 65px;
+    height: 58px;
     color: white;
-    font-size: 25px;
-    // font-weight: bold;
-    padding: 10px;
+    padding: 9px;
     border-bottom: 1px solid #a4acb9;
     cursor: default;
 
@@ -261,34 +259,13 @@ div.propertySection {
     display: flex;
 }
 .selected-item-bottom .bottom-text-div .save{
-    line-height:30px;font-size:16px;text-align: center;
+    line-height:30px;
+    font-size:15px;
+    text-align: center;
     margin: auto;
 }
 
-.selected-item-title {
-    background-color: rgb(0,176,255);
-    color: white;
-    font-size: 25px;
-    // font-weight: bold;
-    padding: 5px 8px;
-    border-bottom: 1px solid #a4acb9;
-    cursor: default;
 
-
-    -webkit-user-select: none;
-    /* Chrome all / Safari all /opera15+*/
-    -moz-user-select: none;
-    /* Firefox all */
-    -ms-user-select: none;
-    /* IE 10+ */
-    user-select: none;
-}
-.selected-item-title .title-text{
-    line-height:30px;
-    font-size: 14px;
-    margin-left: 10px;
-
-}
 
 
 .selected-item-title a {
@@ -346,16 +323,13 @@ div.propertySection {
     border: 1px solid black;
 }
 .selected-item-body {
-	// padding: 0;
-	// overflow: auto;
-	// height: 199px;
     display: flex;
     flex-direction: column;
     flex: 1;
     position: absolute;
     height: 100%;
     overflow: auto;
-    padding: 41px 15px 65px 15px;
+    padding: 28px 12px 60px 12px;
     width:100%;
 }
 
@@ -383,12 +357,6 @@ div.propertySection {
 	cursor: pointer;
 }
 
-.property-row div.title {
-    margin: 5px 0px;
-	font-size: 16px;
-	// font-weight: bold;
-	// width: 46%;
-}
 
 .property-row span.title-removed {
 	font-size: 13px;
@@ -408,8 +376,8 @@ div.propertySection {
 
 .property-row input[type="text"] {
 	font-size: 14px;
-    height: 34px;
-	margin: 2px 0;
+    height: 30px;
+	// margin: 2px 0;
 	padding: 0px 5px;
 	width: 100%;
     outline: none;

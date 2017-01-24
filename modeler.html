@@ -27,7 +27,7 @@
 	<link rel="stylesheet" href="http://localhost:8080/style.css">
 
 </head>
-<body style="background-color:#f1f1f1;">
+<body>
 
 	<!-- <div class="navbar navbar-fixed-top navbar-inverse" role="navigation" id="main-header"> -->
 	    <!-- <div class="navbar-header">
@@ -56,11 +56,22 @@
 	    </div>
 	</div>
 	
-	<div id="main" 
-		style="margin-top: 12px;padding:0px;" 
-		class="wrapper full clearfix" ng-style="{height: window.height - 12 + 'px'}" ng-app="activitiModeler" ng-include="'editor-app/editor.html'">
+	<div 
+		id="main" 
+		style="padding:0px;" 
+		class="wrapper full clearfix" 
+		ng-style="{height: window.height  + 'px'}" 
+		ng-app="activitiModeler" 
+		ng-include="'editor-app/editor.html'">
 	</div>
 
+<!-- 	<div id="user-guide" 
+		class="wrapper full clearfix" 
+		ng-style="{height: window.height - 12 + 'px'}" 
+		ng-app="activitiModeler" 
+		ng-include="'editor-app/editor.html'">
+	</div>
+ -->
 	<div id="hugePopup"></div>
 	<div id="PopupDialogue"></div>
 	

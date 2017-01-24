@@ -1,4 +1,6 @@
-<div ng-controller="StencilController" style="height:100%;">
+<div id="StencilController" ng-controller="StencilController" style="height:100%;">
+<!-- <div style="width:100%;height:1px;border-top: 12px solid #f1f1f1;padding:0px;"></div> -->
+
     <div class="subheader editor-toolbar" id="editor-header" style="display:none;">
         <div class="btn-group">
             <div class="btn-toolbar pull-left" ng-controller="ToolbarController" ng-cloak>
@@ -18,10 +20,9 @@
         </div>
     </div>
     <div class="full" style="height:100%;">
+
         <div class="row row-no-gutter" style="height:100%;">
-
-
-            <div id="paletteHelpWrapper" class="col-xs-2" style="width: 12%;">
+            <div id="paletteHelpWrapper" class="col-xs-2" style="width: 10%;">
                 
                 <div class="stencils" id="paletteSection" style="height:100%;margin:0;">
                     <div ng-if="stencilItemGroups.length > 1" style="height:100%;margin:0;">
@@ -40,8 +41,8 @@
                                     
                                     <div style="flex:1;display:flex;">
                                         <div style="margin:auto;">
-                                            <img style="margin-bottom:6px;" ng-src="editor-app/stencilsets/bpmn2.0/icons/{{item.icon}}" width="40px;" height="40px;"/>
-                                            <div style="font-size:16px;">{{item.name}}</div>
+                                            <img style="margin:6px 0px;" ng-src="editor-app/stencilsets/bpmn2.0/icons/{{item.icon}}" width="28px;" height="28px;"/>
+                                            <div style="font-size:14px;">{{item.name}}</div>
                                         </div>
                                     </div>
                                 </li>
@@ -53,7 +54,7 @@
             </div>
 
 
-            <div id="canvasHelpWrapper" class="col-xs-7" style="width:62%;">
+            <div id="canvasHelpWrapper" class="col-xs-7" style="width:67%;">
                 <div class="canvas-wrapper" id="canvasSection" 
                     ng-model="droppedElement" ng-model="droppedElement" 
                     data-drop="true" data-jqyoui-options 
@@ -81,11 +82,10 @@
             </div>
 
 
-            <div id="propertiesHelpWrapper" class="col-xs-3" style="width: 26%;height:100%;border-left: 12px solid #f1f1f1;">
+            <div id="propertiesHelpWrapper" class="col-xs-3" style="width: 23%;height:100%;border-left: 10px solid #f1f1f1;">
                 <div class="propertySection" id="propertySection" ng-class="{collapsed: propertyWindowState.collapsed}" style="height:100%;">
                     <div class="selected-item-section" style="height:100%;display: flex;flex-direction: column;">
                         
-        
                         <!-- clearfix 是header来的 -->
                         <div class="clearfix">
                             <div class="pull-right" ng-if="selectedItem.auditData.createDate">
@@ -95,10 +95,7 @@
                                 <strong>{{'ELEMENT.AUTHOR' | translate}}: </strong> {{selectedItem.auditData.author}}
                             </div>
                             <div class="selected-item-title">
-                                <!-- ng-click="propertyWindowState.toggle()" -->
-                                <div> 
-                                    <div class="title-text">节点设置</div>
-                                </div>
+                                <div class="title-text">节点设置</div>
                             </div>
                         </div>
 

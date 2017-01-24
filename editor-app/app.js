@@ -258,8 +258,8 @@ activitiModeler
                         
                         canvas.height(totalAvailable);
                         
-                        if(totalAvailable < 700){
-                            jQuery('#paletteSection').height('700');
+                        if(totalAvailable < 600){
+                            jQuery('#paletteSection').height('600');
                         }else{
                             jQuery('#paletteSection').height(totalAvailable);
                         }

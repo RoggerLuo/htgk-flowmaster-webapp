@@ -363,10 +363,10 @@ angular.module('activitiModeler')
                 $timeout(function() {
                     if(selectedShape._stencil._jsonStencil.title == 'User task'){
                         //控制边框颜色的办法
-                        jQuery('#'+selectedShape.id)[0].children[1].style.stroke='red'
+                        jQuery('#'+selectedShape.id)[0].children[1].style.stroke='rgb(0,176,255)'
                         $scope.lastSelectedId = selectedShape.id                        
                     }
-                }, 100);
+                }, 150);
 
 
                 /* 
