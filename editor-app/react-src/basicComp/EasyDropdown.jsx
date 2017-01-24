@@ -5,8 +5,8 @@ import { render } from 'react-dom'
 const Dropdown = createClass({
     getInitialState(){
         // let choosedOption = this.props.choosedOption
-        // choosedOption = this.props.options[0]?this.props.options[0].text:''
-        return {visibleStatus:'none',zIndex:'1',choosedOption:this.props.choosedOption}
+        let choosedOption = this.props.options[0]?this.props.options[0].text:''
+        return {visibleStatus:'none',zIndex:'1',choosedOption:choosedOption}
     },
     toggle(e){
         // this.publicOnClick(e)
