@@ -258,9 +258,11 @@ activitiModeler
                         
                         canvas.height(totalAvailable);
                         
-
-	                    // jQuery('#paletteSection').height(totalAvailable);
-                        jQuery('#paletteSection').height('768');
+                        if(totalAvailable < 700){
+                            jQuery('#paletteSection').height('700');
+                        }else{
+                            jQuery('#paletteSection').height(totalAvailable);
+                        }
 
 
 	                    // Update positions of the resize-markers, according to the canvas
