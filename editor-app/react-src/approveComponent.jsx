@@ -1,6 +1,6 @@
 import React,{createClass} from 'react';
 import { render } from 'react-dom'
-import Dropdown from './basicComp/Dropdown'
+import Dropdown from './basicComp/EasyDropdown'
 import DialoguePopup from './basicComp/DialoguePopup'
 import SoftContainer from './basicComp/SoftContainer'
 import Boardbutton from './basicComp/Boardbutton'
@@ -163,11 +163,11 @@ const Approve = (props) => {
             
             <div className="section-title">审批人员</div>
             
-            <Boardbutton {...boardbutton(props)}/>        
+            <Boardbutton {...boardbutton(props)} position="below" />        
             <div className="character-container"><CharactersList {...charactersList(props)}/></div>
 
             <div className="section-title">审批规则</div>
-            <div className="content">只需节点上任意一人审批即可通过</div>
+            <div className="the-content">只需节点上任意一人审批即可通过</div>
             
             <DialoguePopup {...superDialogue(props).props}>
                 申请的上<Dropdown {...superDropdown(props).props}/>级领导

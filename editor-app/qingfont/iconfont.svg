@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
 <svg xmlns="http://www.w3.org/2000/svg">
 <metadata>
-Created by FontForge 20120731 at Tue Jan 17 10:42:34 2017
+Created by FontForge 20120731 at Tue Jan 24 09:50:05 2017
  By admin
 </metadata>
 <defs>
@@ -51,6 +51,9 @@ q-9 9 -9 22.5t9.5 23t22.5 9.5t23 -10l137 -138l138 137q10 9 23 9t22.5 -9.5t9.5 -2
     <glyph glyph-name="salefill" unicode="&#xe78a;" 
 d="M960 317q0 46 -31 76l-313 319q-34 34 -51.5 49.5t-45 35.5t-54 27.5t-58.5 7.5h-142q-64 0 -104 -11.5t-61.5 -39t-29 -62.5t-7.5 -93v-154q0 -58 14.5 -87t62.5 -75l352 -343q30 -29 77 -29t77 28l283 275q31 30 31 76zM410 574.5q0 -42.5 -30.5 -73t-73 -30.5
 t-73 30.5t-30.5 73t30.5 73t73 30.5t73 -30.5t30.5 -73z" />
+    <glyph glyph-name="add" unicode="&#xe775;" horiz-adv-x="1025" 
+d="M483 413v8v327q0 23 19 29q13 5 24.5 -2.5t12.5 -21.5v-8v-325v-7h8q242 0 326 -1q8 0 12 -1q10 -2 15.5 -10.5t4.5 -18.5q0 -10 -7 -17t-17 -9h-9h-324h-9v-8v-328q0 -25 -22 -30q-12 -3 -22.5 5t-11.5 21v7v325v8h-8h-326q-18 0 -27 11q-9 13 -3.5 27.5t21.5 17.5
+q4 1 10 1h325h8z" />
     <glyph glyph-name="jian" unicode="&#xe620;" 
 d="M801 348h-578q-13 0 -22.5 9.5t-9.5 23t9.5 22.5t22.5 9h578q13 0 22.5 -9t9.5 -22.5t-9.5 -23t-22.5 -9.5z" />
     <glyph glyph-name="icon-test" unicode="&#xe66f;" 

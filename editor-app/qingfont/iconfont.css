@@ -1,10 +1,10 @@
 
 @font-face {font-family: "qingicon";
-  src: url('iconfont.eot?t=1484620954319'); /* IE9*/
-  src: url('iconfont.eot?t=1484620954319#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1484620954319') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1484620954319') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1484620954319#qingicon') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1485222605396'); /* IE9*/
+  src: url('iconfont.eot?t=1485222605396#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1485222605396') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1485222605396') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1485222605396#qingicon') format('svg'); /* iOS 4.1- */
 }
 
 .qingicon {
@@ -26,6 +26,8 @@
 .icon-guanbi2fill:before { content: "\e724"; }
 
 .icon-salefill:before { content: "\e78a"; }
+
+.icon-add:before { content: "\e775"; }
 
 .icon-jian:before { content: "\e620"; }
 

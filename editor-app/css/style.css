@@ -270,7 +270,7 @@ div.propertySection {
     color: white;
     font-size: 25px;
     // font-weight: bold;
-    padding: 4px 8px;
+    padding: 5px 8px;
     border-bottom: 1px solid #a4acb9;
     cursor: default;
 
@@ -323,8 +323,10 @@ div.propertySection {
 	font-size: 13px;
 	overflow: hidden;
 
-    margin: 8px 5px;
-    line-height: 29px;display:flex;flex:1;
+    margin: 8px 0px;
+    line-height: 29px;
+    // display:flex;
+    flex:1;
 }
 
 .selected-item-body .property-row:hover {
@@ -332,7 +334,9 @@ div.propertySection {
 
 }
 .selected-item-body .property-row .value{
-    flex:1;margin-right:15px;
+    // flex:1;
+    // margin-right:15px;
+    width: 100%;
 }
 
 .selected-item-body .node-name:hover {
@@ -351,7 +355,7 @@ div.propertySection {
     position: absolute;
     height: 100%;
     overflow: auto;
-    padding: 47px 10px;
+    padding: 41px 15px 65px 15px;
     width:100%;
 }
 
@@ -379,7 +383,8 @@ div.propertySection {
 	cursor: pointer;
 }
 
-.property-row span.title {
+.property-row div.title {
+    margin: 5px 0px;
 	font-size: 16px;
 	// font-weight: bold;
 	// width: 46%;
@@ -403,7 +408,7 @@ div.propertySection {
 
 .property-row input[type="text"] {
 	font-size: 14px;
-    height: 30px;
+    height: 34px;
 	margin: 2px 0;
 	padding: 0px 5px;
 	width: 100%;

@@ -36,7 +36,11 @@ const Boardbutton = createClass({
         return(
             <div className="boardbutton">
                 <div className="mybutton" onClick={this.toggle}>
-                    {this.props.title} <span className="inverted-triangle">▼</span>
+                    <span className="inverted-triangle">
+                        <i className="icon qingicon icon-add"></i>
+                    </span>
+
+                    {this.props.title} 
                 </div>
                 <div className="myoption" style={myOptionStyle} >
                     {this.props.options.map((el,index)=>{
