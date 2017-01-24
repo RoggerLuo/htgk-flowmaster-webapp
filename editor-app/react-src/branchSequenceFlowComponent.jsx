@@ -96,51 +96,39 @@ const Button=(props)=>{
     )
 }
 
-
-const publicDropdown = (data)=>{
+const optionMaker = (prototype,key1,key2,entryIndex)=>{
     const publicMethod = function(){
-        // props.dispatch({type:'updateSuperDropDownChoosedOption','text':this.text})
+        
+        const action = {
+            type:'branchUpdate',
+            groupIndex : key1,
+            ruleIndex : key2,
+            entryIndex
+        }
+        store.dispatch(action)
     }
-    let options = data.map((el,index)=>{
-        return {text:el,onClick:publicMethod}
+    let options = prototype[entryIndex].map((el,index)=>{
+        return {text:el.text,onClick:publicMethod}
     })
-
-    return {
-        choosedOption:'字段',
-        options:options
-    }
-       
+    return options
 }
-const Condition = (props) => {
+
+const Condition = ({prototype,entry1,entry2,entry3,input,key1,key2}) => {
     return (
         <div className="container-row">
-            <Dropdown {...publicDropdown(props.entry1)} choosedOption="字段"/>
-            <Dropdown {...publicDropdown(props.entry2)} choosedOption="请选择"/>
-            <Dropdown {...publicDropdown(props.entry3)} choosedOption="="/>
-            <input type='text' className="input-text"/>
-            <i className="icon qingicon icon-jian" style={{verticalAlign: 'middle'}}></i>
+            <Dropdown options={optionMaker(prototype,key1,key2,'entry1')} choosedOption={entry1}/>
+            <Dropdown options={optionMaker(prototype,key1,key2,'entry2')} choosedOption={entry2}/>
+            <Dropdown options={optionMaker(prototype,key1,key2,'entry3')} choosedOption={entry3}/>
+            <input type='text' className="input-text" defaultValue={input} />
+            <i className="icon qingicon icon-jian"></i>
         </div>       
     )
 }
-// const ConditionBlock = (props) => {
-//     return (
-//         <SoftContainer>
-//             <div className="container-header">
-//                 <span className="container-title">条件1</span><Button />  
-//             </div>       
-//             <Condition />
-//             <div className="and" style={{margin:'0px'}}>与</div>
-//             <Condition />
-//         </SoftContainer>
-//     )
-// }
 
-
-const Approve = ({conditionGroups}) => {
-
+const Approve = ({conditionGroups,prototype}) => {
+    
     return(
         <div className="react-approve" >
-            
             <div className="section-title">条件设置</div>
             <div className="radio-box">
                 <label className="radio-lable"><input className="radio" name="condition" type="radio" value="" />手动选择 </label> 
@@ -150,10 +138,8 @@ const Approve = ({conditionGroups}) => {
                 return (
                     <SoftContainer key={index}>
                         <div className="container-header">
-                            <span className="container-title">条件{index}</span><Button />  
+                            <span className="container-title">条件{index+1}</span><Button />  
                         </div>
-                        
-                        
                         {el.map((el2,index2)=>{
                             let and = ''
                             if(index2>=1){
@@ -162,18 +148,14 @@ const Approve = ({conditionGroups}) => {
                             return (
                                 <div key={index2}>
                                     {and}
-                                    <Condition {...el2}/>
+                                    <Condition {...el2} prototype={prototype} key1={index} key2={index2}/>
                                 </div>
                             )
                         })}   
-
                     </SoftContainer>
                 )
             })}
-            
-
             <div className="addmoreContainer"><a className="addmore">添加多一会条件 >></a></div>
-            
             <div className="section-title">说明：</div>
             <div className="content">
                 条件与条件间是“或”的关系<br/>
