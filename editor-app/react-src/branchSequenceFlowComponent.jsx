@@ -2,7 +2,7 @@ import React,{createClass} from 'react';
 import { render } from 'react-dom'
 import Dropdown from './basicComp/Dropdown'
 import DialoguePopup from './basicComp/DialoguePopup'
-import SoftContainer from './basicComp/SoftContainer'
+import SolidContainer from './basicComp/SolidContainer'
 // import UserTaskBoardbutton from './basicComp/UserTaskBoardbutton'
 import Boardbutton from './basicComp/Boardbutton'
 import CharactersList from './basicComp/CharactersList'
@@ -98,7 +98,6 @@ const Button=(props)=>{
 
 const optionMaker = (prototype,key1,key2,entryIndex)=>{
     const publicMethod = function(){
-        
         const action = {
             type:'branchUpdate',
             groupIndex : key1,
@@ -115,18 +114,20 @@ const optionMaker = (prototype,key1,key2,entryIndex)=>{
 
 const Condition = ({prototype,entry1,entry2,entry3,input,key1,key2}) => {
     return (
-        <div className="container-row">
-            <Dropdown options={optionMaker(prototype,key1,key2,'entry1')} choosedOption={entry1}/>
-            <Dropdown options={optionMaker(prototype,key1,key2,'entry2')} choosedOption={entry2}/>
-            <Dropdown options={optionMaker(prototype,key1,key2,'entry3')} choosedOption={entry3}/>
+        <div style={{border: '1px solid red',margin:'8px'}}>
+            <div className="container-row">
+                <Dropdown options={optionMaker(prototype,key1,key2,'entry1')} choosedOption={entry1}/>
+                <Dropdown options={optionMaker(prototype,key1,key2,'entry2')} choosedOption={entry2}/>
+                <Dropdown options={optionMaker(prototype,key1,key2,'entry3')} choosedOption={entry3}/>
+            </div>    
+            <div className="container-row-placeholder"></div>
+       
             <input type='text' className="input-text" defaultValue={input} />
-            <i className="icon qingicon icon-jian"></i>
-        </div>       
+        </div>
     )
 }
 
 const Approve = ({conditionGroups,prototype}) => {
-    
     return(
         <div className="react-approve" >
             <div className="section-title">条件设置</div>
@@ -136,14 +137,15 @@ const Approve = ({conditionGroups,prototype}) => {
             </div>
             {conditionGroups.map((el,index)=>{
                 return (
-                    <SoftContainer key={index}>
+                    <SolidContainer key={index}>
                         <div className="container-header">
-                            <span className="container-title">条件{index+1}</span><Button />  
+                            <span className="container-title">条件{index+1}</span> <span>...</span>
                         </div>
+
                         {el.map((el2,index2)=>{
                             let and = ''
                             if(index2>=1){
-                                and = (<div className="and" style={{margin:'0px'}}>与</div>)
+                                and = (<div className="and">并且</div>)
                             }
                             return (
                                 <div key={index2}>
@@ -152,7 +154,7 @@ const Approve = ({conditionGroups,prototype}) => {
                                 </div>
                             )
                         })}   
-                    </SoftContainer>
+                    </SolidContainer>
                 )
             })}
             <div className="addmoreContainer"><a className="addmore">添加多一会条件 >></a></div>

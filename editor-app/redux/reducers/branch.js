@@ -11,7 +11,7 @@ let initial = {
     mode:'',
     conditionGroups:[
         [
-            {entry1:'条件一字段一1',entry2:'条件一字段2',entry3:'条件一字段33',input:'inputtest'},
+            {entry1:'字段',entry2:'请选择',entry3:'=',input:''},
             {entry1:'条件一字段一1',entry2:'条件一字段2',entry3:'条件一字段33',input:'inputtest'},
 
         ],

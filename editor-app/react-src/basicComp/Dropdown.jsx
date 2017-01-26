@@ -25,43 +25,43 @@ const Dropdown = createClass({
         // e.preventDefault()
         // choosedOption
     },
+    // <div className="drop-down-placeholder">
+    //     {this.state.choosedOption}
+    // </div>
+
     render(){
         return(
-            <div className="drop-down">
-                <div className="drop-down-placeholder">
-                {this.state.choosedOption}
-                </div>
-
-                <table className="drop-down-table" style={{zIndex:this.state.zIndex}} >
+            <div className="drop-down" style={{flex:'1'}}>
+                <table className="drop-down-table" style={{zIndex:this.state.zIndex,width: '31.8%'}} >
                     <tbody>
                         <tr>
-                            <td className="drop-down-choosed stop-propagation" onClick={this.toggle}>
-                                {this.state.choosedOption} <span className="inverted-triangle">▼</span>
+                            <td className="drop-down-choosed stop-propagation" onClick={this.toggle} style={{color:'black',display:'flex',justifyContent: 'space-between'}}>
+                                <div>{this.state.choosedOption}</div> <div className="inverted-triangle">▼</div>
                             </td>
                         </tr>
-                            <tr className="drop-down-options" style={{display:this.state.visibleStatus}}>
-                                <td>
-                                    {this.props.options.map((el,index)=>{
-                                        return(
-                                            <div 
-                                                key={index} 
-                                                className="drop-down-option" 
-                                                onClick={
-                                                    (e)=>{
-                                                        el.onClick(e)
-                                                        this.close(e)
-                                                        this.setState({choosedOption:el.text})
-                                                    }
+                        <tr className="drop-down-options" style={{display:this.state.visibleStatus}}>
+                            <td>
+                                {this.props.options.map((el,index)=>{
+                                    return(
+                                        <div 
+                                            key={index} 
+                                            className="drop-down-option" 
+                                            onClick={
+                                                (e)=>{
+                                                    el.onClick(e)
+                                                    this.close(e)
+                                                    this.setState({choosedOption:el.text})
                                                 }
-                                            >
-                                                {el.text}
-                                            </div>                                                    
-                                        )
-                                    })}
-                                </td>                
-                            </tr>    
+                                            }
+                                        >
+                                            {el.text}
+                                        </div>                                                    
+                                    )
+                                })}
+                            </td>                
+                        </tr>    
                     </tbody>
-                </table>   
+                </table>
                 <div className="big-cover" style={{display:this.state.visibleStatus}} onClick={this.close}></div>
             </div>
         )
