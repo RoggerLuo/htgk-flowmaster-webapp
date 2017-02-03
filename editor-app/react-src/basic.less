@@ -90,23 +90,25 @@
         height: 1px;
         display: hidden;
     }
+    .drop-down-choosed {
+        border: 1px solid #dde4ef;
+        height: 30px;
+        line-height: 30px;
+        font-size: 13px;
+        padding: 0px 5px;
+        // color: #bac2ce;
+    }
+    .drop-down-choosed:hover {
+        border: 1px solid black;
+        color: black;
+    }
+
     .drop-down-table {
-        margin-top: -5px;
+        // margin-top: -5px;
         position: absolute;
         text-align: left;
         background-color: white;
-        .drop-down-choosed {
-            border: 1px solid #dde4ef;
-            height: 30px;
-            line-height: 30px;
-            font-size: 13px;
-            padding: 0px 5px;
-            // color: #bac2ce;
-        }
-        .drop-down-choosed:hover {
-            border: 1px solid black;
-            color: black;
-        }
+
         .drop-down-options {
             background-color: white;
             border-left: 1px solid #dde4ef;
@@ -208,10 +210,13 @@
         .container-row {
             position: absolute;
             left: 22px;
-            right: 19px; /* margin right 占了3px*/
+            right: 22px; /* margin right 占了3px*/
             display: flex;
-
-            margin: 5px 0px;
+            margin-top: 1px;
+            // margin: 5px 0px;
+        }
+        .input-text-container{
+            margin: 1px;
         }
         .input-text{
             height: 29px;

@@ -121,8 +121,9 @@ const Condition = ({prototype,entry1,entry2,entry3,input,key1,key2}) => {
                 <Dropdown options={optionMaker(prototype,key1,key2,'entry3')} choosedOption={entry3}/>
             </div>    
             <div className="container-row-placeholder"></div>
-       
-            <input type='text' className="input-text" defaultValue={input} />
+            <div className="input-text-container">
+                <input type='text' className="input-text" defaultValue={input} />
+            </div>
         </div>
     )
 }

@@ -30,14 +30,20 @@ const Dropdown = createClass({
     // </div>
 
     render(){
+        // let hiddenFirstTr = true
+        // if(this.state.visibleStatus == ''){//打开的情况下
+            // hiddenFirstTr = {visibility:'hidden'}
+        // }else{
+        //     hiddenFirstTr = {visibility:'visible'}
+        // }
         return(
             <div className="drop-down" style={{flex:'1'}}>
-                <div style={{    display: 'flex',position: 'absolute'}}>
+                <div style={{display: 'flex'}} className="drop-down-choosed" onClick={this.toggle}>
                     <div>{this.state.choosedOption}</div> <div className="inverted-triangle">▼</div>
                 </div>
                 <table className="drop-down-table" style={{zIndex:this.state.zIndex,width: '31.8%'}} >
                     <tbody>
-                        <tr>
+                        <tr style={{display:'none'}}>
                             <td className="drop-down-choosed stop-propagation" onClick={this.toggle} style={{color:'black',display:'flex',justifyContent: 'space-between'}}>
                                 <div>{this.state.choosedOption}</div> <div className="inverted-triangle">▼</div>
                             </td>
