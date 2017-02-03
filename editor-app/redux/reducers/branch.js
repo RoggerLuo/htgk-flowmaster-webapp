@@ -8,7 +8,7 @@ import {toJS,fromJS,List, Map} from 'immutable';
     })
 */
 let initial = {
-    mode:'',
+    mode:'dropdown',
     conditionGroups:[
         [
             {entry1:'字段',entry2:'请选择',entry3:'=',input:''},
@@ -24,7 +24,7 @@ let initial = {
     ],
     prototype:{
         entry1:[{text:'发起人',onClick:function(){}},{text:'当前',onClick:function(){}}],
-        entry2:[{text:'条件一字段2',onClick:function(){}},{text:'条件一字段22',onClick:function(){}},{text:'条件一字段23',onClick:function(){}}],
+        entry2:[{text:'请假天数',onClick:function(){}},{text:'职级',onClick:function(){}},{text:'条件',onClick:function(){}}],
         entry3:[{text:'条件一字段31',onClick:function(){}},{text:'条件一字段32',onClick:function(){}},{text:'条件一字段33',onClick:function(){}}],
         input:'inputtest'
     }
@@ -33,6 +33,10 @@ let initial = {
 
 const Reducer = (state = initial, action) => {
     switch (action.type) {
+        case 'modeChange':
+            return Object.assign({}, state, {
+                mode: action.value
+            })
         case 'branchUpdate':
             const data = fromJS(state)
             return data.updateIn(['conditionGroups',action.groupIndex,action.ruleIndex],'inital',(el)=>{

@@ -126,22 +126,24 @@ const Condition = ({prototype,entry1,entry2,entry3,input,key1,key2}) => {
         </div>
     )
 }
+const dropdownMode = () => {
+    store.dispatch({type:'modeChange',value:'dropdown'})
+}
+const textMode = () => {
+    store.dispatch({type:'modeChange',value:'text'})
+}
 
-const Approve = ({conditionGroups,prototype}) => {
-    return(
-        <div className="react-approve" >
-            <div className="section-title">条件设置</div>
-            <div className="radio-box">
-                <label className="radio-lable"><input className="radio" name="condition" type="radio" value="" />手动选择 </label> 
-                <label className="radio-lable"><input className="radio" name="condition" type="radio" value="" />编写公式 </label> 
-            </div>
-            {conditionGroups.map((el,index)=>{
+const Component = ({conditionGroups,prototype,mode}) => {
+    let content = ''
+    if(mode == 'text'){
+        content = (<div><textarea /></div>)
+    }else{
+        content = conditionGroups.map((el,index)=>{
                 return (
                     <SolidContainer key={index}>
                         <div className="container-header">
                             <span className="container-title">条件{index+1}</span> <span>...</span>
                         </div>
-
                         {el.map((el2,index2)=>{
                             let and = ''
                             if(index2>=1){
@@ -156,7 +158,17 @@ const Approve = ({conditionGroups,prototype}) => {
                         })}   
                     </SolidContainer>
                 )
-            })}
+            })
+    }
+    return(
+        <div className="react-approve" >
+            <div className="section-title">条件设置</div>
+            <div className="radio-box">
+                <label className="radio-lable"><input onClick={dropdownMode} className="radio" name="condition" type="radio" value="" />手动选择 </label> 
+                <label className="radio-lable"><input onClick={textMode} className="radio" name="condition" type="radio" value="" />编写公式 </label> 
+            </div>
+            满足以下条件则分支流向节点“#节点名称需要设置#”
+            {content}
             <div className="addmoreContainer"><a className="addmore">添加多一会条件 >></a></div>
             <div className="section-title">说明：</div>
             <div className="content">
@@ -175,15 +187,15 @@ const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
 
-const ApproveContainer = connect(
+const ComponentContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Approve)
+)(Component)
 
 export default function(){
     render(
         <Provider store={store}>
-            <ApproveContainer />
+            <ComponentContainer />
         </Provider>
         ,
         document.getElementById('branchSequenceFlowComponent')

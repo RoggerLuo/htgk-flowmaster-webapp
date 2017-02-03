@@ -172,7 +172,7 @@ const Group = (props) => {
     )
 }
 
-const Approve = (props) => {
+const Component = (props) => {
     return(
         <div className="react-approve" >
             <div className="section-title">会签范围</div>
@@ -204,15 +204,15 @@ const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
 
-const ApproveContainer = connect(
+const ComponentContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Approve)
+)(Component)
 
 export default function(){
     render(
         <Provider store={store}>
-            <ApproveContainer />
+            <ComponentContainer />
         </Provider>
         ,
         document.getElementById('parallelApprovePropertyCtrl')

@@ -32,6 +32,9 @@ const Dropdown = createClass({
     render(){
         return(
             <div className="drop-down" style={{flex:'1'}}>
+                <div style={{    display: 'flex',position: 'absolute'}}>
+                    <div>{this.state.choosedOption}</div> <div className="inverted-triangle">▼</div>
+                </div>
                 <table className="drop-down-table" style={{zIndex:this.state.zIndex,width: '31.8%'}} >
                     <tbody>
                         <tr>
