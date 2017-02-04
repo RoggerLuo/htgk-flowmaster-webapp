@@ -115,6 +115,9 @@ const optionMaker = (prototype,key1,key2,entryIndex)=>{
 const Condition = ({prototype,entry1,entry2,entry3,input,key1,key2}) => {
     return (
         <div style={{border: '1px solid red',margin:'8px'}}>
+            <div className="close-wrap">
+                <i className="icon qingicon icon-guanbi2fill icon-red-close-for-condition"></i>
+            </div>
             <div className="container-row">
                 <Dropdown options={optionMaker(prototype,key1,key2,'entry1')} choosedOption={entry1}/>
                 <Dropdown options={optionMaker(prototype,key1,key2,'entry2')} choosedOption={entry2}/>
@@ -163,7 +166,6 @@ const Rule = createClass({
                         </div>
                     </div>
                     <div style={{display:this.state.ruleControlVisible}} className="big-cover"  onClick={this.closeRuleMenu}></div>
-
                 </div>
                 {this.props.el.map((el2,index2)=>{
                     let and = ''
