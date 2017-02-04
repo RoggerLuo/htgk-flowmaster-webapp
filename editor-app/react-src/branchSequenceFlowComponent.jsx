@@ -134,30 +134,58 @@ const textMode = () => {
     store.dispatch({type:'modeChange',value:'text'})
 }
 
-const Component = ({conditionGroups,prototype,mode}) => {
+
+const Rule = createClass({ 
+    getInitialState(){
+        return {ruleControlVisible:'none'}
+    },
+    toggleRuleMenu(){
+        if(this.state.ruleControlVisible=='none'){
+            this.setState({ruleControlVisible:''})
+
+        }else{
+            this.setState({ruleControlVisible:'none'})
+        }
+    },
+    render(){
+        return (
+            <SolidContainer>
+                <div className="container-header">
+                    <span className="container-title">条件{this.props.index+1}</span> 
+                    <span className="the3dots" onClick={this.toggleRuleMenu}>•••</span>
+                    <div className="rule-control" style={{display:this.state.ruleControlVisible}}>
+                        <div className='options'>
+                            <div className="option">添加规则</div>
+                            <div className="option">删除规则</div>
+                        </div>
+                    </div>
+                </div>
+                {this.props.el.map((el2,index2)=>{
+                    let and = ''
+                    if(index2>=1){
+                        and = (<div className="and">并且</div>)
+                    }
+                    return (
+                        <div key={index2}>
+                            {and}
+                            <Condition {...el2} prototype={this.props.prototype} key1={this.props.index} key2={index2}/>
+                        </div>
+                    )
+                })}   
+            </SolidContainer>
+        )
+    }
+})
+
+const Component =   ({conditionGroups,prototype,mode}) => {
+
     let content = ''
     if(mode == 'text'){
         content = (<div><textarea /></div>)
     }else{
         content = conditionGroups.map((el,index)=>{
                 return (
-                    <SolidContainer key={index}>
-                        <div className="container-header">
-                            <span className="container-title">条件{index+1}</span> <span>...</span>
-                        </div>
-                        {el.map((el2,index2)=>{
-                            let and = ''
-                            if(index2>=1){
-                                and = (<div className="and">并且</div>)
-                            }
-                            return (
-                                <div key={index2}>
-                                    {and}
-                                    <Condition {...el2} prototype={prototype} key1={index} key2={index2}/>
-                                </div>
-                            )
-                        })}   
-                    </SolidContainer>
+                    <Rule prototype={prototype} el={el} key={index} index={index}/>
                 )
             })
     }
