@@ -1,12 +1,5 @@
 import {toJS,fromJS,List, Map} from 'immutable';
-// return state.set('visibilityStatus','hidden')
 
-/*
-    data.conditionGroups.map((el,index)=>{
-        
-        <SoftContainer props el />
-    })
-*/
 let initial = {
     mode:'dropdown',
     conditionGroups:[
@@ -29,16 +22,20 @@ let initial = {
         input:'inputtest'
     }
 }
-// initial = fromJS(initial)
 
 const Reducer = (state = initial, action) => {
+    const data = fromJS(state)
     switch (action.type) {
+        case 'deleteCondition':
+            return data.updateIn(['conditionGroups',action.groupIndex],'inital',(el)=>{
+                
+                return el.delete(action.ruleIndex)
+            }).toJS()
         case 'modeChange':
             return Object.assign({}, state, {
                 mode: action.value
             })
         case 'branchUpdate':
-            const data = fromJS(state)
             return data.updateIn(['conditionGroups',action.groupIndex,action.ruleIndex],'inital',(el)=>{
                 return el.set(action.entryIndex,action.value)
             }).toJS()

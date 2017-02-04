@@ -111,12 +111,19 @@ const optionMaker = (prototype,key1,key2,entryIndex)=>{
     })
     return options
 }
-
+const deleteRule = (groupIndex,ruleIndex) =>{
+    const action = {
+        type:'deleteCondition',
+        groupIndex,
+        ruleIndex
+    }
+    store.dispatch(action)
+}
 const Condition = ({prototype,entry1,entry2,entry3,input,key1,key2}) => {
     return (
         <div style={{border: '1px solid red',margin:'8px'}}>
             <div className="close-wrap">
-                <i className="icon qingicon icon-guanbi2fill icon-red-close-for-condition"></i>
+                <i className="icon qingicon icon-guanbi2fill icon-red-close-for-condition" onClick={()=>{deleteRule(key1,key2)}}></i>
             </div>
             <div className="container-row">
                 <Dropdown options={optionMaker(prototype,key1,key2,'entry1')} choosedOption={entry1}/>
