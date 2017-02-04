@@ -147,6 +147,9 @@ const Rule = createClass({
             this.setState({ruleControlVisible:'none'})
         }
     },
+    closeRuleMenu(){
+        this.setState({ruleControlVisible:'none'})        
+    },
     render(){
         return (
             <SolidContainer>
@@ -154,11 +157,13 @@ const Rule = createClass({
                     <span className="container-title">条件{this.props.index+1}</span> 
                     <span className="the3dots" onClick={this.toggleRuleMenu}>•••</span>
                     <div className="rule-control" style={{display:this.state.ruleControlVisible}}>
-                        <div className='options'>
+                        <div className="options">
                             <div className="option">添加规则</div>
                             <div className="option">删除规则</div>
                         </div>
                     </div>
+                    <div style={{display:this.state.ruleControlVisible}} className="big-cover"  onClick={this.closeRuleMenu}></div>
+
                 </div>
                 {this.props.el.map((el2,index2)=>{
                     let and = ''
