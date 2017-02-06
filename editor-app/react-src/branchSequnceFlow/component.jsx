@@ -2,90 +2,14 @@ import React,{createClass} from 'react';
 import { render } from 'react-dom'
 import Dropdown from '../basicComp/Dropdown'
 import DialoguePopup from '../basicComp/DialoguePopup'
-import SolidContainer from '../basicComp/SolidContainer'
+// import SolidContainer from './SolidContainer'
 import Boardbutton from '../basicComp/Boardbutton'
 import CharactersList from '../basicComp/CharactersList'
 import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
-import Rule from './rule'
+import ConditionGroup from './conditionGroup'
 import './style'
-
-// const categoryDropdown = (props)=>{
-//     const publicMethod = function(){
-//         props.dispatch({type:'updateSuperDropDownChoosedOption','text':this.text})
-//     }
-//     const data = [{text:'字段'},{text:'发起人'},{text:'当前'}]
-//     const options = data.map((el)=>{
-//         el.onClick=publicMethod
-//         return el
-//     })
-//     return {
-//         props:{
-//             visibleStatus:props.superDropDownVisibilityStatus,
-//             choosedOption:props.superDropDownChoosedOption,
-//             options:options
-//         },
-//         init(){
-//             /* 不能放在纯函数组件里触发，就放在“模拟挂载”事件中触发 */
-//             if(data[0]){
-//                 props.dispatch({type:'updateSuperDropDownChoosedOption','text':data[0].text})
-//             }else{
-//                 props.dispatch({type:'updateSuperDropDownChoosedOption','text':''})
-//             }
-//         }   
-//     } 
-// }
-// const entryDropdown = (props)=>{
-//     const publicMethod = function(){
-//         props.dispatch({type:'updateSuperDropDownChoosedOption','text':this.text})
-//     }
-//     const data = [{text:'请选择'},{text:'二'},{text:'三'}]
-//     const options = data.map((el)=>{
-//         el.onClick=publicMethod
-//         return el
-//     })
-//     return {
-//         props:{
-//             visibleStatus:props.superDropDownVisibilityStatus,
-//             choosedOption:props.superDropDownChoosedOption,
-//             options:options
-//         },
-//         init(){
-//             /* 不能放在纯函数组件里触发，就放在“模拟挂载”事件中触发 */
-//             if(data[0]){
-//                 props.dispatch({type:'updateSuperDropDownChoosedOption','text':data[0].text})
-//             }else{
-//                 props.dispatch({type:'updateSuperDropDownChoosedOption','text':''})
-//             }
-//         }   
-//     } 
-// }
-// const symbolDropdown = (props)=>{
-//     const publicMethod = function(){
-//         props.dispatch({type:'updateSuperDropDownChoosedOption','text':this.text})
-//     }
-//     const data = [{text:'='},{text:'>'},{text:'<'},{text:'>='},{text:'<='}]
-//     const options = data.map((el)=>{
-//         el.onClick=publicMethod
-//         return el
-//     })
-//     return {
-//         props:{
-//             visibleStatus:props.superDropDownVisibilityStatus,
-//             choosedOption:props.superDropDownChoosedOption,
-//             options:options
-//         },
-//         init(){
-//             /* 不能放在纯函数组件里触发，就放在“模拟挂载”事件中触发 */
-//             if(data[0]){
-//                 props.dispatch({type:'updateSuperDropDownChoosedOption','text':data[0].text})
-//             }else{
-//                 props.dispatch({type:'updateSuperDropDownChoosedOption','text':''})
-//             }
-//         }   
-//     } 
-// }
 
 const Button=(props)=>{
     return(
@@ -104,18 +28,16 @@ const textMode = () => {
     store.dispatch({type:'modeChange',value:'text'})
 }
 
-
 const Component =   ({conditionGroups,prototype,mode}) => {
-
     let content = ''
     if(mode == 'text'){
         content = (<div><textarea /></div>)
     }else{
         content = conditionGroups.map((el,index)=>{
-                return (
-                    <Rule prototype={prototype} el={el} key={index} index={index}/>
-                )
-            })
+            return (
+                <ConditionGroup prototype={prototype} el={el} key={index} index={index}/>
+            )
+        })
     }
     return(
         <div className="react-approve" >
@@ -125,7 +47,9 @@ const Component =   ({conditionGroups,prototype,mode}) => {
                 <label className="radio-lable"><input onClick={textMode} className="radio" name="condition" type="radio" value="" />编写公式 </label> 
             </div>
             满足以下条件则分支流向节点“#节点名称需要设置#”
+            
             {content}
+            
             <div className="addmoreContainer"><a className="addmore">添加多一会条件 >></a></div>
             <div className="section-title">说明：</div>
             <div className="content">

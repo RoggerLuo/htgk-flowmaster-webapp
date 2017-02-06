@@ -1,51 +1,48 @@
 import React,{createClass} from 'react';
-import SolidContainer from '../basicComp/SolidContainer'
+import Dropdown from '../basicComp/Dropdown'
 import store from '../../redux/configureStore.js'
-import Condition from './condition'
 
-const Rule = createClass({ 
-    getInitialState(){
-        return {ruleControlVisible:'none'}
-    },
-    toggleRuleMenu(){
-        if(this.state.ruleControlVisible=='none'){
-            this.setState({ruleControlVisible:''})
 
-        }else{
-            this.setState({ruleControlVisible:'none'})
+const optionMaker = (prototype,key1,key2,entryIndex)=>{
+    const publicMethod = function(){
+        const action = {
+            type:'branchUpdate',
+            groupIndex : key1,
+            ruleIndex : key2,
+            entryIndex
         }
-    },
-    closeRuleMenu(){
-        this.setState({ruleControlVisible:'none'})        
-    },
-    render(){
-        return (
-            <SolidContainer>
-                <div className="container-header">
-                    <span className="container-title">条件{this.props.index+1}</span> 
-                    <span className="the3dots" onClick={this.toggleRuleMenu}>•••</span>
-                    <div className="rule-control" style={{display:this.state.ruleControlVisible}}>
-                        <div className="options">
-                            <div className="option">添加规则</div>
-                            <div className="option">删除规则</div>
-                        </div>
-                    </div>
-                    <div style={{display:this.state.ruleControlVisible}} className="big-cover"  onClick={this.closeRuleMenu}></div>
-                </div>
-                {this.props.el.map((el2,index2)=>{
-                    let and = ''
-                    if(index2>=1){
-                        and = (<div className="and">并且</div>)
-                    }
-                    return (
-                        <div className="condition-container" key={index2}>
-                            {and}
-                            <Condition {...el2} prototype={this.props.prototype} key1={this.props.index} key2={index2}/>
-                        </div>
-                    )
-                })}   
-            </SolidContainer>
-        )
+        store.dispatch(action)
     }
-})
+    let options = prototype[entryIndex].map((el,index)=>{
+        return {text:el.text,onClick:publicMethod}
+    })
+    return options
+}
+const deleteRule = (groupIndex,ruleIndex) =>{
+    const action = {
+        type:'deleteCondition',
+        groupIndex,
+        ruleIndex
+    }
+    store.dispatch(action)
+}
+
+const Rule = ({prototype,entry1,entry2,entry3,input,key1,key2}) => {
+    return (
+        <div className="delete-frame">
+            <div className="close-wrap">
+                <i className="icon qingicon icon-guanbi2fill icon-red-close-for-rule" onClick={()=>{deleteRule(key1,key2)}}></i>
+            </div>
+            <div className="container-row">
+                <Dropdown options={optionMaker(prototype,key1,key2,'entry1')} choosedOption={entry1}/>
+                <Dropdown options={optionMaker(prototype,key1,key2,'entry2')} choosedOption={entry2}/>
+                <Dropdown options={optionMaker(prototype,key1,key2,'entry3')} choosedOption={entry3}/>
+            </div>    
+            <div className="container-row-placeholder"></div>
+            <div className="input-text-container">
+                <input type='text' className="input-text" defaultValue={input} />
+            </div>
+        </div>
+    )
+}
 export default Rule
