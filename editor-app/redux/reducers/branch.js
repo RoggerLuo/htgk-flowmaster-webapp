@@ -28,7 +28,6 @@ const Reducer = (state = initial, action) => {
     switch (action.type) {
         case 'deleteCondition':
             return data.updateIn(['conditionGroups',action.groupIndex],'inital',(el)=>{
-                
                 return el.delete(action.ruleIndex)
             }).toJS()
         case 'modeChange':

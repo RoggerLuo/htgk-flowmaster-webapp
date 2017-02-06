@@ -6,7 +6,7 @@ import './basic.less'
 
 import approveComponent from './approveComponent'
 import parallelApproveComponent from './parallelApproveComponent'
-import branchSequenceFlowComponent from './branchSequenceFlowComponent'
+import branchSequenceFlowComponent from './branchSequnceFlow/component'
 import chooseStaffPopup from './chooseStaffPopup'
 import store from '../redux/configureStore'
 
