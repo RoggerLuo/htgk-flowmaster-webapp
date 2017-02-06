@@ -1,5 +1,11 @@
 .branchSequenceFlowPropertyCtrl {
-   
+    .section-title {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
     .radio-box {
         width: 75%;
         display: flex;
@@ -31,11 +37,12 @@
             height: 30px;
         }
         .options {
+            text-align: center;
+            background-color: white;
+            width: 100px;
             -webkit-box-shadow: 0 0 10px #CCC;
             -moz-box-shadow: 0 0 10px #CCC;
             box-shadow: 0 0 10px #CCC;
-            background-color: white;
-            width: 100px;
             -webkit-user-select: none;
             /* Chrome all / Safari all /opera15+*/
             -moz-user-select: none;
@@ -67,25 +74,25 @@
             margin: 5px 0px;
             vertical-align: middle;
             width: 100%;
+            .icon-red-close-for-rule {
+                color: red;
+                right: -8px;
+                z-index: 9;
+                top: 25px;
+                background-color: white;
+                border-radius: 10px;
+                position: absolute;
+            }
             .close-wrap {
                 margin-bottom: -20px;
                 text-align: right;
-                .icon-red-close-for-rule {
-                    color: red;
-                    left: 9px;
-                    z-index: 9;
-                    top: 23px;
-                    background-color: white;
-                    border-radius: 10px;
-                }
             }
             .condition-container {
                 margin: 8px;
-                .delete-frame {
-                    border: 1px solid red;
-                }
+                // .delete-frame {
+                //     border: 1px solid red;
+                // }
             }
-
             .container-header {
                 height: 31px;
                 line-height: 31px;

@@ -2,9 +2,7 @@ import React,{createClass} from 'react';
 import { render } from 'react-dom'
 import Dropdown from '../basicComp/Dropdown'
 import DialoguePopup from '../basicComp/DialoguePopup'
-// import SolidContainer from './SolidContainer'
-import Boardbutton from '../basicComp/Boardbutton'
-import CharactersList from '../basicComp/CharactersList'
+// import CharactersList from '../basicComp/CharactersList'
 import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
@@ -27,27 +25,50 @@ const dropdownMode = () => {
 const textMode = () => {
     store.dispatch({type:'modeChange',value:'text'})
 }
+const addCondition = () => {
+    store.dispatch({type:'addCondition'})
+}
+const showDelete =()=>{
+    store.dispatch({type:'conditionDeleteMode'})
+}
+const closeDelete =()=>{
+    store.dispatch({type:'closeConditionDeleteMode'})
+}
 
-const Component =   ({conditionGroups,prototype,mode}) => {
+const Component =   ({conditionDeleteStyle,conditionGroups,prototype,mode}) => {
     let content = ''
     if(mode == 'text'){
         content = (<div><textarea /></div>)
     }else{
         content = conditionGroups.map((el,index)=>{
             return (
-                <ConditionGroup prototype={prototype} el={el} key={index} index={index}/>
+                <ConditionGroup {...{conditionDeleteStyle,conditionGroups,prototype,mode}} el={el} key={index} index={index} />
             )
         })
     }
+    let titleComp=''
+    if(conditionDeleteStyle.display ==''){
+        titleComp = (<span onClick={closeDelete}>取消</span>)
+    }else{
+        titleComp = (<span>
+            <i className="icon qingicon icon-add" onClick={addCondition}></i>
+            <i className="icon qingicon icon-roundclose" onClick={showDelete}></i>
+        </span>
+        )
+    }
+
     return(
         <div className="react-approve" >
-            <div className="section-title">条件设置</div>
+            <div className="section-title">
+                <span>条件设置</span>
+                {titleComp}
+            </div>
             <div className="radio-box">
                 <label className="radio-lable"><input onClick={dropdownMode} className="radio" name="condition" type="radio" value="" />手动选择 </label> 
                 <label className="radio-lable"><input onClick={textMode} className="radio" name="condition" type="radio" value="" />编写公式 </label> 
             </div>
             满足以下条件则分支流向节点“#节点名称需要设置#”
-            
+
             {content}
             
             <div className="addmoreContainer"><a className="addmore">添加多一会条件 >></a></div>
@@ -63,11 +84,9 @@ const Component =   ({conditionGroups,prototype,mode}) => {
 const mapStateToProps = (state) => {
     return state.branch
 }
-
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
-
 const ComponentContainer = connect(
     mapStateToProps,
     mapDispatchToProps
