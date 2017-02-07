@@ -2,7 +2,6 @@ import React,{createClass} from 'react';
 import { render } from 'react-dom'
 import Dropdown from '../basicComp/Dropdown'
 import DialoguePopup from '../basicComp/DialoguePopup'
-// import CharactersList from '../basicComp/CharactersList'
 import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
@@ -56,7 +55,6 @@ const Component =   ({conditionDeleteStyle,conditionGroups,prototype,mode}) => {
         </span>
         )
     }
-
     return(
         <div className="react-approve" >
             <div className="section-title">
@@ -71,7 +69,6 @@ const Component =   ({conditionDeleteStyle,conditionGroups,prototype,mode}) => {
 
             {content}
             
-            <div className="addmoreContainer"><a className="addmore">添加多一会条件 >></a></div>
             <div className="section-title">说明：</div>
             <div className="content">
                 条件与条件间是“或”的关系<br/>
