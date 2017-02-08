@@ -10,14 +10,39 @@ import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
 
 const saveHandler = () => {
-    window.updatePropertyInModel({key:'approveStaff',value:store.getState().approve.approveList})
+    let data = store.getState().approve.approveList.data
+    let string = ''
+    data.forEach((el,index)=>{
+        switch(el.cate){
+            case 'boss':
+                string += 'boss' + '('+ el.value +')'
+                break
+            case 'role':
+                string += 'role' + '(hr:'+ el.value +')' //权宜之计
+                break
+            case 'user':
+                break
+        }
+    })
+    let value = {
+        "items" : 
+            [ 
+                {
+                    "assignment_type" : "candidate",
+                    "resourceassignmentexpr" : string
+                } 
+            ],
+        "totalCount" : 1
+    }
+
+    window.updatePropertyInModel({key:'usertaskassignment',value:value})
     console.log(getModelJson())
 }
 const superDropdown = (props)=>{
     const publicMethod = function(){
         props.dispatch({type:'updateSuperDropDownChoosedOption','text':this.text})
     }
-    const data = [{text:'一'},{text:'二'},{text:'三'}]
+    const data = [{text:'一',value:'1'},{text:'二',value:'2'},{text:'三',value:'3'}]
     const options = data.map((el)=>{
         el.onClick=publicMethod
         return el
@@ -43,13 +68,12 @@ const superDialogue = (props)=>{
         props.dispatch({type:'closeSuperDialogue'})
     }
     const add = () => {
-        props.dispatch({type:'pushApproveList',cate:'boss',item:{text:'上'+props.superDropDownChoosedOption+'级领导'}})   
+        props.dispatch({type:'pushApproveList',item:{cate:'boss',value:props.superDropDownChoosedOption,text:'上'+props.superDropDownChoosedOption+'级领导'}})   
         saveHandler()
     }
     const open = () => {
         props.dispatch({type:'openSuperDialogue'})   
     }
-
     return {
         props:{
             visibleStatus:props.superDialogueVisibilityStatus,
@@ -88,7 +112,7 @@ const orgDropdown = (props)=>{
 }
 const orgDialogue = (props)=>{
     const add = () => {
-        props.dispatch({type:'pushApproveList',cate:'role',item:{text:'上'+props.orgDropDownChoosedOption+'级分管的角色类型'}})
+        props.dispatch({type:'pushApproveList',item:{cate:'role',value:props.orgDropDownChoosedOption,text:'上'+props.orgDropDownChoosedOption+'级分管的角色类型'}})
         saveHandler()
     }
     const close = () => {

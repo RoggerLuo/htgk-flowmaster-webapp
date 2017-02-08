@@ -45,14 +45,11 @@ const Reducer = (state = initial, action) => {
                     prevRepoIndex = data.get('approveListRepo').findKey((el, index, iter) => el.get('id') == action.prevId) //如果这里找不到会怎么样
                 }
 
-
                 // 保存
                 //直接用index找到那个元素，并替换来保存
                 data = data.updateIn(['approveListRepo', prevRepoIndex], 'inital', (el) => {
                     return el.set('data',(data.getIn(['approveList','data'])))
                 })
-                                           
-
             }
             
             // 更新
@@ -75,7 +72,6 @@ const Reducer = (state = initial, action) => {
 
         case 'removeApproveList':
             let tempArr = [].concat(state.approveList.data)
-                // tempArr.splice(tempArr.indexOf(action.item),1)
             tempArr.splice(action.index, 1)
             return Object.assign({}, state, {
                 approveList: {id:state.approveList.id,data:tempArr}
