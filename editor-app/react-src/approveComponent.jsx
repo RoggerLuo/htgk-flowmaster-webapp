@@ -9,6 +9,11 @@ import store from '../redux/configureStore.js'
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
 
+const saveHandler = () => {
+    window.updatePropertyInModel({key:'approveStaff',value:store.getState().approve.approveList})
+    console.log(getModelJson())
+    debugger
+}
 const superDropdown = (props)=>{
     const publicMethod = function(){
         props.dispatch({type:'updateSuperDropDownChoosedOption','text':this.text})
@@ -39,8 +44,8 @@ const superDialogue = (props)=>{
         props.dispatch({type:'closeSuperDialogue'})
     }
     const add = () => {
-        props.dispatch({type:'pushApproveList',item:{text:'上'+props.superDropDownChoosedOption+'级领导'}})   
-        updatePropertyInModel({key:'approveStaff',value:props.approveList})
+        props.dispatch({type:'pushApproveList',cate:'boss',item:{text:'上'+props.superDropDownChoosedOption+'级领导'}})   
+        saveHandler()
     }
     const open = () => {
         props.dispatch({type:'openSuperDialogue'})   
@@ -84,8 +89,8 @@ const orgDropdown = (props)=>{
 }
 const orgDialogue = (props)=>{
     const add = () => {
-        props.dispatch({type:'pushApproveList',item:{text:'上'+props.orgDropDownChoosedOption+'级分管的角色类型'}})
-        updatePropertyInModel({key:'approveStaff',value:props.approveList})
+        props.dispatch({type:'pushApproveList',cate:'role',item:{text:'上'+props.orgDropDownChoosedOption+'级分管的角色类型'}})
+        saveHandler()
     }
     const close = () => {
         props.dispatch({type:'closeOrgDialogue'})
@@ -149,10 +154,10 @@ const boardbutton=(props)=>{
 }
 const charactersList = (props)=>{
     return {
-        data:props.approveList,
+        data:props.approveList.data,
         clickCross(e){
             props.dispatch({type:'removeApproveList',index:e.target.getAttribute('data-index')})
-            updatePropertyInModel({key:'approveStaff',value:props.approveList})
+            saveHandler()
         }
     }
 }

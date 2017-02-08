@@ -1,18 +1,16 @@
-
-function limitedCondition(option){
+function limitedCondition(option) {
 
     /* sequnce flow 的限制 */
-    if(option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'Exclusive gateway') ){
-    }
+    if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'Exclusive gateway')) {}
     /* 审批节点的限制 */
-    if( option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'User task') ){
-        var branchCounter=0;
-        option.connectedShape.outgoing.forEach(function(el){
+    if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'User task')) {
+        var branchCounter = 0;
+        option.connectedShape.outgoing.forEach(function(el) {
             // if (el._stencil._jsonStencil.title == 'Sequence flow'){
-                branchCounter+=1;
+            branchCounter += 1;
             // }
         });
-        if(branchCounter>=1){
+        if (branchCounter >= 1) {
             alert('审批节点不能有分支');
             return false;
         }
@@ -321,7 +319,7 @@ angular.module('activitiModeler')
                *scope.previousShape
 
             */
-            
+
 
 
 
@@ -331,23 +329,37 @@ angular.module('activitiModeler')
                 event capture
                 这个EVENT_SELECTION_CHANGED是为了实时切换property
             */
-            
+
             /* 取消边框颜色的代码部分 */
             /* 只使用 selection_changed 事件则 点击画布的时候 抓不到取消选择事件
                 所以增加一个highlight hide事件用来 弥补上面的效果
                 但是highlight hide事件每次都在selection_changed后面出发，所以需要一个timeout来解决冲突
              */
+            $scope.getModelJson = function() {
+                var json = $scope.editor.getJSON();
+                json = JSON.stringify(json);
+                console.log(json);
+                return json;
+            }
+            window.getModelJson = $scope.getModelJson
+
+            $scope.switchApproveData = function(prevId,nextId){
+                window.reduxStore.dispatch({type:'switchApproveData',prevId,nextId})
+            }
+
+            // 这个方法的目的是把userTask的边框颜色变回来
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE, function(event) {
-                if($scope.lastSelectedId){
-                    jQuery('#'+$scope.lastSelectedId)[0].children[1].style.stroke='rgb(187, 187, 187)'
-                    $scope.lastSelectedId = false   
-                }                    
+                if ($scope.lastSelectedUserTaskId) {
+                    jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[1].style.stroke = 'rgb(187, 187, 187)'
+                    $scope.lastSelectedUserTaskId = false
+                }
             })
 
-            $scope.lastSelectedId = false
+            $scope.lastSelectedUserTaskId = false
             $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
 
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
+                console.log(new Date())
                 var shapes = event.elements;
                 var selectedShape = shapes.first(); //first方法..again
                 if (!selectedShape) {
@@ -356,25 +368,26 @@ angular.module('activitiModeler')
                 }
 
                 /* 每次改变选择都关闭之前的对话框 */
-                reduxStore.dispatch({type:'closeSuperDialogue'})
-                reduxStore.dispatch({type:'closeOrgDialogue'})
+                reduxStore.dispatch({ type: 'closeSuperDialogue' })
+                reduxStore.dispatch({ type: 'closeOrgDialogue' })
 
-                /* 改变选中边框颜色的代码部分 */
+                /* 改变 正要选中 边框颜色的代码部分 */
                 $timeout(function() {
-                    if(selectedShape._stencil._jsonStencil.title == 'User task'){
+                    if (selectedShape._stencil._jsonStencil.title == 'User task') {
                         //控制边框颜色的办法
-                        jQuery('#'+selectedShape.id)[0].children[1].style.stroke='rgb(0,176,255)'
-                        $scope.lastSelectedId = selectedShape.id                        
+                        jQuery('#' + selectedShape.id)[0].children[1].style.stroke = 'rgb(0,176,255)'
+                        $scope.lastSelectedUserTaskId = selectedShape.id
                     }
                 }, 150);
+                $scope.switchApproveData($scope.lastSelectedUserTaskId,selectedShape.id)
 
 
                 /* 
                     mini router 
                 */
-                if(selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title == 'Exclusive gateway') {
+                if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title == 'Exclusive gateway') {
                     $scope.propertyTpl = './editor-app/property-tpl/branchSequenceFlow.html';
-                }else{
+                } else {
                     switch (selectedShape._stencil._jsonStencil.title) {
                         case 'User task':
                             $scope.propertyTpl = './editor-app/property-tpl/approve.html';
@@ -769,7 +782,7 @@ angular.module('activitiModeler')
 
 
                         /* 我的条件限制 用来限制审批节点的分支数量 */
-                        if(!limitedCondition(option)){
+                        if (!limitedCondition(option)) {
                             return false;
                         }
 
@@ -1056,7 +1069,7 @@ angular.module('activitiModeler')
 
 
                         /* 我的条件限制 用来限制审批节点的分支数量 */
-                        if(!limitedCondition(option)){
+                        if (!limitedCondition(option)) {
                             return false;
                         }
 
@@ -1093,11 +1106,11 @@ angular.module('activitiModeler')
                     option['type'] = $scope.modelData.stencilset.namespace + item.id;
                     option['namespace'] = $scope.modelData.stencilset.namespace;
                     option['position'] = pos;
-                    option['parent'] = $scope.dragCurrentParent;    
-                    
-                    
+                    option['parent'] = $scope.dragCurrentParent;
+
+
                     /* 我的条件限制 用来限制审批节点的分支数量 */
-                    if(!limitedCondition(option)){
+                    if (!limitedCondition(option)) {
                         return false;
                     }
 
@@ -1341,22 +1354,19 @@ angular.module('activitiModeler')
                         var targetStencil = $scope.getStencilItemById(parentCandidate.getStencil().idWithoutNs());
                         if (targetStencil) {
                             var associationConnect = false;
-                            
-                            try
-                            {
-                               if(stencil){
-                                   if (stencil.idWithoutNs() === 'Association' && (curCan.getStencil().idWithoutNs() === 'TextAnnotation' || curCan.getStencil().idWithoutNs() === 'BoundaryCompensationEvent')) {
-                                       associationConnect = true;
-                                   } else if (stencil.idWithoutNs() === 'DataAssociation' && curCan.getStencil().idWithoutNs() === 'DataStore') {
-                                       associationConnect = true;
-                                   }
-                               }
+
+                            try {
+                                if (stencil) {
+                                    if (stencil.idWithoutNs() === 'Association' && (curCan.getStencil().idWithoutNs() === 'TextAnnotation' || curCan.getStencil().idWithoutNs() === 'BoundaryCompensationEvent')) {
+                                        associationConnect = true;
+                                    } else if (stencil.idWithoutNs() === 'DataAssociation' && curCan.getStencil().idWithoutNs() === 'DataStore') {
+                                        associationConnect = true;
+                                    }
+                                }
+                            } catch (err) {
+                                //在此处理错误
                             }
-                            catch(err)
-                            {
-                               //在此处理错误
-                            }
-                            
+
 
                             if (targetStencil.canConnectTo || associationConnect) {
                                 canConnect = true;

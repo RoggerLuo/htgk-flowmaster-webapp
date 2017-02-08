@@ -9,22 +9,3 @@ const rootRuducer = combineReducers({
 })
 
 export default rootRuducer
-/*
-state
-{
-    choosedModule:{},
-    enteredModule:{},
-    leftNotes:{data:[],choosed:{}},
-    rightNotes:{data:[],choosed:{}},
-    editor:{
-        item_id,
-        content,
-        date_and_time,
-        thread_id,
-    }
-    editorSetting:{}
-    leftLeader
-    rightLeader
-
-}
-*/
