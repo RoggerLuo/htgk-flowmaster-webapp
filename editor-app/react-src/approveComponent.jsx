@@ -12,7 +12,6 @@ import { connect } from 'react-redux'
 const saveHandler = () => {
     window.updatePropertyInModel({key:'approveStaff',value:store.getState().approve.approveList})
     console.log(getModelJson())
-    debugger
 }
 const superDropdown = (props)=>{
     const publicMethod = function(){
