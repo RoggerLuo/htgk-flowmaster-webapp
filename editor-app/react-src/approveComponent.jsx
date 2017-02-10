@@ -167,7 +167,9 @@ const boardbutton=(props)=>{
             },
             {
                 onClick(e){
-                    props.dispatch({type:'openBigPopupOfChooseStaff'})
+                    // props.dispatch({type:'openBigPopupOfChooseStaff'})
+                    props.dispatch({type:'callPopup',confirm:function(){},content:'ttttest'})
+
                     close()
                 },
                 text:'选择特定人员'

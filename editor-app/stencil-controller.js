@@ -321,7 +321,146 @@ angular.module('activitiModeler')
             */
 
 
+            window.saveModelData =  function (successCallback) {
 
+                // if (!$scope.saveDialog.name || $scope.saveDialog.name.length == 0) {
+                //     return;
+                // }
+
+                // Indicator spinner image
+                $scope.status = {
+                    loading: true
+                };
+                
+                // modelMetaData.name = $scope.saveDialog.name;
+                // modelMetaData.description = $scope.saveDialog.description;
+
+                /* 保存的数据来自ORYX的自带接口,getJSON() */
+                var json = $scope.editor.getJSON();
+                json = JSON.stringify(json);
+                
+                var selection = $scope.editor.getSelection();
+                $scope.editor.setSelection([]);
+                
+                // Get the serialized svg image source
+                var svgClone = $scope.editor.getCanvas().getSVGRepresentation(true);
+                $scope.editor.setSelection(selection);
+                if ($scope.editor.getCanvas().properties["oryx-showstripableelements"] === false) {
+                    var stripOutArray = jQuery(svgClone).find(".stripable-element");
+                    for (var i = stripOutArray.length - 1; i >= 0; i--) {
+                        stripOutArray[i].remove();
+                    }
+                }
+
+                // Remove all forced stripable elements
+                var stripOutArray = jQuery(svgClone).find(".stripable-element-force");
+                for (var i = stripOutArray.length - 1; i >= 0; i--) {
+                    stripOutArray[i].remove();
+                }
+
+                // Parse dom to string
+                var svgDOM = DataManager.serialize(svgClone);
+
+                var params = {
+                    json_xml: json,
+                    svg_xml: svgDOM,
+                    name: '$scope.saveDialog.name',
+                    description: '$scope.saveDialog.description'
+                };
+                console.log(params.json_xml)
+                console.log(params.svg_xml)
+
+                debugger;
+
+                // console.log(params.name);
+                // console.log(params.description);
+                console.log(params.json_xml);
+                // console.log(params.svg_xml);
+
+                // test code
+                alert('保存完毕');
+
+                // $scope.editor.handleEvents({
+                //     type: ORYX.CONFIG.EVENT_SAVED
+                // });
+                // $scope.modelData.name = $scope.saveDialog.name;
+                // $scope.modelData.lastUpdated = 'test'//data.lastUpdated;
+                
+                // $scope.status.loading = false;
+                // $scope.$hide();
+
+
+
+                // Fire event to all who is listening
+                // var saveEvent = {
+                //     type: KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED,
+                //     model: params,
+                //     modelId: modelMetaData.modelId,
+                //     eventType: 'update-model'
+                // };
+                // KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent);
+
+                // Reset state
+                // $scope.error = undefined;
+                // $scope.status.loading = false;
+
+                // Execute any callback
+                // if (successCallback) {
+                //     successCallback();
+                // }
+                // Update
+                $http({    method: 'PUT',
+                    data: params,
+                    ignoreErrors: true,
+                    headers: {'Accept': 'application/json',
+                              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                    transformRequest: function (obj) {
+                        var str = [];
+                        for (var p in obj) {
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        }
+                        return str.join("&");
+                    },
+                    url: 'http://localhost:9001/activiti-rest/service/model/1530/save' //KISBPM.URL.putModel(modelMetaData.modelId)
+                })
+
+                    .success(function (data, status, headers, config) {
+                        debugger
+                        // $scope.editor.handleEvents({
+                        //     type: ORYX.CONFIG.EVENT_SAVED
+                        // });
+                        // $scope.modelData.name = $scope.saveDialog.name;
+                        // $scope.modelData.lastUpdated = data.lastUpdated;
+                        
+                        // $scope.status.loading = false;
+                        // $scope.$hide();
+
+                        // // Fire event to all who is listening
+                        // var saveEvent = {
+                        //     type: KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED,
+                        //     model: params,
+                        //     modelId: modelMetaData.modelId,
+                        //     eventType: 'update-model'
+                        // };
+                        // KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent);
+
+                        // // Reset state
+                        // $scope.error = undefined;
+                        // $scope.status.loading = false;
+
+                        // // Execute any callback
+                        // if (successCallback) {
+                        //     successCallback();
+                        // }
+
+                    })
+                    .error(function (data, status, headers, config) {
+                        debugger
+                        // $scope.error = {};
+                        // console.log('Something went wrong when updating the process model:' + JSON.stringify(data));
+                        // $scope.status.loading = false;
+                    });
+            };
 
             /*
                 我的事件
@@ -335,16 +474,100 @@ angular.module('activitiModeler')
                 所以增加一个highlight hide事件用来 弥补上面的效果
                 但是highlight hide事件每次都在selection_changed后面出发，所以需要一个timeout来解决冲突
              */
-            $scope.getModelJson = function() {
+            $scope.getModel = function() {
+                // var json = $scope.editor.getJSON();
+                // json = JSON.stringify(json);
+                // console.log(json);
+                // return json;
+
                 var json = $scope.editor.getJSON();
                 json = JSON.stringify(json);
-                console.log(json);
-                return json;
+                
+                var selection = $scope.editor.getSelection();
+                $scope.editor.setSelection([]);
+                
+                // Get the serialized svg image source
+                var svgClone = $scope.editor.getCanvas().getSVGRepresentation(true);
+                $scope.editor.setSelection(selection);
+                if ($scope.editor.getCanvas().properties["oryx-showstripableelements"] === false) {
+                    var stripOutArray = jQuery(svgClone).find(".stripable-element");
+                    for (var i = stripOutArray.length - 1; i >= 0; i--) {
+                        stripOutArray[i].remove();
+                    }
+                }
+
+                // Remove all forced stripable elements
+                var stripOutArray = jQuery(svgClone).find(".stripable-element-force");
+                for (var i = stripOutArray.length - 1; i >= 0; i--) {
+                    stripOutArray[i].remove();
+                }
+
+                // Parse dom to string
+                var svgDOM = DataManager.serialize(svgClone);
+
+                var params = {
+                    json_xml: json,
+                    svg_xml: svgDOM,
+                    name: 'scope.saveDialog.name',
+                    description: '$scope.saveDialog.description'
+                };
+                return params
+            }
+            $scope.putModel = function() {
+
+                const make_base_auth = function (user, pass) {    
+                  let tok = user + ':' + pass;    
+                  let hash = window.btoa(tok);    
+                  return "Basic " + hash;    
+                }     
+                // console.log(make_base_auth('kermit','kermit'))
+
+                // const params = {
+                //     json_xml: $scope.getModelJson(),
+                //     svg_xml: 'svgDOM',
+                //     name: 'name',
+                //     description: 'description'
+                // };
+
+                jQuery.ajax({
+                    // url: 'http://localhost:3001/list', //KISBPM.URL.putModel('test'),
+                    // url: 'http://activiti.ooad.io/activiti-rest/service/token', //KISBPM.URL.putModel('test'),
+                    url: 'http://localhost:9001/activiti-rest/service/model/1530/save', //KISBPM.URL.putModel('test'),
+                    // data: {
+                    //     "userId": "8e4eca6bb62a4caea183ce66a2768682",
+                    //     "orgId": "108f826f-4a36-4742-a124-6ade824c85ed",
+                    //     "ticket": "bebd9c2dc5c943249b7ddc211f7d02d3"
+                    // },
+                    data: '$scope.getModel()',
+                    type: 'PUT',
+                    // headers: {
+                    //     Authorization: make_base_auth('kermit','kermit')
+                        // Authorization: 'make_base_auth'
+                    // },
+                    success: function(response) {
+                        debugger
+                    }
+                });
+
+
+                // jQuery.ajax({
+                //     url: 'http://activiti.ooad.io/activiti-rest/service/model/test123/save', //KISBPM.URL.putModel('test'),
+                //     data: params,
+                //     type: 'PUT',
+                //     headers: {
+                //         'Authorization': 'Basic',
+                //     },
+                //     success: function(response) {
+                //         debugger
+                //     }
+                // });
+
             }
             window.getModelJson = $scope.getModelJson
 
-            $scope.switchApproveData = function(prevId,nextId){
-                window.reduxStore.dispatch({type:'switchApproveData',prevId,nextId})
+
+            $scope.switchApproveData = function(prevId, nextId) {
+                window.reduxStore.dispatch({ type: 'switchApproveData', prevId, nextId })
             }
 
             // 这个方法的目的是把userTask的边框颜色变回来
@@ -379,7 +602,7 @@ angular.module('activitiModeler')
                         $scope.lastSelectedUserTaskId = selectedShape.id
                     }
                 }, 150);
-                $scope.switchApproveData($scope.lastSelectedUserTaskId,selectedShape.id)
+                $scope.switchApproveData($scope.lastSelectedUserTaskId, selectedShape.id)
 
 
                 /* 
@@ -1665,3 +1888,4 @@ KISBPM.CreateCommand = ORYX.Core.Command.extend({
         this.facade.setSelection(this.facade.getSelection().without(this.shape, this.edge));
     }
 });
+

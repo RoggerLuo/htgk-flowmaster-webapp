@@ -95,9 +95,13 @@
             "processid" : "",
             "properties" : "",
             "tasklisteners" : "",
-            "usertaskassignment" : { "items" : [ { "assignment_type" : "assignee",
+            "usertaskassignment" : { "items" : 
+                [ 
+                  { 
+                      "assignment_type" : "assignee",
                       "resourceassignmentexpr" : "kermit"
-                    } ],
+                    } 
+                ],
                 "totalCount" : 1
               }
           },

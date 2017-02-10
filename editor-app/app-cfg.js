@@ -22,5 +22,6 @@ var ACTIVITI = ACTIVITI || {};
 
 ACTIVITI.CONFIG = {
     // 'contextRoot' : './activiti-explorer/service',
+    // 'contextRoot' : 'http://activiti.ooad.io/activiti-rest/service',
     'contextRoot' : './resources',
 };

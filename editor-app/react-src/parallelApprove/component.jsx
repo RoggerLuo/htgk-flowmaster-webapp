@@ -1,14 +1,14 @@
 import React,{createClass} from 'react';
 import { render } from 'react-dom'
-import Dropdown from './basicComp/Dropdown'
-import DialoguePopup from './basicComp/DialoguePopup'
-import SoftContainer from './basicComp/SoftContainer'
-import Boardbutton from './basicComp/Boardbutton'
-import CharactersList from './basicComp/CharactersList'
-import store from '../redux/configureStore.js'
+import Dropdown from '../basicComp/Dropdown'
+import DialoguePopup from '../basicComp/DialoguePopup'
+import SoftContainer from '../basicComp/SoftContainer'
+import Boardbutton from '../basicComp/Boardbutton'
+import CharactersList from '../basicComp/CharactersList'
+import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
-
+import './style'
 
 const superDropdown = (props)=>{
     const publicMethod = function(){
@@ -151,7 +151,7 @@ const boardbutton=(props)=>{
 
 const charactersList = (props)=>{
     return {
-        data:props.approveList,
+        data:props.approveList.data,
         clickCross(e){
             props.dispatch({type:'removeApproveList',index:e.target.getAttribute('data-index')})
             updatePropertyInModel({key:'approveStaff',value:props.approveList})
@@ -171,16 +171,32 @@ const Group = (props) => {
         </SoftContainer>
     )
 }
-
+const addGroup = ()=>{}
+const showDelete = ()=>{}
 const Component = (props) => {
+    let titleComp=''
+    const conditionDeleteStyle = {display:'dd'}
+    if(conditionDeleteStyle.display ==''){
+        titleComp = (<span onClick={closeDelete}>取消</span>)
+    }else{
+        titleComp = (<span>
+            <i className="icon qingicon icon-add" onClick={addGroup}></i>
+            <i className="icon qingicon icon-roundclose" onClick={showDelete}></i>
+        </span>
+        )
+    }
+
     return(
         <div className="react-approve" >
-            <div className="section-title">会签范围</div>
+            <div className="section-title">
+                <span>会签范围</span>
+                {titleComp}
+            </div>
+
             <Group {...props}/>
             <div className="and">与</div>
             <Group {...props}/>
 
-            <div className="addmoreContainer"><a className="addmore">添加多一会签组 >></a></div>
             
             <div className="section-title">审批规则</div>
             <div className="content">需每个会签范围内至少一名代表审批通过方可会签通过</div>
