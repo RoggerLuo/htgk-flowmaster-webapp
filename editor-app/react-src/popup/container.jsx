@@ -5,13 +5,15 @@ import { Provider } from 'react-redux'
 import store from '../../redux/configureStore.js'
 import Popup from './component/component'
 
-const Component = ({confirm,content,display,dispatch}) => {
+const Component = ({title,confirm,content,display,dispatch,height}) => {
     const options = {
         cancel(){
             dispatch({type:'hidePopup'})
         },
         confirm,
-        display
+        display,
+        title,
+        height
     }
     return (
         <Popup {...options}>{content}</Popup>

@@ -202,10 +202,23 @@
         background-color: #0273bd;
     }
     .myoption {
+        right: 13px;
         z-index: 9999;
         position: absolute;
-        border: 1px solid #868686;
         display: inline-block;
+
+        // border: 1px solid #868686;
+        -webkit-box-shadow: 0 0 10px #CCC;
+        -moz-box-shadow: 0 0 10px #CCC;
+        box-shadow: 0 0 10px #CCC;
+        -webkit-user-select: none;
+        /* Chrome all / Safari all /opera15+*/
+        -moz-user-select: none;
+        /* Firefox all */
+        -ms-user-select: none;
+        /* IE 10+ */
+        user-select: none;
+
         .option {
             background-color: white;
             width: auto;
@@ -216,7 +229,7 @@
             padding: 0px 10px;
         }
         .option+.option {
-            border-top: 1px solid #868686;
+            border-top: 1px solid #bfbfbf;
         }
         .option:hover {
             background-color: #ccc;

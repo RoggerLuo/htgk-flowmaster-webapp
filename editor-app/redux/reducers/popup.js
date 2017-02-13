@@ -6,7 +6,9 @@ import {toJS,fromJS,List, Map} from 'immutable';
 let initial = {
     confirm(){},
     content:'',
-    display:'none'
+    display:'none',
+    title:'请输入title',
+    height:'65%'
 }
 
 const Reducer = (state = initial, action) => {
@@ -14,9 +16,11 @@ const Reducer = (state = initial, action) => {
     switch (action.type) {
         case 'callPopup':
             return Object.assign({}, state, {
-                options:action.options,
-                content:action.content,
-                display:''
+                confirm:action.confirm||function(){},
+                content:action.content||'',
+                title:action.title||"请输入title",
+                display:'',
+                height:action.height||'65%'
             })
         case 'hidePopup':
             return Object.assign({}, state, {
