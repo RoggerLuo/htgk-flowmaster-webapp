@@ -513,8 +513,8 @@ angular.module('activitiModeler')
                 };
                 return params
             }
-            $scope.putModel = function() {
 
+            $scope.putModel = function() {
                 const make_base_auth = function (user, pass) {    
                   let tok = user + ':' + pass;    
                   let hash = window.btoa(tok);    

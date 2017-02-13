@@ -1,13 +1,15 @@
 import React,{createClass} from 'react';
 import { render } from 'react-dom'
-import Dropdown from './basicComp/EasyDropdown'
-import DialoguePopup from './basicComp/DialoguePopup'
-import SoftContainer from './basicComp/SoftContainer'
-import Boardbutton from './basicComp/Boardbutton'
-import CharactersList from './basicComp/CharactersList'
-import store from '../redux/configureStore.js'
+import Dropdown from '../basicComp/EasyDropdown'
+import DialoguePopup from '../basicComp/DialoguePopup'
+import SoftContainer from '../basicComp/SoftContainer'
+import Boardbutton from '../basicComp/Boardbutton'
+import CharactersList from '../basicComp/CharactersList'
+import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
+import certainPersonContent from '../popup/certainPerson/content'
+import superContent from '../popup/super/content'
 
 const saveHandler = () => {
     let data = store.getState().approve.approveList.data
@@ -34,10 +36,10 @@ const saveHandler = () => {
             ],
         "totalCount" : 1
     }
-
     window.updatePropertyInModel({key:'usertaskassignment',value:value})
-    console.log(getModelJson())
+    // console.log(getModelJson())
 }
+
 const superDropdown = (props)=>{
     const publicMethod = function(){
         props.dispatch({type:'updateSuperDropDownChoosedOption','text':this.text})
@@ -63,6 +65,7 @@ const superDropdown = (props)=>{
         }   
     } 
 }
+
 const superDialogue = (props)=>{
     const close = () => {
         props.dispatch({type:'closeSuperDialogue'})
@@ -83,7 +86,7 @@ const superDialogue = (props)=>{
                 close()
             }
         },
-        open:open
+        open
     }
 }
 const orgDropdown = (props)=>{
@@ -151,8 +154,14 @@ const boardbutton=(props)=>{
         options:[
             {
                 onClick(e){
-                    superDropdown(props).init()
-                    superDialogue(props).open()
+                    const option = {
+                        height:'50%',
+                        type:'callPopup',
+                        confirm:function(){},
+                        content:superContent,
+                        title:'添加发起人上级'
+                    }
+                    props.dispatch(option)
                     close()
                 },
                 text:'选择发起人上级'
@@ -167,8 +176,14 @@ const boardbutton=(props)=>{
             },
             {
                 onClick(e){
-                    // props.dispatch({type:'openBigPopupOfChooseStaff'})
-                    props.dispatch({type:'callPopup',confirm:function(){},content:'ttttest',title:'测试'})
+                    const option = {
+                        height:'66%',
+                        type:'callPopup',
+                        confirm:function(){},
+                        content:certainPersonContent,
+                        title:'测试'
+                    }
+                    props.dispatch(option)
                     close()
                 },
                 text:'选择特定人员'
@@ -193,7 +208,9 @@ const Approve = (props) => {
             <div className="property-row-title">审批人员</div>
             
             <Boardbutton {...boardbutton(props)} position="below" />        
-            <div className="character-container"><CharactersList {...charactersList(props)}/></div>
+            <div className="character-container">
+                <CharactersList {...charactersList(props)}/>
+            </div>
 
             <div className="property-row-title">审批规则</div>
             <div className="the-content">只需节点上任意一人审批即可通过</div>

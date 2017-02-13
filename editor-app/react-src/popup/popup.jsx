@@ -4,6 +4,23 @@ import { connect } from 'react-redux'
 import { Provider } from 'react-redux'
 import store from '../redux/configureStore.js'
 
+const formDataObject ={   
+    type:'datagrid',
+    colHeader:['','姓名','组织','职位'],
+    rowHeader:[],
+    data:[
+        ['value1','value2','value3'],
+        ['value4','value5','value6'],
+        ['value7','value8','value9'],
+        ['value10','value11','value12'],
+        ['value10','value11','value12'],
+        ['value10','value11','value12'],
+        ['value10','value11','value12'],
+        ['value10','value11','value12'],
+        ['value10','value11','value12'],
+        ['value10','value11','value12'],
+    ]
+}
 
 const TrBody = (data) => {
     return data.map((el,index)=>{
@@ -55,23 +72,7 @@ const HugePopUp = ({dispatch,visibleStatus}) => {
     const cancel = () => {
         dispatch({type:'closeBigPopupOfChooseStaff'})
     }
-    const formDataObject ={   
-            type:'datagrid',
-            colHeader:['','姓名','组织','职位'],
-            rowHeader:[],
-            data:[
-                ['value1','value2','value3'],
-                ['value4','value5','value6'],
-                ['value7','value8','value9'],
-                ['value10','value11','value12'],
-                ['value10','value11','value12'],
-                ['value10','value11','value12'],
-                ['value10','value11','value12'],
-                ['value10','value11','value12'],
-                ['value10','value11','value12'],
-                ['value10','value11','value12'],
-            ]
-        }
+    
 
     return(
     <div className="huge-popup" style={{display:visibleStatus}}>

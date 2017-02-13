@@ -15,9 +15,20 @@ const Component = ({title,confirm,content,display,dispatch,height}) => {
         title,
         height
     }
-    return (
-        <Popup {...options}>{content}</Popup>
-    )
+    const Content = content
+    
+    if(Content != ''){
+        return (
+            <Popup {...options}>
+                <Content />
+            </Popup>
+        )
+    }else{
+        return (
+            <Popup {...options}>
+            </Popup>
+        )
+    }
 }
     
 const mapStateToProps = (state) => {

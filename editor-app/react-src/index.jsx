@@ -4,13 +4,13 @@ import './global.less'
 import './icon.less'
 import './basic.less'
 
-import approveComponent from './approveComponent'
+import approveComponent from './approveNode/Component'
 import parallelApproveComponent from './parallelApprove/component'
 import branchSequenceFlowComponent from './branchSequnceFlow/component'
-import chooseStaffPopup from './popup/container'
+import popupStart from './popup/wrapContainer'
 import store from '../redux/configureStore'
 
-chooseStaffPopup()
+popupStart()
 global.branchSequenceFlowComponent = {render:branchSequenceFlowComponent}
 global.parallelApproveComponent = {render:parallelApproveComponent}
 global.approveComponent = {render:approveComponent}
