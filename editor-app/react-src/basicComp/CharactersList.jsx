@@ -1,11 +1,7 @@
 import React,{createClass} from 'react';
 import { render } from 'react-dom'
 const CharactersList = ({data,clickCross}) => {
-    /* 可以改成return的模式，这样你就可以加其他语句了 */
-    // const clickCross = (e)=>{
-    //   debugger
-    //   e.target.getAttribute('data-index')
-    // }
+    
     return(
        <div className="characters">
            {

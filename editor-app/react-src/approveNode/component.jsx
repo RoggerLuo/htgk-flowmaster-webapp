@@ -11,9 +11,13 @@ import certainPersonContent from '../popup/certainPerson/content'
 import superContent from '../popup/super/content'
 
 const saveHandler = () => {
-    let data = store.getState().approve.approveList.data
+    let data = store.getState().approve.approveListRepo.filter((el,index)=>{
+        return el.id == store.getState().approve.id
+    }).data
+    // let data = store.getState().approve.approveList.data
+
     let string = ''
-    data.forEach((el,index)=>{
+    data && data.forEach((el,index)=>{
         switch(el.cate){
             case 'boss':
                 string += 'boss' + '('+ el.value +')'
@@ -130,31 +134,41 @@ const buttonOptions = {
         action3
     ]
 }
-const charactersList = (props)=>{
+const charactersList = ()=>{
+    const list = store.getState().approve.approveListRepo.filter((el,index)=>{
+        return el.id == store.getState().approve.id
+    })
     return {
-        data:props.approveList.data,
+        data:list && list[0] && list.data||[],
         clickCross(e){
             props.dispatch({type:'removeApproveList',index:e.target.getAttribute('data-index')})
             saveHandler()
         }
     }
 }
-
-const Approve = (props) => {
+const Approve = ({approveListRepo,id,dispatch}) => {
+    
+    const list = approveListRepo.filter((el,index)=>{
+        return el.id == id
+    })
+    const charactersData = {
+        data:list && list[0] && list[0].data||[],
+        clickCross(e){
+            dispatch({type:'removeApproveList',index:e.target.getAttribute('data-index')})
+            saveHandler()
+        }
+    }
     return(
         <div className="react-approve">
-            
-            <div className="property-row-title">审批人员</div>
-            
+            <div className="property-row-title">审批人员</div>            
             <Boardbutton options={buttonOptions}/>        
             
             <div className="character-container">
-                <CharactersList {...charactersList(props)}/>
+                <CharactersList {...charactersData}/>
             </div>
 
             <div className="property-row-title">审批规则</div>
             <div className="the-content">只需节点上任意一人审批即可通过</div>
-            
         </div>
     )
 }
