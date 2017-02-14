@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
 import certainPersonContent from '../popup/certainPerson/content'
 import superContent from '../popup/super/content'
+import  './style'
 
 const saveHandler = () => {
     let data = store.getState().approve.approveListRepo.filter((el,index)=>{
