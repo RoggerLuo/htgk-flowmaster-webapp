@@ -1,17 +1,6 @@
 import React,{createClass} from 'react';
 import { render } from 'react-dom'
-
-const jsonTpl={
-    switch(){},
-    visibilityStatus:'',
-    title:'',
-    options:[
-        {
-            onClick(){},
-            text:''
-        }
-    ]
-}
+import store from '../../redux/configureStore.js'
 
 const Boardbutton = createClass({
     getInitialState(){
@@ -29,29 +18,25 @@ const Boardbutton = createClass({
     },
     render(){
         let myOptionStyle = {visibility:this.state.visibleStatus}
-        if(this.props.position == "below"){
-            myOptionStyle.display = 'block'
-        }
-
+        myOptionStyle.display = 'block'
         return(
             <div className="boardbutton">
                 <div className="mybutton" onClick={this.toggle}>
                     <span className="inverted-triangle">
                         <i className="icon qingicon icon-add"></i>
                     </span>
-
-                    {this.props.title} 
+                    {this.props.options.title} 
                 </div>
                 <div className="myoption" style={myOptionStyle} >
-                    {this.props.options.map((el,index)=>{
+                    {this.props.options.buttons.map((el,index)=>{
                         return (
                             <div key={index} className="option" 
                                 onClick={()=>{
-                                    el.onClick()
+                                    store.dispatch(el)
                                     this.close()
                                 }}
                             >
-                                {el.text}
+                                {el.title}
                             </div>                
                         )
                     })}
@@ -61,6 +46,6 @@ const Boardbutton = createClass({
         )
     }
 })
- // ({close,options,title,visibilityStatus,toggle,position})=>{
+
 
 export default Boardbutton

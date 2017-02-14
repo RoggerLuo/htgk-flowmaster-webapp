@@ -1,7 +1,7 @@
 import { toJS, fromJS, List, Map } from 'immutable';
 
 const initial = {
-    dropdown1:{},
+    dropdown1:{text:'initial',value:'initial'},
     dropdown2:{choosed:'0',options:[{text:'option1',value:'1'},{text:'option2',value:'2'}]}
 }
 

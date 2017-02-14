@@ -1,6 +1,5 @@
 import React,{createClass} from 'react';
 import { render } from 'react-dom'
-import Dropdown from '../basicComp/EasyDropdown'
 import DialoguePopup from '../basicComp/DialoguePopup'
 import SoftContainer from '../basicComp/SoftContainer'
 import Boardbutton from '../basicComp/Boardbutton'
@@ -37,34 +36,9 @@ const saveHandler = () => {
         "totalCount" : 1
     }
     window.updatePropertyInModel({key:'usertaskassignment',value:value})
-    // console.log(getModelJson())
 }
 
 
-
-const superDialogue = (props)=>{
-    const close = () => {
-        props.dispatch({type:'closeSuperDialogue'})
-    }
-    const add = () => {
-        props.dispatch({type:'pushApproveList',item:{cate:'boss',value:props.superDropDownChoosedOption,text:'上'+props.superDropDownChoosedOption+'级领导'}})   
-        saveHandler()
-    }
-    const open = () => {
-        props.dispatch({type:'openSuperDialogue'})   
-    }
-    return {
-        props:{
-            visibleStatus:props.superDialogueVisibilityStatus,
-            close:close,
-            confirm(){
-                add()
-                close()
-            }
-        },
-        open
-    }
-}
 const orgDropdown = (props)=>{
     const publicMethod = function(){
         props.dispatch({type:'updateOrgDropDownChoosedOption','text':this.text})
@@ -113,60 +87,48 @@ const orgDialogue = (props)=>{
     }
 }
 
-const boardbutton=(props)=>{
-    const close = ()=>{
-        props.dispatch({type:'closeUserTaskBoardbuttonVisibility'})
-    }
-    return {
-        visibilityStatus:props.UserBoardbuttonVisibilityStatus,
-        dispatch:props.dispatch,
-        close:close,
-        toggle(e){
-            props.dispatch({type:'changeUserTaskBoardbuttonVisibility'})
-            e.stopPropagation()
-            e.preventDefault()
-        },
-        title:'添加审批人员',
-        options:[
-            {
-                onClick(e){
-                    const option = {
-                        height:'45%',
-                        type:'callPopup',
-                        confirm:function(){},
-                        content:superContent,
-                        title:'添加发起人上级',
-                        width:'44%'
-                    }
-                    props.dispatch(option)
-                    close()
-                },
-                text:'选择发起人上级'
-            },
-            {
-                onClick(e){
-                    close()
-                    orgDropdown(props).init()
-                    orgDialogue(props).open()
-                },
-                text:'选择机构角色'
-            },
-            {
-                onClick(e){
-                    const option = {
-                        height:'66%',
-                        type:'callPopup',
-                        confirm:function(){},
-                        content:certainPersonContent,
-                        title:'测试'
-                    }
-                    props.dispatch(option)
-                    close()
-                },
-                text:'选择特定人员'
-            },
-        ]
-    }
+
+const add = (category) => {
+    store.dispatch({
+        type:'pushApproveList',
+        item:{
+            cate:category,
+            value:store.getState().dropdown.dropdown1.value,
+            text:'上'+store.getState().dropdown.dropdown1.text+'级领导'
+        }
+    })   
+    saveHandler()
+}
+const action1 = {
+    type:'callPopup',
+    confirm:()=>{add('boss')},
+    content:superContent,
+    title:'添加发起人上级',
+    height:'45%',
+    width:'44%'
+}
+const action2 = {
+    type:'callPopup',
+    height:'45%',
+    confirm:()=>{add('role')},
+    content:superContent,
+    title:'添加机构角色',
+    width:'44%'
+}
+const action3 = {
+    height:'66%',
+    type:'callPopup',
+    confirm:()=>{add('user')},
+    content:certainPersonContent,
+    title:'添加特定人员'
+}
+const buttonOptions = {
+    title:'添加审批人员',
+    buttons:[
+        action1,
+        action2,
+        action3
+    ]
 }
 const charactersList = (props)=>{
     return {
@@ -184,7 +146,8 @@ const Approve = (props) => {
             
             <div className="property-row-title">审批人员</div>
             
-            <Boardbutton {...boardbutton(props)} position="below" />        
+            <Boardbutton options={buttonOptions}/>        
+            
             <div className="character-container">
                 <CharactersList {...charactersList(props)}/>
             </div>
@@ -192,17 +155,16 @@ const Approve = (props) => {
             <div className="property-row-title">审批规则</div>
             <div className="the-content">只需节点上任意一人审批即可通过</div>
             
-
-            <DialoguePopup {...orgDialogue(props).props}>
-                最近<Dropdown {...orgDropdown(props).props}/>级分管 <input type="text" style={{width:'100px'}} placeholder="请选择角色类型"/>
-            </DialoguePopup>
         </div>
     )
 }
 // <DialoguePopup {...superDialogue(props).props}>
     // 申请的上<Dropdown {...superDropdown(props).props}/>级领导
 // </DialoguePopup>
-
+/*            <DialoguePopup {...orgDialogue(props).props}>
+                最近<Dropdown {...orgDropdown(props).props}/>级分管 <input type="text" style={{width:'100px'}} placeholder="请选择角色类型"/>
+            </DialoguePopup>
+*/
 const mapStateToProps = (state) => {
     return state.approve
 }
