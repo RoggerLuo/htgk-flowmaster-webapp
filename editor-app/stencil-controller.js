@@ -582,7 +582,8 @@ angular.module('activitiModeler')
             $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
 
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
-                console.log(new Date())
+                // debugger
+                // console.log(new Date())
                 var shapes = event.elements;
                 var selectedShape = shapes.first(); //first方法..again
                 if (!selectedShape) {
@@ -626,6 +627,8 @@ angular.module('activitiModeler')
                             break;
                     }
                 }
+                // console.log($scope.propertyTpl)
+
             });
 
 
@@ -677,6 +680,8 @@ angular.module('activitiModeler')
                             // return;
                         }
                     }
+                    /* 如果直接切换item，直接把title设置成空字符串，导致每次都保存失败 */
+                    window.inputBlurred && window.inputBlurred()
                     //注意多了一个局部变量 selectedItem
                     var selectedItem = { 'title': '', 'properties': [] };
 

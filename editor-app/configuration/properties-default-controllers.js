@@ -58,21 +58,23 @@ var canvasPropertyCtrl = ['$scope', function($scope) {
 }];
 
 
-var namePropertyCtrl = ['$scope', function($scope) {
+var namePropertyCtrl = ['$scope','$timeout', function($scope,$timeout) {
     $scope.namePropertyClicked = function() {
             $scope.shapeId = $scope.selectedShape.id;
             $scope.valueFlushed = false;
             /** Handler called when input field is blurred */
             $scope.inputBlurred = function() {
-
                 $scope.valueFlushed = true;
+                if($scope.selectedItem.title == ''){
+                    return false
+                }
                 if ($scope.selectedItem.title) {
                     $scope.selectedItem.title = $scope.selectedItem.title.replace(/(<([^>]+)>)/ig, "");
                 }
 
                 $scope.updatePropertyInModel({ key: 'oryx-name', value: $scope.selectedItem.title });
             };
-
+            window.inputBlurred=$scope.inputBlurred
             $scope.enterPressed = function(keyEvent) {
                 if (keyEvent && keyEvent.which === 13) {
                     keyEvent.preventDefault();

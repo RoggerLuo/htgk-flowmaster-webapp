@@ -136,7 +136,7 @@ const boardbutton=(props)=>{
                         confirm:function(){},
                         content:superContent,
                         title:'添加发起人上级',
-                        width:'40%'
+                        width:'44%'
                     }
                     props.dispatch(option)
                     close()
