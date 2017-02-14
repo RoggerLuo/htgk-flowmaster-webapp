@@ -1,6 +1,5 @@
 import React,{createClass} from 'react';
 import { render } from 'react-dom'
-import Dropdown from '../basicComp/Dropdown'
 import DialoguePopup from '../basicComp/DialoguePopup'
 import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
