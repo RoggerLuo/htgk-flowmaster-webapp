@@ -1,14 +1,15 @@
 import React,{createClass} from 'react';
 import './style'
 
-const Component = ({cancel,confirm,display,children,title,height}) => {
+const Component = ({cancel,confirm,display,children,title,height,width}) => {
     const confirmDecorated = ()=>{
         confirm()
         cancel()
     }
+    
     return(
         <div className="popup-coverwrap" style={{display:display}}>
-            <div className="popup" style={{height:height}}>
+            <div className="popup" style={{height:height,width:width}}>
                 <div className="x">                
                     <i className="icon qingicon icon-close" onClick={cancel}></i>
                 </div>

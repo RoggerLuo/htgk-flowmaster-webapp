@@ -7,12 +7,20 @@ import Tree from './tree'
 import StaffList from './staffList'
 import Dropdown from '../../basicComp/Dropdown'
 import './style'
-const Component = ({title,confirm,content,display,dispatch,height}) => {
-    const options = {
+
+const data = [
+    {text:'一',value:'1'},
+    {text:'二',value:'2'},
+    {text:'三',value:'3'}
+]
+
+const Component = ({title,confirm,content,display,dispatch,height}) => {    
+    const choosed = (item)=>{
+        dispatch({type:'dropdown1Choose',item})
     }
     return (
         <div className="super-content">
-            发起人的上<Dropdown />级领导
+            发起人的上<Dropdown data={data} choosed={choosed}/>级领导
         </div>
     )
 }
@@ -21,22 +29,23 @@ const Component = ({title,confirm,content,display,dispatch,height}) => {
 //             <Tree /><StaffList />
 //             <input/>
 //         </div>)
-export default Component
+// export default Component
 
-    
-// const mapStateToProps = (state) => {
-//     return state.popup
-// }
+  
+const mapStateToProps = (state) => {
+    return state.dropdown
+}
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {dispatch}
-// }
+const mapDispatchToProps = (dispatch) => {
+    return {dispatch}
+}
 
-// const ComponentContainer = connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(Component)
+const ComponentContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Component)
 
+export default ComponentContainer
 
 // export default function(){
 //     render(

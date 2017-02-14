@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import store from '../../redux/configureStore.js'
 import Popup from './component/component'
 
-const Component = ({title,confirm,content,display,dispatch,height}) => {
+const Component = ({width,title,confirm,content,display,dispatch,height}) => {
     const options = {
         cancel(){
             dispatch({type:'hidePopup'})
@@ -13,10 +13,10 @@ const Component = ({title,confirm,content,display,dispatch,height}) => {
         confirm,
         display,
         title,
-        height
+        height,width
     }
     const Content = content
-    
+
     if(Content != ''){
         return (
             <Popup {...options}>
