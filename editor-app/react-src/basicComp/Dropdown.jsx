@@ -1,6 +1,6 @@
 import React,{createClass} from 'react';
 import { render } from 'react-dom'
-
+import './dropdown.less'
 const Dropdown = createClass({
     getInitialState(){
         const choosedOption = this.props.data[0]

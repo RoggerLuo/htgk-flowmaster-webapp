@@ -2,7 +2,7 @@ import { toJS, fromJS, List, Map } from 'immutable';
 
 const initial = {
     dropdown1:{text:'initial',value:'initial'},
-    dropdown2:{choosed:'0',options:[{text:'option1',value:'1'},{text:'option2',value:'2'}]}
+    dropdown2:{text:'initial',value:'initial'}
 }
 
 const Reducer = (state = initial, action) => {
@@ -12,7 +12,12 @@ const Reducer = (state = initial, action) => {
             return data.updateIn(['dropdown1'],'initial',(el)=>{
                 return action.item 
             }).toJS()
+        case 'dropdown2Choose':
+            return data.updateIn(['dropdown2'],'initial',(el)=>{
+                return action.item 
+            }).toJS()
             
+    
         // case 'switchApproveData':            
         //     let nextRepoIndex = data.get('approveListRepo').findKey((el, index, iter) => el.get('id') == action.nextId) //如果这里找不到会怎么样
         //     if (!nextRepoIndex && (nextRepoIndex!=0) ) { //如果nextRepoIndex不存在
@@ -61,9 +66,6 @@ const Reducer = (state = initial, action) => {
         //     return Object.assign({}, state, {
         //         approveList: {id:state.approveList.id,data:state.approveList.data.concat([action.item])}
         //     })
-
-       
-
         default:
             return state
     }

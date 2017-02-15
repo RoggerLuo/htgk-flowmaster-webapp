@@ -9,14 +9,14 @@ import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
 import certainPersonContent from '../popup/certainPerson/content'
 import superContent from '../popup/super/content'
+import organContent from '../popup/organ/content'
 import  './style'
 
 const saveHandler = () => {
     let data = store.getState().approve.approveListRepo.filter((el,index)=>{
+        
         return el.id == store.getState().approve.id
-    }).data
-    // let data = store.getState().approve.approveList.data
-
+    })[0].data
     let string = ''
     data && data.forEach((el,index)=>{
         switch(el.cate){
@@ -24,7 +24,7 @@ const saveHandler = () => {
                 string += 'boss' + '('+ el.value +')'
                 break
             case 'role':
-                string += 'role' + '(hr:'+ el.value +')' //权宜之计
+                string += 'role' + '('+ el.value2 +':'+ el.value +')'
                 break
             case 'user':
                 break
@@ -41,6 +41,7 @@ const saveHandler = () => {
         "totalCount" : 1
     }
     window.updatePropertyInModel({key:'usertaskassignment',value:value})
+    console.log(JSON.stringify(getJson()))
 }
 
 
@@ -94,12 +95,25 @@ const orgDialogue = (props)=>{
 
 
 const add = (category) => {
+    let text=''
+    switch(category){
+        case 'boss':
+            text = '上'+store.getState().dropdown.dropdown1.text+'级领导'
+        break
+        case 'role':
+            text = '最近'+store.getState().dropdown.dropdown1.text+'级分管，' + store.getState().dropdown.dropdown2.text
+        break
+        case 'user':
+            text = '上'+store.getState().dropdown.dropdown1.text+'级领导'
+        break
+    }
     store.dispatch({
         type:'pushApproveList',
         item:{
             cate:category,
             value:store.getState().dropdown.dropdown1.value,
-            text:'上'+store.getState().dropdown.dropdown1.text+'级领导'
+            value2:store.getState().dropdown.dropdown2.value,
+            text
         }
     })   
     saveHandler()
@@ -116,7 +130,7 @@ const action2 = {
     type:'callPopup',
     height:'45%',
     confirm:()=>{add('role')},
-    content:superContent,
+    content:organContent,
     title:'添加机构角色',
     width:'44%'
 }

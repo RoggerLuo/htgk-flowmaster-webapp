@@ -474,6 +474,8 @@ angular.module('activitiModeler')
                 所以增加一个highlight hide事件用来 弥补上面的效果
                 但是highlight hide事件每次都在selection_changed后面出发，所以需要一个timeout来解决冲突
              */
+
+            window.getJson = ()=>$scope.editor.getJSON()
             $scope.getModel = function() {
                 // var json = $scope.editor.getJSON();
                 // json = JSON.stringify(json);
