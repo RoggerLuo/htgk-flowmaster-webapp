@@ -25,6 +25,10 @@ const textMode = () => {
 }
 const addCondition = () => {
     store.dispatch({type:'addCondition'})
+    // 滑到底
+    const element = jQuery('.propertySection .selected-item-section .selected-item-body')
+    const h = element[0].scrollHeight - element.height()
+    element.scrollTop(h);
 }
 const showDelete =()=>{
     store.dispatch({type:'conditionDeleteMode'})
