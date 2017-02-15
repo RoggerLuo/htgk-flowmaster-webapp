@@ -23,13 +23,13 @@ const Dropdown = createClass({
         return(
             <div className="branch-dropdown" style={{flex:'1'}}>
                 <div style={{display: 'flex'}} className="drop-down-choosed" onClick={this.toggle}>
-                    <div>{this.state.choosedOption}</div> <div className="inverted-triangle">▼</div>
+                    <div>{this.state.choosedOption}</div> <div className="inverted-triangle"><i className="icon qingicon icon-sanjiao1"></i></div>
                 </div>
                 <table className="drop-down-table" style={{zIndex:this.state.zIndex,width: '31.8%'}} >
                     <tbody>
                         <tr style={{display:'none'}}>
                             <td className="drop-down-choosed stop-propagation" onClick={this.toggle} style={{color:'black',display:'flex',justifyContent: 'space-between'}}>
-                                <div>{this.state.choosedOption}</div> <div className="inverted-triangle">▼</div>
+                                <div>{this.state.choosedOption}</div> <div className="inverted-triangle"><i className="icon qingicon icon-sanjiao1"></i></div>
                             </td>
                         </tr>
                         <tr className="drop-down-options" style={{display:this.state.visibleStatus}}>

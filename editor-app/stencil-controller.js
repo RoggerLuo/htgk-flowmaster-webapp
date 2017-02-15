@@ -1,7 +1,25 @@
-function limitedCondition(option) {
+function updateNextElement(selectedShape){
+    if (selectedShape._stencil._jsonStencil.title != 'Sequence flow') {
+        return false;
+    }
+    if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title){
+        switch(selectedShape.outgoing[0]._stencil._jsonStencil.title){
+            case 'User task':
+                window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
+                break;
+            case 'Exclusive gateway':
+                window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (分支节点)';
+                break;
+            case '':
+            break;
+        }
+    }
+}
 
+function limitedCondition(option) {
     /* sequnce flow 的限制 */
-    if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'Exclusive gateway')) {}
+    if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'Exclusive gateway')) {
+    }
     /* 审批节点的限制 */
     if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'User task')) {
         var branchCounter = 0;
@@ -583,8 +601,9 @@ angular.module('activitiModeler')
             $scope.lastSelectedUserTaskId = false
             $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
 
+            // my selection
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
-                // debugger
+                
                 // console.log(new Date())
                 var shapes = event.elements;
                 var selectedShape = shapes.first(); //first方法..again
@@ -592,10 +611,11 @@ angular.module('activitiModeler')
                     $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
                     return;
                 }
+                updateNextElement(selectedShape);
 
                 /* 每次改变选择都关闭之前的对话框 */
-                reduxStore.dispatch({ type: 'closeSuperDialogue' })
-                reduxStore.dispatch({ type: 'closeOrgDialogue' })
+                reduxStore.dispatch({ type: 'closeSuperDialogue' });
+                reduxStore.dispatch({ type: 'closeOrgDialogue' });
 
                 /* 改变 正要选中 边框颜色的代码部分 */
                 $timeout(function() {
@@ -606,7 +626,6 @@ angular.module('activitiModeler')
                     }
                 }, 150);
                 $scope.switchApproveData($scope.lastSelectedUserTaskId, selectedShape.id)
-
 
                 /* 
                     mini router 
@@ -799,7 +818,7 @@ angular.module('activitiModeler')
             */
 
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
-
+                
                 KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_HIDE_SHAPE_BUTTONS); //这个event是干嘛
                 var shapes = event.elements;
 

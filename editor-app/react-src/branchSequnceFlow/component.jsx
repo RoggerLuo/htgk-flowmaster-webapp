@@ -46,11 +46,11 @@ const Component =   ({conditionDeleteStyle,conditionGroups,prototype,mode}) => {
     }
     let titleComp=''
     if(conditionDeleteStyle.display ==''){
-        titleComp = (<span onClick={closeDelete}>取消</span>)
+        titleComp = (<span style={{color:'#00b0ff'}} onClick={closeDelete}>取消</span>)
     }else{
         titleComp = (<span>
             <i className="icon qingicon icon-add" onClick={addCondition}></i>
-            <i className="icon qingicon icon-roundclose" onClick={showDelete}></i>
+            <i className="icon qingicon icon-delete" onClick={showDelete}></i>
         </span>
         )
     }
@@ -64,12 +64,12 @@ const Component =   ({conditionDeleteStyle,conditionGroups,prototype,mode}) => {
                 <label className="radio-lable"><input onClick={dropdownMode} className="radio" name="condition" type="radio" value="" />手动选择 </label> 
                 <label className="radio-lable"><input onClick={textMode} className="radio" name="condition" type="radio" value="" />编写公式 </label> 
             </div>
-            满足以下条件则分支流向节点“#节点名称需要设置#”
+            <div className="section-content">满足以下条件则分支流向节点“{window.nextElementIs}”</div>
 
             {content}
             
             <div className="section-title">说明：</div>
-            <div className="content">
+            <div className="section-content">
                 条件与条件间是“或”的关系<br/>
                 规则与规则间是“与”的关系
             </div>

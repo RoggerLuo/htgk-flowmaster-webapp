@@ -45,8 +45,7 @@ const ConditionGroup = createClass({
     render(){
         let dots = ''
         if(this.state.deleteStyle.display==''){
-            dots = (<span className="the3dots" onClick={this.closeDeleteRuleMode}>取消</span>)
-
+            dots = (<span className="the3dots" style={{color:'#00b0ff'}} onClick={this.closeDeleteRuleMode}>取消</span>)
         }else{
             dots = (<span className="the3dots" onClick={this.toggleRuleMenu}>•••</span>)
         }
