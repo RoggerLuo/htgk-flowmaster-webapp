@@ -14,7 +14,6 @@ import  './style'
 
 const saveHandler = () => {
     let data = store.getState().approve.approveListRepo.filter((el,index)=>{
-        
         return el.id == store.getState().approve.id
     })[0].data
     let string = ''

@@ -30,6 +30,10 @@ const addCondition = () => {
     const h = element[0].scrollHeight - element.height()
     element.scrollTop(h);
 }
+const addRule = (index) => {
+    store.dispatch({type:'addRule',index})
+}
+
 const showDelete =()=>{
     store.dispatch({type:'conditionDeleteMode'})
 }
@@ -37,16 +41,26 @@ const closeDelete =()=>{
     store.dispatch({type:'closeConditionDeleteMode'})
 }
 
-const Component =   ({conditionDeleteStyle,conditionGroups,prototype,mode}) => {
+const Component =   ({conditionDeleteStyle,id,dataRepo,prototype,mode}) => {
+    const theRightItem = dataRepo.filter((el,index)=>{
+        return el.id == id
+    })
+    const conditionGroups = theRightItem[0] && theRightItem[0].conditionGroups || []
+
     let content = ''
     if(mode == 'text'){
         content = (<div><textarea /></div>)
     }else{
-        content = conditionGroups.map((el,index)=>{
-            return (
-                <ConditionGroup {...{conditionDeleteStyle,conditionGroups,prototype,mode}} el={el} key={index} index={index} />
-            )
-        })
+        // debugger
+        if(conditionGroups.length == 0){
+            content = ''
+        }else{
+            content = conditionGroups.map((el,index)=>{
+                return (
+                    <ConditionGroup {...{conditionDeleteStyle,conditionGroups,prototype,mode,el,index,addRule}} key={index}  />
+                )
+            })
+        }
     }
     let titleComp=''
     if(conditionDeleteStyle.display ==''){
@@ -79,6 +93,7 @@ const Component =   ({conditionDeleteStyle,conditionGroups,prototype,mode}) => {
             </div>
         </div>
     )
+
 }
 
 const mapStateToProps = (state) => {

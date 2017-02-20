@@ -493,7 +493,7 @@ angular.module('activitiModeler')
                 但是highlight hide事件每次都在selection_changed后面出发，所以需要一个timeout来解决冲突
              */
 
-            window.getJson = ()=>$scope.editor.getJSON()
+            window.getJson = () => $scope.editor.getJSON()
             $scope.getModel = function() {
                 // var json = $scope.editor.getJSON();
                 // json = JSON.stringify(json);
@@ -625,6 +625,7 @@ angular.module('activitiModeler')
                         $scope.lastSelectedUserTaskId = selectedShape.id
                     }
                 }, 150);
+                
                 $scope.switchApproveData($scope.lastSelectedUserTaskId, selectedShape.id)
 
                 /* 

@@ -5,22 +5,27 @@ const newRule = () => {
 }
 
 let initial = {
+    id:'',
     conditionDeleteStyle:{
         display:'none',
         border:'1px solid #dde4ef'
     },
     mode:'dropdown',
-    conditionGroups:[
-        [
-            {entry1:'字段',entry2:'请选择',entry3:'=',input:''},
-            {entry1:'字段',entry2:'请选择',entry3:'=',input:''}
-        ],
-        [
-            {entry1:'字段',entry2:'请选择',entry3:'=',input:''},
-            {entry1:'字段',entry2:'请选择',entry3:'=',input:''},
-            {entry1:'字段',entry2:'请选择',entry3:'=',input:''}
-
-        ],
+    dataRepo:[
+        {
+            id:'test',
+            conditionGroups:[
+                [
+                    {entry1:'字段',entry2:'请选择',entry3:'=',input:''},
+                    {entry1:'字段',entry2:'请选择',entry3:'=',input:''}
+                ],
+                [
+                    {entry1:'字段',entry2:'请选择',entry3:'=',input:''},
+                    {entry1:'字段',entry2:'请选择',entry3:'=',input:''},
+                    {entry1:'字段',entry2:'请选择',entry3:'=',input:''}
+                ]
+            ]
+        }
     ],
     prototype:{
         entry1:[{text:'发起人',onClick:function(){}},{text:'当前',onClick:function(){}}],
@@ -33,6 +38,11 @@ let initial = {
 const Reducer = (state = initial, action) => {
     const data = fromJS(state)
     switch (action.type) {
+        case 'switchApproveData':
+            return data.updateIn(['id'], 'initial', (el) => {
+                return action.nextId
+            }).toJS()
+
         case 'conditionDeleteMode':
             return Object.assign({}, state, {
                 conditionDeleteStyle: {display:'',border:'1px solid red'}
@@ -44,7 +54,29 @@ const Reducer = (state = initial, action) => {
 
 
         case 'addCondition':
-            return data.set('conditionGroups',data.get('conditionGroups').push(List())).toJS()
+            let repoIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
+            if (!repoIndex && (repoIndex != 0) ) { //如果nextRepoIndex不存在
+                const newCreate = fromJS({ id: state.id, conditionGroups: [] })
+                return data.updateIn(['dataRepo'], 'initial', (el) => {
+                    return el.push(newCreate)
+                }).toJS()
+            }
+            // debugger
+            return data.updateIn(['dataRepo',repoIndex],'initial',(el)=>{
+                return el.set('conditionGroups',el.get('conditionGroups').push([]))
+            }).toJS()
+        case 'addRule':
+            let repoIndex2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
+            // if (!repoIndex2 && (repoIndex2 != 0) ) { //如果nextRepoIndex不存在
+            //     const newCreate = fromJS({ id: state.id, conditionGroups: [] })
+            //     return data.updateIn(['dataRepo'], 'initial', (el) => {
+            //         return el.push(newCreate)
+            //     }).toJS()
+            // }
+            return data.updateIn(['dataRepo',repoIndex2,'conditionGroups',action.index],'initial',(el)=>{
+                return el.push([])
+            }).toJS()
+
         case 'deleteCondition':
             return data.updateIn(['conditionGroups'],'inital',(el)=>{
                 return el.delete(action.conditionIndex)
