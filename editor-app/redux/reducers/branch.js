@@ -63,33 +63,32 @@ const Reducer = (state = initial, action) => {
             return data.updateIn(['dataRepo',repoIndex],'initial',(el)=>{
                 return el.set('conditionGroups',el.get('conditionGroups').push([]))
             }).toJS()
+
         case 'addRule':
             let repoIndex2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
-            // if (!repoIndex2 && (repoIndex2 != 0) ) { //如果nextRepoIndex不存在
-            //     const newCreate = fromJS({ id: state.id, conditionGroups: [] })
-            //     return data.updateIn(['dataRepo'], 'initial', (el) => {
-            //         return el.push(newCreate)
-            //     }).toJS()
-            // }
             return data.updateIn(['dataRepo',repoIndex2,'conditionGroups',action.index],'initial',(el)=>{
                 return el.push([])
             }).toJS()
 
         case 'deleteCondition':
-            return data.updateIn(['conditionGroups'],'inital',(el)=>{
+            let repoIndexDelete = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
+            return data.updateIn(['dataRepo',repoIndexDelete,'conditionGroups'],'inital',(el)=>{
                 return el.delete(action.conditionIndex)
             }).toJS()
 
         case 'deleteRule':
-            return data.updateIn(['conditionGroups',action.groupIndex],'inital',(el)=>{
+            let repoIndexDelete2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
+            return data.updateIn(['dataRepo',repoIndexDelete2,'conditionGroups',action.groupIndex],'inital',(el)=>{
                 return el.delete(action.ruleIndex)
             }).toJS()
+            
         case 'modeChange':
             return Object.assign({}, state, {
                 mode: action.value
             })
         case 'branchUpdate':
-            return data.updateIn(['conditionGroups',action.groupIndex,action.ruleIndex],'inital',(el)=>{
+            let repoIndex3 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
+            return data.updateIn(['dataRepo',repoIndex3,'conditionGroups',action.groupIndex,action.ruleIndex],'inital',(el)=>{
                 return el.set(action.entryIndex,action.value)
             }).toJS()
         default:
