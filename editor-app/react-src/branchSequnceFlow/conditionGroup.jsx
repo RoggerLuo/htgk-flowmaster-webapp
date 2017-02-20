@@ -57,7 +57,7 @@ const ConditionGroup = createClass({
                         {dots}
                         <div className="rule-control" style={{display:this.state.ruleControlVisible}}>
                             <div className="options">
-                                <div className="option" onClick={()=>{this.props.addRule(this.props.index)}}>添加规则</div>
+                                <div className="option" onClick={()=>{this.props.addRule(this.props.index);this.closeRuleMenu()}}>添加规则</div>
                                 <div className="option" onClick={this.deleteRuleMode}>删除规则</div>
                             </div>
                         </div>

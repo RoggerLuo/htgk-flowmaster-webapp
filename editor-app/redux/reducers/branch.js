@@ -51,12 +51,10 @@ const Reducer = (state = initial, action) => {
             return Object.assign({}, state, {
                 conditionDeleteStyle: {display:'none',border:'1px solid #dde4ef'}
             })
-
-
         case 'addCondition':
             let repoIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
             if (!repoIndex && (repoIndex != 0) ) { //如果nextRepoIndex不存在
-                const newCreate = fromJS({ id: state.id, conditionGroups: [] })
+                const newCreate = fromJS({ id: state.id, conditionGroups: [[]] })
                 return data.updateIn(['dataRepo'], 'initial', (el) => {
                     return el.push(newCreate)
                 }).toJS()
