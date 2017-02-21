@@ -151,19 +151,20 @@ const boardbutton=(props)=>{
 
 const charactersList = (props)=>{
     return {
-        data:props.approveList.data,
+        data:props.approveListRepo[0]||[],
         clickCross(e){
             props.dispatch({type:'removeApproveList',index:e.target.getAttribute('data-index')})
             updatePropertyInModel({key:'approveStaff',value:props.approveList})
         }
     }
 }
+// <Boardbutton {...boardbutton(props)} position="below"/>  
 
 const Group = (props) => {
     return (
         <SoftContainer>
             <div className="container-header">
-                <span className="container-title">会签组</span><Boardbutton {...boardbutton(props)} position="below"/>  
+                <span className="container-title">会签组</span>
             </div>       
             <div className="container-header">
                 <CharactersList {...charactersList(props)} />
@@ -201,13 +202,7 @@ const Component = (props) => {
             <div className="section-title">审批规则</div>
             <div className="content">需每个会签范围内至少一名代表审批通过方可会签通过</div>
 
-            <DialoguePopup {...superDialogue(props).props}>
-                申请的上<Dropdown {...superDropdown(props).props}/>级领导
-            </DialoguePopup>
-
-            <DialoguePopup {...orgDialogue(props).props}>
-                最近<Dropdown {...orgDropdown(props).props}/>级分管 <input type="text" style={{width:'100px'}} placeholder="请选择角色类型"/>
-            </DialoguePopup>
+           
         </div>
     )
 }

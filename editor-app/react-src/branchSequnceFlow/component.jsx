@@ -28,25 +28,25 @@ const addRule = (index) => {
     store.dispatch({type:'addRule',index})
 }
 
-const showDelete =()=>{
-    store.dispatch({type:'conditionDeleteMode'})
-}
-const closeDelete =()=>{
-    store.dispatch({type:'closeConditionDeleteMode'})
-}
-const addCondition = () => {
-    closeDelete()
-    store.dispatch({type:'addCondition'})
-    // 滑到底
-    const element = jQuery('.propertySection .selected-item-section .selected-item-body')
-    const h = element[0].scrollHeight - element.height()
-    element.scrollTop(h);
-}
+// const showDelete =()=>{
+//     store.dispatch({type:'conditionDeleteMode'})
+// }
+// const closeDelete =()=>{
+//     store.dispatch({type:'closeConditionDeleteMode'})
+// }
+// const addCondition = () => {
+//     closeDelete()
+//     store.dispatch({type:'addCondition'})
+//     // 滑到底
+//     const element = jQuery('.propertySection .selected-item-section .selected-item-body')
+//     const h = element[0].scrollHeight - element.height()
+//     element.scrollTop(h);
+// }
 const Component =   ({conditionDeleteStyle,id,dataRepo,prototype,mode}) => {
-    const theRightItem = dataRepo.filter((el,index)=>{
-        return el.id == id
-    })
-    const conditionGroups = theRightItem[0] && theRightItem[0].conditionGroups || []
+    // const theRightItem = dataRepo.filter((el,index)=>{
+    //     return el.id == id
+    // })
+    // const conditionGroups = theRightItem[0] && theRightItem[0].conditionGroups || []
 
     let content = ''
     if(mode == 'text'){
@@ -63,17 +63,17 @@ const Component =   ({conditionDeleteStyle,id,dataRepo,prototype,mode}) => {
             })
         }
     }
-    let titleComp=''
-    if((conditionDeleteStyle.display =='')&& (conditionGroups.length != 0)){
+    // let titleComp=''
+    // if((conditionDeleteStyle.display =='')&& (conditionGroups.length != 0)){
 
-        titleComp = (<span style={{color:'#00b0ff'}} onClick={closeDelete}>取消</span>)
-    }else{
-        titleComp = (<span>
-            <i className="icon qingicon icon-add" onClick={addCondition}></i>
-            <i className="icon qingicon icon-delete" onClick={showDelete}></i>
-        </span>
-        )
-    }
+    //     titleComp = (<span style={{color:'#00b0ff'}} onClick={closeDelete}>取消</span>)
+    // }else{
+    //     titleComp = (<span>
+    //         <i className="icon qingicon icon-add" onClick={addCondition}></i>
+    //         <i className="icon qingicon icon-delete" onClick={showDelete}></i>
+    //     </span>
+    //     )
+    // }
     return(
         <div className="react-approve" >
             <div className="section-title">

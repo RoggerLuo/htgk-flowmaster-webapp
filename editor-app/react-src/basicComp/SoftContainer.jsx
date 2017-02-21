@@ -1,6 +1,6 @@
 import React,{createClass} from 'react';
 import { render } from 'react-dom'
-const SoftContainer = ({text,optionArray,children}) => {
+const SoftContainer = ({children}) => {
     return(
         <div className="soft-container-container">
             <div className="soft-container">

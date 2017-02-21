@@ -6,10 +6,12 @@ const newRule = () => {
 
 let initial = {
     id:'',
-    conditionDeleteStyle:{
+
+    conditionDeleteControl:{
         display:'none',
         border:'1px solid #dde4ef'
     },
+    ruleMode:'normal',
     mode:'dropdown',
     dataRepo:[
         {
@@ -81,7 +83,7 @@ const Reducer = (state = initial, action) => {
             return data.updateIn(['dataRepo',repoIndexDelete2,'conditionGroups',action.groupIndex],'inital',(el)=>{
                 return el.delete(action.ruleIndex)
             }).toJS()
-            
+
         case 'modeChange':
             return Object.assign({}, state, {
                 mode: action.value
