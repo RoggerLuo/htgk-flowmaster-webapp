@@ -1,6 +1,6 @@
 import React,{createClass} from 'react';
 import store from '../../redux/configureStore.js'
-import Rule from './rule'
+import RuleContainer from './rule'
 
 const deleteCondition = (conditionIndex) => {
     store.dispatch({type:'deleteCondition',conditionIndex:conditionIndex})
@@ -67,7 +67,19 @@ const ConditionGroup = createClass({
                         </div>
                         <div onClick={this.closeRuleMenu} style={{display:this.state.ruleControlVisible}} className="big-cover" ></div>
                     </div>
-                    <RuleContainer />
+                    
+                    {this.props.el.map((el2,index2)=>{
+                        let and = ''
+                        if(index2>=1){
+                            and = (<div className="and">并且</div>)
+                        }
+                        return (
+                            <div className="condition-container" key={index2}>
+                                {and}
+                                <RuleContainer key1={key1} key2={index2} />
+                            </div>
+                        )
+                    })}
 
                 </div>
                 <i className="icon qingicon icon-guanbi2fill icon-red-close-for-condition" onClick={()=>{deleteCondition(this.props.index)}} style={{display:this.props.conditionDeleteStyle.display}}></i>
@@ -75,23 +87,61 @@ const ConditionGroup = createClass({
         )
     }
 })
-
-{this.props.el.map((el2,index2)=>{
-    let and = ''
-    if(index2>=1){
-        and = (<div className="and">并且</div>)
+const Header = ({index,display,add,del,close,cancel,isDots,toggleMenu}) => {
+    let dots = ''
+    if(isDots){
+        dots = (<span style={{color:'#00b0ff',marginRight:'8px'}} onClick={cancel}>取消</span>)
+    }else{
+        dots = (<span className="the3dots" onClick={toggleMenu}>•••</span>)
     }
+
     return (
-        <div className="condition-container" key={index2}>
-            {and}
-            <Rule dropdown,deleteMode,deleteRule
-            {...el2} deleteStyle={this.state.deleteStyle} prototype={this.props.prototype} key1={this.props.index} key2={index2}/>
+        <div className="container-header">
+            <span className="container-title">条件{index+1}</span> 
+            {dots}
+            <div className="rule-control" style={{display:display}}>
+                <div className="options">
+                    <div className="option" onClick={add}>添加规则</div>
+                    <div className="option" onClick={del}>删除规则</div>
+                </div>
+            </div>
+            <div onClick={close} style={{display:display}} className="big-cover" ></div>
         </div>
     )
-})}   
+}
 
+const Condition = ({conditionMode,index,menuDisplay,ruleData}) => {
+    let deleteDisplay = 'none'
+    let border = '1px solid #dde4ef'
+    if(conditionMode == 'delete'){
+        deleteDisplay = ''
+        border = '1px solid #dde4ef'
+    }else{
+        deleteDisplay = 'none'
+        border = '1px solid white'
+    }
 
-    
+    return (
+        <div className="solid-container-container">
+            <div className="solid-container" style={{border:border}}>
+                <Header />
+                
+                {ruleData.map((el2,index2)=>{
+                    let and = ''
+                    if(index2>=1){
+                        and = (<div className="and">并且</div>)
+                    }
+                    return (
+                        <div className="condition-container" key={index2}>
+                            {and}
+                            <RuleContainer key1={key1} key2={index2} />
+                        </div>
+                    )
+                })}
 
-
+            </div>
+            <i className="icon qingicon icon-guanbi2fill icon-red-close-for-condition" onClick={()=>{deleteCondition(this.props.index)}} style={{display:deleteDisplay}}></i>
+        </div>
+    )
+}
 export default ConditionGroup

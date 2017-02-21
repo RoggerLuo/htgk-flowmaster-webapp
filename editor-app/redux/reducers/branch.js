@@ -6,36 +6,87 @@ const newRule = () => {
 
 let initial = {
     id:'',
+    radio:'dropdown',
+    conditionMode:'normal',
 
     conditionDeleteControl:{
         display:'none',
         border:'1px solid #dde4ef'
     },
-    ruleMode:'normal',
-    mode:'dropdown',
     dataRepo:[
         {
             id:'test',
-            conditionGroups:[
+            conditions:[
                 [
-                    {entry1:'字段',entry2:'请选择',entry3:'=',input:''},
-                    {entry1:'字段',entry2:'请选择',entry3:'=',input:''}
+                    {entry1:0,entry2:1,entry3:2,input:''},
+                    {entry1:0,entry2:1,entry3:2,input:''},
                 ],
                 [
-                    {entry1:'字段',entry2:'请选择',entry3:'=',input:''},
-                    {entry1:'字段',entry2:'请选择',entry3:'=',input:''},
-                    {entry1:'字段',entry2:'请选择',entry3:'=',input:''}
+                    {entry1:0,entry2:1,entry3:2,input:''},
                 ]
             ]
         }
     ],
-    prototype:{
-        entry1:[{text:'发起人',onClick:function(){}},{text:'当前',onClick:function(){}}],
-        entry2:[{text:'请假天数',onClick:function(){}},{text:'职级',onClick:function(){}},{text:'条件',onClick:function(){}}],
-        entry3:[{text:'=',onClick:function(){}},{text:'>',onClick:function(){}},{text:'<',onClick:function(){}}],
-        input:''
+    template:{
+        entry1:{
+            options:[
+                {
+                    value:'',
+                    text:'发起人'
+                },
+                {
+                    value:'',
+                    text:'当前'
+                }
+            ],
+            click(){},
+            choosedIndex:'字段'
+        },
+        entry2:{
+            options:[
+                {
+                    value:'',
+                    text:'请假天数'
+                },
+                {
+                    value:'',
+                    text:'职级'
+                },
+                {
+                    value:'',
+                    text:'条件'
+                }
+            ],
+            click(){},
+            choosedIndex:'请选择'
+        },
+        entry3:{
+            options:[
+                {
+                    value:'',
+                    text:'='
+                },
+                {
+                    value:'',
+                    text:'>'
+                },
+                {
+                    value:'',
+                    text:'<'
+                }
+            ],
+            click(){},
+            choosedIndex:'='
+        }
     }
 }
+//     ]{
+//         entry1:[{text:'发起人',onClick:function(){}},{text:'当前',onClick:function(){}}],
+//         entry2:[{text:'请假天数',onClick:function(){}},{text:'职级',onClick:function(){}},{text:'条件',onClick:function(){}}],
+//         entry3:[{text:'=',onClick:function(){}},{text:'>',onClick:function(){}},{text:'<',onClick:function(){}}],
+//         input:''
+//     }
+// }
 
 const Reducer = (state = initial, action) => {
     const data = fromJS(state)
@@ -56,19 +107,18 @@ const Reducer = (state = initial, action) => {
         case 'addCondition':
             let repoIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
             if (!repoIndex && (repoIndex != 0) ) { //如果nextRepoIndex不存在
-                const newCreate = fromJS({ id: state.id, conditionGroups: [[]] })
+                const newCreate = fromJS({ id: state.id, conditions: [[]] })
                 return data.updateIn(['dataRepo'], 'initial', (el) => {
                     return el.push(newCreate)
                 }).toJS()
             }
-            // debugger
             return data.updateIn(['dataRepo',repoIndex],'initial',(el)=>{
-                return el.set('conditionGroups',el.get('conditionGroups').push([]))
+                return el.set('conditions',el.get('conditions').push([]))
             }).toJS()
 
         case 'addRule':
             let repoIndex2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
-            return data.updateIn(['dataRepo',repoIndex2,'conditionGroups',action.index],'initial',(el)=>{
+            return data.updateIn(['dataRepo',repoIndex2,'conditions',action.index],'initial',(el)=>{
                 return el.push([])
             }).toJS()
 
