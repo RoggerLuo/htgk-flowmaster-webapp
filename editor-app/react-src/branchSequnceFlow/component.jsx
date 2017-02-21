@@ -23,13 +23,7 @@ const dropdownMode = () => {
 const textMode = () => {
     store.dispatch({type:'modeChange',value:'text'})
 }
-const addCondition = () => {
-    store.dispatch({type:'addCondition'})
-    // 滑到底
-    const element = jQuery('.propertySection .selected-item-section .selected-item-body')
-    const h = element[0].scrollHeight - element.height()
-    element.scrollTop(h);
-}
+
 const addRule = (index) => {
     store.dispatch({type:'addRule',index})
 }
@@ -40,7 +34,14 @@ const showDelete =()=>{
 const closeDelete =()=>{
     store.dispatch({type:'closeConditionDeleteMode'})
 }
-
+const addCondition = () => {
+    closeDelete()
+    store.dispatch({type:'addCondition'})
+    // 滑到底
+    const element = jQuery('.propertySection .selected-item-section .selected-item-body')
+    const h = element[0].scrollHeight - element.height()
+    element.scrollTop(h);
+}
 const Component =   ({conditionDeleteStyle,id,dataRepo,prototype,mode}) => {
     const theRightItem = dataRepo.filter((el,index)=>{
         return el.id == id
@@ -63,7 +64,8 @@ const Component =   ({conditionDeleteStyle,id,dataRepo,prototype,mode}) => {
         }
     }
     let titleComp=''
-    if(conditionDeleteStyle.display ==''){
+    if((conditionDeleteStyle.display =='')&& (conditionGroups.length != 0)){
+
         titleComp = (<span style={{color:'#00b0ff'}} onClick={closeDelete}>取消</span>)
     }else{
         titleComp = (<span>

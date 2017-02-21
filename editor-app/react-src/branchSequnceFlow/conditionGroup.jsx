@@ -44,11 +44,7 @@ const ConditionGroup = createClass({
     },
     render(){
         let dots = ''
-
-        if( (this.state.deleteStyle.display=='')  ){
-            if(this.props.el.length == 0){
-                this.closeDeleteRuleMode()
-            }
+        if( (this.state.deleteStyle.display=='') && (this.props.el.length != 0) ){
             dots = (<span style={{color:'#00b0ff',marginRight:'8px'}} onClick={this.closeDeleteRuleMode}>取消</span>)
         }else{
             dots = (<span className="the3dots" onClick={this.toggleRuleMenu}>•••</span>)
@@ -61,7 +57,11 @@ const ConditionGroup = createClass({
                         {dots}
                         <div className="rule-control" style={{display:this.state.ruleControlVisible}}>
                             <div className="options">
-                                <div className="option" onClick={()=>{this.props.addRule(this.props.index);this.closeRuleMenu()}}>添加规则</div>
+                                <div className="option" onClick={()=>{
+                                    this.props.addRule(this.props.index)
+                                    this.closeRuleMenu()
+                                    this.closeDeleteRuleMode()
+                                }}>添加规则</div>
                                 <div className="option" onClick={this.deleteRuleMode}>删除规则</div>
                             </div>
                         </div>
