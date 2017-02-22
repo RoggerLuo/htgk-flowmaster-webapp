@@ -159,17 +159,10 @@ const charactersList = (props)=>{
     }
 }
 // <Boardbutton {...boardbutton(props)} position="below"/>  
-const Frame = ({children}) =>{
-    return (
-        <SoftContainer>
-            {children}
-        </SoftContainer>
-    )
-}
+
 const Group = (props) => {
     return (
         <SoftContainer>
-            
             <div className="container-header">
                 <span className="container-title">会签组</span>
             </div>       
@@ -181,70 +174,35 @@ const Group = (props) => {
 }
 const addGroup = ()=>{}
 const showDelete = ()=>{}
-
-const SectionTitle = ({text,widgetDisplay,cancel,add,del}) => {
-    let widget=''
-    if(widgetDisplay){
-        widget = (<span style={{color:'#00b0ff'}} onClick={cancel}>取消</span>)
+const Component = (props) => {
+    let titleComp=''
+    const conditionDeleteStyle = {display:'dd'}
+    if(conditionDeleteStyle.display ==''){
+        titleComp = (<span onClick={closeDelete}>取消</span>)
     }else{
-        widget = (
-            <span>
-                <i className="icon qingicon icon-add" onClick={add}></i>
-                <i className="icon qingicon icon-delete" onClick={del}></i>
-            </span>
+        titleComp = (<span>
+            <i className="icon qingicon icon-add" onClick={addGroup}></i>
+            <i className="icon qingicon icon-roundclose" onClick={showDelete}></i>
+        </span>
         )
     }
-    return (
-        <div className="section-title">
-            <span>{text}</span>
-            {widget}
-        </div>
-    )
-}
-const Character = ({text,index}) => {
-    return (
-        <div className="character">
-            <span className="name">{text}</span>
-            <span className="cross" data-index={index} onClick={function(){}}>
-            <i className="icon qingicon icon-guanbi2fill"></i></span>
-        </div>
-    )
-}
-
-const Component = (props) => {
 
     return(
         <div className="react-approve" >
-            <SectionTitle text={'会签范围'}/>
-            <Frame>
+            <div className="section-title">
+                <span>会签范围</span>
+                {titleComp}
+            </div>
 
-                <div style={{display:'flex'}}>
-                    <div style={{flex:'1'}}>
-                        <div>会签组1</div>
-                        <div><i className="icon qingicon icon-jiahao2fill"></i></div>
-                    </div>
-                    <div style={{flex:'3.5',whiteSpace:'normal'}}>
-                        <Character index={1} text={'text'} />
-                        <Character index={1} text={'text'} />
-                        <Character index={1} text={'text'} />
-                        <Character index={1} text={'text'} />
-                    </div>
-                </div>
-                
-            </Frame>
-            <Frame> 
-                <div style={{display:'flex'}}>
-                    <div style={{flex:'1'}}>
-                        <div>会签组2</div>
-                        <div></div>
-                    </div>
-                    <div style={{flex:'3.5'}}>
-                        <div>添加审批人员</div>
-                    </div>
-                </div>
-            </Frame>            
+            <Group {...props}/>
+            <div className="and">与</div>
+            <Group {...props}/>
+
+            
             <div className="section-title">审批规则</div>
             <div className="content">需每个会签范围内至少一名代表审批通过方可会签通过</div>
+
+           
         </div>
     )
 }

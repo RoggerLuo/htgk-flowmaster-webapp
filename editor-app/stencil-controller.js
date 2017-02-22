@@ -595,6 +595,7 @@ angular.module('activitiModeler')
             // 这个方法的目的是把userTask的边框颜色变回来
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE, function(event) {
                 if ($scope.lastSelectedUserTaskId) {
+                    if(!jQuery('#' + $scope.lastSelectedUserTaskId)[0]){return false}
                     jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[1].style.stroke = 'rgb(187, 187, 187)'
                     $scope.lastSelectedUserTaskId = false
                 }
