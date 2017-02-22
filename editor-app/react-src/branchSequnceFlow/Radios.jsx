@@ -1,4 +1,5 @@
 import React,{createClass} from 'react';
+import { connect } from 'react-redux'
 
 const Radios = ({mode1,mode2}) => {
     return (
@@ -13,5 +14,22 @@ const Radios = ({mode1,mode2}) => {
             </label> 
         </div>)
 }
+const mapStateToProps = (state) => {
+    return {state}
+}
+const mapDispatchToProps = (dispatch) => {
+    const mode1 =()=>{
+        dispatch({type:'switchRadio',value:'dropdown'})
+    }
+    const mode2 =()=>{
+        dispatch({type:'switchRadio',value:'text'})
+    }
 
-export default Radios
+    return {mode1,mode2}
+}
+const RadiosContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Radios)
+
+export default RadiosContainer

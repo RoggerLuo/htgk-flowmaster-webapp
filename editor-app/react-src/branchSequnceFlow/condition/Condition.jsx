@@ -2,15 +2,16 @@ import React,{createClass} from 'react';
 import RuleContainer from '../RuleContainer'
 import Header from './Header'
 
-const Condition = ({conditionMode,index,menuDisplay,ruleData,headerProps,index1,ruleMode}) => {
+const Condition = ({conditionMode,deleteCondition,menuDisplay,ruleData,headerProps,index1,ruleMode}) => {
     let deleteDisplay = 'none'
     let border = '1px solid #dde4ef'
+    
     if(conditionMode == 'delete'){
         deleteDisplay = ''
-        border = '1px solid #dde4ef'
+        border = '1px solid red'
     }else{
         deleteDisplay = 'none'
-        border = '1px solid white'
+        border = '1px solid #dde4ef'
     }
     return (
         <div className="solid-container-container">
@@ -30,7 +31,7 @@ const Condition = ({conditionMode,index,menuDisplay,ruleData,headerProps,index1,
                 })}
             </div>
             <i className="icon qingicon icon-guanbi2fill icon-red-close-for-condition" 
-                onClick={()=>{deleteCondition(this.props.index)}} 
+                onClick={()=>{deleteCondition(index1)}} 
                 style={{display:deleteDisplay}}>
             </i>
         </div>

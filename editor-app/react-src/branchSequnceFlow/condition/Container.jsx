@@ -52,24 +52,18 @@ const ConditionContainer = createClass({
             toggleMenu:this.toggleMenu,
             del:this.deleteStart,
             cancel:this.deleteCancel,
-            isDots:!((this.state.conditionMode=='delete') && (ruleData.length != 0)),
-            add:this.addRule
+            isDots:!((this.state.ruleMode=='delete') && (ruleData.length != 0)),
+            add:this.addRule,
+            index:this.props.index
         }
         const index1 = this.props.index
         const ruleMode = this.state.ruleMode
+        const conditionMode = this.props.conditionMode
         return (
-            <Condition {...{ruleData,headerProps,index1,ruleMode}}/>
+            <Condition {...{ruleData,headerProps,index1,ruleMode,conditionMode,deleteCondition:this.props.deleteCondition}}/>
         )
     }
 })
-// ruleData
-/*
-{
-    border:'1px solid white',
-    display:'none'
-}})       
-
-*/
 
 const mapStateToProps = (state) => {
     const elementFound = state.branch.dataRepo.filter((el,index)=>{
@@ -83,8 +77,10 @@ const mapDispatchToProps = (dispatch) => {
     const addRule = (index) => {
         dispatch({type:'addRule',index})        
     }
-
-    return {addRule}
+    const deleteCondition = (index) => {
+        dispatch({type:'deleteCondition',conditionIndex:index})        
+    }
+    return {addRule,deleteCondition}
 }
 const ConditionContainer2 = connect(
     mapStateToProps,

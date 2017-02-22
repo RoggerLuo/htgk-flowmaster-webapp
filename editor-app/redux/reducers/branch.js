@@ -8,11 +8,6 @@ let initial = {
     id:'',
     radio:'dropdown',
     conditionMode:'normal',
-
-    conditionDeleteControl:{
-        display:'none',
-        border:'1px solid #dde4ef'
-    },
     dataRepo:[
         {
             id:'test',
@@ -40,7 +35,7 @@ let initial = {
                 }
             ],
             click(){},
-            choosedIndex:'字段'
+            defaultText:'字段'
         },
         entry2:{
             options:[
@@ -58,7 +53,7 @@ let initial = {
                 }
             ],
             click(){},
-            choosedIndex:'请选择'
+            defaultText:'请选择'
         },
         entry3:{
             options:[
@@ -76,7 +71,7 @@ let initial = {
                 }
             ],
             click(){},
-            choosedIndex:'='
+            defaultText:'='
         }
     }
 }
@@ -91,6 +86,10 @@ let initial = {
 const Reducer = (state = initial, action) => {
     const data = fromJS(state)
     switch (action.type) {
+        case 'switchRadio':
+            return Object.assign({}, state, {
+                radio:action.value
+            })
         case 'switchApproveData':
             return data.updateIn(['id'], 'initial', (el) => {
                 return action.nextId
@@ -98,11 +97,11 @@ const Reducer = (state = initial, action) => {
 
         case 'conditionDeleteMode':
             return Object.assign({}, state, {
-                conditionDeleteStyle: {display:'',border:'1px solid red'}
+                conditionMode:'delete'
             })
         case 'closeConditionDeleteMode':
             return Object.assign({}, state, {
-                conditionDeleteStyle: {display:'none',border:'1px solid #dde4ef'}
+                conditionMode:'normal'
             })
         case 'addCondition':
             let repoIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
@@ -119,18 +118,18 @@ const Reducer = (state = initial, action) => {
         case 'addRule':
             let repoIndex2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
             return data.updateIn(['dataRepo',repoIndex2,'conditions',action.index],'initial',(el)=>{
-                return el.push([])
+                return el.push( fromJS({entry1:'initial',entry2:'initial',entry3:'initial',input:''}) )
             }).toJS()
 
         case 'deleteCondition':
             let repoIndexDelete = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
-            return data.updateIn(['dataRepo',repoIndexDelete,'conditionGroups'],'inital',(el)=>{
+            return data.updateIn(['dataRepo',repoIndexDelete,'conditions'],'inital',(el)=>{
                 return el.delete(action.conditionIndex)
             }).toJS()
 
         case 'deleteRule':
             let repoIndexDelete2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
-            return data.updateIn(['dataRepo',repoIndexDelete2,'conditionGroups',action.groupIndex],'inital',(el)=>{
+            return data.updateIn(['dataRepo',repoIndexDelete2,'conditions',action.groupIndex],'inital',(el)=>{
                 return el.delete(action.ruleIndex)
             }).toJS()
 
@@ -140,7 +139,7 @@ const Reducer = (state = initial, action) => {
             })
         case 'branchUpdate':
             let repoIndex3 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
-            return data.updateIn(['dataRepo',repoIndex3,'conditionGroups',action.groupIndex,action.ruleIndex],'inital',(el)=>{
+            return data.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,action.ruleIndex],'inital',(el)=>{
                 return el.set(action.entryIndex,action.value)
             }).toJS()
         default:

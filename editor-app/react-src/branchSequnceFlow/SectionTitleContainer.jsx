@@ -24,8 +24,8 @@ const SectionTitle = ({text,widgetDisplay,cancel,add,del}) => {
 }
 const mapStateToProps = (state) => {
     const findElement = state.branch.dataRepo.filter((el,index)=>{return el.id == state.branch.id})
-    const conditionGroups = findElement[0] && findElement[0].conditionGroups || []
-    let widgetDisplay = (state.branch.conditionDeleteControl.display =='') && (conditionGroups.length != 0) 
+    const conditions = findElement[0] && findElement[0].conditions || []
+    let widgetDisplay = (state.branch.conditionMode =='delete') && (conditions.length != 0) 
     return {widgetDisplay}
 }
 const mapDispatchToProps = (dispatch) => {
