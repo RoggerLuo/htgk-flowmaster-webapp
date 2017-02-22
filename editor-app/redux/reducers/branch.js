@@ -86,6 +86,16 @@ let initial = {
 const Reducer = (state = initial, action) => {
     const data = fromJS(state)
     switch (action.type) {
+        case 'initCondition':
+            let initIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
+            if (!initIndex && (initIndex != 0) ) { //如果nextRepoIndex不存在
+                const newCreate = fromJS({ id: state.id, conditions: [[{entry1:'initial',entry2:'initial',entry3:'initial',input:''}]] })
+                return data.updateIn(['dataRepo'], 'initial', (el) => {
+                    return el.push(newCreate)
+                }).toJS()
+            }
+            return state
+
         case 'switchRadio':
             return Object.assign({}, state, {
                 radio:action.value
@@ -106,13 +116,13 @@ const Reducer = (state = initial, action) => {
         case 'addCondition':
             let repoIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
             if (!repoIndex && (repoIndex != 0) ) { //如果nextRepoIndex不存在
-                const newCreate = fromJS({ id: state.id, conditions: [[]] })
+                const newCreate = fromJS({ id: state.id, conditions: [[{entry1:'initial',entry2:'initial',entry3:'initial',input:''}]] })
                 return data.updateIn(['dataRepo'], 'initial', (el) => {
                     return el.push(newCreate)
                 }).toJS()
             }
             return data.updateIn(['dataRepo',repoIndex],'initial',(el)=>{
-                return el.set('conditions',el.get('conditions').push([]))
+                return el.set('conditions',el.get('conditions').push(fromJS([{entry1:'initial',entry2:'initial',entry3:'initial',input:''}])))
             }).toJS()
 
         case 'addRule':

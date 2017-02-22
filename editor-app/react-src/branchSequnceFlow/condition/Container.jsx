@@ -45,7 +45,9 @@ const ConditionContainer = createClass({
         this.closeMenu()
     },
     render(){
-        const ruleData = this.props.conditions[this.props.index]
+
+        const ruleData = this.props.conditions[this.props.index]||[]
+
         const headerProps = {
             close:this.closeMenu,
             display:this.state.menuDisplay,
