@@ -2,7 +2,7 @@ import React,{createClass} from 'react';
 import { render } from 'react-dom'
 import Dropdown from '../basicComp/Dropdown'
 import DialoguePopup from '../basicComp/DialoguePopup'
-import SoftContainer from '../basicComp/SoftContainer'
+// import SoftContainer from '../basicComp/SoftContainer'
 import Boardbutton from '../basicComp/Boardbutton'
 import CharactersList from '../basicComp/CharactersList'
 import store from '../../redux/configureStore.js'
@@ -147,6 +147,17 @@ const boardbutton=(props)=>{
             },
         ]
     }
+}
+
+const SoftContainer = ({children}) => {
+    return(
+        <div className="soft-container-container" >
+            <div className="soft-container" style={{border:"1px solid red"}}>
+                {children}
+            </div>
+            <i className="icon qingicon icon-guanbi2fill" style={{margin: '-8px'}}></i>
+        </div>
+    )
 }
 
 const charactersList = (props)=>{

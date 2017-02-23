@@ -1,16 +1,41 @@
-// import {fromJS,List, Map} from 'immutable';
-// return state.set('visibilityStatus','hidden')
+import {fromJS,List, Map} from 'immutable';
 
 const initial = {
     groups:[
         {text:'上一级领导'},
     ],
-
     
 }
 
+//只有一个的
+const example = {
+    data:[ //循环出现的
+        [], //会签组1
+        [], //会签组2
+        [   //会签组3
+            {text:'',value:'',id:'等什么乱七八糟的'}, //循环出现character
+            {text:'',value:'',id:'等什么乱七八糟的'},
+            {text:'',value:'',id:'等什么乱七八糟的'}
+        ]
+    ],
+    mode:'delete'
+}
 const Reducer = (state = initial, action) => {
+    const data = fromJS(state)
     switch (action.type) {
+        case 'modeChange':
+            return ''
+        case 'addGroup':
+            return ''
+        case 'deleteGroup':
+            return ''
+        case 'addCharacter':
+            return ''
+        case 'deleteCharacter':
+            return data.updateIn(['data',aciton.groupIndex],'initial',(el)=>{
+                return el.delete(aciton.characterIndex)
+            }).toJS()
+
         case 'pushApproveList':
             let flag = state.approveList.some((el,index)=>{
                 if(el.text == action.item.text){
@@ -41,79 +66,6 @@ const Reducer = (state = initial, action) => {
                 bigPopupOfChooseStaff: ''
             })
 
-
-        /* boardButton */
-        case 'changeUserTaskBoardbuttonVisibility':
-            if (state.UserBoardbuttonVisibilityStatus != 'visible') {
-                return Object.assign({}, state, {
-                    UserBoardbuttonVisibilityStatus: 'visible'
-                })
-            } else {
-                return Object.assign({}, state, {
-                    UserBoardbuttonVisibilityStatus: 'hidden'
-                })
-            }
-        case 'closeUserTaskBoardbuttonVisibility':
-            return Object.assign({}, state, {
-                UserBoardbuttonVisibilityStatus: 'hidden'
-            })
-
-
-        /* orgDialogue */
-        /* orgDialogue */
-        case 'openOrgDialogue':
-            return Object.assign({}, state, {
-                orgDialogueVisibilityStatus: 'visible'
-            })
-
-        case 'closeOrgDialogue':
-            return Object.assign({}, state, {
-                orgDialogueVisibilityStatus: 'hidden'
-            })
-
-        case 'updateOrgDropDownChoosedOption':
-            return Object.assign({}, state, {
-                orgDropDownChoosedOption: action.text
-            })
-
-        /* org dropdown*/
-
-
-
-        /* superDialogue */
-        case 'openSuperDialogue':
-            return Object.assign({}, state, {
-                superDialogueVisibilityStatus: 'visible'
-            })
-
-        case 'closeSuperDialogue':
-            return Object.assign({}, state, {
-                superDialogueVisibilityStatus: 'hidden'
-            })
-
-
-        /* dropdown */
-        case 'toggleSuperDropDownVisibility':
-            if (state.superDropDownVisibilityStatus != '') {
-                return Object.assign({}, state, {
-                    superDropDownVisibilityStatus: ''
-                })
-
-            } else {
-                return Object.assign({}, state, {
-                    superDropDownVisibilityStatus: 'none'
-                })
-
-            }
-        case 'closeSuperDropDownVisibility':
-            return Object.assign({}, state, {
-                superDropDownVisibilityStatus: 'none'
-            })
-
-        case 'updateSuperDropDownChoosedOption':
-            return Object.assign({}, state, {
-                superDropDownChoosedOption: action.text
-            })
 
 
         default:

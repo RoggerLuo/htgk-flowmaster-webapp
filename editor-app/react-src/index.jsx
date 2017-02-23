@@ -5,7 +5,7 @@ import './icon.less'
 import './basic.less'
 
 import approveComponent from './approveNode/Component'
-import parallelApproveComponent from './parallelApprove/component'
+import parallelApproveComponent from './parallelApprove/MainCompContainer'
 import branchSequenceFlowComponent from './branchSequnceFlow/Component'
 import popupStart from './popup/wrapContainer'
 import store from '../redux/configureStore'
