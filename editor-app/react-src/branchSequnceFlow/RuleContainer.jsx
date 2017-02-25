@@ -1,5 +1,5 @@
 import React,{createClass} from 'react';
-import Dropdown from '../basicComp/branch-dropdown-copy'
+import Dropdown from '../basicComp/branch-dropdown'
 import store from '../../redux/configureStore.js'
 import { connect } from 'react-redux'
 

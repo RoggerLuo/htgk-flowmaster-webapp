@@ -2,63 +2,66 @@ import React,{createClass} from 'react';
 import { render } from 'react-dom'
 import './branch-dropdown.less'
 
-const Dropdown = createClass({
+const Option = ({click,text}) =>{
+
+    return (
+        <div className="drop-down-option" onClick={click}>
+            {text||'empty'}
+        </div>
+    )           
+}
+
+const Dropdown = ({options,choose,choosedText,display,toggle,close}) => {
+    return (
+        <div className="branch-dropdown" style={{flex:'1'}}>
+            <div style={{display: 'flex'}} className="drop-down-choosed" onClick={toggle}>
+                <div>{choosedText}</div> <div className="inverted-triangle"><i className="icon qingicon icon-sanjiao1"></i></div>
+            </div>
+            <table className="drop-down-table" style={{zIndex:'9999',width: '31.8%'}} >
+                <tbody>
+                    <tr style={{display:'none'}}>
+                        <td className="drop-down-choosed stop-propagation" onClick={toggle} style={{color:'black',display:'flex',justifyContent: 'space-between'}}>
+                            <div>{choosedText}</div> <div className="inverted-triangle"><i className="icon qingicon icon-sanjiao1"></i></div>
+                        </td>
+                    </tr>
+                    <tr className="drop-down-options" style={{display:display}}>
+                        <td>
+                            {options.map((el,index)=>{
+                                return(<Option click={()=>{close();choose(index)}} text={el.text} key={index}/>)
+                            })}
+                        </td>                
+                    </tr>    
+                </tbody>
+            </table>
+            <div className="big-cover" style={{display:display}} onClick={close}></div>
+        </div>
+    )
+}
+
+
+const DropdownContainer = createClass({ 
     getInitialState(){
-        return {visibleStatus:'none',zIndex:'1',choosedOption:this.props.choosedOption}
-    },
-    toggle(e){
-        if(this.state.visibleStatus != ''){
-            this.setState({'visibleStatus':'',zIndex:'99999'})
-        }else{
-            this.setState({'visibleStatus':'none',zIndex:'1'})
+        return {
+            display:'none',
         }
     },
-    close(e){
-        this.setState({'visibleStatus':'none',zIndex:'1'})
-        this.publicOnClick(e)
+    toggle(){
+        if(this.state.display == 'none'){
+            this.setState({display:''})
+        }else{
+            this.setState({display:'none'})
+
+        }
     },
-    publicOnClick(e){
+    close(){
+        this.setState({display:'none'})
     },
-    render(){
-        return(
-            <div className="branch-dropdown" style={{flex:'1'}}>
-                <div style={{display: 'flex'}} className="drop-down-choosed" onClick={this.toggle}>
-                    <div>{this.state.choosedOption}</div> <div className="inverted-triangle"><i className="icon qingicon icon-sanjiao1"></i></div>
-                </div>
-                <table className="drop-down-table" style={{zIndex:this.state.zIndex,width: '31.8%'}} >
-                    <tbody>
-                        <tr style={{display:'none'}}>
-                            <td className="drop-down-choosed stop-propagation" onClick={this.toggle} style={{color:'black',display:'flex',justifyContent: 'space-between'}}>
-                                <div>{this.state.choosedOption}</div> <div className="inverted-triangle"><i className="icon qingicon icon-sanjiao1"></i></div>
-                            </td>
-                        </tr>
-                        <tr className="drop-down-options" style={{display:this.state.visibleStatus}}>
-                            <td>
-                                {this.props.options.map((el,index)=>{
-                                    return(
-                                        <div 
-                                            key={index} 
-                                            className="drop-down-option" 
-                                            onClick={
-                                                (e)=>{
-                                                    el.onClick(e)
-                                                    this.close(e)
-                                                    this.setState({choosedOption:el.text})
-                                                }
-                                            }
-                                        >
-                                            {el.text}
-                                        </div>                                                    
-                                    )
-                                })}
-                            </td>                
-                        </tr>    
-                    </tbody>
-                </table>
-                <div className="big-cover" style={{display:this.state.visibleStatus}} onClick={this.close}></div>
-            </div>
+
+    render(){        
+        return (
+            <Dropdown {...{options:this.props.options,choose:this.props.choose,choosedText:this.props.choosedText,display:this.state.display,toggle:this.toggle,close:this.close}}/>
         )
     }
 })
 
-export default Dropdown
+export default DropdownContainer
