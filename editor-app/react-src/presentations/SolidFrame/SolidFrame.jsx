@@ -1,19 +1,23 @@
 import React,{createClass} from 'react';
-import './SolidFrame.less'
+import './style'
 
-const SolidFrame = ({click,modeSwitch,children}) => {
+const SolidFrame = ({del,mode,children}) => { //click点击删除,modeSwitch=='delete',children
     let style = "1px solid #bac2ce"
-    if(modeSwitch=='delete'){
+    let display = "none"
+    if(mode=='delete'){
         style = "1px solid red"
+        display = ''
+
     }else{
         style = "1px solid #bac2ce"
+        display = 'none'
     }
     return(
         <div className="solid-frame-container">
             <div className="solid-frame" style={{border:style}}>
                 {children}
             </div>
-            <i onClick={click} className="icon qingicon icon-guanbi2fill" style={{margin: '-8px',color:'red'}}></i>
+            <i onClick={del} className="icon qingicon icon-guanbi2fill" style={{display:display,margin: '-8px',color:'red'}}></i>
         </div>
     )
 }

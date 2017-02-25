@@ -1,72 +1,78 @@
 import {fromJS,List, Map} from 'immutable';
 
 const initial = {
-    groups:[
-        {text:'上一级领导'},
+    repo:[
+        
+        {
+            data:[ //循环出现的
+                []
+            ],
+            id:'initial'
+        },
+
     ],
-    
+    mode:'normal',
+    id:'initial'
 }
 
-//只有一个的
-const example = {
-    data:[ //循环出现的
-        [], //会签组1
-        [], //会签组2
-        [   //会签组3
-            {text:'',value:'',id:'等什么乱七八糟的'}, //循环出现character
-            {text:'',value:'',id:'等什么乱七八糟的'},
-            {text:'',value:'',id:'等什么乱七八糟的'}
-        ]
-    ],
-    mode:'delete'
-}
 const Reducer = (state = initial, action) => {
+
     const data = fromJS(state)
+    const currentIndex = data.get('repo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
+
     switch (action.type) {
-        case 'modeChange':
-            return ''
-        case 'addGroup':
-            return ''
-        case 'deleteGroup':
-            return ''
-        case 'addCharacter':
-            return ''
-        case 'deleteCharacter':
-            return data.updateIn(['data',aciton.groupIndex],'initial',(el)=>{
-                return el.delete(aciton.characterIndex)
+        case 'parallelInit':
+            if (!currentIndex && (currentIndex != 0) ) { //如果nextRepoIndex不存在
+                const newCreate = fromJS({ id: state.id, data:[[]]})
+                return data.updateIn(['repo'], 'initial', (el) => {
+                    return el.push(newCreate)
+                }).toJS()
+            }
+            return state
+
+        case 'switchElement':
+            return data.updateIn(['id'], 'initial', (el) => {
+                return action.nextId
             }).toJS()
 
-        case 'pushApproveList':
-            let flag = state.approveList.some((el,index)=>{
-                if(el.text == action.item.text){
-                    alert('已经存在"'+action.item.text+'"的选项')
+        case 'modeChange':
+            return Object.assign({}, state, {
+                mode: action.value
+            })
+        case 'addGroup':
+            if (!currentIndex && (currentIndex != 0) ) { //如果 不存在
+                const newCreate = fromJS({ id: state.id, data: [[]] })
+                return data.updateIn(['repo'], 'initial', (el) => {
+                    return el.push(newCreate)
+                }).toJS()
+            }
+            return data.updateIn(['repo',currentIndex],'initial',(el)=>{
+                return el.set('data',el.get('data').push([]))
+            }).toJS()
+
+        case 'deleteGroup':
+            return data.updateIn(['repo',currentIndex,'data'],'initial',(el)=>{
+                return el.delete(action.groupIndex)
+            }).toJS()
+
+        case 'addCharacter':
+            const flag = state.repo[currentIndex].data.some((el, index) => {
+                if (el.text == action.item.text) {
+                    alert('已经存在"' + action.item.text + '"的选项')
                     return true
                 }
             })
-            if(flag){return state}
-            return Object.assign({}, state, {
-                approveList: state.approveList.concat([action.item])
-            })
+            if (flag) {
+                return state 
+            }
+            return data.updateIn(['repo',currentIndex,'data',action.index],'initial',(el)=>{
+                return el.push(action.item)
+            }).toJS()
 
-        case 'removeApproveList':
-            let tempArr = [].concat(state.approveList)
-            // tempArr.splice(tempArr.indexOf(action.item),1)
-            tempArr.splice(action.index,1)
-            return Object.assign({}, state, {
-                approveList: tempArr
-            })
-
-
-        case 'closeBigPopupOfChooseStaff':
-            return Object.assign({}, state, {
-                bigPopupOfChooseStaff: 'none'
-            })
-        case 'openBigPopupOfChooseStaff':
-            return Object.assign({}, state, {
-                bigPopupOfChooseStaff: ''
-            })
-
-
+        case 'deleteCharacter':
+            return data.updateIn(['repo',currentIndex,'data',action.groupIndex],'initial',(el)=>{
+                return el.delete(action.characterIndex)
+            }).toJS()
 
         default:
             return state

@@ -4,7 +4,7 @@ import './dropdown.less'
 const Dropdown = createClass({
     getInitialState(){
         const choosedOption = this.props.data[0]
-        this.props.choosed(choosedOption)
+        // this.props.choosed(choosedOption)
         return {visibleStatus:'none',zIndex:'1',choosedOption:choosedOption}
     },
     toggle(e){

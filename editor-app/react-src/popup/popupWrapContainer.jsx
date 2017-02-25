@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import { connect } from 'react-redux'
 import { Provider } from 'react-redux'
 import store from '../../redux/configureStore.js'
-import Popup from './component/component'
+import PopupWrap from '../presentations/PopupWrap/PopupWrap'
 
 const Component = ({width,title,confirm,content,display,dispatch,height}) => {
     const options = {
@@ -19,14 +19,13 @@ const Component = ({width,title,confirm,content,display,dispatch,height}) => {
 
     if(Content != ''){
         return (
-            <Popup {...options}>
+            <PopupWrap {...options}>
                 <Content />
-            </Popup>
+            </PopupWrap>
         )
     }else{
         return (
-            <Popup {...options}>
-            </Popup>
+            <PopupWrap {...options}></PopupWrap>
         )
     }
 }

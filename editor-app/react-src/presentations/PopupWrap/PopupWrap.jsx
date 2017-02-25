@@ -1,7 +1,7 @@
 import React,{createClass} from 'react';
 import './style'
 
-const Component = ({cancel,confirm,display,children,title,height,width}) => {
+const Component = ({title,cancel,confirm,display, /*后面可选*/ children,height,width}) => {
     const confirmDecorated = ()=>{
         confirm()
         cancel()
@@ -18,7 +18,9 @@ const Component = ({cancel,confirm,display,children,title,height,width}) => {
                 </div>
                 
                 <div className="content">
-                    {children}
+                    <div className="innerContent">
+                        {children}
+                    </div>
                 </div>
 
                 <div className="footer">
@@ -35,4 +37,5 @@ const Component = ({cancel,confirm,display,children,title,height,width}) => {
         </div>
     )
 }
+
 export default Component

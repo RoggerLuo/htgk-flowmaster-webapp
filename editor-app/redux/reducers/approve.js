@@ -1,7 +1,6 @@
 import { toJS, fromJS, List, Map } from 'immutable';
 
 const initial = {
-    // approveList: { id: '', data: [] },
     approveListRepo: [],
     id:''
 }
@@ -10,7 +9,7 @@ const Reducer = (state = initial, action) => {
     let data = fromJS(state)
 
     switch (action.type) {
-        case 'switchApproveData':
+        case 'switchElement':
             return data.updateIn(['id'], 'initial', (el) => {
                 return action.nextId
             }).toJS()

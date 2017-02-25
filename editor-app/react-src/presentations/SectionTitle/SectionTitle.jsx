@@ -2,9 +2,9 @@ import React,{createClass} from 'react';
 import { render } from 'react-dom'
 import './style'
 
-const SectionTitle = ({text,modeSwitch,add,del,cancel}) => {
+const SectionTitle = ({text,mode,add,del,cancel}) => {
     let rightSide=''
-    if(modeSwitch == 'icon'){
+    if(mode == 'icon'){
         rightSide = (
             <span>
                 <i className="icon qingicon icon-add" onClick={add}></i>

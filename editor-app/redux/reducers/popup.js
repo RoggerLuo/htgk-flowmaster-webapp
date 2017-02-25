@@ -15,12 +15,11 @@ let initial = {
 const Reducer = (state = initial, action) => {
     const data = fromJS(state)
     switch (action.type) {
-
         case 'callPopup':
             return Object.assign({}, state, {
                 confirm:action.confirm||function(){},
                 content:action.content||'',
-                title:action.title||"请输入title",
+                title:action.text||"请输入title",
                 display:'',
                 height:action.height||'65%',
                 width:action.width||'50%'
@@ -30,25 +29,6 @@ const Reducer = (state = initial, action) => {
                 display:'none'
             })
 
-            // case 'addCondition':
-            //     return data.set('conditionGroups',data.get('conditionGroups').push(List())).toJS()
-            // case 'deleteCondition':
-            //     return data.updateIn(['conditionGroups'],'inital',(el)=>{
-            //         return el.delete(action.conditionIndex)
-            //     }).toJS()
-
-            // case 'deleteRule':
-            //     return data.updateIn(['conditionGroups',action.groupIndex],'inital',(el)=>{
-            //         return el.delete(action.ruleIndex)
-            //     }).toJS()
-            // case 'modeChange':
-            //     return Object.assign({}, state, {
-            //         mode: action.value
-            //     })
-            // case 'branchUpdate':
-            //     return data.updateIn(['conditionGroups',action.groupIndex,action.ruleIndex],'inital',(el)=>{
-            //         return el.set(action.entryIndex,action.value)
-            //     }).toJS()
         default:
             return state
     }

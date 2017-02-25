@@ -585,11 +585,20 @@ angular.module('activitiModeler')
             window.getModelJson = $scope.getModelJson
 
 
-            $scope.switchApproveData = function(prevId, nextId,selectedShape) {
-                window.reduxStore.dispatch({ type: 'switchApproveData', prevId, nextId })
-                if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title == 'Exclusive gateway') {
-                    window.reduxStore.dispatch({ type: 'initCondition' })
+            $scope.switchElmentId = function(prevId, nextId,selectedShape) {
+                window.reduxStore.dispatch({ type: 'switchElement', prevId, nextId })
+                if (selectedShape.incoming[0]){
+                    let incomming = selectedShape.incoming[0]._stencil._jsonStencil.title
+                    if( incomming == 'Exclusive gateway'){
+                        window.reduxStore.dispatch({ type: 'initCondition' })
+                    }
                 }
+                
+                let name = selectedShape._stencil._jsonStencil.title
+                if( name == 'Mule task'){
+                    window.reduxStore.dispatch({ type: 'parallelInit' })
+                }
+
             }
 
             // 这个方法的目的是把userTask的边框颜色变回来
@@ -652,7 +661,7 @@ angular.module('activitiModeler')
                     }
                 }
                 // console.log($scope.propertyTpl)
-                $scope.switchApproveData($scope.lastSelectedUserTaskId, selectedShape.id,selectedShape)
+                $scope.switchElmentId($scope.lastSelectedUserTaskId, selectedShape.id,selectedShape)
 
 
             });

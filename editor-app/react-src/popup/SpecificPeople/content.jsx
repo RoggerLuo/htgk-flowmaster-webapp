@@ -25,34 +25,4 @@ const Component = ({title,confirm,content,display,dispatch,height}) => {
         </div>
     )
 }
-// const Component2 = (<div>
-//             <input/>
-//             <Tree /><StaffList />
-//             <input/>
-//         </div>)
 export default Component
-
-    
-// const mapStateToProps = (state) => {
-//     return state.popup
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//     return {dispatch}
-// }
-
-// const ComponentContainer = connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(Component)
-
-
-// export default function(){
-//     render(
-//         <Provider store={store}>
-//             <ComponentContainer />
-//         </Provider>
-//         ,
-//         document.getElementById('hugePopup')
-//     );
-// }

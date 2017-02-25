@@ -2,152 +2,14 @@ import React,{createClass} from 'react';
 import { render } from 'react-dom'
 import DialoguePopup from '../basicComp/DialoguePopup'
 import SoftContainer from '../basicComp/SoftContainer'
-import Boardbutton from '../basicComp/Boardbutton'
+import BoardbuttonContainer from '../BoardbuttonContainer'
 import CharactersList from '../basicComp/CharactersList'
 import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
-import certainPersonContent from '../popup/certainPerson/content'
-import superContent from '../popup/super/content'
-import organContent from '../popup/organ/content'
+import saveHandler from './save'
 import  './style'
 
-const saveHandler = () => {
-    let data = store.getState().approve.approveListRepo.filter((el,index)=>{
-        return el.id == store.getState().approve.id
-    })[0].data
-    let string = ''
-    data && data.forEach((el,index)=>{
-        switch(el.cate){
-            case 'boss':
-                string += 'boss' + '('+ el.value +')'
-                break
-            case 'role':
-                string += 'role' + '('+ el.value2 +':'+ el.value +')'
-                break
-            case 'user':
-                break
-        }
-    })
-    let value = {
-        "items" : 
-            [ 
-                {
-                    "assignment_type" : "candidate",
-                    "resourceassignmentexpr" : string
-                } 
-            ],
-        "totalCount" : 1
-    }
-    window.updatePropertyInModel({key:'usertaskassignment',value:value})
-    console.log(JSON.stringify(getJson()))
-}
-
-
-const orgDropdown = (props)=>{
-    const publicMethod = function(){
-        props.dispatch({type:'updateOrgDropDownChoosedOption','text':this.text})
-    }
-    const data = [{text:'一'},{text:'二'},{text:'三'}]
-    const options = data.map((el)=>{
-        el.onClick=publicMethod
-        return el
-    })
-    return  {   
-        props:{
-            visibleStatus:props.orgDropDownVisibilityStatus,
-            choosedOption:props.orgDropDownChoosedOption,
-            options:options
-        },
-        init(){
-            if(data[0]){
-                props.dispatch({type:'updateOrgDropDownChoosedOption','text':data[0].text})
-            }else{
-                props.dispatch({type:'updateOrgDropDownChoosedOption','text':''})
-            }
-        }
-    }
-}
-const orgDialogue = (props)=>{
-    const add = () => {
-        props.dispatch({type:'pushApproveList',item:{cate:'role',value:props.orgDropDownChoosedOption,text:'上'+props.orgDropDownChoosedOption+'级分管的角色类型'}})
-        saveHandler()
-    }
-    const close = () => {
-        props.dispatch({type:'closeOrgDialogue'})
-    }
-    const open = () => {
-        props.dispatch({type:'openOrgDialogue'})
-    }
-    return {
-        props:{
-            visibleStatus:props.orgDialogueVisibilityStatus,
-            close:close,
-            confirm(){
-                add()
-                close()
-            }
-        },
-        open:open
-    }
-}
-
-
-const add = (category) => {
-    let text=''
-    switch(category){
-        case 'boss':
-            text = '上'+store.getState().dropdown.dropdown1.text+'级领导'
-        break
-        case 'role':
-            text = '最近'+store.getState().dropdown.dropdown1.text+'级分管，' + store.getState().dropdown.dropdown2.text
-        break
-        case 'user':
-            text = '上'+store.getState().dropdown.dropdown1.text+'级领导'
-        break
-    }
-    store.dispatch({
-        type:'pushApproveList',
-        item:{
-            cate:category,
-            value:store.getState().dropdown.dropdown1.value,
-            value2:store.getState().dropdown.dropdown2.value,
-            text
-        }
-    })   
-    saveHandler()
-}
-const action1 = {
-    type:'callPopup',
-    confirm:()=>{add('boss')},
-    content:superContent,
-    title:'添加发起人上级',
-    height:'45%',
-    width:'44%'
-}
-const action2 = {
-    type:'callPopup',
-    height:'45%',
-    confirm:()=>{add('role')},
-    content:organContent,
-    title:'添加机构角色',
-    width:'44%'
-}
-const action3 = {
-    height:'66%',
-    type:'callPopup',
-    confirm:()=>{add('user')},
-    content:certainPersonContent,
-    title:'添加特定人员'
-}
-const buttonOptions = {
-    title:'添加审批人员',
-    buttons:[
-        action1,
-        action2,
-        action3
-    ]
-}
 const charactersList = ()=>{
     const list = store.getState().approve.approveListRepo.filter((el,index)=>{
         return el.id == store.getState().approve.id
@@ -160,8 +22,35 @@ const charactersList = ()=>{
         }
     }
 }
-const Approve = ({approveListRepo,id,dispatch}) => {
+
+const CharactersList2 = ({data,clickCross}) => {
     
+    return(
+       <div className="characters">
+           {
+                data.map((el,index)=>{
+                   let or = ''
+                   
+                   if( index >= 1 ){
+                       or = <span className="or">或</span>
+                   }
+                   
+                   return (
+                       <div key={index} className="single-container">
+                           {or}
+                           <div className="character">
+                               <span className="name">{el.text}</span><span className="cross" data-index={index} onClick={clickCross}>X</span>
+                           </div>
+                       </div>
+                   )
+               })
+            }
+       </div>
+    )
+}
+
+import save from './save'
+const Approve = ({approveListRepo,id,dispatch}) => {
     const list = approveListRepo.filter((el,index)=>{
         return el.id == id
     })
@@ -172,10 +61,23 @@ const Approve = ({approveListRepo,id,dispatch}) => {
             saveHandler()
         }
     }
+    const confirm = (item) => {
+        dispatch({
+            type:'pushApproveList',
+            item
+        })   
+    }
     return(
         <div className="react-approve">
             <div className="property-row-title">审批人员</div>            
-            <Boardbutton options={buttonOptions}/>        
+            <BoardbuttonContainer save={save} confirm={confirm}>
+                <div className="mybutton" >
+                    <span className="inverted-triangle">
+                        <i className="icon qingicon icon-add"></i>
+                    </span>
+                    添加审批人员
+                </div>
+            </BoardbuttonContainer>        
             
             <div className="character-container">
                 <CharactersList {...charactersData}/>
@@ -186,13 +88,8 @@ const Approve = ({approveListRepo,id,dispatch}) => {
         </div>
     )
 }
-// <DialoguePopup {...superDialogue(props).props}>
-    // 申请的上<Dropdown {...superDropdown(props).props}/>级领导
-// </DialoguePopup>
-/*            <DialoguePopup {...orgDialogue(props).props}>
-                最近<Dropdown {...orgDropdown(props).props}/>级分管 <input type="text" style={{width:'100px'}} placeholder="请选择角色类型"/>
-            </DialoguePopup>
-*/
+
+
 const mapStateToProps = (state) => {
     return state.approve
 }
@@ -215,3 +112,54 @@ export default function(){
         document.getElementById('approvePropertyCtrl')
     );
 }
+
+
+
+// const orgDropdown = (props)=>{
+//     const publicMethod = function(){
+//         props.dispatch({type:'updateOrgDropDownChoosedOption','text':this.text})
+//     }
+//     const data = [{text:'一'},{text:'二'},{text:'三'}]
+//     const options = data.map((el)=>{
+//         el.onClick=publicMethod
+//         return el
+//     })
+//     return  {   
+//         props:{
+//             visibleStatus:props.orgDropDownVisibilityStatus,
+//             choosedOption:props.orgDropDownChoosedOption,
+//             options:options
+//         },
+//         init(){
+//             if(data[0]){
+//                 props.dispatch({type:'updateOrgDropDownChoosedOption','text':data[0].text})
+//             }else{
+//                 props.dispatch({type:'updateOrgDropDownChoosedOption','text':''})
+//             }
+//         }
+//     }
+// }
+// const orgDialogue = (props)=>{
+//     const add = () => {
+//         props.dispatch({type:'pushApproveList',item:{cate:'role',value:props.orgDropDownChoosedOption,text:'上'+props.orgDropDownChoosedOption+'级分管的角色类型'}})
+//         saveHandler()
+//     }
+//     const close = () => {
+//         props.dispatch({type:'closeOrgDialogue'})
+//     }
+//     const open = () => {
+//         props.dispatch({type:'openOrgDialogue'})
+//     }
+//     return {
+//         props:{
+//             visibleStatus:props.orgDialogueVisibilityStatus,
+//             close:close,
+//             confirm(){
+//                 add()
+//                 close()
+//             }
+//         },
+//         open:open
+//     }
+// }
+
