@@ -20258,7 +20258,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			
 			this.toMoveShapes = this.toMoveShapes.findAll( function(shape) { return shape instanceof ORYX.Core.Node && 
 																			(shape.dockers.length === 0 || !elements.member(shape.dockers.first().getDockedShape()))});		
-																			
+																	
 			elements.each((function(shape){
 				if(!(shape instanceof ORYX.Core.Edge)) {return;}
 				
@@ -20319,6 +20319,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			this.oldDragBounds = newBounds.clone();
 
 			// Update and show the rectangle
+			// debugger
 			this.resizeRectangle(newBounds);
 			this.selectedRect.show();
 			

@@ -601,14 +601,7 @@ angular.module('activitiModeler')
 
             }
 
-            // 这个方法的目的是把userTask的边框颜色变回来
-            $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE, function(event) {
-                if ($scope.lastSelectedUserTaskId) {
-                    if(!jQuery('#' + $scope.lastSelectedUserTaskId)[0]){return false}
-                    jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[1].style.stroke = 'rgb(187, 187, 187)'
-                    $scope.lastSelectedUserTaskId = false
-                }
-            })
+            
 
             $scope.lastSelectedUserTaskId = false
             $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
@@ -619,7 +612,28 @@ angular.module('activitiModeler')
                 // console.log(new Date())
                 var shapes = event.elements;
                 var selectedShape = shapes.first(); //first方法..again
+                
+
+                /* ----UI color change ----*/
+                // 这段代码的目的是把userTask的边框颜色变回来
+                if ($scope.lastSelectedUserTaskId ) {
+                    if(!jQuery('#' + $scope.lastSelectedUserTaskId)[0]){return false}
+                    jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[1].style.stroke = 'black'//'rgb(187, 187, 187)'
+                    $scope.lastSelectedUserTaskId = false
+                }
+
+                /* 改变 正要选中 边框颜色的代码部分 */                
+                if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'User task')) {
+                    //控制边框颜色的办法
+                    jQuery('#' + selectedShape.id)[0].children[1].style.stroke = 'rgb(0,176,255)'
+                    $scope.lastSelectedUserTaskId = selectedShape.id
+                }
+                /* ----UI color change ----*/
+
+
+                /*罪魁祸首 。。。如果选中的是canvas我就把后面的事件全部屏蔽掉了 */
                 if (!selectedShape) {
+
                     $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
                     return;
                 }
@@ -629,15 +643,9 @@ angular.module('activitiModeler')
                 reduxStore.dispatch({ type: 'closeSuperDialogue' });
                 reduxStore.dispatch({ type: 'closeOrgDialogue' });
 
-                /* 改变 正要选中 边框颜色的代码部分 */
-                $timeout(function() {
-                    if (selectedShape._stencil._jsonStencil.title == 'User task') {
-                        //控制边框颜色的办法
-                        jQuery('#' + selectedShape.id)[0].children[1].style.stroke = 'rgb(0,176,255)'
-                        $scope.lastSelectedUserTaskId = selectedShape.id
-                    }
-                }, 150);
-                
+               
+
+
 
                 /* 
                     mini router 
@@ -1352,6 +1360,7 @@ angular.module('activitiModeler')
                         $scope.editor.executeCommands([command]);
                     }
                 } else {
+                    
                     var canAttach = false;
                     if (containedStencil.idWithoutNs() === 'BoundaryErrorEvent' || containedStencil.idWithoutNs() === 'BoundaryTimerEvent' ||
                         containedStencil.idWithoutNs() === 'BoundarySignalEvent' || containedStencil.idWithoutNs() === 'BoundaryMessageEvent' ||
@@ -1479,6 +1488,7 @@ angular.module('activitiModeler')
         $scope.dragCallback = function(event, ui) {
 
             if ($scope.dragModeOver != false) {
+                
 
                 var coord = $scope.editor.eventCoordinatesXY(event.pageX, event.pageY);
 
@@ -1531,6 +1541,9 @@ angular.module('activitiModeler')
                 } else {
                     var item = $scope.getStencilItemById(event.target.id);
 
+
+                    
+
                     var parentCandidate = aShapes.reverse().find(function(candidate) {
                         return (candidate instanceof ORYX.Core.Canvas || candidate instanceof ORYX.Core.Node || candidate instanceof ORYX.Core.Edge);
                     });
@@ -1539,6 +1552,7 @@ angular.module('activitiModeler')
                         $scope.dragCanContain = false;
                         return false;
                     }
+                    
 
                     if (item.type === "node") {
 

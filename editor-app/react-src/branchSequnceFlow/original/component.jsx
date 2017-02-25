@@ -66,7 +66,7 @@ const Component =   ({conditionDeleteStyle,id,dataRepo,prototype,mode}) => {
     // let titleComp=''
     // if((conditionDeleteStyle.display =='')&& (conditionGroups.length != 0)){
 
-    //     titleComp = (<span style={{color:'#00b0ff'}} onClick={closeDelete}>取消</span>)
+    //     titleComp = (<span style={{color:'#00B1FD'}} onClick={closeDelete}>取消</span>)
     // }else{
     //     titleComp = (<span>
     //         <i className="icon qingicon icon-add" onClick={addCondition}></i>

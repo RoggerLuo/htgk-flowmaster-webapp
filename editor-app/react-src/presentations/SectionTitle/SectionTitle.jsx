@@ -12,7 +12,7 @@ const SectionTitle = ({text,mode,add,del,cancel}) => {
             </span>
         )
     }else{
-        rightSide = (<span style={{color:'#00b0ff'}} onClick={cancel}>取消</span>)
+        rightSide = (<span style={{color:'#00B1FD'}} onClick={cancel}>取消</span>)
     }
     return (
         <div className="section-title">

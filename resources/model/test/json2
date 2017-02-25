@@ -34,7 +34,7 @@
         "stencil" : { "id" : "StartNoneEvent" }
       },
       { "bounds" : { "lowerRight" : { "x" : 325,
-                "y" : 185
+                "y" : 145
               },
             "upperLeft" : { "x" : 225,
                 "y" : 105

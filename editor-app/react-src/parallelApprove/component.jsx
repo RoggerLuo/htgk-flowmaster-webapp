@@ -196,7 +196,7 @@ const showDelete = ()=>{}
 const SectionTitle = ({text,widgetDisplay,cancel,add,del}) => {
     let widget=''
     if(widgetDisplay){
-        widget = (<span style={{color:'#00b0ff'}} onClick={cancel}>取消</span>)
+        widget = (<span style={{color:'#00B1FD'}} onClick={cancel}>取消</span>)
     }else{
         widget = (
             <span>

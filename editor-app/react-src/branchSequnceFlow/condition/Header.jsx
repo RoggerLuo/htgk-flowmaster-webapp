@@ -6,7 +6,7 @@ const Header = ({index,display,add,del,close,cancel,isDots,toggleMenu}) => {
         dots = (<span className="the3dots" onClick={toggleMenu}>•••</span>)
 
     }else{
-        dots = (<span style={{color:'#00b0ff',marginRight:'8px'}} onClick={cancel}>取消</span>)
+        dots = (<span style={{color:'#00B1FD',marginRight:'8px'}} onClick={cancel}>取消</span>)
 
     }
 
