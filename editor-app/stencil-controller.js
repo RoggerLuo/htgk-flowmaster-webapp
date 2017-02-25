@@ -619,13 +619,25 @@ angular.module('activitiModeler')
                 if ($scope.lastSelectedUserTaskId ) {
                     if(!jQuery('#' + $scope.lastSelectedUserTaskId)[0]){return false}
                     jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[1].style.stroke = 'black'//'rgb(187, 187, 187)'
+                    jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[0] &&  (jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[0].style.fill= 'black')
+
+                    // jQuery('#shapeTextInput')[0] && (jQuery('#shapeTextInput')[0].style.stroke = 'black')//'rgb(187, 187, 187)'
+
+                    
                     $scope.lastSelectedUserTaskId = false
+
                 }
 
                 /* 改变 正要选中 边框颜色的代码部分 */                
-                if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'User task')) {
+                if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'User task' 
+                    || selectedShape._stencil._jsonStencil.title == 'Mule task'
+                    )) {
                     //控制边框颜色的办法
-                    jQuery('#' + selectedShape.id)[0].children[1].style.stroke = 'rgb(0,176,255)'
+                    jQuery('#' + selectedShape.id)[0].children[1].style.stroke = '#00b0ff' //'rgb(0,176,255)'
+                    // jQuery('#shapeTextInput')[0] && (jQuery('#shapeTextInput')[0].style.stroke = '#00b0ff')//'rgb(187, 187, 187)'
+                    // debugger                    
+                    jQuery('#' + selectedShape.id)[0].children[2].children[0] && (jQuery('#' + selectedShape.id)[0].children[2].children[0].style.fill= '#00b0ff')
+
                     $scope.lastSelectedUserTaskId = selectedShape.id
                 }
                 /* ----UI color change ----*/
