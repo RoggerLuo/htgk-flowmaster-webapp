@@ -10,12 +10,12 @@ const ApproveGroup = ({data,mode,solidFrame,index}) => {
             <SolidFrame {...solidFrame}> 
                 <div style={{display:'flex'}}>
                     <div style={{flex:'1'}}>
-                        <div>会签组2</div>
+                        <div style={{fontSize:'14px',paddingLeft:'2px'}}>会签组{index+1}</div>
                         <div></div>
                     </div>
-                    <div style={{flex:'3.5'}}>
+                    <div style={{}}>
                         <BoardbuttonContainer index={index}>
-                            <div>添加审批人员</div>
+                            <div style={{paddingLeft: '27px',color:'#00b0ff',fontSize:'14px'}}>添加审批人员</div>
                         </BoardbuttonContainer>
                     </div>
                 </div>
@@ -25,13 +25,13 @@ const ApproveGroup = ({data,mode,solidFrame,index}) => {
         return (
             <SolidFrame {...solidFrame}>
                 <div style={{display:'flex'}}>
-                    <div style={{flex:'1'}}>
-                        <div>会签组1</div>
+                    <div style={{flex:'1',display:'flex',flexDirection:'column',justifyContent: 'space-around'}}>
+                        <div style={{fontSize:'14px',paddingLeft:'2px',marginTop:'3px'}}>会签组{index+1}</div>
                         <BoardbuttonContainer index={index}>
-                            <div><i className="icon qingicon icon-jiahao2fill"></i></div>
+                            <div style={{textAlign:'center',height: '50px',lineHeight: '50px'}}><i style={{fontSize:'22px',color:'#00b0ff'}} className="icon qingicon icon-jiahao2fill"></i></div>
                         </BoardbuttonContainer>
                     </div>
-                    <div style={{flex:'3.5',whiteSpace:'normal'}}>
+                    <div style={{flex:'3.5',whiteSpace:'normal',marginLeft: '4px',marginTop:'3px'}}>
                         {data.map((el,index)=>{ //data 是 会签组, el是 一组character对象的array
                             return (<CharacterContainer index={index} el={el} key={index} />) //el 需要包含上一级 groupIndex
                         })}
