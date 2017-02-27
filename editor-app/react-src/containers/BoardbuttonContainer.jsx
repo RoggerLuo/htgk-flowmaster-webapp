@@ -1,9 +1,9 @@
 import React,{createClass} from 'react'
 import { connect } from 'react-redux'
-import store from '../redux/configureStore.js'
-import Boardbutton from './presentations/Button/Boardbutton'
-import HigherLevel from './popup/HigherLevelContainer'
-import Org from './popup/OrgContainer'
+import store from '../../redux/configureStore.js'
+import Boardbutton from '../presentations/Button/Boardbutton'
+import HigherLevel from '../popup/HigherLevelContainer'
+import Org from '../popup/OrgContainer'
 
 const BoardbuttonContainer = createClass({ 
     getInitialState(){

@@ -4,14 +4,17 @@ import save from './save'
 import {connect} from 'react-redux'
 
 
-const ButtonContainer = ({dispatch,children,index}) => { //parallel 个性化版本  button
-    const add = (item) => { 
-        dispatch({type:'addCharacter',item,index}) //点击popup的确定按钮时返回 popup选择的item
+const ButtonContainer = ({dispatch,children}) => { //parallel 个性化版本  button
+    const confirm = (item) => { 
+        dispatch({
+            type:'pushApproveList',
+            item
+        })   
         save()
     }
 
     return ( 
-        <BoardbuttonContainer popupConfirm={add}>
+        <BoardbuttonContainer popupConfirm={confirm}>
             {children}
         </BoardbuttonContainer>
     )

@@ -4,7 +4,7 @@ import './style'
 const SolidFrame = ({del,mode,children}) => { //click点击删除,modeSwitch=='delete',children
     let style = "1px solid #bac2ce"
     let display = "none"
-    if(mode=='delete'){
+    if( mode =='delete'){
         style = "1px solid red"
         display = ''
 

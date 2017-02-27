@@ -4,7 +4,7 @@ import './global.less'
 import './icon.less'
 import './basic.less'
 
-import approveComponent from './approveNode/Component'
+import approveComponent from './approveNode/Container'
 import parallelApproveComponent from './parallelApprove/MainCompContainer'
 import branchSequenceFlowComponent from './branchSequnceFlow/Component'
 import popupStart from './popup/popupWrapContainer'
