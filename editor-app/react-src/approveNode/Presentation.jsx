@@ -25,7 +25,11 @@ const ApproveNode = ({data}) => {
         <div className="react-approve">
             <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
                 <div>审批人员</div>
-                <div style={{display:display1}}><ButtonContainer><i style={{paddingLeft: '102px'}} className="icon qingicon icon-add"></i></ButtonContainer></div>
+                <div style={{display:display1}}>
+                    <ButtonContainer>
+                        <i style={{paddingLeft: '102px'}} className="icon qingicon icon-add"></i>
+                    </ButtonContainer>
+                </div>
             </div>            
             <div style={{display:display2}}>
                 <ButtonContainer>

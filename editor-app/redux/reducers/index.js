@@ -6,6 +6,7 @@ import certainPerson from './certainPerson'
 import superPopup from './superPopup'
 import dropdown from './dropdown'
 import parallel from './parallel'
+import common from './common'
 
 
 const rootRuducer = combineReducers({
@@ -15,7 +16,8 @@ const rootRuducer = combineReducers({
     popup,
     certainPerson,
     dropdown,
-    parallel
+    parallel,
+    common
 })
 
 export default rootRuducer
