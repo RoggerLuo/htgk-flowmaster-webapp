@@ -13,7 +13,7 @@ import saveButton from './saveButton/saveButton'
 
 
 popupStart()
-global.saveButton = {render:saveButton}
+global.saveButton = {render:saveButton,flag:true}
 global.branchSequenceFlowComponent = {render:branchSequenceFlowComponent}
 global.parallelApproveComponent = {render:parallelApproveComponent}
 global.approveComponent = {render:approveComponent}
