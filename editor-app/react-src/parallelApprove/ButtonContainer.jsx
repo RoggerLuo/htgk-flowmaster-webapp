@@ -8,6 +8,7 @@ const ButtonContainer = ({dispatch,children,index}) => { //parallel 个性化版
     const add = (item) => { 
         dispatch({type:'addCharacter',item,index}) //点击popup的确定按钮时返回 popup选择的item
         save()
+        window.activeSave() 
     }
 
     return ( 

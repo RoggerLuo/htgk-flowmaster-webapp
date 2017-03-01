@@ -18,7 +18,6 @@ const Reducer = (state = initial, action) => {
         //         display:'',
         //         height:action.height||'65%'
         //     })
-
         case 'saveActive':
             return Object.assign({}, state, {
                 active:true
@@ -26,7 +25,7 @@ const Reducer = (state = initial, action) => {
 
         case 'saveDeactive':
             return Object.assign({}, state, {
-                active:true
+                active:false
             })
 
             // case 'addCondition':

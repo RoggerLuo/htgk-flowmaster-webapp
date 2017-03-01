@@ -1,19 +1,32 @@
+//currentSelectedShape 
+window.activeSave = ()=>{
+    window.reduxStore.dispatch({ type: 'saveActive'})
+}
+
 var myEvent = function($scope){
+    window.getJson = ()=>{
+        var json = $scope.editor.getJSON();
+        json = JSON.stringify(json);
+        return json
+    }
     
-    /* ------------------------------------- - - - - -- - - - - - - - - -- -  */
     $scope.lastSelectedUserTaskId = false
     $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
-    
+
+    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_EXECUTE_COMMANDS, function(event) {
+        window.activeSave()        
+    })
+
     /*
         在redux里切换当前的元素id
     */
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
-        
         var selectedShape = event.elements.first()
         if(!selectedShape){return false}
         var prevId = $scope.lastSelectedUserTaskId
         var nextId = selectedShape.id
 
+        window.currentSelectedShape = selectedShape
         window.reduxStore.dispatch({ type: 'switchElement', prevId, nextId })
         
         if (selectedShape.incoming[0]){

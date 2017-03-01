@@ -28,7 +28,6 @@ const saveHandler = () => {
         "totalCount" : 1
     }
     window.updatePropertyInModel({key:'usertaskassignment',value:value})
-    // console.log(JSON.stringify(getJson()))
 }
 
 export default saveHandler

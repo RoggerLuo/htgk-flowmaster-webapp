@@ -1,7 +1,7 @@
 import React,{createClass} from 'react'
 import BoardbuttonContainer from '../containers/BoardbuttonContainer'
-import save from './save'
 import {connect} from 'react-redux'
+import save from './save'
 
 
 const ButtonContainer = ({dispatch,children}) => { //parallel 个性化版本  button
@@ -11,8 +11,8 @@ const ButtonContainer = ({dispatch,children}) => { //parallel 个性化版本  b
             item
         })   
         save()
+        window.activeSave() 
     }
-
     return ( 
         <BoardbuttonContainer popupConfirm={confirm}>
             {children}

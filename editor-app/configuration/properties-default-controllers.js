@@ -65,14 +65,16 @@ var namePropertyCtrl = ['$scope','$timeout', function($scope,$timeout) {
             /** Handler called when input field is blurred */
             $scope.inputBlurred = function() {
                 $scope.valueFlushed = true;
-                if($scope.selectedItem.title == ''){
+                if($scope.selectedItem.title == ''){ //quite important
                     return false
                 }
                 if ($scope.selectedItem.title) {
                     $scope.selectedItem.title = $scope.selectedItem.title.replace(/(<([^>]+)>)/ig, "");
                 }
-
-                $scope.updatePropertyInModel({ key: 'oryx-name', value: $scope.selectedItem.title });
+                if(window.currentSelectedShape.properties['oryx-name'] != $scope.selectedItem.title){
+                    $scope.updatePropertyInModel({ key: 'oryx-name', value: $scope.selectedItem.title})
+                    window.activeSave()
+                }
             };
             window.inputBlurred=$scope.inputBlurred
             $scope.enterPressed = function(keyEvent) {

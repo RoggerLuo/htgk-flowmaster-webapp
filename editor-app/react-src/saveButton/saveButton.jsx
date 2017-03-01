@@ -5,14 +5,15 @@ import { Provider } from 'react-redux'
 import store from '../../redux/configureStore.js'
 
 const Component = ({active,click}) => {
-    let style ={}
+    let save = function(){}
+    let style = {backgroundColor: 'rgb(133, 217, 255)'}
 
-    if(!active){
-        style = {backgroundColor: 'rgb(133, 217, 255)'}
-        click = function(){}
+    if(active){
+        save = click
+        style = {backgroundColor: 'rgb(0,176,255)'}
     }
     return (
-        <div id="bottom-save" className="bottom-text-div" style={style} onClick={click}>
+        <div id="bottom-save" className="bottom-text-div" style={style} onClick={save}>
             <div className="save">保存</div>
         </div>
     )

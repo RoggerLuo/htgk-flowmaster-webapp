@@ -5,7 +5,8 @@ const saveHandler = () => {
         return el.id == store.getState().parallel.id
     })[0].data
     let string = ''
-    data && data.forEach((el,index)=>{
+    // debugger
+    data[0] && data[0].forEach((el,index)=>{
         switch(el.cate){
             case 'boss':
                 string += 'boss' + '('+ el.value +')'
@@ -17,6 +18,7 @@ const saveHandler = () => {
                 break
         }
     })
+    debugger
     let value = {
         "items" : 
             [ 
@@ -27,6 +29,7 @@ const saveHandler = () => {
             ],
         "totalCount" : 1
     }
+    
     window.updatePropertyInModel({key:'usertaskassignment',value:value})
     // console.log(JSON.stringify(getJson()))
 }

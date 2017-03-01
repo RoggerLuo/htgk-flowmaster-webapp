@@ -322,10 +322,6 @@ angular.module('activitiModeler')
                *scope.previousShape
 
             */
-
-
-        
-
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
                 var shapes = event.elements;
                 /* elements 是一个数组，里面有classDef对象, classDef对象是什么来的？
@@ -712,6 +708,7 @@ angular.module('activitiModeler')
                         var command = new KISBPM.CreateCommand(option, undefined, undefined, $scope.editor);
                         //然后editor执行
                         $scope.editor.executeCommands([command]);
+                        // window.activeSave()
 
                     }
                 });
@@ -1095,6 +1092,7 @@ angular.module('activitiModeler')
                     // Update canvas
                     var command = new commandClass(option, $scope.dragCurrentParent, canAttach, pos, $scope.editor);
                     $scope.editor.executeCommands([command]);
+                    // window.activeSave()
 
                     // Fire event to all who want to know about this
                     var dropEvent = {
@@ -1129,6 +1127,7 @@ angular.module('activitiModeler')
             if (!ui.helper.hasClass('stencil-item-dragged')) {
                 ui.helper.addClass('stencil-item-dragged');
             }
+
         };
 
         $scope.startDragCallbackQuickMenu = function(event, ui) {
@@ -1453,6 +1452,7 @@ angular.module('activitiModeler')
                     elements: [candidate],
                     color: isValid ? ORYX.CONFIG.SELECTION_VALID_COLOR : ORYX.CONFIG.SELECTION_INVALID_COLOR
                 });
+                // window.activeSave()
             }
         };
 
