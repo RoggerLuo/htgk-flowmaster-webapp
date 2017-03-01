@@ -12,14 +12,9 @@ import save from './save'
 */
 
 const CharacterContainer = ({el,index,dispatch}) => { 
-    const characterIndex = index
-    const groupIndex = el.groupIndex //来自group
-    const text = el.text
-    
+    const text = el.text    
     const click = () => {  //删除，得知道是第几组，第几个character
-        // 这个逻辑对应reduce的结构和方法
-        // dispatch({type:'deleteCharacter',groupIndex,characterIndex})
-        dispatch({type:'removeApproveList',index:e.target.getAttribute('data-index')})
+        dispatch({type:'removeApproveList',index:index})
         save()
     }
     return (<Character text={text} click={click}/>)
