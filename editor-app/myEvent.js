@@ -1,4 +1,6 @@
 var myEvent = function($scope){
+    
+    /* ------------------------------------- - - - - -- - - - - - - - - -- -  */
     $scope.lastSelectedUserTaskId = false
     $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
     
@@ -29,8 +31,6 @@ var myEvent = function($scope){
 
     /* ----UI color change ----*/
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
-        var selectedShape = event.elements.first()
-        if(!selectedShape){return false}
 
         // 这段代码的目的是把userTask的边框颜色变回来
         if ($scope.lastSelectedUserTaskId ) {
@@ -39,6 +39,10 @@ var myEvent = function($scope){
             jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[0] &&  (jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[0].style.fill= 'black')
             $scope.lastSelectedUserTaskId = false
         }
+
+        /* 放在后面，canvas是没有elements的，所以会一直触发false */
+        var selectedShape = event.elements.first()
+        if(!selectedShape){return false}
 
         /* 改变 正要选中 边框颜色的代码部分 */                
         if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'User task' 
@@ -80,7 +84,7 @@ var myEvent = function($scope){
     */
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
         var selectedShape = event.elements.first()
-        if(!selectedShape){return false}
+        // if(!selectedShape){return false} // 后面判断了，不需要多此一举
         if (!selectedShape) {
             $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
             return;/*罪魁祸首 。。。如果选中的是canvas我就把后面的事件全部屏蔽掉了 */
