@@ -18,7 +18,6 @@ const saveHandler = () => {
                 break
         }
     })
-    debugger
     let value = {
         "items" : 
             [ 

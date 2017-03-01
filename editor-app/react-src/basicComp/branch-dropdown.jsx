@@ -3,7 +3,6 @@ import { render } from 'react-dom'
 import './branch-dropdown.less'
 
 const Option = ({click,text}) =>{
-
     return (
         <div className="drop-down-option" onClick={click}>
             {text||'empty'}
@@ -21,7 +20,10 @@ const Dropdown = ({options,choose,choosedText,display,toggle,close}) => {
                 <tbody>
                     <tr style={{display:'none'}}>
                         <td className="drop-down-choosed stop-propagation" onClick={toggle} style={{color:'black',display:'flex',justifyContent: 'space-between'}}>
-                            <div>{choosedText}</div> <div className="inverted-triangle"><i className="icon qingicon icon-sanjiao1"></i></div>
+                            <div>{choosedText}</div> 
+                            <div className="inverted-triangle">
+                                <i className="icon qingicon icon-sanjiao1"></i>
+                            </div>
                         </td>
                     </tr>
                     <tr className="drop-down-options" style={{display:display}}>
@@ -50,13 +52,11 @@ const DropdownContainer = createClass({
             this.setState({display:''})
         }else{
             this.setState({display:'none'})
-
         }
     },
     close(){
         this.setState({display:'none'})
     },
-
     render(){        
         return (
             <Dropdown {...{options:this.props.options,choose:this.props.choose,choosedText:this.props.choosedText,display:this.state.display,toggle:this.toggle,close:this.close}}/>
