@@ -2,6 +2,7 @@
 window.activeSave = ()=>{
     window.reduxStore.dispatch({ type: 'saveActive'})
 }
+window.lastSelectedShape = false
 
 var myEvent = function($scope){
     window.getJson = ()=>{
@@ -44,6 +45,21 @@ var myEvent = function($scope){
 
     /* ----UI color change ----*/
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
+        
+        /* 箭头 变回黑色 */
+        (function(){
+            if(window.lastSelectedShape){
+                if (lastSelectedShape && (lastSelectedShape._stencil._jsonStencil.title == 'Sequence flow' )){
+                    lastSelectedShape.node.children[0].children[0].children[0].children[0].style.stroke = 'black'
+                    var elementId = lastSelectedShape.node.children[0].children[0].children[0].children[0].getAttribute('marker-end')
+                    var jqueryId = elementId.substr(4,elementId.length -5)
+                    var marker = jQuery(jqueryId)[0].children[0]
+                    marker.style.fill = 'black'
+                    marker.style.color = 'black'
+                    marker.style.stroke = 'black'
+                }
+            }
+        })()
 
         // 这段代码的目的是把userTask的边框颜色变回来
         if ($scope.lastSelectedUserTaskId ) {
@@ -56,6 +72,7 @@ var myEvent = function($scope){
         /* 放在后面，canvas是没有elements的，所以会一直触发false */
         var selectedShape = event.elements.first()
         if(!selectedShape){return false}
+        window.lastSelectedShape = selectedShape
 
         /* 改变 正要选中 边框颜色的代码部分 */                
         if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'User task' 
@@ -66,6 +83,20 @@ var myEvent = function($scope){
             jQuery('#' + selectedShape.id)[0].children[2].children[0] && (jQuery('#' + selectedShape.id)[0].children[2].children[0].style.fill= '#00b0ff')
             $scope.lastSelectedUserTaskId = selectedShape.id
         }
+
+        /* 箭头 变蓝色 */
+        if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'Sequence flow' )){
+            selectedShape.node.children[0].children[0].children[0].children[0].style.stroke = '#00b0ff'
+
+            /* 箭头是一个叫marker的元素，需要从一个属性中获取id */
+            var elementId = selectedShape.node.children[0].children[0].children[0].children[0].getAttribute('marker-end')
+            var jqueryId = elementId.substr(4,elementId.length -5)
+            var marker = jQuery(jqueryId)[0].children[0]
+            marker.style.fill = '#00b0ff'
+            marker.style.color = '#00b0ff'
+            marker.style.stroke = '#00b0ff'
+        }
+
     })
 
     /*
