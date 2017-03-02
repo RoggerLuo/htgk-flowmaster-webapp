@@ -83,35 +83,16 @@ const Component = createClass({
 
         return (
             <div className="cover" onClick={this.nextStep} style={{display:this.state.display}}>
-                <div className="header"></div>
-                <div className="body" style={{borderTop:this.state.currentStep.header}}>
-                    <div style={{backgroundColor:this.state.currentStep.leftBackground}} className="left">
-                    </div>
-                    <div style={{backgroundColor:this.state.currentStep.leftBorderBackground}} className="left-border"></div>
-                    
-                    <div style={{backgroundColor:this.state.currentStep.middleBackground}} className="middle">
-                        <div className="slice slice1" style={{display:slice1Display}} >
-                            <div className="title-text">1、功能点</div>
-                            <div className="content-text">点击或拖动至编辑区域</div>
-                            <div className="bottom-text"><span className="stopremind">不再提醒</span> <span className="iknow">我知道了</span></div>
-                        </div>
-                        <div className="middle-text">{this.state.text}</div>
-                        <div className="slice slice3" style={{display:slice3Display}} >
-                            <div className="title-text">3、设置区域</div>
-                            <div className="content-text">在此区域进行设置</div>
-                            <div className="bottom-text"><span className="stopremind">不再提醒</span> <span className="iknow">我知道了</span></div>
-                        </div>
+                <div className="common-alert" style={{display:slice1Display}} >
+                    <div className="title-text">1、功能点</div>
+                    <div className="content-text">点击或拖动至编辑区域</div>
+                    <div className="bottom-text"><span className="stopremind">不再提醒</span> <span className="iknow">我知道了</span></div>
+                </div>
 
-                    </div>
-                    <div style={{backgroundColor:this.state.currentStep.rightBorderBackground}} className="right-border"></div>
-                    <div style={{backgroundColor:this.state.currentStep.rightBackground}} className="right">
-                        <div className="slice slice2" style={{display:slice2Display}} >
-                            <div className="title-text">2、编辑区域</div>
-                            <div className="content-text">在此区域进行编辑</div>
-                            <div className="bottom-text"><span className="stopremind">不再提醒</span> <span className="iknow">我知道了</span></div>
-                        </div>
-
-                    </div>
+                <div className="square-alert" style={{display:slice3Display}} >
+                    <div className="title-text">3、设置区域</div>
+                    <div className="content-text">在此区域进行设置</div>
+                    <div className="bottom-text"><span className="stopremind">不再提醒</span> <span className="iknow">我知道了</span></div>
                 </div>
             </div>
         )

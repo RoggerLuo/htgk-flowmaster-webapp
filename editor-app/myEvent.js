@@ -96,7 +96,6 @@ var myEvent = function($scope){
             marker.style.color = '#00b0ff'
             marker.style.stroke = '#00b0ff'
         }
-
     })
 
     /*
