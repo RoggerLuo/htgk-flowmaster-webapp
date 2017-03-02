@@ -28,9 +28,25 @@ const addRule = (index) => {
     store.dispatch({type:'addRule',index})
 }
 
+const onkeyup = (event) => {
+    console.log('up' +Date.parse(new Date()))
+    const obj = event.target
+    // obj.innerHTML = obj.innerHTML.replace(/[^>](#任意)|(#审批)|(#可)/gi,"<font color=red>$1$2$3</font>")
+    // var patt1 = /[^>](#任意)|(#审批)|(#可)/gi //new RegExp("W3School");
+    // debugger
+    // var result = patt1.test(obj.innerHTML);
+    var len = obj.innerHTML.length; 
+}
 const Options =   ({conditions,radio}) => {
     if(radio == 'text'){
-        return (<div><textarea /></div>)
+        return (
+            <div>
+                <div contentEditable
+                    style={{padding:'5px',outline:'none',border:'1px solid #ccc',width:'100%',height:'100px'}} 
+                    onKeyUp={onkeyup}
+                ></div>
+            </div>
+        )
     }else{
         if(conditions.length == 0){
             return (<div></div>)

@@ -22539,7 +22539,7 @@ ORYX.Plugins.KeysMove = ORYX.Plugins.AbstractPlugin.extend({
          });
 		 
 		// MOVE LEFT SMALL		
-		this.facade.offer({
+		/*this.facade.offer({
 		keyCodes: [{
 		 		metaKeys: [ORYX.CONFIG.META_KEY_META_CTRL],
 				keyCode: ORYX.CONFIG.KEY_CODE_LEFT,
@@ -22547,20 +22547,20 @@ ORYX.Plugins.KeysMove = ORYX.Plugins.AbstractPlugin.extend({
 			}
 		 ],
          functionality: this.move.bind(this, ORYX.CONFIG.KEY_CODE_LEFT, false)
-         });
+         });*/
 		 
 		 // MOVE LEFT
-		 this.facade.offer({
+		 /*this.facade.offer({
 		 keyCodes: [{
 				keyCode: ORYX.CONFIG.KEY_CODE_LEFT,
 				keyAction: ORYX.CONFIG.KEY_ACTION_DOWN 
 			}
 		 ],
          functionality: this.move.bind(this, ORYX.CONFIG.KEY_CODE_LEFT, true)
-         });
+         });*/
 		 
 		// MOVE RIGHT SMALL	
-		 this.facade.offer({
+		 /*this.facade.offer({
 		 keyCodes: [{
 		 		metaKeys: [ORYX.CONFIG.META_KEY_META_CTRL],
 				keyCode: ORYX.CONFIG.KEY_CODE_RIGHT,
@@ -22568,17 +22568,17 @@ ORYX.Plugins.KeysMove = ORYX.Plugins.AbstractPlugin.extend({
 			}
 		 ],
          functionality: this.move.bind(this, ORYX.CONFIG.KEY_CODE_RIGHT, false)
-         });
+         });*/
 		 
 		// MOVE RIGHT	
-		 this.facade.offer({
+		 /*this.facade.offer({
 		 keyCodes: [{
 				keyCode: ORYX.CONFIG.KEY_CODE_RIGHT,
 				keyAction: ORYX.CONFIG.KEY_ACTION_DOWN 
 			}
 		 ],
          functionality: this.move.bind(this, ORYX.CONFIG.KEY_CODE_RIGHT, true)
-         });
+         });*/
 		 
 		// MOVE UP SMALL	
 		 this.facade.offer({
