@@ -118,16 +118,17 @@ const Component = createClass({
     }
 })
 
-let userGuide = window.localStorage.getItem('userGuide')
-if(userGuide){
-    
-}else{
-    //挂载
-    render(
-        <Component />
-        ,
-        document.getElementById('userGuideComponent')
-    )
-    // window.localStorage.setItem('userGuide','readed')
+window.userGuide = function(){
+    let userGuide = window.localStorage.getItem('userGuide')
+    if(userGuide){
+        
+    }else{
+        //挂载
+        render(
+            <Component />
+            ,
+            document.getElementById('userGuideComponent')
+        )
+        // window.localStorage.setItem('userGuide','readed')
+    }    
 }
-

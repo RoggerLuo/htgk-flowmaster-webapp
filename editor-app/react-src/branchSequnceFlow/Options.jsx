@@ -31,11 +31,32 @@ const addRule = (index) => {
 const onkeyup = (event) => {
     console.log('up' +Date.parse(new Date()))
     const obj = event.target
-    // obj.innerHTML = obj.innerHTML.replace(/[^>](#任意)|(#审批)|(#可)/gi,"<font color=red>$1$2$3</font>")
-    // var patt1 = /[^>](#任意)|(#审批)|(#可)/gi //new RegExp("W3School");
-    // debugger
-    // var result = patt1.test(obj.innerHTML);
-    var len = obj.innerHTML.length; 
+    var patt1 = /[^>](#任意)|(#审批)|(#可)/gi //new RegExp("W3School");
+    var result = patt1.test(obj.innerHTML);
+    if(result){
+        obj.innerHTML = obj.innerHTML.replace(/([^>])(#任意)|(#审批)|(#可)/gi,"$1&nbsp;<span style='color:red;'>$2$3</span>&nbsp;")        
+
+        var sel = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(obj);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+    var patt2 = /(&nbsp;)(<\/span>)/gi
+    var result2 = patt2.test(obj.innerHTML);
+    if(result2){
+        console.log('comiingggggggggg')
+        obj.innerHTML = obj.innerHTML.replace(/(&nbsp;)(<\/span>)/gi,"$2&nbsp;")
+        var sel = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(obj);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+
+
 }
 const Options =   ({conditions,radio}) => {
     if(radio == 'text'){

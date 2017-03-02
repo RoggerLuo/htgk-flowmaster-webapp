@@ -45,7 +45,10 @@ angular.module('activitiModeler')
 
         // Code that is dependent on an initialised Editor is wrapped in a promise for the editor
         $scope.editorFactory.promise.then(function() {
+
             myEvent($scope)
+            window.userGuide()
+
 
             //resolve在fetchModel里面
 
@@ -78,6 +81,8 @@ angular.module('activitiModeler')
              stencilSet 应该是activiti 的angular 系统做出来的数据结构
              */
             $http({ method: 'GET', url: KISBPM.URL.getStencilSet() }).success(function(data, status, headers, config) {
+
+
                 var quickMenuDefinition = [ //就是那个点出来的菜单,手动确定的
                     'SequenceFlow',
                     'UserTask',
