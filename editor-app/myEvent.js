@@ -64,22 +64,32 @@ var myEvent = function($scope){
 
         // 这段代码的目的是把userTask的边框颜色变回来
         if ($scope.lastSelectedUserTaskId ) {
-            if(!jQuery('#' + $scope.lastSelectedUserTaskId)[0]){return false}
-            jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[1].style.stroke = 'black'//'rgb(187, 187, 187)'
-            jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[0] &&  (jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[0].style.fill= 'black')
-            $scope.lastSelectedUserTaskId = false
+            if(jQuery('#' + $scope.lastSelectedUserTaskId)[0]){
+               jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[1].style.stroke = 'black'//'rgb(187, 187, 187)'
+               jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[0] &&  (jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[0].style.fill= 'black')
+               jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[3].children[0].style.fill = 'black' 
+               $scope.lastSelectedUserTaskId = false
+
+                // return false
+            }
         }
 
         /* 放在后面，canvas是没有elements的，所以会一直触发false */
         var selectedShape = event.elements.first()
-        if(!selectedShape){return false}
+        if(!selectedShape){
+            
+            return false
+
+        }
         window.lastSelectedShape = selectedShape
 
-        /* 改变 正要选中 边框颜色的代码部分 */                
+        /* 改变 正要选中 边框颜色的代码部分 */   
+                     
         if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'User task' 
             || selectedShape._stencil._jsonStencil.title == 'Mule task'
             )) {
             //控制边框颜色的办法
+            jQuery('#' + selectedShape.id)[0].children[3].children[0].style.fill = '#00b0ff' 
             jQuery('#' + selectedShape.id)[0].children[1].style.stroke = '#00b0ff' //'rgb(0,176,255)'
             jQuery('#' + selectedShape.id)[0].children[2].children[0] && (jQuery('#' + selectedShape.id)[0].children[2].children[0].style.fill= '#00b0ff')
             $scope.lastSelectedUserTaskId = selectedShape.id
@@ -109,6 +119,7 @@ var myEvent = function($scope){
             return false;
         }
         if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title){
+            if(!selectedShape.outgoing[0]){return false}
             switch(selectedShape.outgoing[0]._stencil._jsonStencil.title){
                 case 'User task':
                     window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
