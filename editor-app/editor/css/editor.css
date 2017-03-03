@@ -75,11 +75,12 @@ text * {
 }
 
 .Oryx_button img {
-	width:16px;
-	height:16px;
+	width:26px;
+	height:26px;
 	top:0px;
 	left:0px;
 	line-height: 16px;
+    margin:-10px;
 }
 
 .Oryx_Right .Oryx_button,
