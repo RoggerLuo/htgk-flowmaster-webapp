@@ -24,6 +24,7 @@ var myEvent = function($scope){
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
         var selectedShape = event.elements.first()
         if(!selectedShape){return false}
+        
         var prevId = $scope.lastSelectedUserTaskId
         var nextId = selectedShape.id
 

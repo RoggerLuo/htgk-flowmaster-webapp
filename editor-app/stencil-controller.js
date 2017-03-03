@@ -1020,6 +1020,7 @@ angular.module('activitiModeler')
                         containedStencil.idWithoutNs() === 'BoundaryCancelEvent' || containedStencil.idWithoutNs() === 'BoundaryCompensationEvent') {
                         // Modify position, otherwise boundary event will get position related to left corner of the canvas instead of the container
                         pos = $scope.editor.eventCoordinates(event);
+
                         canAttach = true;
                     }
 
@@ -1033,7 +1034,7 @@ angular.module('activitiModeler')
                     option['position'] = pos;
                     option['parent'] = $scope.dragCurrentParent;
 
-
+                    
                     /* 我的条件限制 用来限制审批节点的分支数量 */
                     if (!limitedCondition(option)) {
                         return false;

@@ -20035,6 +20035,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 	 *
 	 */
 	onResize: function(bounds) {
+		
 		// If the selection bounds not initialized, return
 		if(!this.dragBounds) {return}
 		
