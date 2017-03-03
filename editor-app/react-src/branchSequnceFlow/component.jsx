@@ -17,11 +17,7 @@ const Component = () => {
             <Radios />
             <div className="section-content">满足以下条件则分支流向节点“{window.nextElementIs}”</div>
             <Options />
-            <div className="section-title">说明：</div>
-            <div className="section-content">
-                条件与条件间是“或”的关系<br/>
-                规则与规则间是“与”的关系
-            </div>
+            
         </div>
     )
 }

@@ -59,14 +59,14 @@ module.exports = {
     devServer: {
         contentBase: './dist',
         hot:true,
-        proxy:{
-        '/activiti-rest/service/**': {
-                target: 'http://activiti.ooad.io/activiti-rest/service',
-                pathRewrite: {'^/activiti-rest/service' : ''},
-                secure: false,
-                changeOrigin: true
-              }
-        },
+        // proxy:{
+        // '/activiti-rest/service/**': {
+        //         target: 'http://activiti.ooad.io/activiti-rest/service',
+        //         pathRewrite: {'^/activiti-rest/service' : ''},
+        //         secure: false,
+        //         changeOrigin: true
+        //       }
+        // },
     },
 
     plugins: [

@@ -31,10 +31,16 @@ const addRule = (index) => {
 const onkeyup = (event) => {
     console.log('up' +Date.parse(new Date()))
     const obj = event.target
+    
+
+    /* 构造$的pat */
     var patt1 = /[^>](#任意)|(#审批)|(#可)/gi //new RegExp("W3School");
+
     var result = patt1.test(obj.innerHTML);
     if(result){
-        obj.innerHTML = obj.innerHTML.replace(/([^>])(#任意)|(#审批)|(#可)/gi,"$1&nbsp;<span style='color:red;'>$2$3</span>&nbsp;")        
+        var aaa = "#任意"
+        var regular1 = new RegExp("([^>])("+ aaa +")|(#审批)|(#可)","gi"); //注意，反斜杠需要转义
+        obj.innerHTML = obj.innerHTML.replace(regular1,"$1&nbsp;<span style='color:red;'>$2$3</span>&nbsp;")        
 
         var sel = window.getSelection();
         var range = document.createRange();
@@ -48,6 +54,7 @@ const onkeyup = (event) => {
     if(result2){
         console.log('comiingggggggggg')
         obj.innerHTML = obj.innerHTML.replace(/(&nbsp;)(<\/span>)/gi,"$2&nbsp;")
+        
         var sel = window.getSelection();
         var range = document.createRange();
         range.selectNodeContents(obj);
@@ -66,6 +73,14 @@ const Options =   ({conditions,radio}) => {
                     style={{padding:'5px',outline:'none',border:'1px solid #ccc',width:'100%',height:'100px'}} 
                     onKeyUp={onkeyup}
                 ></div>
+                <div className="section-title">说明：</div>
+                <div className="section-content" style={{}}>
+                    <p>1、$字段名称来标识表单字段，若无法找到对应系统会显示红色；</p>
+                    <p>2、#人员属性来标识发起人的参数，支持参数有：性别、职级等，以个人资料中的信息字段为准，若无法找到对应系统会显示红色；</p>
+                    <p>3、%date来标识当前日期</p>
+                    <p>{"4、支持基础的计算公式，如：∑、+、-、*、/、>、>=、==、<、<=、AND、OR等；"}</p>
+                    <p>5、请使用英文的字符，文字除外。</p>
+                </div>
             </div>
         )
     }else{
@@ -78,6 +93,11 @@ const Options =   ({conditions,radio}) => {
                     {conditions.map((el,index)=>{
                         return (<ConditionContainer index={index} key={index}/>)
                     })}
+                    <div className="section-title">说明：</div>
+                    <div className="section-content">
+                        条件与条件间是“或”的关系<br/>
+                        规则与规则间是“与”的关系
+                    </div>
                 </div>
             )
         }
