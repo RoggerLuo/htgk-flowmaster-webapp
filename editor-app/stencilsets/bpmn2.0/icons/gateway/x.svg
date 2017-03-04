@@ -7,7 +7,7 @@
     
     <g  transform="scale(0.8,0.8)translate(5,5)"  id="sid-A360152F-C75E-461E-97EC-5DC2803469D8" title="Exclusive gateway">
       
-        <path d=" M0 20.5  L20.5 0  L40 20.5  L20.5 40  z" id="sid-A360152F-C75E-461E-97EC-5DC2803469D8bg_frame" fill="#ffffff" stroke="#585858" style="stroke-width:1"></path>
+        <path d=" M0 20.5  L20.5 0  L40 20.5  L20.5 40  z" id="sid-A360152F-C75E-461E-97EC-5DC2803469D8bg_frame" fill="#ffffff"  stroke="#585858" style="stroke-width:2"></path>
         <g id="sid-A360152F-C75E-461E-97EC-5DC2803469D8cross">
           <path id="sid-A360152F-C75E-461E-97EC-5DC2803469D8crosspath" stroke="#585858" fill="#585858" d=" M13.25 12.05  L17.25 12.05  L27.65 28.95  L23.75 28.95  z" style="stroke-width:1"></path>
           <path id="sid-A360152F-C75E-461E-97EC-5DC2803469D8crosspath2" stroke="#585858" fill="#585858" d=" M13.25 28.95  L23.75 12.05  L27.65 12.05  L17.25 28.95  z" style="stroke-width:1"></path> 

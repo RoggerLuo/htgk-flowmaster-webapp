@@ -54,10 +54,12 @@ var myEvent = function($scope){
                     lastSelectedShape.node.children[0].children[0].children[0].children[0].style.stroke = 'black'
                     var elementId = lastSelectedShape.node.children[0].children[0].children[0].children[0].getAttribute('marker-end')
                     var jqueryId = elementId.substr(4,elementId.length -5)
-                    var marker = jQuery(jqueryId)[0].children[0]
-                    marker.style.fill = 'black'
-                    marker.style.color = 'black'
-                    marker.style.stroke = 'black'
+                    if(jQuery(jqueryId)[0]){
+                        var marker = jQuery(jqueryId)[0].children[0]
+                        marker.style.fill = 'black'
+                        marker.style.color = 'black'
+                        marker.style.stroke = 'black'
+                    }
                 }
             }
         })()
