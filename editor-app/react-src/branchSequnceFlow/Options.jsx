@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
 import ConditionContainer from './condition/Container'
 import './style'
+import {regFactor,moveCursorToEnd} from './regAlgorithm'
 
 const Button=(props)=>{
     return(
@@ -28,41 +29,25 @@ const addRule = (index) => {
     store.dispatch({type:'addRule',index})
 }
 
+const options = ["#性别","#职级",'#test']
+const regBlue = regFactor(options,'#00b0ff')
+
 const onkeyup = (event) => {
     console.log('up' +Date.parse(new Date()))
     const obj = event.target
     
 
-    /* 构造$的pat */
-    var patt1 = /[^>](#任意)|(#审批)|(#可)/gi //new RegExp("W3School");
-
-    var result = patt1.test(obj.innerHTML);
-    if(result){
-        var aaa = "#任意"
-        var regular1 = new RegExp("([^>])("+ aaa +")|(#审批)|(#可)","gi"); //注意，反斜杠需要转义
-        obj.innerHTML = obj.innerHTML.replace(regular1,"$1&nbsp;<span style='color:red;'>$2$3</span>&nbsp;")        
-
-        var sel = window.getSelection();
-        var range = document.createRange();
-        range.selectNodeContents(obj);
-        range.collapse(false);
-        sel.removeAllRanges();
-        sel.addRange(range);
+    if(regBlue.regular.test(obj.innerHTML)){
+        obj.innerHTML = obj.innerHTML.replace(regBlue.regular,regBlue.replace)
+        moveCursorToEnd(obj)
     }
-    var patt2 = /(&nbsp;)(<\/span>)/gi
-    var result2 = patt2.test(obj.innerHTML);
-    if(result2){
-        console.log('comiingggggggggg')
-        obj.innerHTML = obj.innerHTML.replace(/(&nbsp;)(<\/span>)/gi,"$2&nbsp;")
-        
-        var sel = window.getSelection();
-        var range = document.createRange();
-        range.selectNodeContents(obj);
-        range.collapse(false);
-        sel.removeAllRanges();
-        sel.addRange(range);
+    
+    /* 这个是为了不让光标进入span里面，自动加空格 */
+    const patt2 = /(&nbsp;)(<\/span>)/gi
+    if(patt2.test(obj.innerHTML)){
+        obj.innerHTML = obj.innerHTML.replace(patt2,"$2&nbsp;")
+        moveCursorToEnd(obj)
     }
-
 
 }
 const Options =   ({conditions,radio}) => {
