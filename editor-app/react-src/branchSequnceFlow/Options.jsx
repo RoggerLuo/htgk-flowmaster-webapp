@@ -48,8 +48,8 @@ const onkeyup = (event) => {
         obj.innerHTML = obj.innerHTML.replace(patt2,"$2&nbsp;")
         moveCursorToEnd(obj)
     }
-
 }
+
 const Options =   ({conditions,radio}) => {
     if(radio == 'text'){
         return (
