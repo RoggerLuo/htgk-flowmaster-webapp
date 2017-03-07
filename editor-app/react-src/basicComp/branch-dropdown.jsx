@@ -5,7 +5,7 @@ import './branch-dropdown.less'
 const Option = ({click,text}) =>{
     return (
         <div className="drop-down-option" onClick={click}>
-            {text||'empty'}
+            <div className="inner-option">{text||'empty'}</div>
         </div>
     )           
 }

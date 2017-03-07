@@ -3,8 +3,9 @@ import  './style'
 import CharacterContainer from './CharacterContainer'
 import ButtonContainer from './ButtonContainerOfApproveNode.jsx'
 import SolidFrame from '../presentations/SolidFrame/SolidFrame'
+// import {FormattedMessage} from 'react-intl'
 
-const ApproveNode = ({data}) => {
+const ApproveNode = ({data,translate}) => {
     let list = ''
     let display1 = 'none'
     let display2 = ''
@@ -25,6 +26,7 @@ const ApproveNode = ({data}) => {
         <div className="react-approve">
             <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
                 <div>审批人员</div>
+                
                 <div style={{display:display1}}>
                     <ButtonContainer>
                         <i style={{paddingLeft: '102px'}} className="icon qingicon icon-add"></i>
@@ -43,9 +45,11 @@ const ApproveNode = ({data}) => {
             </div>
             {list}
             <div className="row-title">审批规则</div>
+            <p>{translate('hello')}, {translate('welcome', 'test222')}</p>
             <div className="the-content">只需节点上任意一人审批即可通过</div>
         </div>
     )
 }
+
 
 export default ApproveNode
