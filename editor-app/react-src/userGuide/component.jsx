@@ -95,15 +95,14 @@ const Component = createClass({
                     
                     <div style={{backgroundColor:this.state.currentStep.middleBackground}} className="middle">
                         
-                        <div className="slice3line" style={{display:slice3Display,position:'relative',top:'171px',left:'88%'}} >
+                        <div className="slice3line" style={{display:slice3Display,position:'relative',top:'36%',marginTop:'-62px',left:'88%'}} >
                             <img src="editor-app/react-src/userGuide/line/3.png"/>
                         </div>
 
-
                         <div className="slice slice1" style={{display:slice1Display}} >
-                            <div className="title-text">1、功能点</div>
-                            <div className="content-text">点击或拖动至编辑区域</div>
-                            <div className="bottom-text"><span className="stopremind" onClick={this.stopRemind}>不再提醒</span> <span className="iknow">我知道了</span></div>
+                            <div className="title-text">{this.props.put('guide.title1')}</div>
+                            <div className="content-text">{this.props.put('guide.content1')}</div>
+                            <div className="bottom-text"><span className="stopremind" onClick={this.stopRemind}>{this.props.put('guide.stopRemind')}</span> <span className="iknow">{this.props.put('guide.iknow')}</span></div>
                         </div>
                         <div className="slice1line" style={{display:slice1Display,position:'relative',top:'249px',right:'200px'}} >
                             <img src="editor-app/react-src/userGuide/line/1.png"/>
@@ -111,9 +110,9 @@ const Component = createClass({
 
                         <div className="middle-text">{this.state.text}</div>
                         <div className="slice slice3" style={{display:slice3Display}} >
-                            <div className="title-text">3、设置区域</div>
-                            <div className="content-text">在此区域进行设置</div>
-                            <div className="bottom-text"><span className="stopremind" onClick={this.stopRemind}>不再提醒</span> <span className="iknow">我知道了</span></div>
+                            <div className="title-text">{this.props.put('guide.title3')}</div>
+                            <div className="content-text">{this.props.put('guide.content3')}</div>
+                            <div className="bottom-text"><span className="stopremind" onClick={this.stopRemind}>{this.props.put('guide.stopRemind')}</span> <span className="iknow">{this.props.put('guide.iknow')}</span></div>
                         </div>
 
                     </div>
@@ -125,9 +124,9 @@ const Component = createClass({
                         </div>
 
                         <div className="slice slice2" style={{display:slice2Display}} >
-                            <div className="title-text">2、编辑区域</div>
-                            <div className="content-text">在此区域进行编辑</div>
-                            <div className="bottom-text"><span className="stopremind" onClick={this.stopRemind}>不再提醒</span> <span className="iknow">我知道了</span></div>
+                            <div className="title-text">{this.props.put('guide.title2')}</div>
+                            <div className="content-text">{this.props.put('guide.content2')}</div>
+                            <div className="bottom-text"><span className="stopremind" onClick={this.stopRemind}>{this.props.put('guide.stopRemind')}</span> <span className="iknow">{this.props.put('guide.iknow')}</span></div>
                         </div>
 
                     </div>
@@ -137,6 +136,12 @@ const Component = createClass({
     }
 })
 
+
+import connectPut from 'react-put'
+const options = {mapPropToDictionary: (props)=>window.reactI18n}
+const ConnectedApp = connectPut(options)(Component)
+
+
 window.userGuide = function(){
     let userGuide = window.localStorage.getItem('userGuide')
     if(userGuide){
@@ -144,7 +149,7 @@ window.userGuide = function(){
     }else{
         //挂载
         render(
-            <Component />
+            <ConnectedApp />
             ,
             document.getElementById('userGuideComponent')
         )

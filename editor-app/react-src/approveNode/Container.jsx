@@ -4,17 +4,14 @@ import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
 import Presentation from './Presentation'
-import connectPut from 'react-put'
 
-const Approve = ({repo,id,put}) => {
-    let translate = put
-
+const Approve = ({repo,id}) => {
     const currentRepo = repo.filter((el,index)=>{
         return el.id == id
     })
     const data = currentRepo && currentRepo[0] && currentRepo[0].data||[]
     return(
-        <Presentation data={data} translate={translate}/>
+        <Presentation data={data} />
     )
 }
 
@@ -26,30 +23,16 @@ const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
 
-const HANS = {
-  hello: '你好',
-  welcome: name => `欢迎 ${name}`,
-  testKey: '一些值',
-  haveApple: (name, amount) => `${name} 有 ${amount} 个苹果`,
-  button_not_working: '此按钮在 RunKit 下不可用',
-  username:'用户名222'
-}
-
-
-const options = {mapPropToDictionary: (props)=>HANS}
-const ConnectedApp = connectPut(options)(Approve)
-
 const ApproveContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(ConnectedApp)
+)(Approve)
 
 export default function(){
     render(
-            <Provider store={store}>
-                    <ApproveContainer />
-
-            </Provider>
+        <Provider store={store}>
+                <ApproveContainer />
+        </Provider>
         ,
         document.getElementById('approvePropertyCtrl')
     );

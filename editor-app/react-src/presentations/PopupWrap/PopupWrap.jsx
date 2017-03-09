@@ -1,7 +1,7 @@
 import React,{createClass} from 'react';
 import './style'
 
-const Component = ({title,cancel,confirm,display, /*后面可选*/ children,height,width}) => {
+const Component = ({title,cancel,confirm,display,put, /*后面可选*/ children,height,width}) => {
     const confirmDecorated = ()=>{
         confirm()
         cancel()
@@ -26,10 +26,10 @@ const Component = ({title,cancel,confirm,display, /*后面可选*/ children,heig
                 <div className="footer">
                     <div className="button-group">
                         <div className="cancel" onClick={cancel}>
-                            取消
+                            {put('global.cancel')}
                         </div>
                         <div className="confirm" onClick={confirmDecorated}>
-                            确定
+                            {put('global.confirm')}
                         </div>
                     </div>
                 </div>
@@ -38,4 +38,8 @@ const Component = ({title,cancel,confirm,display, /*后面可选*/ children,heig
     )
 }
 
-export default Component
+import connectPut from 'react-put'
+const putOptions = {mapPropToDictionary: (props)=>window.reactI18n}
+const ConnectedApp = connectPut(putOptions)(Component)
+
+export default ConnectedApp

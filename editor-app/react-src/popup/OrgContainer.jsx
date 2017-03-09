@@ -2,19 +2,8 @@ import React,{createClass} from 'react';
 import { connect } from 'react-redux'
 import Dropdown from '../basicComp/Dropdown'
 
-const Component = ({data1,data2,dispatch}) => {    
-    // const data = [
-    //     {text:'一',value:'1'},
-    //     {text:'二',value:'2'},
-    //     {text:'三',value:'3'}
-    // ]
-
-    // const data2 = [
-    //     {text:'财务专员',value:'finance'},
-    //     {text:'人事专员',value:'hr'},
-    //     {text:'xx专员',value:'xx'}
-    // ]
-
+const Component = ({data1,data2,dispatch,put}) => {    
+    
     const choosed = (item)=>{
         dispatch({type:'dropdown1Choose',item})
     }
@@ -24,7 +13,7 @@ const Component = ({data1,data2,dispatch}) => {
 
     return (
         <div>
-            最近<Dropdown data={data1} choosed={choosed}/>级分管<Dropdown data={data2} choosed={choosed2}/>
+            {put('popup.org1')}<Dropdown data={data1} choosed={choosed}/>{put('popup.org2')}<Dropdown data={data2} choosed={choosed2}/>
         </div>
     )
 }
@@ -38,9 +27,15 @@ const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
 
+
+import connectPut from 'react-put'
+const options = {mapPropToDictionary: (props)=>window.reactI18n}
+const ConnectedApp = connectPut(options)(Component)
+
+
 const ComponentContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Component)
+)(ConnectedApp)
 
 export default ComponentContainer

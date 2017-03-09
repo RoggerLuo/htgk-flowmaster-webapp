@@ -3,9 +3,8 @@ import  './style'
 import CharacterContainer from './CharacterContainer'
 import ButtonContainer from './ButtonContainerOfApproveNode.jsx'
 import SolidFrame from '../presentations/SolidFrame/SolidFrame'
-// import {FormattedMessage} from 'react-intl'
 
-const ApproveNode = ({data,translate}) => {
+const ApproveNode = ({data,put}) => {
     let list = ''
     let display1 = 'none'
     let display2 = ''
@@ -25,7 +24,7 @@ const ApproveNode = ({data,translate}) => {
     return(
         <div className="react-approve">
             <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
-                <div>审批人员</div>
+                <div>{put('approveNode.title.staff')}</div>
                 
                 <div style={{display:display1}}>
                     <ButtonContainer>
@@ -39,17 +38,18 @@ const ApproveNode = ({data,translate}) => {
                         <span className="inverted-triangle">
                             <i className="icon qingicon icon-add"></i>
                         </span>
-                        添加审批人员
+                        {put('approveNode.button.add')}
                     </div>
                 </ButtonContainer>
             </div>
             {list}
-            <div className="row-title">审批规则</div>
-            <p>{translate('hello')}, {translate('welcome', 'test222')}</p>
-            <div className="the-content">只需节点上任意一人审批即可通过</div>
+            <div className="row-title">{put('approveNode.remark.title')}</div>
+            <div className="the-content">{put('approveNode.remark.content')}</div>
         </div>
     )
 }
+import connectPut from 'react-put'
+const options = {mapPropToDictionary: (props)=>window.reactI18n}
+const ConnectedApp = connectPut(options)(ApproveNode)
 
-
-export default ApproveNode
+export default ConnectedApp

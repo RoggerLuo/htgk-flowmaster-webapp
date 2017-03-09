@@ -2,7 +2,7 @@ import React,{createClass} from 'react';
 import { connect } from 'react-redux'
 import Dropdown from '../basicComp/Dropdown'
 
-const Component = ({data,dispatch}) => {    
+const Component = ({data,dispatch,put}) => {    
     // const data = [
     //     {text:'一',value:'1'},
     //     {text:'二',value:'2'},
@@ -14,7 +14,7 @@ const Component = ({data,dispatch}) => {
     // choosed(data[0])
     return (
         <div>
-            发起人的上<Dropdown data={data} choosed={choosed}/>级领导
+            {put('popup.higherLevel1')}<Dropdown data={data} choosed={choosed}/>{put('popup.higherLevel2')}
         </div>
     )
 }
@@ -28,10 +28,16 @@ const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
 
+
+import connectPut from 'react-put'
+const options = {mapPropToDictionary: (props)=>window.reactI18n}
+const ConnectedApp = connectPut(options)(Component)
+
+
 const ComponentContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Component)
+)(ConnectedApp)
 
 export default ComponentContainer
 

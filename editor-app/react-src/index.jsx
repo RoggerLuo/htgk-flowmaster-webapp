@@ -18,3 +18,8 @@ global.branchSequenceFlowComponent = {render:branchSequenceFlowComponent}
 global.parallelApproveComponent = {render:parallelApproveComponent}
 global.approveComponent = {render:approveComponent}
 global.reduxStore = store
+
+
+import zh from './i18n/zh'
+import en from './i18n/en'
+window.reactI18n = zh

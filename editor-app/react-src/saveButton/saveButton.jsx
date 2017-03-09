@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Provider } from 'react-redux'
 import store from '../../redux/configureStore.js'
 
-const Component = ({active,click}) => {
+const Component = ({active,click,put}) => {
     let save = function(){}
     let style = {backgroundColor: 'rgb(133, 217, 255)'}
 
@@ -14,7 +14,7 @@ const Component = ({active,click}) => {
     }
     return (
         <div id="bottom-save" className="bottom-text-div" style={style} onClick={save}>
-            <div className="save">保存</div>
+            <div className="save">{put('button.save')}</div>
         </div>
     )
 }
@@ -31,10 +31,18 @@ const mapDispatchToProps = (dispatch) => {
     return {click}
 }
 
+
+import connectPut from 'react-put'
+import zh from '../i18n/zh'
+import en from '../i18n/en'
+const options = {mapPropToDictionary: (props)=>en}
+const ConnectedApp = connectPut(options)(Component)
+
+
 const ComponentContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Component)
+)(ConnectedApp)
 
 
 export default function(){

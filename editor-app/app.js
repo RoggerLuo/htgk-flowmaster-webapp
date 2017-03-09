@@ -47,10 +47,10 @@ activitiModeler
             suffix: '.json'
         });
 
-        $translateProvider.preferredLanguage('mycn');
+        $translateProvider.preferredLanguage('zh');
 
         // remember language
-        $translateProvider.useCookieStorage();
+        // $translateProvider.useCookieStorage();
         
   }])
   .run(['$rootScope', '$timeout', '$modal', '$translate', '$location', '$window', '$http', '$q',

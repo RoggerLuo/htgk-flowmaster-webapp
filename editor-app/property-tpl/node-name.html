@@ -1,7 +1,9 @@
 
 <div class="property-row-container">
     <div class="property-row">
-        <div class="property-row-title" style="font-weight: bold;font-size: 14px;padding: 2px 0;">节点名称</div>
+        <div class="property-row-title" style="font-weight: bold;font-size: 14px;padding: 2px 0;">
+            {{'NODE.NAME' | translate}}
+        </div>
         <div class="value"> 
 
             <div ng-controller="namePropertyCtrl">
@@ -10,7 +12,7 @@
                     ng-blur="inputBlurred()"
                     ng-keypress="enterPressed($event)"
                     ng-click="namePropertyClicked()"
-                    placeholder="节点placeholder，待设置" 
+                    placeholder=" {{'NODE.placeholder' | translate}}" 
                 />
             </div>
 

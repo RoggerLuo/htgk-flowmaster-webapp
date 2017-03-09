@@ -1,7 +1,7 @@
 {    
-    "HEADER.BRAND" : "测试Demo",
-    "HEADER.BRAND_TAGLINE" : "powered by Roger",
-    "PAGE.HEADER" : "页头 Details",
+    "HEADER.BRAND" : "Activiti Editor",
+    "HEADER.BRAND_TAGLINE" : "powered by Alfresco",
+    "PAGE.HEADER" : "Orchestration Details",
 
     "ACTION.OK" : "Ok",
     "ACTION.SAVE" : "Save",
@@ -62,7 +62,7 @@
     "BUTTON.ACTION.MORPH.TOOLTIP": "Change the element type",
     
     "ELEMENT.AUTHOR" : "Author",
-    "ELEMENT.DATE_CREATED" : "创建时间",
+    "ELEMENT.DATE_CREATED" : "Date created",
     "ELEMENT.SELECTED_EMPTY_TITLE" : "(No name)",
     
     "PROPERTY.REMOVED" : "removed",

@@ -50,7 +50,7 @@ const onkeyup = (event) => {
     }
 }
 
-const Options =   ({conditions,radio}) => {
+const Options =   ({conditions,radio,put}) => {
     if(radio == 'text'){
         return (
             <div>
@@ -58,13 +58,13 @@ const Options =   ({conditions,radio}) => {
                     style={{padding:'5px',outline:'none',border:'1px solid #ccc',width:'100%',height:'100px'}} 
                     onKeyUp={onkeyup}
                 ></div>
-                <div className="section-title">说明：</div>
+                <div className="section-title">{put('branch.remark.title')}</div>
                 <div className="section-content" style={{}}>
-                    <p>1、$字段名称来标识表单字段，若无法找到对应系统会显示红色；</p>
-                    <p>2、#人员属性来标识发起人的参数，支持参数有：性别、职级等，以个人资料中的信息字段为准，若无法找到对应系统会显示红色；</p>
-                    <p>3、%date来标识当前日期</p>
-                    <p>{"4、支持基础的计算公式，如：∑、+、-、*、/、>、>=、==、<、<=、AND、OR等；"}</p>
-                    <p>5、请使用英文的字符，文字除外。</p>
+                    <p>{put('branch.remark.content3')}</p>
+                    <p>{put('branch.remark.content4')}</p>
+                    <p>{put('branch.remark.content5')}</p>
+                    <p>{put('branch.remark.content6')}</p>
+                    <p>{put('branch.remark.content7')}</p>
                 </div>
             </div>
         )
@@ -78,10 +78,10 @@ const Options =   ({conditions,radio}) => {
                     {conditions.map((el,index)=>{
                         return (<ConditionContainer index={index} key={index}/>)
                     })}
-                    <div className="section-title">说明：</div>
+                    <div className="section-title">{put('branch.remark.title')}</div>
                     <div className="section-content">
-                        条件与条件间是“或”的关系<br/>
-                        规则与规则间是“与”的关系
+                        {put('branch.remark.content1')}<br/>
+                        {put('branch.remark.content2')}
                     </div>
                 </div>
             )
@@ -99,9 +99,16 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
+
+import connectPut from 'react-put'
+const putOptions = {mapPropToDictionary: (props)=>window.reactI18n}
+const ConnectedApp = connectPut(putOptions)(Options)
+
+
 const OptionsContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Options)
+)(ConnectedApp)
+
 export default OptionsContainer
 

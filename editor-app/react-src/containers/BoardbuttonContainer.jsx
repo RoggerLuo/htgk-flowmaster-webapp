@@ -52,7 +52,7 @@ const BoardbuttonContainer = createClass({
             type:'callPopup',
             confirm:()=>{popupConfirm('boss')},
             content:HigherLevel,
-            text:'添加发起人上级',
+            text:this.props.put('button.option1'),
             height:'45%',
             width:'44%'
         }
@@ -61,7 +61,7 @@ const BoardbuttonContainer = createClass({
             height:'45%',
             confirm:()=>{popupConfirm('role')},
             content:Org,
-            text:'添加机构角色',
+            text:this.props.put('button.option2'),
             width:'44%'
         }
         const action3 = {
@@ -69,7 +69,7 @@ const BoardbuttonContainer = createClass({
             type:'callPopup',
             confirm:()=>{popupConfirm('user')},
             content:Org,
-            text:'添加特定人员'
+            text:this.props.put('button.option3')
         }
         const buttonOptions = [
             action1,action2,action3
@@ -93,9 +93,14 @@ const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
 
+
+import connectPut from 'react-put'
+const options = {mapPropToDictionary: (props)=>window.reactI18n}
+const ConnectedApp = connectPut(options)(BoardbuttonContainer)
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(BoardbuttonContainer)
+)(ConnectedApp)
 
 

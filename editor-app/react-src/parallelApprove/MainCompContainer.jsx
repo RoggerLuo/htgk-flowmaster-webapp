@@ -34,6 +34,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
+
+
+
+
 const MainCompContainer2 = connect(
     mapStateToProps,
     mapDispatchToProps

@@ -1,18 +1,18 @@
 import React,{createClass} from 'react';
 import { connect } from 'react-redux'
 
-const Radios = ({mode1,mode2,radio}) => {
+const Radios = ({mode1,mode2,radio,put}) => {
     let view = ''
     if(radio=="text"){
         view = (
             <div className="radio-box">
                 <label className="radio-lable" onClick={mode1}>
                     <span className="radio-img"><img width="20" height="20" src="editor-app/react-src/branchSequenceFlow/unselected.png" /></span>
-                    <span className="radio-text">手动选择</span> 
+                    <span className="radio-text">{put('branch.radio.manual')}</span> 
                 </label> 
                 <label className="radio-lable" >
                     <span className="radio-img"><img width="20" height="20" src="editor-app/react-src/branchSequenceFlow/selected.png" /></span>
-                    <span className="radio-text">编写公式</span> 
+                    <span className="radio-text">{put('branch.radio.formula')}</span> 
                 </label> 
             </div>
         )
@@ -21,11 +21,11 @@ const Radios = ({mode1,mode2,radio}) => {
             <div className="radio-box">
                 <label className="radio-lable">
                     <span className="radio-img"><img width="20" height="20" src="editor-app/react-src/branchSequenceFlow/selected.png" /></span>
-                    <span className="radio-text">手动选择</span> 
+                    <span className="radio-text">{put('branch.radio.manual')}</span> 
                 </label> 
                 <label className="radio-lable" onClick={mode2}>
                     <span className="radio-img"><img width="20" height="20" src="editor-app/react-src/branchSequenceFlow/unselected.png" /></span>
-                    <span className="radio-text">编写公式</span> 
+                    <span className="radio-text">{put('branch.radio.formula')}</span> 
                 </label>  
             </div>
         )
@@ -45,9 +45,17 @@ const mapDispatchToProps = (dispatch) => {
     }
     return {mode1,mode2}
 }
+
+
+import connectPut from 'react-put'
+const options = {mapPropToDictionary: (props)=>window.reactI18n}
+const ConnectedApp = connectPut(options)(Radios)
+
+
+
 const RadiosContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Radios)
+)(ConnectedApp)
 
 export default RadiosContainer

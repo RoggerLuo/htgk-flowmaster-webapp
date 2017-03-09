@@ -10,21 +10,26 @@ import Options from './Options'
 import './style'
 
 
-const Component = () => {
+const Component = ({put}) => {
     return(
         <div className="react-approve" >
-            <SectionTitleContainer text='条件设置'/>            
+            <SectionTitleContainer text={put('branch.sectionTitle')}/>   
             <Radios />
-            <div className="section-content">满足以下条件则分支流向节点“{window.nextElementIs}”</div>
+            <div className="section-content">{put('branch.sectionContent',window.nextElementIs)}</div>
             <Options />
             
         </div>
     )
 }
+
+import connectPut from 'react-put'
+const options = {mapPropToDictionary: (props)=>window.reactI18n}
+const ConnectedApp = connectPut(options)(Component)
+
 export default function(){
     render(
         <Provider store={store}>
-            <Component />
+            <ConnectedApp />
         </Provider>
         ,
         document.getElementById('branchSequenceFlowComponent')
