@@ -2,14 +2,27 @@ import React,{createClass} from 'react';
 import './style'
 
 const Component = ({title,cancel,confirm,display,put, /*后面可选*/ children,height,width}) => {
+    
     const confirmDecorated = ()=>{
         confirm()
         cancel()
     }
-    
+    let compClass1=""
+    let compClass2=""
+
+    if(display=='none'){
+        compClass1="slideOutUp "
+        compClass2 = "fadeOut"
+
+    }else{
+        compClass1="slideInDown "
+        compClass2 = "fadeIn"
+
+    }
+    // style={{display:display}} className={compClass2} className={compClass1}
     return(
-        <div className="popup-coverwrap" style={{display:display}}>
-            <div className="popup" style={{height:height,width:width}}>
+        <div className={"popup-coverwrap "+compClass2} style={{display:display}}>
+            <div className={"popup "+compClass1} style={{height:height,width:width}} >
                 <div className="x">                
                     <i className="icon qingicon icon-close" onClick={cancel}></i>
                 </div>

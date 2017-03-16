@@ -13,7 +13,8 @@
         flex-direction: column;
         height: 65%;
         width: 50%;
-        margin: auto;
+        // margin: auto;
+        margin: 11% auto auto auto;
         border: 1px solid #ccc;
         .x {
             text-align: right;
@@ -29,8 +30,8 @@
         .content {
             flex: 1;
             display: flex;
-            width:100%;
-            .innerContent{
+            width: 100%;
+            .innerContent {
                 font-size: 14px;
                 margin: auto;
             }
@@ -84,17 +85,14 @@
                 display: flex;
                 justify-content: space-around;
                 width: 100%;
-                
                 .cancel {
                     display: inline-block;
                     width: 23%;
                     height: 35px;
                     line-height: 35px;
                     font-size: 15px;
-                    
                     margin-left: 9%;
                     background-color: #ccc;
-
                 }
                 .placeholder {
                     display: inline-block;
@@ -107,12 +105,76 @@
                     height: 35px;
                     line-height: 35px;
                     font-size: 15px;
-
                     margin-right: 9%;
-                    background-color: rgb(151,220,251);
-
+                    background-color: rgb(151, 220, 251);
                 }
             }
         }
     }
+}
+
+
+@keyframes slideInDown {
+    from {
+        // transform: translate3d(-50%, -100%, 0);
+        margin: 4% auto auto auto;
+
+        visibility: visible;
+    }
+    to {
+        // transform: translate3d(-50%, -50%, 0);
+        margin: 11% auto auto auto;
+
+    }
+}
+
+.slideInDown {
+    animation: slideInDown .3s ease-out;
+}
+
+@keyframes slideOutUp {
+    from {
+        margin: 11% auto auto auto;
+    }
+    to {
+        visibility: hidden;
+        margin: 4% auto auto auto;
+    }
+}
+
+.slideOutUp {
+    animation: slideOutUp .3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        display: block;
+    }
+    to {
+        opacity: 1;
+        display: block;
+
+    }
+}
+
+.fadeIn {
+    animation: fadeIn .3s ease-out;
+    display: block;
+    animation-fill-mode: forwards;
+
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;        
+    }
+}
+
+.fadeOut {
+    animation: fadeOut .3s ease-in;
+    // animation-fill-mode: forwards;
 }

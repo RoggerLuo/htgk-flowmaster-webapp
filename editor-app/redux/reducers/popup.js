@@ -22,7 +22,8 @@ const Reducer = (state = initial, action) => {
                 title:action.text||"请输入title",
                 display:'',
                 height:action.height||'65%',
-                width:action.width||'50%'
+                width:action.width||'50%',
+
             })
         case 'hidePopup':
             return Object.assign({}, state, {
