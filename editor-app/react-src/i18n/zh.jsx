@@ -4,7 +4,6 @@ export default {
   'approveNode.remark.content':'只需节点上任意一人审批即可通过',
   'approveNode.button.add':'添加审批人员',
   'approveNode.title.staff':'审批人员',
-  'button.save':'保存',
   'parallel.remark.title':'审批规则',
   'parallel.remark.content':'需每个会签范围内至少一名代表审批通过方可会签通过',
   'parallel.contentTitle':'会签范围',
@@ -42,6 +41,7 @@ export default {
   'button.option1':"添加发起人上级",//''
   'button.option2':"添加机构角色",//
   'button.option3':"添加特定人员",//
+  'button.save':'保存',
 
   'popup.org1':"最近",//""
   'popup.org2':"级分管",//""

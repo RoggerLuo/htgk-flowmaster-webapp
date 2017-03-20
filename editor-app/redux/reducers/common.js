@@ -4,12 +4,29 @@ import {toJS,fromJS,List, Map} from 'immutable';
 // dispatch({type:'hidePopup',options,content})
 
 let initial = {
-    active:false
+    active:false,
+    showAlert:false,
+    alertContent:''
 }
 
 const Reducer = (state = initial, action) => {
     const data = fromJS(state)
     switch (action.type) {
+        case 'callAlert':
+            return Object.assign({}, state, {
+                showAlert:'show',
+                alertContent:action.alertContent||'default'
+            })
+        case 'hideAlertAnimation':
+            return Object.assign({}, state, {
+                showAlert:'hideAnimation'
+            })
+        case 'hideAlert':
+            return Object.assign({}, state, {
+                showAlert:'hide'
+            })
+
+ 
         // case 'callPopup':
         //     return Object.assign({}, state, {
         //         confirm:action.confirm||function(){},

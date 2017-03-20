@@ -1,97 +1,54 @@
 .alertComponent {
-    .slice {
-        color: white;
-        background-color: #1f1f1f;
-        width: 210px;
-        height: 100px;
-        border-radius: 6px;
-        position: relative;
-        padding: 13px 20px 13px 20px;
-        font-size: 13px;
-        display: flex;
-        flex-direction:column;
-        .title-text{flex:1;}
-        .content-text{flex:1;color:#ccc;}
-        .bottom-text{
-            text-align: right;
-            .stopremind{
-                
-            }
-            .iknow{
-                color:#ffd800;
-                padding-left: 10px;
-            }
-        }
-        
-    }
-    .slice1 {
-        left: 5%;
-        top: 21%;
-    }
-    .slice2 {
+    position: absolute;
+    z-index: 999;
+    top: 35%;
+    text-align: center;
+    width: 100%;
+    .content {
+        display: inline-block;
         margin: auto;
-        top: 21%;
+        // min-width: 32px;
+        padding: 0 20px;
+        height: 90px;
+        // opacity: 0.9;
+        border-radius: 4px;
+        background-color: #333333;
+        color:white;
+        font-size: 14px;
+        line-height: 90px;
     }
-    .slice3 {
-        left: -5%;
-        top: 36%;
+
+   
+
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        // display: none;
     }
-    -webkit-user-select: none;
-    /* Chrome all / Safari all /opera15+*/
-    -moz-user-select: none;
-    /* Firefox all */
-    -ms-user-select: none;
-    /* IE 10+ */
-    user-select: none;
-    .cover {
-        position: fixed;
-        top: 0px;
-        bottom: 0px;
-        left: 0px;
-        right: 0px;
-        // background-color:  rgba(0, 0, 0, 0.38);
-        z-index: 99999;
+    to {
+        opacity: 0.9;
+        display: block;
+
     }
-    .black {
-        background-color: rgba(0, 0, 0, 0.38);
+}
+
+.fadeInAlert {
+    animation: fadeIn 1.3s ease-out;
+    animation-fill-mode: forwards;
+
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
     }
-    .white {
-        background-color: transparent;
+    to {
+        opacity: 0; 
     }
-    .header {}
-    .body {
-        border-top: 10px solid rgba(0, 0, 0, 0.38);
-        height: 100%;
-        display: flex;
-        .left {
-            width: 10%;
-            height: 100%;
-            margin-right: -10px;
-        }
-        .left-border {
-            width: 10px;
-            height: 100%;
-            // background-color:  rgba(0, 0, 0, 0.38);
-        }
-        .middle {
-            height: 100%;
-            width: 67%;
-            display: flex;
-            .middle-text {
-                margin: auto;
-                font-size: 26px;
-                color: #CCC;
-            }
-        }
-        .right {
-            height: 100%;
-            width: 23%;
-            margin-left: -10px;
-        }
-        .right-border {
-            width: 10px;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.38);
-        }
-    }
+}
+
+.fadeOutAlert {
+    animation: fadeOut 1.3s ease-in;
+    // animation-fill-mode: forwards;
 }

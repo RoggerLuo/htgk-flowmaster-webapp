@@ -12,6 +12,7 @@ const Component = ({active,click,put}) => {
         save = click
         style = {backgroundColor: 'rgb(0,176,255)'}
     }
+
     return (
         <div id="bottom-save" className="bottom-text-div" style={style} onClick={save}>
             <div className="save">{put('button.save')}</div>
@@ -35,7 +36,7 @@ const mapDispatchToProps = (dispatch) => {
 import connectPut from 'react-put'
 import zh from '../i18n/zh'
 import en from '../i18n/en'
-const options = {mapPropToDictionary: (props)=>en}
+const options = {mapPropToDictionary: (props)=>window.reactI18n}
 const ConnectedApp = connectPut(options)(Component)
 
 

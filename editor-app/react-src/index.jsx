@@ -10,9 +10,11 @@ import branchSequenceFlowComponent from './branchSequenceFlow/Component'
 import popupStart from './popup/popupWrapContainer'
 import store from '../redux/configureStore'
 import saveButton from './saveButton/saveButton'
+import myAlert from './alert/alert'
 
 
 popupStart()
+myAlert()
 global.saveButton = {render:saveButton,flag:true}
 global.branchSequenceFlowComponent = {render:branchSequenceFlowComponent}
 global.parallelApproveComponent = {render:parallelApproveComponent}

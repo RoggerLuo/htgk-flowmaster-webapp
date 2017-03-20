@@ -4,7 +4,6 @@ export default {
   'approveNode.remark.content':'Approval passed if anyone on the Node has agreed',
   'approveNode.button.add':'Add Approval Staff',
   'approveNode.title.staff':'Approval Staff',
-  'button.save':'Save',
   'parallel.remark.title':'Approval Rule',
   'parallel.remark.content':'Approval passed if each group has at least one person agreed',
   'parallel.contentTitle':'Approval Range',
@@ -42,6 +41,7 @@ export default {
   'button.option1':"Add Higher-ups",//'添加发起人上级'
   'button.option2':"Add Org Character",//添加机构角色
   'button.option3':"Add Certain Character",//添加特定人员
+  'button.save':'Save',
 
   'popup.org1':"Nearest",//"最近"
   'popup.org2':"level",//"级分管"
