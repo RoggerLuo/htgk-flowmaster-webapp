@@ -72,11 +72,18 @@ const ComponentContainer = connect(
 )(Component)
 
 export default function(){
+    window.showAlert = ()=>{
+        store.dispatch({type:'callAlert',alertContent:'节点名称不能为空'})
+        store.dispatch({type:'hideAlertAnimation'})
+        setTimeout(function(){
+            store.dispatch({type:'hideAlert'})
+        },1000)
+    }
+
     render(
         <Provider store={store}>
             <ComponentContainer />
         </Provider>
-
         ,
         document.getElementById('custom-alert')
     )

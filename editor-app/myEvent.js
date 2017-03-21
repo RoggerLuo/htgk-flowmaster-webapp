@@ -3,7 +3,7 @@ window.activeSave = ()=>{
     window.reduxStore.dispatch({ type: 'saveActive'})
 }
 window.lastSelectedShape = false
-
+window.canvasFlag = false
 var myEvent = function($scope){
     window.getJson = ()=>{
         var json = $scope.editor.getJSON();
@@ -71,8 +71,6 @@ var myEvent = function($scope){
                jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[0] &&  (jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[0].style.fill= 'black')
                jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[3].children[0].style.fill = 'black' 
                $scope.lastSelectedUserTaskId = false
-
-                // return false
             }
         }
 
@@ -86,7 +84,6 @@ var myEvent = function($scope){
         window.lastSelectedShape = selectedShape
 
         /* 改变 正要选中 边框颜色的代码部分 */   
-                     
         if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'User task' 
             || selectedShape._stencil._jsonStencil.title == 'Mule task'
             )) {
@@ -135,17 +132,29 @@ var myEvent = function($scope){
         }
     })
 
+    /* 切换element时 保存节点名称 的代码 */
+    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
+        if(window.canvasFlag){
+            window.inputBlurred && window.inputBlurred('canvas')            
+        }else{
+            window.inputBlurred && window.inputBlurred()    
+        }
+    })
 
     /* 
         mini router 
     */
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
+
         var selectedShape = event.elements.first()
         // if(!selectedShape){return false} // 后面判断了，不需要多此一举
         if (!selectedShape) {
             $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
+            window.canvasFlag = true        
             return;/*罪魁祸首 。。。如果选中的是canvas我就把后面的事件全部屏蔽掉了 */
         }
+        window.canvasFlag = false     
+
         if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title == 'Exclusive gateway') {
             $scope.propertyTpl = './editor-app/property-tpl/branchSequenceFlow.html';
         } else {

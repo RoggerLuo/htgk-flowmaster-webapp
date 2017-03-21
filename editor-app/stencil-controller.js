@@ -375,8 +375,10 @@ angular.module('activitiModeler')
                             // return;
                         }
                     }
+                    
                     /* 如果直接切换item，直接把title设置成空字符串，导致每次都保存失败 */
-                    window.inputBlurred && window.inputBlurred()
+                    // window.inputBlurred && window.inputBlurred(true)
+                    
                     //注意多了一个局部变量 selectedItem
                     var selectedItem = { 'title': '', 'properties': [] };
 

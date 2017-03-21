@@ -21,33 +21,33 @@
  * String controller
  */
 
- var sequenceFlowPropertyCtrl = ['$scope', function($scope) {
-     //这里可以抓到id，嵌入react
-     // parallelApproveComponent.render()
+var sequenceFlowPropertyCtrl = ['$scope', function($scope) {
+    //这里可以抓到id，嵌入react
+    // parallelApproveComponent.render()
 
- }];
- var branchSequenceFlowPropertyCtrl = ['$scope', function($scope) {
-     //这里可以抓到id，嵌入react
-     branchSequenceFlowComponent.render()
+}];
+var branchSequenceFlowPropertyCtrl = ['$scope', function($scope) {
+    //这里可以抓到id，嵌入react
+    branchSequenceFlowComponent.render()
 
- }];
+}];
 
- var parallelApprovePropertyCtrl = ['$scope', function($scope) {
-     //这里可以抓到id，嵌入react
-     parallelApproveComponent.render()
-     // $scope.testAddUser = function() {
-     //     $scope.updatePropertyInModel({ key: 'parallelApprove', value: ['测试添加审批人1','测试添加审批人2'] });
-     //     console.log('updatePropertyInModel,parallelApprove person');
-     // }
- }];
+var parallelApprovePropertyCtrl = ['$scope', function($scope) {
+    //这里可以抓到id，嵌入react
+    parallelApproveComponent.render()
+        // $scope.testAddUser = function() {
+        //     $scope.updatePropertyInModel({ key: 'parallelApprove', value: ['测试添加审批人1','测试添加审批人2'] });
+        //     console.log('updatePropertyInModel,parallelApprove person');
+        // }
+}];
 
 var approvePropertyCtrl = ['$scope', function($scope) {
     //这里可以抓到id，嵌入react
     approveComponent.render()
-    // $scope.testAddUser = function() {
-    //     $scope.updatePropertyInModel({ key: 'approve', value: ['测试添加审批人1','测试添加审批人2'] });
-    //     console.log('updatePropertyInModel,approve person');
-    // }
+        // $scope.testAddUser = function() {
+        //     $scope.updatePropertyInModel({ key: 'approve', value: ['测试添加审批人1','测试添加审批人2'] });
+        //     console.log('updatePropertyInModel,approve person');
+        // }
 }];
 
 var canvasPropertyCtrl = ['$scope', function($scope) {
@@ -58,43 +58,56 @@ var canvasPropertyCtrl = ['$scope', function($scope) {
 }];
 
 
-var namePropertyCtrl = ['$scope','$timeout', function($scope,$timeout) {
+var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
     $scope.namePropertyClicked = function() {
-            $scope.shapeId = $scope.selectedShape.id;
-            $scope.valueFlushed = false;
-            /** Handler called when input field is blurred */
-            $scope.inputBlurred = function() {
-                $scope.valueFlushed = true;
-                if($scope.selectedItem.title == ''){ //quite important
-                    return false
-                }
+        $scope.shapeId = $scope.selectedShape.id;
+        $scope.valueFlushed = false;
+        
+        /** Handler called when input field is blurred */
+        /* 如果是直接切换item 则是每次都是空字符，这时候不能保存，如果保存则会用null string覆盖本来的名字 */
+        /* 所以要分开时切换item的情况 和 不是切换的情况 */
+        $scope.inputBlurred = function(enter) {//enter为true则是切换，空字串不保存
+            $scope.valueFlushed = true;
+            if(enter == 'canvas') {
+                return ;
+            }
+            if($scope.selectedItem.title == '') { //
+                // window.reduxStore.dispatch({type:'callAlert',alertContent:'节点名称不能为空'})
+                // window.reduxStore.dispatch({type:'hideAlertAnimation'})
+                // setTimeout(function(){
+                //     window.reduxStore.dispatch({type:'hideAlert'})
+                // },1000)
+                window.showAlert()
+                $scope.selectedItem.title = window.currentSelectedShape.properties['oryx-name']
+                return ;
+            }
+            if ($scope.selectedItem.title) {
+                $scope.selectedItem.title = $scope.selectedItem.title.replace(/(<([^>]+)>)/ig, "");
+            }
+            if (window.currentSelectedShape.properties['oryx-name'] != $scope.selectedItem.title) {
+                $scope.updatePropertyInModel({ key: 'oryx-name', value: $scope.selectedItem.title })
+                window.activeSave()
+            }
+        }
+        /* 一定是要先编辑了，鼠标点了，才能blur */
+        window.inputBlurred = $scope.inputBlurred
+        $scope.enterPressed = function(keyEvent) {
+            if (keyEvent && keyEvent.which === 13) {
+                keyEvent.preventDefault();
+                // keyEvent.target.blur();
+                $scope.inputBlurred(); // we want to do the same as if the user would blur the input field
+            }
+        };
+
+        $scope.$on('$destroy', function controllerDestroyed() {
+            if (!$scope.valueFlushed) {
                 if ($scope.selectedItem.title) {
                     $scope.selectedItem.title = $scope.selectedItem.title.replace(/(<([^>]+)>)/ig, "");
                 }
-                if(window.currentSelectedShape.properties['oryx-name'] != $scope.selectedItem.title){
-                    $scope.updatePropertyInModel({ key: 'oryx-name', value: $scope.selectedItem.title})
-                    window.activeSave()
-                }
-            };
-            window.inputBlurred=$scope.inputBlurred
-            $scope.enterPressed = function(keyEvent) {
-                if (keyEvent && keyEvent.which === 13) {
-                    keyEvent.preventDefault();
-                    // keyEvent.target.blur();
-                    $scope.inputBlurred(); // we want to do the same as if the user would blur the input field
-                }
-            };
-
-            $scope.$on('$destroy', function controllerDestroyed() {
-                if (!$scope.valueFlushed) {
-                    if ($scope.selectedItem.title) {
-                        $scope.selectedItem.title = $scope.selectedItem.title.replace(/(<([^>]+)>)/ig, "");
-                    }
-                    $scope.updatePropertyInModel({ key: 'oryx-name', value: $scope.selectedItem.title }, $scope.shapeId);
-                }
-            });
-        }
-        // if(!$scope.selectedShape){return;}
+                $scope.updatePropertyInModel({ key: 'oryx-name', value: $scope.selectedItem.title }, $scope.shapeId);
+            }
+        });
+    }
 }];
 
 var KisBpmStringPropertyCtrl = ['$scope', function($scope) {

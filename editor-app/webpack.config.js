@@ -13,10 +13,9 @@ module.exports = {
         filename: 'bundle.js',
         publicPath: '/'
     },
-
     module: {
-
-        loaders: [{
+        loaders: [
+            {
                 test: /\.jsx$/,
                 exclude: /node_modules/,
                 loader: 'jsx-loader?harmony'
@@ -29,7 +28,8 @@ module.exports = {
                 test: /\.less$/,
                 loader: ExtractTextPlugin.extract("style-loader", 'css-loader?sourceMap!less-loader')
             },
-            { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
+            { 
+                test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
             {
                 test   : /\.woff/,
                 loader : 'url'
@@ -46,8 +46,6 @@ module.exports = {
             {test: /\.png$/, loader: 'url?limit=8192&mimetype=image/png'},
             {test: /\.jpe?g$/, loader: 'url?limit=8192&mimetype=image/jpg'},
             {test: /\.gif$/, loader: 'url?limit=8192&mimetype=image/gif'},
-
-
         ],
     },
     // babel: {
@@ -68,7 +66,6 @@ module.exports = {
         //       }
         // },
     },
-
     plugins: [
         new ExtractTextPlugin("style.css", {
             allChunks: true

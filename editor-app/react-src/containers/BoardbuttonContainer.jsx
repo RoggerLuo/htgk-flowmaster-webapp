@@ -64,18 +64,31 @@ const BoardbuttonContainer = createClass({
             text:this.props.put('button.option2'),
             width:'44%'
         }
-        const action3 = {
-            height:'66%',
-            type:'callPopup',
-            confirm:()=>{popupConfirm('user')},
-            content:Org,
-            text:this.props.put('button.option3')
+        // const action3 = {
+        //     height:'66%',
+        //     type:'callPopup',
+        //     confirm:()=>{popupConfirm('user')},
+        //     content:Org,
+        //     text:this.props.put('button.option3')
+        // }
+        const action3 = ()=>{
+            // debuggers
+            let message = {type:"openSelectUserPanel",value:""}
+            window.parent.postMessage(message,'*')
+            console.log(window.parent)
         }
+
         const buttonOptions = [
             action1,action2,action3
         ]
         const data = buttonOptions.map((el,index)=>{
-            return {text:el.text,click(){dispatch(el)}}
+            return {text:el.text||'选择特定人员',click(){
+                if(el.type == 'callPopup'){
+                    dispatch(el)                    
+                }else{
+                    el()
+                }
+            }}
         })
         return (
             <Boardbutton  {...{display:this.state.display,toggle:this.toggle,close:this.close,data}}>

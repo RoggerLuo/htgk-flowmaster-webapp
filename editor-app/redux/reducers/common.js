@@ -27,14 +27,6 @@ const Reducer = (state = initial, action) => {
             })
 
  
-        // case 'callPopup':
-        //     return Object.assign({}, state, {
-        //         confirm:action.confirm||function(){},
-        //         content:action.content||'',
-        //         title:action.title||"请输入title",
-        //         display:'',
-        //         height:action.height||'65%'
-        //     })
         case 'saveActive':
             return Object.assign({}, state, {
                 active:true

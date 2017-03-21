@@ -16,7 +16,7 @@ const Component = ({title,cancel,confirm,display,put, /*后面可选*/ children,
 
     }else{
         compClass1="slideInDown "
-        compClass2 = "fadeIn"
+        compClass2 = "fadeInSpecial"
 
     }
     // style={{display:display}} className={compClass2} className={compClass1}

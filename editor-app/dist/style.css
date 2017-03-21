@@ -29,6 +29,9 @@
 .userGuideComponent .slice .bottom-text {
   text-align: right;
 }
+.userGuideComponent .slice .bottom-text .stopremind:active {
+  color: black;
+}
 .userGuideComponent .slice .bottom-text .iknow {
   color: #ffd800;
   padding-left: 10px;
@@ -60,7 +63,6 @@
   background-color: transparent;
 }
 .userGuideComponent .body {
-  border-top: 10px solid rgba(0, 0, 0, 0.38);
   height: 100%;
   display: flex;
 }
@@ -601,7 +603,7 @@ input:hover {
 .branch-dropdown .drop-down-table .drop-down-options .drop-down-option + .drop-down-option {
   border-top: 1px solid #dde4ef;
 }
-.branch-dropdown .drop-down-table .drop-down-options .drop-down-option {
+.branch-dropdown .drop-down-table .drop-down-options .drop-down-option .inner-option {
   padding: 0px 5px;
   height: 25px;
   line-height: 25px;
@@ -609,12 +611,13 @@ input:hover {
   margin: 3px;
   min-width: 66px;
 }
-.branch-dropdown .drop-down-table .drop-down-options .drop-down-option:hover {
+.branch-dropdown .drop-down-table .drop-down-options .inner-option:hover {
   background-color: #e4f5fb;
 }
-.branch-dropdown .drop-down-table .drop-down-options .drop-down-option:active {
-  border: 1px solid black;
-  background-color: #828282;
+.branch-dropdown .drop-down-table .drop-down-options .inner-option:active {
+  border: 1px solid white;
+  background-color: #00b0ff;
+  color: white;
 }
 .branchSequenceFlowPropertyCtrl .section-title {
   display: flex;
@@ -647,6 +650,19 @@ input:hover {
 .branchSequenceFlowPropertyCtrl .radio {
   display: inline-block;
   margin: 5px 5px 5px 0px;
+}
+.branchSequenceFlowPropertyCtrl .radio-img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.branchSequenceFlowPropertyCtrl .radio-text {
+  padding: 5px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .branchSequenceFlowPropertyCtrl .the3dots {
   font-size: 20px;
@@ -776,7 +792,7 @@ input:hover {
   flex-direction: column;
   height: 65%;
   width: 50%;
-  margin: auto;
+  margin: 11% auto auto auto;
   border: 1px solid #ccc;
 }
 .popup-coverwrap .popup .x {
@@ -871,4 +887,96 @@ input:hover {
   font-size: 15px;
   margin-right: 9%;
   background-color: #97dcfb;
+}
+@keyframes slideInDown {
+  from {
+    margin: 4% auto auto auto;
+    visibility: visible;
+  }
+  to {
+    margin: 11% auto auto auto;
+  }
+}
+.slideInDown {
+  animation: slideInDown 0.3s ease-out;
+}
+@keyframes slideOutUp {
+  from {
+    margin: 11% auto auto auto;
+  }
+  to {
+    visibility: hidden;
+    margin: 4% auto auto auto;
+  }
+}
+.slideOutUp {
+  animation: slideOutUp 0.3s ease-in;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    display: block;
+  }
+  to {
+    opacity: 1;
+    display: block;
+  }
+}
+.fadeIn {
+  animation: fadeIn 0.3s ease-out;
+  display: block;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.fadeOut {
+  animation: fadeOut 0.3s ease-in;
+}
+.alertComponent {
+  position: absolute;
+  z-index: 999;
+  top: 35%;
+  text-align: center;
+  width: 100%;
+}
+.alertComponent .content {
+  display: inline-block;
+  margin: auto;
+  padding: 0 20px;
+  height: 90px;
+  border-radius: 4px;
+  background-color: #333333;
+  color: white;
+  font-size: 14px;
+  line-height: 90px;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.9;
+    display: block;
+  }
+}
+.fadeInAlert {
+  animation: fadeIn 1.3s ease-out;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.fadeOutAlert {
+  animation: fadeOut 1.3s ease-in;
 }
