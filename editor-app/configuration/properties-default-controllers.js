@@ -85,19 +85,28 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
         $scope.updatePropertyInModel({ key: 'oryx-name', value: $scope.selectedItem.title })
         window.activeSave()
         console.log($scope.selectedItem.title)
-
+        // debugger
     }
     $scope.namePropertyClicked = function() {
+        window.namePropertyClicked = true
         $scope.shapeId = $scope.selectedShape.id;
         $scope.valueFlushed = false;
         /** Handler called when input field is blurred */
         /* 如果是直接切换item 则是每次都是空字符，这时候不能保存，如果保存则会用null string覆盖本来的名字 */
         /* 所以要分开时切换item的情况 和 不是切换的情况 */
         $scope.inputBlurred = function(enter) {//enter为true则是切换，空字串不保存
+            if(!window.namePropertyClicked){
+                return ;
+            }
+            window.namePropertyClicked = false
+
             $scope.valueFlushed = true;
             if(enter == 'canvas') {
                 return ;
             }
+
+            /* 如果是新建 怎么办 */
+
             if($scope.selectedItem.title == '') { //
                 // window.reduxStore.dispatch({type:'callAlert',alertContent:'节点名称不能为空'})
                 // window.reduxStore.dispatch({type:'hideAlertAnimation'})
