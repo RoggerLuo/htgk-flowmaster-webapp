@@ -59,10 +59,37 @@ var canvasPropertyCtrl = ['$scope', function($scope) {
 
 
 var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
+    // $scope.selectedShape
+    if($scope.selectedItem.title==''){
+        /* 自动命名 */
+        const giveName = (cate) => {
+            const mapArr={
+                "Start event":"StartNoneEvent",
+                "End event":"EndNoneEvent",
+                "Sequence flow":"SequenceFlow",
+                "User task":"UserTask",
+                "Exclusive gateway":"ExclusiveGateway",
+                "End error event":"EndErrorEvent",
+                "Mule task":"MuleTask"
+            }
+            cate  = mapArr[cate]
+            const json = window.getRawJson()        
+
+            /* 计算此类有多少个 */
+            let num = json.childShapes.filter((el2,index2)=>{
+                return el2.stencil.id==cate
+            }).length
+            return cate + num
+        }
+        $scope.selectedItem.title = giveName($scope.selectedItem.jsonStencilTitle)
+        $scope.updatePropertyInModel({ key: 'oryx-name', value: $scope.selectedItem.title })
+        window.activeSave()
+        console.log($scope.selectedItem.title)
+
+    }
     $scope.namePropertyClicked = function() {
         $scope.shapeId = $scope.selectedShape.id;
         $scope.valueFlushed = false;
-        
         /** Handler called when input field is blurred */
         /* 如果是直接切换item 则是每次都是空字符，这时候不能保存，如果保存则会用null string覆盖本来的名字 */
         /* 所以要分开时切换item的情况 和 不是切换的情况 */

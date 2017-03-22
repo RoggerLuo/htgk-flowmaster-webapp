@@ -5,18 +5,63 @@ window.activeSave = ()=>{
 window.lastSelectedShape = false
 window.canvasFlag = false
 var myEvent = function($scope){
+    
+
     window.getJson = ()=>{
         var json = $scope.editor.getJSON();
         json = JSON.stringify(json);
         return json
     }
+
+    window.getRawJson = ()=>{
+        var json = $scope.editor.getJSON();
+        return json
+    }
     
+    window.repetitionTest = ()=>{
+        const json = window.getRawJson()        
+        const arr=[
+            "StartNoneEvent",
+            "EndNoneEvent",
+            "SequenceFlow",
+            "UserTask",
+            "ExclusiveGateway",
+            "EndErrorEvent",
+            "MuleTask"
+        ]
+        arr.forEach((el,index)=>{
+            let thisCate = json.childShapes.filter((el2,index2)=>{
+                return el2.stencil.id==el
+            })            
+        })
+        
+        /* 传入类型，然后计算出这个类型的数量，来自动命名,使用国际化 */
+        let thisCate = json.childShapes.filter((el2,index2)=>{
+            return el2.stencil.id==el
+        })            
+
+    }
+    
+    /* 判断是否重名 直接循环所有的 */
+    window.isRepeated = (name) => {
+        const json = window.getRawJson()        
+        return json.childShapes.some((el,index)=>{
+            return el.properties.name==name
+        })            
+    }
+
     $scope.lastSelectedUserTaskId = false
     $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
 
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_EXECUTE_COMMANDS, function(event) {
         window.activeSave()        
     })
+    
+    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
+        
+    })
+
+
 
     /*
         在redux里切换当前的元素id
@@ -158,6 +203,7 @@ var myEvent = function($scope){
         if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title == 'Exclusive gateway') {
             $scope.propertyTpl = './editor-app/property-tpl/branchSequenceFlow.html';
         } else {
+
             switch (selectedShape._stencil._jsonStencil.title) {
                 case 'User task':
                     $scope.propertyTpl = './editor-app/property-tpl/approve.html';
@@ -168,6 +214,19 @@ var myEvent = function($scope){
                 case 'Sequence flow':
                     $scope.propertyTpl = './editor-app/property-tpl/sequenceFlow.html';
                     break;
+                case 'End error event':
+                    $scope.propertyTpl = './editor-app/property-tpl/errorNotify.html';
+                    break;
+                case 'End event':
+                    $scope.propertyTpl = './editor-app/property-tpl/notify.html';
+                    break;
+                case 'Start event':
+                    $scope.propertyTpl = './editor-app/property-tpl/start.html';
+                    break;
+                case 'Exclusive gateway':
+                    $scope.propertyTpl = './editor-app/property-tpl/exclusive.html';
+                    break;
+
                 default:
                     $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
                     break;
