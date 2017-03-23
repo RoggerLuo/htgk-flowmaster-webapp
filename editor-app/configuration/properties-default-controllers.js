@@ -113,10 +113,27 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
                 // setTimeout(function(){
                 //     window.reduxStore.dispatch({type:'hideAlert'})
                 // },1000)
-                window.showAlert()
+                window.showAlert('节点名称不能为空')
                 $scope.selectedItem.title = window.currentSelectedShape.properties['oryx-name']
                 return ;
             }
+            
+            /* 判断是否重名 直接循环所有的 */
+            const isRepeated = (name) => {
+                const json = window.getRawJson()        
+                return json.childShapes.some((el,index)=>{
+                    return el.properties.name==name
+                })            
+            }
+
+            if (window.currentSelectedShape.properties['oryx-name'] != $scope.selectedItem.title) {
+                if(isRepeated($scope.selectedItem.title)){
+                    window.showAlert('节点名称重复')
+                    $scope.selectedItem.title = window.currentSelectedShape.properties['oryx-name']
+                    return ;
+                }                
+            }
+
             if ($scope.selectedItem.title) {
                 $scope.selectedItem.title = $scope.selectedItem.title.replace(/(<([^>]+)>)/ig, "");
             }
@@ -128,11 +145,15 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
         /* 一定是要先编辑了，鼠标点了，才能blur */
         window.inputBlurred = $scope.inputBlurred
         $scope.enterPressed = function(keyEvent) {
+
             if (keyEvent && keyEvent.which === 13) {
                 keyEvent.preventDefault();
                 // keyEvent.target.blur();
                 $scope.inputBlurred(); // we want to do the same as if the user would blur the input field
             }
+            // else{
+                window.namePropertyClicked = true
+            // }
         };
 
         $scope.$on('$destroy', function controllerDestroyed() {

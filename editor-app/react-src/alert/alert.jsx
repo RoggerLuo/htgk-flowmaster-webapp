@@ -72,8 +72,8 @@ const ComponentContainer = connect(
 )(Component)
 
 export default function(){
-    window.showAlert = ()=>{
-        store.dispatch({type:'callAlert',alertContent:'节点名称不能为空'})
+    window.showAlert = (text)=>{
+        store.dispatch({type:'callAlert',alertContent:text})
         store.dispatch({type:'hideAlertAnimation'})
         setTimeout(function(){
             store.dispatch({type:'hideAlert'})

@@ -18,37 +18,6 @@ var myEvent = function($scope){
         return json
     }
     
-    window.repetitionTest = ()=>{
-        const json = window.getRawJson()        
-        const arr=[
-            "StartNoneEvent",
-            "EndNoneEvent",
-            "SequenceFlow",
-            "UserTask",
-            "ExclusiveGateway",
-            "EndErrorEvent",
-            "MuleTask"
-        ]
-        arr.forEach((el,index)=>{
-            let thisCate = json.childShapes.filter((el2,index2)=>{
-                return el2.stencil.id==el
-            })            
-        })
-        
-        /* 传入类型，然后计算出这个类型的数量，来自动命名,使用国际化 */
-        let thisCate = json.childShapes.filter((el2,index2)=>{
-            return el2.stencil.id==el
-        })            
-
-    }
-    
-    /* 判断是否重名 直接循环所有的 */
-    window.isRepeated = (name) => {
-        const json = window.getRawJson()        
-        return json.childShapes.some((el,index)=>{
-            return el.properties.name==name
-        })            
-    }
 
     $scope.lastSelectedUserTaskId = false
     $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
@@ -58,7 +27,7 @@ var myEvent = function($scope){
     })
     
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
-        
+
     })
 
 
