@@ -59,7 +59,13 @@ var canvasPropertyCtrl = ['$scope', function($scope) {
 
 
 var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
-    // $scope.selectedShape
+    /* 判断是否重名 直接循环所有的 */
+    const isRepeated = (name) => {
+        const json = window.getRawJson()        
+        return json.childShapes.some((el,index)=>{
+            return el.properties.name==name
+        })            
+    }
     if($scope.selectedItem.title==''){
         /* 自动命名 */
         const giveName = (cate) => {
@@ -79,7 +85,11 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
             let num = json.childShapes.filter((el2,index2)=>{
                 return el2.stencil.id==cate
             }).length
-            return cate + num
+            let name = cate + num
+            while(isRepeated(name)){
+                name = cate + (num+1)
+            }
+            return name
         }
         $scope.selectedItem.title = giveName($scope.selectedItem.jsonStencilTitle)
         $scope.updatePropertyInModel({ key: 'oryx-name', value: $scope.selectedItem.title })
@@ -118,13 +128,7 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
                 return ;
             }
             
-            /* 判断是否重名 直接循环所有的 */
-            const isRepeated = (name) => {
-                const json = window.getRawJson()        
-                return json.childShapes.some((el,index)=>{
-                    return el.properties.name==name
-                })            
-            }
+            
 
             if (window.currentSelectedShape.properties['oryx-name'] != $scope.selectedItem.title) {
                 /* 如果节点名称变更，才判断是否重复   因为不变更肯定与当前自己的名称重复 */
