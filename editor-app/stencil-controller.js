@@ -477,16 +477,20 @@ angular.module('activitiModeler')
                     // Need to wrap this in an $apply block, see http://jimhoskins.com/2012/12/17/angularjs-and-apply.html
                     $scope.safeApply(function() {
                         $scope.selectedItem = selectedItem;
-
                         $scope.selectedShape = selectedShape;
+                        window.afterElementSelected($scope,event)
+                        window.lastSelectedItem = selectedItem;
                     });
 
                 } else {
                     $scope.safeApply(function() {
                         $scope.selectedItem = {};
                         $scope.selectedShape = null;
+                        window.afterElementSelected($scope,event)
+                        window.lastSelectedItem = selectedItem;
                     });
                 }
+
             });
 
             /*

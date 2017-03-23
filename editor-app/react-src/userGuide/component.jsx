@@ -153,6 +153,6 @@ window.userGuide = function(){
             ,
             document.getElementById('userGuideComponent')
         )
-        // window.localStorage.setItem('userGuide','readed')
+        window.localStorage.setItem('userGuide','readed')
     }    
 }

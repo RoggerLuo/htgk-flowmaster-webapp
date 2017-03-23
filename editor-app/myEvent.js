@@ -4,6 +4,53 @@ window.activeSave = ()=>{
 }
 window.lastSelectedShape = false
 window.canvasFlag = false
+window.lastSelectedItem = false
+
+/* 判断是否重名 直接循环所有的 */
+const isRepeated = (name) => {
+    const json = window.getRawJson()        
+    return json.childShapes.some((el,index)=>{
+        return el.properties.name==name
+    })            
+}
+
+/* 自动命名 */
+const giveName = (cate) => {
+    const mapArr={
+        "Start event":"StartNoneEvent",
+        "End event":"EndNoneEvent",
+        "Sequence flow":"SequenceFlow",
+        "User task":"UserTask",
+        "Exclusive gateway":"ExclusiveGateway",
+        "End error event":"EndErrorEvent",
+        "Mule task":"MuleTask"
+    }
+    const mapArrCN={
+        "Start event":"开始",
+        "End event":"结束",
+        "Sequence flow":"连线",
+        "User task":"审批",
+        "Exclusive gateway":"分支",
+        "End error event":"异常结束",
+        "Mule task":"会签"
+    }
+    // cate  = mapArr[cate]
+    const json = window.getRawJson()        
+
+    /* 计算此类有多少个 */
+    // let num = json.childShapes.filter((el2,index2)=>{
+    //     return el2.stencil.id==cate
+    // }).length
+    let num = 1
+    let name = mapArrCN[cate] + num
+    while(isRepeated(name)){
+        num = num + 1 
+        name = mapArrCN[cate] + num
+    }
+    return name
+}
+
+
 var myEvent = function($scope){
     
 
@@ -146,28 +193,25 @@ var myEvent = function($scope){
         }
     })
 
-    /* 切换element时 保存节点名称 的代码 */
-    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
-        if(window.canvasFlag){
-            window.inputBlurred && window.inputBlurred('canvas')            
-        }else{
-            window.inputBlurred && window.inputBlurred()    
-        }
-    })
-
+   
     /* 
         mini router 
     */
-    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
-
+    const miniRouter = ($scope,event)=>{
         var selectedShape = event.elements.first()
-        // if(!selectedShape){return false} // 后面判断了，不需要多此一举
         if (!selectedShape) {
             $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
-            window.canvasFlag = true        
+            window.isThisCanvas = true        
             return;/*罪魁祸首 。。。如果选中的是canvas我就把后面的事件全部屏蔽掉了 */
         }
-        window.canvasFlag = false     
+        window.isThisCanvas = false     
+        
+        // debugger
+        if(selectedShape.properties["oryx-name"]==''){
+            // $scope.selectedItem.title = 
+            $scope.updatePropertyInModel({ key: 'oryx-name', value: giveName(selectedShape._stencil._jsonStencil.title)})
+            window.activeSave()
+        }
 
         if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title == 'Exclusive gateway') {
             $scope.propertyTpl = './editor-app/property-tpl/branchSequenceFlow.html';
@@ -195,16 +239,96 @@ var myEvent = function($scope){
                 case 'Exclusive gateway':
                     $scope.propertyTpl = './editor-app/property-tpl/exclusive.html';
                     break;
-
                 default:
                     $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
                     break;
             }
         }
+    }
+    window.afterElementSelected = ($scope,event)=>{
+        
+        miniRouter($scope,event)
+            
         if(saveButton.flag){ //必须在页面tpl加载之后才加载
             saveButton.render()
             saveButton.flag = false
         }
+        console.log('window.isThisCanvas:'+window.isThisCanvas)
+        if(!window.isThisCanvas){
+            window.inputBlurred && window.inputBlurred('canvas')            
+        }else{
+            window.inputBlurred && window.inputBlurred()    
+        }
+    }
+
+    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
+
+        // var selectedShape = event.elements.first()
+        // // if(!selectedShape){return false} // 后面判断了，不需要多此一举
+        // if (!selectedShape) {
+        //     $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
+        //     window.canvasFlag = true        
+        //     return;/*罪魁祸首 。。。如果选中的是canvas我就把后面的事件全部屏蔽掉了 */
+        // }
+        // window.canvasFlag = false     
+        
+
+        // // debugger
+        // if(selectedShape.properties["oryx-name"]==''){
+        //     // $scope.selectedItem.title = 
+        //     $scope.updatePropertyInModel({ key: 'oryx-name', value: giveName(selectedShape._stencil._jsonStencil.title)})
+        //     window.activeSave()
+        // }
+
+
+        // if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title == 'Exclusive gateway') {
+        //     $scope.propertyTpl = './editor-app/property-tpl/branchSequenceFlow.html';
+        // } else {
+
+        //     switch (selectedShape._stencil._jsonStencil.title) {
+        //         case 'User task':
+        //             $scope.propertyTpl = './editor-app/property-tpl/approve.html';
+        //             break;
+        //         case 'Mule task':
+        //             $scope.propertyTpl = './editor-app/property-tpl/parallelApprove.html';
+        //             break;
+        //         case 'Sequence flow':
+        //             $scope.propertyTpl = './editor-app/property-tpl/sequenceFlow.html';
+        //             break;
+        //         case 'End error event':
+        //             $scope.propertyTpl = './editor-app/property-tpl/errorNotify.html';
+        //             break;
+        //         case 'End event':
+        //             $scope.propertyTpl = './editor-app/property-tpl/notify.html';
+        //             break;
+        //         case 'Start event':
+        //             $scope.propertyTpl = './editor-app/property-tpl/start.html';
+        //             break;
+        //         case 'Exclusive gateway':
+        //             $scope.propertyTpl = './editor-app/property-tpl/exclusive.html';
+        //             break;
+
+        //         default:
+        //             $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
+        //             break;
+        //     }
+        // }
+        // if(saveButton.flag){ //必须在页面tpl加载之后才加载
+        //     saveButton.render()
+        //     saveButton.flag = false
+        // }
     })
+
+
+    /* 切换element时 保存节点名称 的代码 */
+    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
+        // debugger
+        // if(window.canvasFlag){
+        //     window.inputBlurred && window.inputBlurred('canvas')            
+        // }else{
+        //     window.inputBlurred && window.inputBlurred()    
+        // }
+    })
+
 }
 
