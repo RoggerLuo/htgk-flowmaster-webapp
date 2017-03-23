@@ -127,6 +127,7 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
             }
 
             if (window.currentSelectedShape.properties['oryx-name'] != $scope.selectedItem.title) {
+                /* 如果节点名称变更，才判断是否重复   因为不变更肯定与当前自己的名称重复 */
                 if(isRepeated($scope.selectedItem.title)){
                     window.showAlert('节点名称重复')
                     $scope.selectedItem.title = window.currentSelectedShape.properties['oryx-name']
