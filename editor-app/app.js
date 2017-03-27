@@ -94,18 +94,32 @@ activitiModeler
             /* Helper method to fetch model from server (always needed) */
             function fetchModel(modelId) {
 
-                var modelUrl = KISBPM.URL.getModel(modelId);
-                $http({method: 'GET', url: modelUrl}).
-                    success(function (data, status, headers, config) {
+                // var modelUrl = KISBPM.URL.getModel(modelId);
+                window.getModel = (callback)=>{
+                    $http({    
+                        method: 'GET',
+                        url: 'http://localhost:9001/repository/process-definitions/Pro_5b455d6ddab54296bcfa76f3ac1af6b6/design?processType=Normal'
+                    })
+                    .success(function (data, status, headers, config) {
+                        callback(data, status, headers, config)
+                    })
+                    .error(function (data, status, headers, config) {
+                        $scope.error = {};
+                        console.log('Something went wrong when updating the process model:' + JSON.stringify(data));
+                    });
+                }
+
+                window.getModel(function (data, status, headers, config) {
+                // $http({method: 'GET', url: modelUrl}).success(function (data, status, headers, config) {
                         $rootScope.editor = new ORYX.Editor(data);  //initialised   10866 12431 10060
                         
                         $rootScope.modelData = angular.fromJson(data);
                         $rootScope.editorFactory.resolve();
-
-                    }).
-                    error(function (data, status, headers, config) {
-                      console.log('Error loading model with id ' + modelId + ' ' + data);
-                    });
+                })
+                // .
+                //     error(function (data, status, headers, config) {
+                //       console.log('Error loading model with id ' + modelId + ' ' + data);
+                //     });
             }
 
 

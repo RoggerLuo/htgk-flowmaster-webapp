@@ -17,89 +17,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-/*
- * String controller
- */
 
- // /* 判断是否重名 直接循环所有的 */
- // const isRepeated = (name) => {
- //     const json = window.getRawJson()        
- //     return json.childShapes.some((el,index)=>{
- //         return el.properties.name==name
- //     })            
- // }
-
- // /* 自动命名 */
- // const giveName = (cate) => {
- //     const mapArr={
- //         "Start event":"StartNoneEvent",
- //         "End event":"EndNoneEvent",
- //         "Sequence flow":"SequenceFlow",
- //         "User task":"UserTask",
- //         "Exclusive gateway":"ExclusiveGateway",
- //         "End error event":"EndErrorEvent",
- //         "Mule task":"MuleTask"
- //     }
- //     const mapArrCN={
- //         "Start event":"开始",
- //         "End event":"结束",
- //         "Sequence flow":"连线",
- //         "User task":"审批",
- //         "Exclusive gateway":"分支",
- //         "End error event":"异常结束",
- //         "Mule task":"会签"
- //     }
- //     // cate  = mapArr[cate]
- //     const json = window.getRawJson()        
-
- //     /* 计算此类有多少个 */
- //     // let num = json.childShapes.filter((el2,index2)=>{
- //     //     return el2.stencil.id==cate
- //     // }).length
- //     let num = 1
- //     let name = mapArrCN[cate] + num
- //     while(isRepeated(name)){
- //         num = num + 1 
- //         name = mapArrCN[cate] + num
- //     }
- //     return name
- // }
-
- 
+var endPointPropertyCtrl = ['$scope', function($scope) {
+    endPointComponent()
+}];
 
 var sequenceFlowPropertyCtrl = ['$scope', function($scope) {
-    //这里可以抓到id，嵌入react
-    // parallelApproveComponent.render()
 
 }];
 var branchSequenceFlowPropertyCtrl = ['$scope', function($scope) {
-    //这里可以抓到id，嵌入react
     branchSequenceFlowComponent.render()
 }];
 
 var parallelApprovePropertyCtrl = ['$scope', function($scope) {
-    //这里可以抓到id，嵌入react
     parallelApproveComponent.render()
-        // $scope.testAddUser = function() {
-        //     $scope.updatePropertyInModel({ key: 'parallelApprove', value: ['测试添加审批人1','测试添加审批人2'] });
-        //     console.log('updatePropertyInModel,parallelApprove person');
-        // }
 }];
 
 var approvePropertyCtrl = ['$scope', function($scope) {
-    //这里可以抓到id，嵌入react
     approveComponent.render()
-        // $scope.testAddUser = function() {
-        //     $scope.updatePropertyInModel({ key: 'approve', value: ['测试添加审批人1','测试添加审批人2'] });
-        //     console.log('updatePropertyInModel,approve person');
-        // }
 }];
 
 var canvasPropertyCtrl = ['$scope', function($scope) {
-    $scope.testAddUser = function() {
-        $scope.updatePropertyInModel({ key: 'approve', value: '测试添加审批人' });
-        console.log('updatePropertyInModel,approve person');
-    }
 }];
 
 var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
@@ -112,7 +50,7 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
         window.namePropertyClicked = true
         $scope.shapeId = $scope.selectedShape.id;
         $scope.valueFlushed = false;
-        /** Handler called when input field is blurred */
+
         /* 如果是直接切换item 则是每次都是空字符，这时候不能保存，如果保存则会用null string覆盖本来的名字 */
         /* 所以要分开时切换item的情况 和 不是切换的情况 */
         
@@ -136,11 +74,10 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
                 return ;
             }
             
-
             if (window.currentSelectedShape.properties['oryx-name'] != mySelectedItem.title) {
                 /* 如果节点名称变更，才判断是否重复   因为不变更肯定与当前自己的名称重复 */
                 if(isRepeated(mySelectedItem.title)){
-                    window.showAlert('节点名称重复')
+                    window.showAlert('节点名称已重复，请重新修改再保存。')
                     mySelectedItem.title = window.currentSelectedShape.properties['oryx-name']
                     return ;
                 }                
@@ -157,7 +94,7 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
         /* 一定是要先编辑了，鼠标点了，才能blur */
         window.inputBlurred = $scope.inputBlurred
         $scope.enterPressed = function(keyEvent) {
-
+            window.activeSave()
             if (keyEvent && keyEvent.which === 13) {
                 keyEvent.preventDefault();
                 // keyEvent.target.blur();

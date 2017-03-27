@@ -51,8 +51,7 @@ const giveName = (cate) => {
 }
 
 
-var myEvent = function($scope){
-    
+var myEvent = function($scope,$http){
 
     window.getJson = ()=>{
         var json = $scope.editor.getJSON();
@@ -261,74 +260,76 @@ var myEvent = function($scope){
         }
     }
 
-    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
 
-        // var selectedShape = event.elements.first()
-        // // if(!selectedShape){return false} // 后面判断了，不需要多此一举
-        // if (!selectedShape) {
-        //     $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
-        //     window.canvasFlag = true        
-        //     return;/*罪魁祸首 。。。如果选中的是canvas我就把后面的事件全部屏蔽掉了 */
-        // }
-        // window.canvasFlag = false     
+    window.saveModel = function () {
+        var json = $scope.editor.getJSON();
+        json = JSON.stringify(json);
         
+        var selection = $scope.editor.getSelection();
+        $scope.editor.setSelection([]);
+        
+        // Get the serialized svg image source
+        var svgClone = $scope.editor.getCanvas().getSVGRepresentation(true);
+        $scope.editor.setSelection(selection);
+        if ($scope.editor.getCanvas().properties["oryx-showstripableelements"] === false) {
+            var stripOutArray = jQuery(svgClone).find(".stripable-element");
+            for (var i = stripOutArray.length - 1; i >= 0; i--) {
+                stripOutArray[i].remove();
+            }
+        }
 
-        // // debugger
-        // if(selectedShape.properties["oryx-name"]==''){
-        //     // $scope.selectedItem.title = 
-        //     $scope.updatePropertyInModel({ key: 'oryx-name', value: giveName(selectedShape._stencil._jsonStencil.title)})
-        //     window.activeSave()
-        // }
+        // Remove all forced stripable elements
+        var stripOutArray = jQuery(svgClone).find(".stripable-element-force");
+        for (var i = stripOutArray.length - 1; i >= 0; i--) {
+            stripOutArray[i].remove();
+        }
 
+        // Parse dom to string
+        var svgDOM = DataManager.serialize(svgClone);
 
-        // if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title == 'Exclusive gateway') {
-        //     $scope.propertyTpl = './editor-app/property-tpl/branchSequenceFlow.html';
-        // } else {
+        var params = {
+            json_xml: json,
+            svg_xml: svgDOM,
+            name: 'thisPidName',
+            description: 'thisPidDescription'
+        };
 
-        //     switch (selectedShape._stencil._jsonStencil.title) {
-        //         case 'User task':
-        //             $scope.propertyTpl = './editor-app/property-tpl/approve.html';
-        //             break;
-        //         case 'Mule task':
-        //             $scope.propertyTpl = './editor-app/property-tpl/parallelApprove.html';
-        //             break;
-        //         case 'Sequence flow':
-        //             $scope.propertyTpl = './editor-app/property-tpl/sequenceFlow.html';
-        //             break;
-        //         case 'End error event':
-        //             $scope.propertyTpl = './editor-app/property-tpl/errorNotify.html';
-        //             break;
-        //         case 'End event':
-        //             $scope.propertyTpl = './editor-app/property-tpl/notify.html';
-        //             break;
-        //         case 'Start event':
-        //             $scope.propertyTpl = './editor-app/property-tpl/start.html';
-        //             break;
-        //         case 'Exclusive gateway':
-        //             $scope.propertyTpl = './editor-app/property-tpl/exclusive.html';
-        //             break;
+        const transformRequest = function (obj) {
+            var str = [];
+            for (var p in obj) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+            return str.join("&");
+        }
+        
+        $http({    
+            method: 'PUT',
+            data: params,
+            ignoreErrors: true,
+            headers: {
+                // 'Accept': 'application/json',
+                // "Authorization": "Bearer 21dde63fbdef4e8ea6595d697825cf0a",
+                // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            transformRequest: function (obj) {
+                var str = [];
+                for (var p in obj) {
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+                return str.join("&");
+            },
+            url: 'http://localhost:9001/repository/process-definitions/Pro_5b455d6ddab54296bcfa76f3ac1af6b6/design?processType=Normal'
+        })
 
-        //         default:
-        //             $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
-        //             break;
-        //     }
-        // }
-        // if(saveButton.flag){ //必须在页面tpl加载之后才加载
-        //     saveButton.render()
-        //     saveButton.flag = false
-        // }
-    })
+        .success(function (data, status, headers, config) {
+            window.showAlert('保存成功')
 
-
-    /* 切换element时 保存节点名称 的代码 */
-    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
-        // debugger
-        // if(window.canvasFlag){
-        //     window.inputBlurred && window.inputBlurred('canvas')            
-        // }else{
-        //     window.inputBlurred && window.inputBlurred()    
-        // }
-    })
+        })
+        .error(function (data, status, headers, config) {
+            $scope.error = {};
+            console.log('Something went wrong when updating the process model:' + JSON.stringify(data));
+        });
+    };
 
 }
 

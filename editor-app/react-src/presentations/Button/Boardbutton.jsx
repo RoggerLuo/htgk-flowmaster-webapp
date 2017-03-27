@@ -10,7 +10,9 @@ const Boardbutton = ({data,toggle,close,display,children}) => { //data:{click,te
             <div className="myoption" style={{display:display}} >
                 {data.map((el,index)=>{
                     return (
-                        <div key={index} onClick={()=>{el.click();close()}} className="option">{el.text}</div>                
+                        <div key={index} className="option-wrap">
+                            <div onClick={()=>{el.click();close()}} className="option">{el.text}</div>                
+                        </div>
                     )
                 })}
             </div>

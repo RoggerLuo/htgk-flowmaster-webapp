@@ -21,7 +21,6 @@ function limitedCondition(option) {
 'use strict';
 angular.module('activitiModeler')
     .controller('StencilController', ['$rootScope', '$scope', '$http', '$modal', '$timeout', function($rootScope, $scope, $http, $modal, $timeout) {
-
         
         // Property window toggle state
         $scope.propertyWindowState = { 'collapsed': false }; //哪个toggle?
@@ -46,16 +45,11 @@ angular.module('activitiModeler')
         // Code that is dependent on an initialised Editor is wrapped in a promise for the editor
         $scope.editorFactory.promise.then(function() {
 
-            myEvent($scope)
+            myEvent($scope,$http)
             window.userGuide()
-
-
-            //resolve在fetchModel里面
 
             /* Build stencil item list */
             // Build simple json representation of stencil set
-
-
             var stencilItemGroups = []; /* stencilItemGroups 是所有左边的menu，只有一层数组，因为只有一层子菜单 */
 
             // 使用循环 根据名字来找group Helper method: find a group in an array
@@ -81,8 +75,6 @@ angular.module('activitiModeler')
              stencilSet 应该是activiti 的angular 系统做出来的数据结构
              */
             $http({ method: 'GET', url: KISBPM.URL.getStencilSet() }).success(function(data, status, headers, config) {
-
-
                 var quickMenuDefinition = [ //就是那个点出来的菜单,手动确定的
                     'SequenceFlow',
                     'UserTask',
@@ -110,7 +102,6 @@ angular.module('activitiModeler')
                     var roleItem = { 'role': role, 'morphOptions': [] };
                     morphRoles.push(roleItem)
                 }
-
 
                 // Check all received items
                 //stencils是UserTask、StartTimerEvent这种的
@@ -1467,7 +1458,6 @@ angular.module('activitiModeler')
                 // window.activeSave()
             }
         };
-
     }]);
 
 var KISBPM = KISBPM || {};
@@ -1604,5 +1594,10 @@ KISBPM.CreateCommand = ORYX.Core.Command.extend({
         //this.currentParent.update();
         this.facade.setSelection(this.facade.getSelection().without(this.shape, this.edge));
     }
+
+
+
+
+
 });
 

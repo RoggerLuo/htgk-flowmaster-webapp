@@ -7,6 +7,9 @@ export default {
   'parallel.remark.title':'审批规则',
   'parallel.remark.content':'需每个会签范围内至少一名代表审批通过方可会签通过',
   'parallel.contentTitle':'会签范围',
+  
+  'endPoint.title':'自动知会',
+  'endPoint.button.title':'添加知会人员',
 
   'parallel.group':(index)=>'会签组'+index,
   'parallel.addGroup':'添加审批人员',

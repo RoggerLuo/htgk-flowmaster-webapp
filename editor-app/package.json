@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --hot",
-    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(js|jsx)'"
+    "dev": "node build-config/dev.js",
+    "build": "node build-config/build.js",
+    "start": "webpack-dev-server --inline --hot"
   },
   "author": "",
   "license": "ISC",

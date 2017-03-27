@@ -5,6 +5,7 @@ import './icon.less'
 import './basic.less'
 
 import approveComponent from './approveNode/Container'
+import endPointComponent from './endPoint/Container'
 import parallelApproveComponent from './parallelApprove/MainCompContainer'
 import branchSequenceFlowComponent from './branchSequenceFlow/Component'
 import popupStart from './popup/popupWrapContainer'
@@ -20,7 +21,7 @@ global.branchSequenceFlowComponent = {render:branchSequenceFlowComponent}
 global.parallelApproveComponent = {render:parallelApproveComponent}
 global.approveComponent = {render:approveComponent}
 global.reduxStore = store
-
+global.endPointComponent = endPointComponent
 
 import zh from './i18n/zh'
 import en from './i18n/en'

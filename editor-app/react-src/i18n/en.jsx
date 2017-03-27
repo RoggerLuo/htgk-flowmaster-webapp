@@ -4,6 +4,10 @@ export default {
   'approveNode.remark.content':'Approval passed if anyone on the Node has agreed',
   'approveNode.button.add':'Add Approval Staff',
   'approveNode.title.staff':'Approval Staff',
+  
+  'endPoint.title':'Auto Notify',
+  'endPoint.button.title':'Add Staff',
+
   'parallel.remark.title':'Approval Rule',
   'parallel.remark.content':'Approval passed if each group has at least one person agreed',
   'parallel.contentTitle':'Approval Range',

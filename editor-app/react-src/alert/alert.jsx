@@ -33,18 +33,9 @@ const Component = createClass({
         if(this.props.showAlert == 'hideAnimation'){
             display = ''
             theClass = 'fadeOutAlert'
-            // this.setTimeout(
-            //    () => { 
-            //         console.log('这样我就不会导致内存泄露!'); 
-            //         display = 'none'
-            //     },
-            //    1300
-            // );
-
         }
         if(this.props.showAlert == 'hideAlert'){
             display = 'none'
-
         }
 
         return (

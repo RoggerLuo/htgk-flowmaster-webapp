@@ -4,12 +4,18 @@ import { connect } from 'react-redux'
 import { Provider } from 'react-redux'
 import store from '../../redux/configureStore.js'
 
-const Component = ({active,click,put}) => {
-    let save = function(){}
+const Component = ({active,saveDeactive,put}) => {
+    let save = function(){
+    }
+
     let style = {backgroundColor: 'rgb(133, 217, 255)'}
 
     if(active){
-        save = click
+        save = function(){
+            // window.showAlert('保存成功')
+            saveDeactive()
+            saveModel()
+        }
         style = {backgroundColor: 'rgb(0,176,255)'}
     }
 
@@ -25,11 +31,10 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    const click = () => {
+    const saveDeactive = () => {
         dispatch({type:'saveDeactive'})
-        console.log('save save save save')
     }
-    return {click}
+    return {saveDeactive}
 }
 
 
