@@ -91,14 +91,39 @@ activitiModeler
              * to any event.
              */
 
+             
+
             /* Helper method to fetch model from server (always needed) */
             function fetchModel(modelId) {
+                
 
-                // var modelUrl = KISBPM.URL.getModel(modelId);
-                window.getModel = (callback)=>{
+                const getModel = (callback)=>{
+                    /* get role data*/
                     $http({    
                         method: 'GET',
-                        url: 'http://localhost:9001/repository/process-definitions/Pro_5b455d6ddab54296bcfa76f3ac1af6b6/design?processType=Normal'
+                        url: 'http://'+window.globalHost+':9001/identity/roles?orgId='+window.getQueryString("orgId")
+                    }).success(function (data) {
+                        const roleData = data.data.map((el)=>{
+                            return {
+                                text:el.name,
+                                value:el.id
+                            }                            
+                        })
+                        window.reduxStore.dispatch({type:'updateRoleData',roleData})
+                    })
+
+                    /* get pid data*/
+                    $http({    
+                        method: 'GET',
+                        url: 'http://'+window.globalHost+':9001/repository/process-definitions/'+window.getQueryString("pid")+'?processType=Normal'
+                    }).success(function (data2) {
+                        window.pidName = data2.name
+                    })
+
+                    /* get model data*/
+                    $http({    
+                        method: 'GET',
+                        url: 'http://'+window.globalHost+':9001/repository/process-definitions/'+window.getQueryString("pid")+'/design?processType=Normal'
                     })
                     .success(function (data, status, headers, config) {
                         callback(data, status, headers, config)
@@ -108,14 +133,30 @@ activitiModeler
                         console.log('Something went wrong when updating the process model:' + JSON.stringify(data));
                     });
                 }
+                getModel(function (data, status, headers, config) {
+                    if(data.description!="flowMaster"){
+                        var modelUrl = KISBPM.URL.getModel(modelId);
+                        $http({method: 'GET', url: modelUrl}).success(function (data, status, headers, config) {
+                            $rootScope.editor = new ORYX.Editor(data);  //initialised   10866 12431 10060
+                            $rootScope.modelData = angular.fromJson(data);
+                            $rootScope.editorFactory.resolve();
+                        })
+                        return ;
+                    }
 
-                window.getModel(function (data, status, headers, config) {
+                // var modelUrl = KISBPM.URL.getModel(modelId);
                 // $http({method: 'GET', url: modelUrl}).success(function (data, status, headers, config) {
-                        $rootScope.editor = new ORYX.Editor(data);  //initialised   10866 12431 10060
-                        
-                        $rootScope.modelData = angular.fromJson(data);
-                        $rootScope.editorFactory.resolve();
+                        // debugger
+                    // $rootScope.editor = new ORYX.Editor(data);  //initialised   10866 12431 10060
+                    // $rootScope.modelData = angular.fromJson(data);
+                    $rootScope.editor = new ORYX.Editor(data.model);  //initialised   10866 12431 10060
+                    $rootScope.modelData = angular.fromJson(data.model);
+
+                    $rootScope.editorFactory.resolve();
                 })
+
+
+
                 // .
                 //     error(function (data, status, headers, config) {
                 //       console.log('Error loading model with id ' + modelId + ' ' + data);

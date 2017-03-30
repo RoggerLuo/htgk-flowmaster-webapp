@@ -25,7 +25,10 @@ const BoardbuttonContainer = createClass({
         
         const dispatch = this.props.dispatch
         const confirm = this.props.popupConfirm //向parallel redux里添加character
-        
+        const action3 = this.props.action3
+        // const thisIndex = this.props.index
+        // const thisSave = this.props.save
+
         const popupConfirm = (category) => {
             let text=''
             switch(category){
@@ -35,9 +38,9 @@ const BoardbuttonContainer = createClass({
                 case 'role':
                     text = '最近'+store.getState().dropdown.dropdown1.text+'级分管，' + store.getState().dropdown.dropdown2.text
                 break
-                case 'user':
-                    text = '上'+store.getState().dropdown.dropdown1.text+'级领导'
-                break
+                // case 'user':
+                //     text = '上'+store.getState().dropdown.dropdown1.text+'级领导'
+                // break
             }
             const item = {
                 cate:category,
@@ -45,7 +48,6 @@ const BoardbuttonContainer = createClass({
                 value2:store.getState().dropdown.dropdown2.value,
                 text
             }
-
             confirm(item)
         }
         const action1 = {
@@ -71,12 +73,24 @@ const BoardbuttonContainer = createClass({
         //     content:Org,
         //     text:this.props.put('button.option3')
         // }
-        const action3 = ()=>{
-            // debuggers
-            let message = {type:"openSelectUserPanel",value:""}
-            window.parent.postMessage(message,'*')
-            console.log(window.parent)
-        }
+        // const action3 = ()=>{
+        //     const chooseCallback = (e) => {
+        //         window.removeEventListener("message",chooseCallback, false)
+        //         e.data.value.forEach((el)=>{
+        //             let item = {
+        //                 text:el.name,
+        //                 value:el.id,
+        //                 cate:el.type
+        //             }                            
+        //             dispatch({type:'addCharacter',item,index:thisIndex}) //点击popup的确定按钮时返回 popup选择的item
+        //         })
+        //         thisSave()
+        //         window.activeSave() 
+        //     }
+        //     window.addEventListener('message',chooseCallback,false)
+        //     let message = {type:"openSelectUserPanel",value:""}
+        //     window.parent.postMessage(message,'*')
+        // }
 
         const buttonOptions = [
             action1,action2,action3

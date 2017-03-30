@@ -5,24 +5,31 @@ const saveHandler = () => {
         return el.id == store.getState().approve.id
     })[0].data
     let string = ''
+    let jsonArray = []
     data && data.forEach((el,index)=>{
         switch(el.cate){
-            case 'boss':
-                string += 'boss' + '('+ el.value +')'
-                break
-            case 'role':
-                string += 'role' + '('+ el.value2 +':'+ el.value +')'
-                break
-            case 'user':
-                break
+           case 'boss':
+               jsonArray.push('boss' + '('+ el.value +')')
+               break
+           case 'role':
+               jsonArray.push('role' + '('+ el.value2 +':'+ el.value +')')
+               break
+           case "EMPLOYEE":
+               jsonArray.push('user' + '('+ el.value +')')
+               break
+           case 'ORG':
+           case 'DEPT':
+               jsonArray.push('org' + '('+ el.value +')')
+               break
         }
     })
+
     let value = {
         "items" : 
             [ 
                 {
                     "assignment_type" : "candidate",
-                    "resourceassignmentexpr" : string
+                    "resourceassignmentexpr" : jsonArray
                 } 
             ],
         "totalCount" : 1

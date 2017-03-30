@@ -5,6 +5,13 @@ window.activeSave = ()=>{
 window.lastSelectedShape = false
 window.canvasFlag = false
 window.lastSelectedItem = false
+window.globalHost = '172.16.1.178'
+window.pidName = 'pidName'
+window.getQueryString = (name)=> { 
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+    var r = window.location.search.substr(1).match(reg); 
+    if (r != null) return unescape(r[2]); return null; 
+} 
 
 /* 判断是否重名 直接循环所有的 */
 const isRepeated = (name) => {
@@ -261,6 +268,8 @@ var myEvent = function($scope,$http){
     }
 
 
+
+
     window.saveModel = function () {
         var json = $scope.editor.getJSON();
         json = JSON.stringify(json);
@@ -290,10 +299,9 @@ var myEvent = function($scope,$http){
         var params = {
             json_xml: json,
             svg_xml: svgDOM,
-            name: 'thisPidName',
-            description: 'thisPidDescription'
+            name: window.pidName,
+            description: 'flowMaster'
         };
-
         const transformRequest = function (obj) {
             var str = [];
             for (var p in obj) {
@@ -301,14 +309,20 @@ var myEvent = function($scope,$http){
             }
             return str.join("&");
         }
-        
+        var saveEvent = {
+            type: KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED,
+            model: params,
+            modelId: window.getQueryString("pid"),
+            eventType: 'update-model'
+        };
+
         $http({    
             method: 'PUT',
             data: params,
             ignoreErrors: true,
             headers: {
                 // 'Accept': 'application/json',
-                // "Authorization": "Bearer 21dde63fbdef4e8ea6595d697825cf0a",
+                // "Authorization": "Bearer acf49858556241e89b7c4e9d3f0a9b84",
                 // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             },
             transformRequest: function (obj) {
@@ -318,11 +332,17 @@ var myEvent = function($scope,$http){
                 }
                 return str.join("&");
             },
-            url: 'http://localhost:9001/repository/process-definitions/Pro_5b455d6ddab54296bcfa76f3ac1af6b6/design?processType=Normal'
+            url: 'http://'+window.globalHost+':9001/repository/process-definitions/'+ window.getQueryString("pid") +'/design?processType=Normal'
         })
 
         .success(function (data, status, headers, config) {
             window.showAlert('保存成功')
+            // Fire event to all who is listening
+            $scope.editor.handleEvents({
+                type: ORYX.CONFIG.EVENT_SAVED
+            });
+
+            KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent);
 
         })
         .error(function (data, status, headers, config) {

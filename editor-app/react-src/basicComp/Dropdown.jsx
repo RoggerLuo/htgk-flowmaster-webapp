@@ -34,7 +34,7 @@ const Dropdown = createClass({
                             </td>
                         </tr>
                         <tr className="drop-down-options" style={{display:this.state.visibleStatus}}>
-                            <td>
+                            <td><div style={{maxHeight: '192px',overflow: 'auto'}}>
                                 {this.props.data.map((el,index)=>{
                                     return(
                                         <div 
@@ -52,7 +52,7 @@ const Dropdown = createClass({
                                         </div>                                                    
                                     )
                                 })}
-                            </td>                
+                            </div></td>                
                         </tr>    
                     </tbody>
                 </table>

@@ -346,6 +346,7 @@ input:hover {
   color: #9fc1d6;
 }
 .character {
+  white-space: nowrap;
   background-color: rgba(25, 75, 123, 0.15);
   color: black;
   display: inline-block;
@@ -376,7 +377,7 @@ input:hover {
   /* IE 10+ */
   user-select: none;
 }
-.boardbutton .mybutton {
+.mybutton {
   font-size: 13px;
   flex: 1;
   line-height: 30px;
@@ -389,10 +390,11 @@ input:hover {
   padding: 0 11px;
   width: 100%;
 }
-.boardbutton .mybutton:active {
+.mybutton:active {
   background-color: #0273bd;
 }
-.boardbutton .myoption {
+.myoption {
+  background-color: white;
   margin-top: 11px;
   z-index: 9999;
   position: absolute;
@@ -401,14 +403,13 @@ input:hover {
   -moz-box-shadow: 0 0 10px #adadad;
   box-shadow: 0 0 10px #adadad;
   -webkit-user-select: none;
-  /* Chrome all / Safari all /opera15+*/
   -moz-user-select: none;
-  /* Firefox all */
   -ms-user-select: none;
-  /* IE 10+ */
   user-select: none;
 }
-.boardbutton .myoption .option {
+.myoption .option {
+  font-weight: 300;
+  margin: 5px;
   background-color: white;
   width: auto;
   line-height: 34px;
@@ -416,13 +417,13 @@ input:hover {
   font-size: 14px;
   padding: 0px 10px;
 }
-.boardbutton .myoption .option + .option {
+.myoption .option + .option {
   border-top: 1px solid #bfbfbf;
 }
-.boardbutton .myoption .option:hover {
-  background-color: #ccc;
+.myoption .option:hover {
+  background-color: #e4f5fb;
 }
-.boardbutton .myoption .option:active {
+.myoption .option:active {
   background-color: #828282;
   color: white;
 }
@@ -507,6 +508,12 @@ input:hover {
   vertical-align: middle;
   width: 100%;
   white-space: normal;
+}
+.endPointPropertyCtrl .row-title {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 0px;
+  margin-top: 4px;
 }
 .section-title {
   display: flex;
@@ -613,11 +620,6 @@ input:hover {
 }
 .branch-dropdown .drop-down-table .drop-down-options .inner-option:hover {
   background-color: #e4f5fb;
-}
-.branch-dropdown .drop-down-table .drop-down-options .inner-option:active {
-  border: 1px solid white;
-  background-color: #00b0ff;
-  color: white;
 }
 .branchSequenceFlowPropertyCtrl .section-title {
   display: flex;
@@ -912,7 +914,7 @@ input:hover {
 .slideOutUp {
   animation: slideOutUp 0.3s ease-in;
 }
-@keyframes fadeIn {
+@keyframes fadeInSpecial {
   from {
     opacity: 0;
     display: block;
@@ -922,8 +924,8 @@ input:hover {
     display: block;
   }
 }
-.fadeIn {
-  animation: fadeIn 0.3s ease-out;
+.fadeInSpecial {
+  animation: fadeInSpecial 0.3s ease-out;
   display: block;
   animation-fill-mode: forwards;
 }

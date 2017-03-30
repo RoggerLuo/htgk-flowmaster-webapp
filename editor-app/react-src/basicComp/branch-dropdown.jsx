@@ -31,6 +31,7 @@ const Dropdown = ({options,choose,choosedText,display,toggle,close}) => {
                             {options.map((el,index)=>{
                                 return(<Option click={()=>{close();choose(index)}} text={el.text} key={index}/>)
                             })}
+
                         </td>                
                     </tr>    
                 </tbody>

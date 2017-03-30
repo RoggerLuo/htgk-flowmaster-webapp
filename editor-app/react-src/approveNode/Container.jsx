@@ -10,6 +10,21 @@ const Approve = ({repo,id}) => {
         return el.id == id
     })
     const data = currentRepo && currentRepo[0] && currentRepo[0].data||[]
+
+    const chooseCallback = (e) => {
+        console.log(e)
+        console.log('approve')
+        window.removeEventListener("message",chooseCallback, false)
+        debugger
+    }
+
+    const callDialogue = () => {
+        window.addEventListener('message',chooseCallback,false)
+        let message = {type:"openSelectUserPanel",value:"123test"}
+        window.parent.postMessage(message,'*')
+    }
+
+
     return(
         <Presentation data={data} />
     )

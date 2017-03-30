@@ -27,20 +27,20 @@ const ApproveNode = ({data,put}) => {
                 <div>{put('approveNode.title.staff')}</div>
                 
                 <div style={{display:display1}}>
-                    <ButtonContainer>
+                    <ButtonContainer>    
                         <i style={{paddingLeft: '102px'}} className="icon qingicon icon-add"></i>
-                    </ButtonContainer>
+                    </ButtonContainer>    
                 </div>
             </div>            
             <div style={{display:display2}}>
-                <ButtonContainer>
+                <ButtonContainer>    
                     <div className="mybutton" >
                         <span className="inverted-triangle">
                             <i className="icon qingicon icon-add"></i>
                         </span>
                         {put('approveNode.button.add')}
                     </div>
-                </ButtonContainer>
+                </ButtonContainer>    
             </div>
             {list}
             <div className="row-title">{put('approveNode.remark.title')}</div>

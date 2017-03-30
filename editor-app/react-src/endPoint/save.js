@@ -5,29 +5,22 @@ const saveHandler = () => {
         return el.id == store.getState().approve.id
     })[0].data
     let string = ''
-    data && data.forEach((el,index)=>{
-        switch(el.cate){
-            case 'boss':
-                string += 'boss' + '('+ el.value +')'
-                break
-            case 'role':
-                string += 'role' + '('+ el.value2 +':'+ el.value +')'
-                break
-            case 'user':
-                break
-        }
-    })
-    let value = {
-        "items" : 
-            [ 
-                {
-                    "assignment_type" : "candidate",
-                    "resourceassignmentexpr" : string
-                } 
-            ],
-        "totalCount" : 1
-    }
-    window.updatePropertyInModel({key:'usertaskassignment',value:value})
+       let jsonArray = []
+       data && data.forEach((el,index)=>{
+           switch(el.cate){
+               case 'boss':
+                   jsonArray.push('boss' + '('+ el.value +')')
+                   // string += 'boss' + '('+ el.value +')'
+                   break
+               case 'role':
+                   jsonArray.push('role' + '('+ el.value2 +':'+ el.value +')')
+                   // string += 'role' + '('+ el.value2 +':'+ el.value +')'
+                   break
+               case 'user':
+                   break
+           }
+       })
+    window.updatePropertyInModel({key:'deliverToUsers',value:jsonArray})
 }
 
 export default saveHandler

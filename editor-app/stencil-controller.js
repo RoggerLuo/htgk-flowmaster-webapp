@@ -1026,6 +1026,7 @@ angular.module('activitiModeler')
                     // option['type'] = $scope.modelData.model.stencilset.namespace + item.id;
                     // option['namespace'] = $scope.modelData.model.stencilset.namespace;
                     //减去了一个model就可以，这...
+
                     option['type'] = $scope.modelData.stencilset.namespace + item.id;
                     option['namespace'] = $scope.modelData.stencilset.namespace;
                     option['position'] = pos;

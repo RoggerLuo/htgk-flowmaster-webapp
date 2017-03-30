@@ -9,7 +9,7 @@ const initial = {
     dropdown1Data:[
         {text:'一',value:'1'}, //默认赋值给dropdown1
         {text:'二',value:'2'},
-        {text:'三',value:'3'}
+        // {text:'三',value:'3'}
     ],
     dropdown2Data:[
         {text:'财务专员',value:'finance'},
@@ -22,6 +22,10 @@ const initial = {
 const Reducer = (state = initial, action) => {
     let data = fromJS(state)
     switch (action.type) {
+        case 'updateRoleData':
+            return Object.assign({}, state, {
+                dropdown2Data:action.roleData
+            })
         case 'dropdown1Choose':
             return data.updateIn(['dropdown1'],'initial',(el)=>{
                 return action.item 
