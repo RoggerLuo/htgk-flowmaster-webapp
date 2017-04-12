@@ -95,13 +95,44 @@ activitiModeler
 
             /* Helper method to fetch model from server (always needed) */
             function fetchModel(modelId) {
-                
 
                 const getModel = (callback)=>{
+
+                    /* get form and user fields data */
+                    $http({    
+                        method: 'GET',
+                        url: 'http://'+window.globalHost+'/identity/properties'
+                    }).success(function (data) {
+                        // debugger
+                        let linkageData = []
+                        let k
+                        for( k in data){
+                            // console.log(k)
+                            linkageData.push({text:k,value:k})
+                        }
+                        window.userProperties = linkageData
+                        // console.log(obj)
+                    })
+
+
+                    /* get form and user fields data */
+                    $http({    
+                        method: 'GET',
+                        url: 'http://'+window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'/forms?processType=Normal'
+                    }).success(function (data) {
+                        const obj = JSON.parse(data.formDefinition)
+                        window.formProperties = obj
+
+                        window.formProperties = obj.components.map((el)=>{
+                            return {text:el.title,value:el.name}
+                        })
+                    })
+
+
                     /* get role data*/
                     $http({    
                         method: 'GET',
-                        url: 'http://'+window.globalHost+':9001/identity/roles?orgId='+window.getQueryString("orgId")
+                        url: 'http://'+window.globalHost+'/identity/roles?orgId='+window.getQueryString("orgId")
                     }).success(function (data) {
                         const roleData = data.data.map((el)=>{
                             return {
@@ -109,13 +140,18 @@ activitiModeler
                                 value:el.id
                             }                            
                         })
+                        // setTimeout(function(){
+
                         window.reduxStore.dispatch({type:'updateRoleData',roleData})
+
+                        // },5000)
+                        
                     })
 
                     /* get pid data*/
                     $http({    
                         method: 'GET',
-                        url: 'http://'+window.globalHost+':9001/repository/process-definitions/'+window.getQueryString("pid")+'?processType=Normal'
+                        url: 'http://'+window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'?processType=Normal'
                     }).success(function (data2) {
                         window.pidName = data2.name
                     })
@@ -123,20 +159,23 @@ activitiModeler
                     /* get model data*/
                     $http({    
                         method: 'GET',
-                        url: 'http://'+window.globalHost+':9001/repository/process-definitions/'+window.getQueryString("pid")+'/design?processType=Normal'
+                        url: 'http://'+window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'/design?processType=Normal'
                     })
                     .success(function (data, status, headers, config) {
                         callback(data, status, headers, config)
                     })
                     .error(function (data, status, headers, config) {
-                        $scope.error = {};
+                        // $scope.error = {};
                         console.log('Something went wrong when updating the process model:' + JSON.stringify(data));
                     });
                 }
                 getModel(function (data, status, headers, config) {
+                    
                     if(data.description!="flowMaster"){
+
                         var modelUrl = KISBPM.URL.getModel(modelId);
                         $http({method: 'GET', url: modelUrl}).success(function (data, status, headers, config) {
+
                             $rootScope.editor = new ORYX.Editor(data);  //initialised   10866 12431 10060
                             $rootScope.modelData = angular.fromJson(data);
                             $rootScope.editorFactory.resolve();
@@ -144,13 +183,76 @@ activitiModeler
                         return ;
                     }
 
-                // var modelUrl = KISBPM.URL.getModel(modelId);
-                // $http({method: 'GET', url: modelUrl}).success(function (data, status, headers, config) {
-                        // debugger
-                    // $rootScope.editor = new ORYX.Editor(data);  //initialised   10866 12431 10060
-                    // $rootScope.modelData = angular.fromJson(data);
+
+
+                    data.model.childShapes.forEach((el,index)=>{
+                        switch(el.stencil.id){
+                            case 'EndNoneEvent':
+                                let endData = []
+                                if(!el.properties.deliverToUsers){return;}
+                                endData = el.properties.deliverToUsers.map((el2)=>{ //会签组12345
+                                    let obj = {cate:el2.cate,value:el2.id,text:el2.text}
+                                    if(el2.value2){
+                                        obj.value2 = el2.value2
+                                    }
+                                    return  obj
+                                })  
+                                window.reduxStore.dispatch({type:'endPointDataInit',data:{data:endData,id:el.resourceId}})
+                                delete data.model.childShapes[index].properties.deliverToUsers
+                            break
+
+                            case 'UserTask':
+                                let approveData = []
+                                if(!el.properties.usertaskassignment){return;}
+
+                                approveData = el.properties.usertaskassignment.assignment.candidateOwners.map((el2)=>{ //会签组12345
+                                    let obj = {cate:el2.cate,value:el2.id,text:el2.text}
+                                    if(el2.value2){
+                                        obj.value2 = el2.value2
+                                    }
+                                    return  obj
+                                })  
+                                window.reduxStore.dispatch({type:'approveDataInit',data:{data:approveData,id:el.resourceId}})
+                                delete data.model.childShapes[index].properties.usertaskassignment
+                            break
+
+                            case 'MuleTask':
+                                let theData = []
+                                if(!el.properties.multiinstance_participants){return;}
+                                theData = el.properties.multiinstance_participants.map((el2)=>{ //会签组12345
+                                    
+                                    return el2.map((el3)=>{ 
+                                        let obj = {cate:el3.cate,value:el3.id,text:el3.text}
+                                        if(el3.value2){
+                                            obj.value2 = el3.value2
+                                        }
+                                        return  obj
+                                    })
+                                })  
+                                window.reduxStore.dispatch({type:'parallelDataInit',data:{data:theData,id:el.resourceId}})
+                                delete data.model.childShapes[index].properties.multiinstance_participants
+                                delete data.model.childShapes[index].properties.multiinstance_parties
+                            break
+                        }
+                    })
+
+
                     $rootScope.editor = new ORYX.Editor(data.model);  //initialised   10866 12431 10060
                     $rootScope.modelData = angular.fromJson(data.model);
+
+
+
+                    
+
+                // var modelUrl = KISBPM.URL.getModel(modelId);
+                // $http({method: 'GET', url: modelUrl}).success(function (data, status, headers, config) {
+                //     $rootScope.editor = new ORYX.Editor(data);  //initialised   10866 12431 10060
+                //     $rootScope.modelData = angular.fromJson(data);
+                    
+
+
+
+
 
                     $rootScope.editorFactory.resolve();
                 })

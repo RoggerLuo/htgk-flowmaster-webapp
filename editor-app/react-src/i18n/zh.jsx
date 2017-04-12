@@ -49,6 +49,57 @@ export default {
   'popup.org1':"最近",//""
   'popup.org2':"级分管",//""
   'popup.higherLevel1':"发起人的上",//
-  'popup.higherLevel2': "级领导"//
+  'popup.higherLevel2': "级领导",//
+
+
+
+  "form.properties":"表单组件",
+  "user.properties":"用户属性",
+  "e.properties":"环境属性",
+  "pleaseChoose":"请选择",
+  "=":"=",
+  ">":">",
+  "<":"<",
+  ">=":">=",
+  "<=":"<=",
+  "!=":"!=",
+
+  "avatar":"角色",
+  "created":"创建于",
+  "disabled":"禁用",
+  "displayName":"展示名称",
+  "email":"邮件",
+  "employeeId":"雇员id",
+  "employeeType":"雇员种类",
+  "employeeTypeId":"雇员种类id",
+  "expired":"过期时间",
+  "gender":"性别",
+  "id":"id",
+  "initial":"initial",
+  "jobTitle":"职位名称",
+  "lastModified":"最后修改时间",
+  "mobile":"手机",
+  "name":"姓名",
+  "nickname":"昵称",
+  "pinyin":"拼音",
+  "rootOrgId":"组织id",
+  "senior":"高级",
+  "serialVersionUID":"版本UID",
+  "sn":"sn",
+  "status":"状态",
+  "type":"类型",
+  "username":"用户名",
+
+  "required":"必填",
+  "name_type":"名称类型",
+  "title":"标题",
+  "defaultValue":"默认值",
+  "tips":"提示",
+  "maxLength":"最大长度",
+  "unique":"unique",
+  "_id":"id",
+
+  "date":"当前日期",
+
 
 }

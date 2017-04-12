@@ -13,8 +13,8 @@ const Component = ({active,saveDeactive,put}) => {
     if(active){
         save = function(){
             // window.showAlert('保存成功')
-            saveDeactive()
-            saveModel()
+            // ()
+            saveModel(saveDeactive)
         }
         style = {backgroundColor: 'rgb(0,176,255)'}
     }

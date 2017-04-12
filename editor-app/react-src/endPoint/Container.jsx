@@ -16,7 +16,7 @@ const Approve = ({repo,id}) => {
 }
 
 const mapStateToProps = (state) => {
-    return {repo:state.approve.approveListRepo,id:state.approve.id}
+    return {repo:state.endpoint.approveListRepo,id:state.endpoint.id}
 }
 
 const mapDispatchToProps = (dispatch) => {

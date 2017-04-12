@@ -5,7 +5,7 @@ window.activeSave = ()=>{
 window.lastSelectedShape = false
 window.canvasFlag = false
 window.lastSelectedItem = false
-window.globalHost = '172.16.1.178'
+window.globalHost = '172.16.1.178:9001'
 window.pidName = 'pidName'
 window.getQueryString = (name)=> { 
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
@@ -57,6 +57,28 @@ const giveName = (cate) => {
     return name
 }
 
+window.parseData = (data) => {
+    data.childShapes.forEach((el)=>{
+        switch(el.stencil.id){
+            case 'MuleTask':
+                let data = []
+                if(!el.properties.multiinstance_participants){return;}
+                data = el.properties.multiinstance_participants.map((el2)=>{ //会签组12345
+                    
+                    return el2.map((el3)=>{ 
+                        let obj = {cate:el3.cate,value:el3.id,text:el3.text}
+                        if(el3.value2){
+                            obj.value2 = value2
+                        }
+                        return  obj
+                    })
+                })  
+                // debugger
+                window.reduxStore.dispatch({type:'parallelDataInit',data:{data,id:el.resourceId}})
+            break
+        }
+    })
+}
 
 var myEvent = function($scope,$http){
 
@@ -93,7 +115,8 @@ var myEvent = function($scope,$http){
         if(!selectedShape){return false}
         
         var prevId = $scope.lastSelectedUserTaskId
-        var nextId = selectedShape.id
+        var nextId = selectedShape.resourceId
+
 
         window.currentSelectedShape = selectedShape
         window.reduxStore.dispatch({ type: 'switchElement', prevId, nextId })
@@ -186,16 +209,27 @@ var myEvent = function($scope,$http){
         }
         if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title){
             if(!selectedShape.outgoing[0]){return false}
-            switch(selectedShape.outgoing[0]._stencil._jsonStencil.title){
-                case 'User task':
-                    window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
-                    break;
-                case 'Exclusive gateway':
-                    window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (分支节点)';
-                    break;
-                case '':
-                break;
-            }
+                window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
+
+                // switch(selectedShape.outgoing[0]._stencil._jsonStencil.title){
+
+                //     case 'End event':
+                //         window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
+
+                //         break
+                //     case 'End error event':
+                //         window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
+
+                //         break
+                //     case 'User task':
+                //         window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
+                //         break;
+                //     case 'Exclusive gateway':
+                //         window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (分支节点)';
+                //         break;
+                //     case '':
+                //     break;
+                // }
         }
     })
 
@@ -267,11 +301,67 @@ var myEvent = function($scope,$http){
         }
     }
 
-
-
-
-    window.saveModel = function () {
+    const checkEmpty = () => {
+        let returnValue = false
         var json = $scope.editor.getJSON();
+        json.childShapes.forEach((el,index)=>{
+            debugger
+
+            switch(el.stencil.id){
+                case 'UserTask':
+                    if(!el.properties.usertaskassignment){
+                        window.showAlert('审批节点内容不能为空')
+                        returnValue = true
+                        return ;
+                    }
+
+                    if(el.properties.usertaskassignment && el.properties.usertaskassignment.assignment && (el.properties.usertaskassignment.assignment.candidateOwners.length == 0)){
+                        window.showAlert('审批节点内容不能为空')
+                        returnValue = true
+                    }
+
+                break
+
+                case 'MuleTask':
+                    if(!el.properties.multiinstance_participants){
+                        window.showAlert('会签节点内容不能为空')
+                        returnValue = true
+                        return ;
+                    }
+
+                    if(el.properties.multiinstance_participants.length == 0){
+                        window.showAlert('会签节点内容不能为空')
+                        returnValue = true
+                    }
+
+                    if((el.properties.multiinstance_participants.length == 1)&&(el.properties.multiinstance_participants[0] == 0)){
+                        window.showAlert('会签节点内容不能为空')
+                        returnValue = true
+                    }
+
+                break
+            }
+        })
+        return returnValue
+    }
+
+    window.saveModel = function (callback) {
+        /* 提前把redux转换成oryx数据 */
+        window.saveHandlerApprove()
+        window.saveHandlerEndPoint()
+        window.saveHandlerParallel()
+        /* 为空的限制条件 */
+        if(checkEmpty()){
+            return ;
+        }
+
+        /* 等待动画 */
+        window.reduxStore.dispatch({type:'callSpin'})
+
+
+        var json = $scope.editor.getJSON();
+        json.properties.process_id = window.getQueryString("pid")
+        // debugger
         json = JSON.stringify(json);
         
         var selection = $scope.editor.getSelection();
@@ -332,18 +422,22 @@ var myEvent = function($scope,$http){
                 }
                 return str.join("&");
             },
-            url: 'http://'+window.globalHost+':9001/repository/process-definitions/'+ window.getQueryString("pid") +'/design?processType=Normal'
+            url: 'http://'+window.globalHost+'/repository/process-definitions/'+ window.getQueryString("pid") +'/design?processType=Normal'
         })
 
         .success(function (data, status, headers, config) {
+            window.reduxStore.dispatch({type:'closeSpin'})
+
             window.showAlert('保存成功')
             // Fire event to all who is listening
             $scope.editor.handleEvents({
-                type: ORYX.CONFIG.EVENT_SAVED
+                type: ORYX.CONFIG.EVENT_SAVED 
             });
 
             KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent);
-
+            // console.log(transformRequest(params))
+            console.log($scope.editor.getJSON())
+            callback()
         })
         .error(function (data, status, headers, config) {
             $scope.error = {};

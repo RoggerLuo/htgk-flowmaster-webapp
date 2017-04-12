@@ -2,8 +2,8 @@ import store from '../../redux/configureStore.js'
 
 const saveHandler = () => {
     /* 这个data是一个多层数组*/
-    let choosedElement = store.getState().parallel.repo.filter((el,index)=>{ 
-        return el.id == store.getState().parallel.id
+    let choosedElement = store.getState().branch.dataRepo.filter((el,index)=>{ 
+        return el.id == store.getState().branch.id
     })
 
     let data = []
@@ -12,9 +12,11 @@ const saveHandler = () => {
     }
     
     let jsonArray = []
-    data.forEach((group)=>{
+    data.conditions.forEach((condition)=>{
+        
         let innerArray  = []
-        group.forEach((el,index)=>{
+        
+        condition.forEach((el,index)=>{
             switch(el.cate){
                 case "boss":
                     innerArray.push({"value":"boss" + "("+ el.value +")",cate:el.cate,text:el.text,id:el.value}) 

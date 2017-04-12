@@ -14,7 +14,7 @@ let initial = {
             conditions:[
                 [
                     {entry1:0,entry2:1,entry3:2,input:''},
-                    {entry1:0,entry2:1,entry3:2,input:''},
+                    {entry1:0,entry2:1,entry3:2,input:'',entry2template:[]},
                 ],
                 [
                     {entry1:0,entry2:1,entry3:2,input:''},
@@ -27,15 +27,20 @@ let initial = {
             options:[
                 {
                     value:'',
-                    text:'发起人'
+                    text:'form.properties'
                 },
                 {
                     value:'',
-                    text:'当前'
+                    text:'user.properties'
+                },
+                {
+                    value:'',
+                    text:'e.properties'
                 }
+
             ],
             click(){},
-            defaultText:'字段'
+            defaultText:'pleaseChoose'
         },
         entry2:{
             options:[
@@ -58,34 +63,80 @@ let initial = {
         entry3:{
             options:[
                 {
-                    value:'',
+                    value:'=',
                     text:'='
                 },
                 {
-                    value:'',
+                    value:'>',
                     text:'>'
                 },
                 {
-                    value:'',
+                    value:'<',
                     text:'<'
-                }
+                },
+                {
+                    value:'>=',
+                    text:'>='
+                },
+                {
+                    value:'<=',
+                    text:'<='
+                },
+                {
+                    value:'!=',
+                    text:'!='
+                },
             ],
             click(){},
             defaultText:'='
         }
     }
 }
-//     ]{
-//         entry1:[{text:'发起人',onClick:function(){}},{text:'当前',onClick:function(){}}],
-//         entry2:[{text:'请假天数',onClick:function(){}},{text:'职级',onClick:function(){}},{text:'条件',onClick:function(){}}],
-//         entry3:[{text:'=',onClick:function(){}},{text:'>',onClick:function(){}},{text:'<',onClick:function(){}}],
-//         input:''
-//     }
-// }
+
+const environmentVariable =[{value:'date',text:'date'}]
 
 const Reducer = (state = initial, action) => {
     const data = fromJS(state)
     switch (action.type) {
+        case 'ruleOnInput':
+            let repoIndex4 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
+            
+            return data.updateIn(['dataRepo',repoIndex4,'conditions',action.key1,action.key2],'inital',(el)=>{
+                return el.set('input',action.content)
+            }).toJS()
+
+        case 'branchUpdate':
+            let repoIndex3 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
+            
+            let dataRaw = data.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,action.ruleIndex],'inital',(el)=>{
+                return el.set(action.entryIndex,action.value)
+            })
+
+            if(action.entryIndex == 'entry1'){
+                switch(action.value){
+                    case 0:
+                        return dataRaw.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,action.ruleIndex],'inital',(el)=>{
+                            return el.set('entry2template',fromJS(window.formProperties))
+                        }).toJS()
+                    break
+
+                    case 1:
+                        return dataRaw.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,action.ruleIndex],'inital',(el)=>{
+                            return el.set('entry2template',fromJS(window.userProperties))
+                        }).toJS()
+                    case 2:
+                        return dataRaw.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,action.ruleIndex],'inital',(el)=>{
+                            return el.set('entry2template',fromJS(environmentVariable))
+                        }).toJS()
+                }
+            }
+            return dataRaw.toJS()
+
+        case 'linkage':
+            return data.updateIn(['template','entry2','options'], 'initial', (el) => {
+                return action.options
+            }).toJS()
+
         case 'initCondition':
             let initIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
             if (!initIndex && (initIndex != 0) ) { //如果nextRepoIndex不存在
@@ -100,6 +151,7 @@ const Reducer = (state = initial, action) => {
             return Object.assign({}, state, {
                 radio:action.value
             })
+
         case 'switchApproveData':
             return data.updateIn(['id'], 'initial', (el) => {
                 return action.nextId
@@ -109,10 +161,12 @@ const Reducer = (state = initial, action) => {
             return Object.assign({}, state, {
                 conditionMode:'delete'
             })
+
         case 'closeConditionDeleteMode':
             return Object.assign({}, state, {
                 conditionMode:'normal'
             })
+
         case 'addCondition':
             let repoIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
             if (!repoIndex && (repoIndex != 0) ) { //如果nextRepoIndex不存在
@@ -147,11 +201,6 @@ const Reducer = (state = initial, action) => {
             return Object.assign({}, state, {
                 mode: action.value
             })
-        case 'branchUpdate':
-            let repoIndex3 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
-            return data.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,action.ruleIndex],'inital',(el)=>{
-                return el.set(action.entryIndex,action.value)
-            }).toJS()
         default:
             return state
     }

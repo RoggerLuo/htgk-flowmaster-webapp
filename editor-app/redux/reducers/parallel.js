@@ -2,25 +2,28 @@ import {fromJS,List, Map} from 'immutable';
 
 const initial = {
     repo:[
-        
         {
             data:[ //循环出现的
                 []
             ],
             id:'initial'
         },
-
     ],
     mode:'normal',
     id:'initial'
 }
 
 const Reducer = (state = initial, action) => {
-
     const data = fromJS(state)
+    // debugger
     const currentIndex = data.get('repo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
-
     switch (action.type) {
+        
+        case 'parallelDataInit':
+            return data.updateIn(['repo'], 'initial', (el) => {
+                return el.push(fromJS(action.data))
+            }).toJS()
+
         case 'parallelInit':
             if (!currentIndex && (currentIndex != 0) ) { //如果nextRepoIndex不存在
                 const newCreate = fromJS({ id: state.id, data:[[]]})

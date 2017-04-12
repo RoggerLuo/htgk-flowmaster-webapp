@@ -7,6 +7,7 @@ import superPopup from './superPopup'
 import dropdown from './dropdown'
 import parallel from './parallel'
 import common from './common'
+import endpoint from './endpoint'
 
 
 const rootRuducer = combineReducers({
@@ -17,7 +18,8 @@ const rootRuducer = combineReducers({
     certainPerson,
     dropdown,
     parallel,
-    common
+    common,
+    endpoint
 })
 
 export default rootRuducer

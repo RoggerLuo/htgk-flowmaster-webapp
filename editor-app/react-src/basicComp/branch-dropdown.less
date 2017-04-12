@@ -38,6 +38,44 @@
             border-left: 1px solid #dde4ef;
             border-bottom: 1px solid #dde4ef;
             border-right: 1px solid #dde4ef;
+            .scrollbar{
+                  &::-webkit-scrollbar {
+                    width: 2px;
+                    background: rgba(0,177,251, 0.1);
+                  }
+                  &::-moz-scrollbar {
+                    width: 2px;
+                    background: rgba(0,177,251, 0.1);
+                  }
+                  &::-ms-scrollbar {
+                    width: 2px;
+                    background: rgba(0,177,251, 0.1);
+                  }
+                  &::-o-scrollbar {
+                    width: 2px;
+                    background: rgba(0,177,251, 0.1);
+                  }
+                  &::scrollbar {
+                    width: 2px;
+                    background: rgba(0,177,251, 0.1);
+                  }
+                  &::-webkit-scrollbar-thumb {
+                    background: #00b1fb;
+                  }
+                  &::-moz-scrollbar-thumb {
+                    background: #00b1fb;
+                  }
+                  &::-ms-scrollbar-thumb {
+                    background: #00b1fb;
+                  }
+                  &::-o-scrollbar-thumb {
+                    background: #00b1fb;
+                  }
+                  &::scrollbar-thumb {
+                    background: #00b1fb;
+                  }
+            }
+
             .drop-down-option + .drop-down-option {
                 border-top: 1px solid #dde4ef;
             }

@@ -79,7 +79,8 @@ angular.module('activitiModeler')
                     'SequenceFlow',
                     'UserTask',
                     'ExclusiveGateway',
-                    'MuleTask',
+                    // 'MuleTask',
+                    'MultiUserTask',
                     'EndErrorEvent',
                     // 'EndNoneEvent', 
                     // 'CatchTimerEvent', 
@@ -780,11 +781,13 @@ angular.module('activitiModeler')
                     },
                     execute: function() {
                         this.shape.setProperty(this.key, this.newValue);
+
                         this.facade.getCanvas().update();
                         this.facade.updateSelection();
                     },
                     rollback: function() {
                         this.shape.setProperty(this.key, this.oldValue);
+
                         this.facade.getCanvas().update();
                         this.facade.updateSelection();
                     }
@@ -816,7 +819,8 @@ angular.module('activitiModeler')
                 // Switch the property back to read mode, no update was needed
                 property.mode = 'read';
             }
-
+            // console.log(window.getJson())
+            // debugger
         };
         //把scope上的function绑定到全局
         window.updatePropertyInModel = $scope.updatePropertyInModel

@@ -20,7 +20,7 @@ const Approve = ({repo,id}) => {
 
     const callDialogue = () => {
         window.addEventListener('message',chooseCallback,false)
-        let message = {type:"openSelectUserPanel",value:"123test"}
+        let message = {type:"openSelectUserPanel",value:"123test",params:{pickerType:'people',title:'选择人员'}}
         window.parent.postMessage(message,'*')
     }
 

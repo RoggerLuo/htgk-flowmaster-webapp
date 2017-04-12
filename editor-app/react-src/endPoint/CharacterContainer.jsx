@@ -14,7 +14,7 @@ import save from './save'
 const CharacterContainer = ({el,index,dispatch}) => { 
     const text = el.text    
     const click = () => {  //删除，得知道是第几组，第几个character
-        dispatch({type:'removeApproveList',index:index})
+        dispatch({type:'removeEndpoint',index:index})
         save()
     }
     return (<Character text={text} click={click}/>)

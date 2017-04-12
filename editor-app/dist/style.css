@@ -424,7 +424,7 @@ input:hover {
   background-color: #e4f5fb;
 }
 .myoption .option:active {
-  background-color: #828282;
+  background-color: #00b0ff;
   color: white;
 }
 .big-cover {
@@ -481,6 +481,41 @@ input:hover {
   border-left: 1px solid #b8c1ce;
   border-bottom: 1px solid #b8c1ce;
   border-right: 1px solid #b8c1ce;
+}
+.drop-down .drop-down-table .drop-down-options .scrollbar::-webkit-scrollbar {
+  width: 2px;
+  background: rgba(0, 177, 251, 0.1);
+}
+.drop-down .drop-down-table .drop-down-options .scrollbar::-moz-scrollbar {
+  width: 2px;
+  background: rgba(0, 177, 251, 0.1);
+}
+.drop-down .drop-down-table .drop-down-options .scrollbar::-ms-scrollbar {
+  width: 2px;
+  background: rgba(0, 177, 251, 0.1);
+}
+.drop-down .drop-down-table .drop-down-options .scrollbar::-o-scrollbar {
+  width: 2px;
+  background: rgba(0, 177, 251, 0.1);
+}
+.drop-down .drop-down-table .drop-down-options .scrollbar::scrollbar {
+  width: 2px;
+  background: rgba(0, 177, 251, 0.1);
+}
+.drop-down .drop-down-table .drop-down-options .scrollbar::-webkit-scrollbar-thumb {
+  background: #00b1fb;
+}
+.drop-down .drop-down-table .drop-down-options .scrollbar::-moz-scrollbar-thumb {
+  background: #00b1fb;
+}
+.drop-down .drop-down-table .drop-down-options .scrollbar::-ms-scrollbar-thumb {
+  background: #00b1fb;
+}
+.drop-down .drop-down-table .drop-down-options .scrollbar::-o-scrollbar-thumb {
+  background: #00b1fb;
+}
+.drop-down .drop-down-table .drop-down-options .scrollbar::scrollbar-thumb {
+  background: #00b1fb;
 }
 .drop-down .drop-down-table .drop-down-options .drop-down-option {
   padding: 3px;
@@ -607,6 +642,41 @@ input:hover {
   border-bottom: 1px solid #dde4ef;
   border-right: 1px solid #dde4ef;
 }
+.branch-dropdown .drop-down-table .drop-down-options .scrollbar::-webkit-scrollbar {
+  width: 2px;
+  background: rgba(0, 177, 251, 0.1);
+}
+.branch-dropdown .drop-down-table .drop-down-options .scrollbar::-moz-scrollbar {
+  width: 2px;
+  background: rgba(0, 177, 251, 0.1);
+}
+.branch-dropdown .drop-down-table .drop-down-options .scrollbar::-ms-scrollbar {
+  width: 2px;
+  background: rgba(0, 177, 251, 0.1);
+}
+.branch-dropdown .drop-down-table .drop-down-options .scrollbar::-o-scrollbar {
+  width: 2px;
+  background: rgba(0, 177, 251, 0.1);
+}
+.branch-dropdown .drop-down-table .drop-down-options .scrollbar::scrollbar {
+  width: 2px;
+  background: rgba(0, 177, 251, 0.1);
+}
+.branch-dropdown .drop-down-table .drop-down-options .scrollbar::-webkit-scrollbar-thumb {
+  background: #00b1fb;
+}
+.branch-dropdown .drop-down-table .drop-down-options .scrollbar::-moz-scrollbar-thumb {
+  background: #00b1fb;
+}
+.branch-dropdown .drop-down-table .drop-down-options .scrollbar::-ms-scrollbar-thumb {
+  background: #00b1fb;
+}
+.branch-dropdown .drop-down-table .drop-down-options .scrollbar::-o-scrollbar-thumb {
+  background: #00b1fb;
+}
+.branch-dropdown .drop-down-table .drop-down-options .scrollbar::scrollbar-thumb {
+  background: #00b1fb;
+}
 .branch-dropdown .drop-down-table .drop-down-options .drop-down-option + .drop-down-option {
   border-top: 1px solid #dde4ef;
 }
@@ -699,6 +769,7 @@ input:hover {
   user-select: none;
 }
 .branchSequenceFlowPropertyCtrl .rule-control .options .option {
+  line-height: 34px;
   height: 34px;
 }
 .branchSequenceFlowPropertyCtrl .rule-control .options .option + .option {
@@ -771,6 +842,7 @@ input:hover {
   font-size: 14px;
   border: 1px solid #dde4ef !important;
   width: 100%;
+  padding: 0px 5px;
 }
 .branchSequenceFlowPropertyCtrl .solid-container-container .solid-container .input-text:hover {
   border: 1px solid black !important;
@@ -875,6 +947,7 @@ input:hover {
   font-size: 15px;
   margin-left: 9%;
   background-color: #ccc;
+  cursor: pointer;
 }
 .popup-coverwrap .popup .footer .button-group .placeholder {
   display: inline-block;
@@ -888,7 +961,9 @@ input:hover {
   line-height: 35px;
   font-size: 15px;
   margin-right: 9%;
-  background-color: #97dcfb;
+  background-color: #00b1fb;
+  /*rgb(151, 220, 251);*/
+  cursor: pointer;
 }
 @keyframes slideInDown {
   from {
@@ -981,4 +1056,182 @@ input:hover {
 }
 .fadeOutAlert {
   animation: fadeOut 1.3s ease-in;
+}
+.myspin {
+  position: absolute;
+  z-index: 999;
+  top: 35%;
+  text-align: center;
+  width: 100%;
+}
+.myspin #loading {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 999;
+  margin-top: 0px;
+  top: 0px;
+  left: 0px;
+}
+.myspin #loading-wrapper {
+  opacity: 0.9;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+  margin-top: 0px;
+  top: 0px;
+}
+.myspin #loading-center {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1001;
+}
+.myspin #loading-center-absolute {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 20px;
+  width: 100px;
+  margin-top: -10px;
+  margin-left: -50px;
+}
+.myspin .spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -40px;
+  margin-left: -40px;
+}
+.myspin .double-bounce1,
+.myspin .double-bounce2 {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #c3ff99;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: sk-bounce 0.8s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
+  animation: sk-bounce 0.8s infinite cubic-bezier(0.42, 0, 0.58, 1);
+}
+.myspin .double-bounce2 {
+  left: 40px;
+  background-color: #00b1fb;
+}
+.myspin .double-bounce2 {
+  -webkit-animation-delay: -0.4s;
+  animation-delay: -0.4s;
+}
+@-webkit-keyframes sk-bounce {
+  0%,
+  100% {
+    -webkit-transform: scale(0.5);
+  }
+  50% {
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes sk-bounce {
+  0%,
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+  }
+}
+.myspin .object {
+  width: 20px;
+  height: 20px;
+  background-color: #739fb7;
+  -moz-border-radius: 50% 50% 50% 50%;
+  -webkit-border-radius: 50% 50% 50% 50%;
+  border-radius: 50% 50% 50% 50%;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  position: absolute;
+}
+.myspin #object_one {
+  -webkit-animation: object 2s linear infinite;
+  animation: object 2s linear infinite;
+}
+.myspin #object_two {
+  -webkit-animation: object 2s linear infinite -0.4s;
+  animation: object 2s linear infinite -0.4s;
+}
+.myspin #object_three {
+  -webkit-animation: object 2s linear infinite -0.8s;
+  animation: object 2s linear infinite -0.8s;
+}
+.myspin #object_four {
+  -webkit-animation: object 2s linear infinite -1.2s;
+  animation: object 2s linear infinite -1.2s;
+}
+.myspin #object_five {
+  -webkit-animation: object 2s linear infinite -1.6s;
+  animation: object 2s linear infinite -1.6s;
+}
+@-webkit-keyframes object {
+  0% {
+    left: 100px;
+    top: 0;
+  }
+  80% {
+    left: 0;
+    top: 0;
+  }
+  85% {
+    left: 0;
+    top: -20px;
+    width: 20px;
+    height: 20px;
+  }
+  90% {
+    width: 40px;
+    height: 15px;
+  }
+  95% {
+    left: 100px;
+    top: -20px;
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    left: 100px;
+    top: 0;
+  }
+}
+@keyframes object {
+  0% {
+    left: 100px;
+    top: 0;
+  }
+  80% {
+    left: 0;
+    top: 0;
+  }
+  85% {
+    left: 0;
+    top: -20px;
+    width: 20px;
+    height: 20px;
+  }
+  90% {
+    width: 40px;
+    height: 15px;
+  }
+  95% {
+    left: 100px;
+    top: -20px;
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    left: 100px;
+    top: 0;
+  }
 }
