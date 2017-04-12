@@ -13,7 +13,6 @@ const Option = ({click,text,put}) =>{
     )           
 }
 
-
 const DropdownRaw = ({options,choose,choosedText,display,toggle,close,put,usePut}) => {
     if(!usePut){
         put = (value)=>value
@@ -37,7 +36,8 @@ const DropdownRaw = ({options,choose,choosedText,display,toggle,close,put,usePut
                         <td>
                             <div className="scrollbar" style={{overflow:'auto',maxHeight:'200px'}}>
                                 {options.map((el,index)=>{
-                                    return(<Option click={()=>{close();choose(index)}} text={el.text} key={index} put={put}/>)
+                                    el.index = index
+                                    return(<Option click={()=>{close();choose(el)}} text={el.text} key={index} put={put}/>)
                                 })}
                             </div>
                         </td>                
@@ -48,6 +48,7 @@ const DropdownRaw = ({options,choose,choosedText,display,toggle,close,put,usePut
         </div>
     )
 }
+
 import connectPut from 'react-put'
 const putOptions = {mapPropToDictionary: (props)=>window.reactI18n}
 const Dropdown = connectPut(putOptions)(DropdownRaw)

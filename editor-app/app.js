@@ -98,12 +98,11 @@ activitiModeler
 
                 const getModel = (callback)=>{
 
-                    /* get form and user fields data */
+                    /* get user fields data */
                     $http({    
                         method: 'GET',
                         url: 'http://'+window.globalHost+'/identity/properties'
                     }).success(function (data) {
-                        // debugger
                         let linkageData = []
                         let k
                         for( k in data){
@@ -122,7 +121,6 @@ activitiModeler
                     }).success(function (data) {
                         const obj = JSON.parse(data.formDefinition)
                         window.formProperties = obj
-
                         window.formProperties = obj.components.map((el)=>{
                             return {text:el.title,value:el.name}
                         })
@@ -216,7 +214,7 @@ activitiModeler
                                 delete data.model.childShapes[index].properties.usertaskassignment
                             break
 
-                            case 'MuleTask':
+                            case 'MultiUserTask':
                                 let theData = []
                                 if(!el.properties.multiinstance_participants){return;}
                                 theData = el.properties.multiinstance_participants.map((el2)=>{ //会签组12345

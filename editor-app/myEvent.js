@@ -30,7 +30,7 @@ const giveName = (cate) => {
         "User task":"UserTask",
         "Exclusive gateway":"ExclusiveGateway",
         "End error event":"EndErrorEvent",
-        "Mule task":"MuleTask"
+        "Multi user task":"MultiUserTask"
     }
     const mapArrCN={
         "Start event":"开始",
@@ -39,7 +39,7 @@ const giveName = (cate) => {
         "User task":"审批",
         "Exclusive gateway":"分支",
         "End error event":"异常结束",
-        "Mule task":"会签"
+        "Multi user task":"会签"
     }
     // cate  = mapArr[cate]
     const json = window.getRawJson()        
@@ -55,29 +55,6 @@ const giveName = (cate) => {
         name = mapArrCN[cate] + num
     }
     return name
-}
-
-window.parseData = (data) => {
-    data.childShapes.forEach((el)=>{
-        switch(el.stencil.id){
-            case 'MuleTask':
-                let data = []
-                if(!el.properties.multiinstance_participants){return;}
-                data = el.properties.multiinstance_participants.map((el2)=>{ //会签组12345
-                    
-                    return el2.map((el3)=>{ 
-                        let obj = {cate:el3.cate,value:el3.id,text:el3.text}
-                        if(el3.value2){
-                            obj.value2 = value2
-                        }
-                        return  obj
-                    })
-                })  
-                // debugger
-                window.reduxStore.dispatch({type:'parallelDataInit',data:{data,id:el.resourceId}})
-            break
-        }
-    })
 }
 
 var myEvent = function($scope,$http){
@@ -128,7 +105,7 @@ var myEvent = function($scope,$http){
             }
         }
         let name = selectedShape._stencil._jsonStencil.title
-        if( name == 'Mule task'){
+        if( name == 'Multi user task'){
             window.reduxStore.dispatch({ type: 'parallelInit' })
         }
     })
@@ -167,15 +144,13 @@ var myEvent = function($scope,$http){
         /* 放在后面，canvas是没有elements的，所以会一直触发false */
         var selectedShape = event.elements.first()
         if(!selectedShape){
-            
             return false
-
         }
         window.lastSelectedShape = selectedShape
 
         /* 改变 正要选中 边框颜色的代码部分 */   
         if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'User task' 
-            || selectedShape._stencil._jsonStencil.title == 'Mule task'
+            || selectedShape._stencil._jsonStencil.title == 'Multi user task'
             )) {
             //控制边框颜色的办法
             jQuery('#' + selectedShape.id)[0].children[3].children[0].style.fill = '#00b0ff' 
@@ -210,17 +185,7 @@ var myEvent = function($scope,$http){
         if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title){
             if(!selectedShape.outgoing[0]){return false}
                 window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
-
                 // switch(selectedShape.outgoing[0]._stencil._jsonStencil.title){
-
-                //     case 'End event':
-                //         window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
-
-                //         break
-                //     case 'End error event':
-                //         window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
-
-                //         break
                 //     case 'User task':
                 //         window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
                 //         break;
@@ -246,9 +211,7 @@ var myEvent = function($scope,$http){
         }
         window.isThisCanvas = false     
         
-        // debugger
         if(selectedShape.properties["oryx-name"]==''){
-            // $scope.selectedItem.title = 
             $scope.updatePropertyInModel({ key: 'oryx-name', value: giveName(selectedShape._stencil._jsonStencil.title)})
             window.activeSave()
         }
@@ -261,7 +224,7 @@ var myEvent = function($scope,$http){
                 case 'User task':
                     $scope.propertyTpl = './editor-app/property-tpl/approve.html';
                     break;
-                case 'Mule task':
+                case 'Multi user task':
                     $scope.propertyTpl = './editor-app/property-tpl/parallelApprove.html';
                     break;
                 case 'Sequence flow':
@@ -305,8 +268,6 @@ var myEvent = function($scope,$http){
         let returnValue = false
         var json = $scope.editor.getJSON();
         json.childShapes.forEach((el,index)=>{
-            debugger
-
             switch(el.stencil.id){
                 case 'UserTask':
                     if(!el.properties.usertaskassignment){
@@ -322,7 +283,7 @@ var myEvent = function($scope,$http){
 
                 break
 
-                case 'MuleTask':
+                case 'MultiUserTask':
                     if(!el.properties.multiinstance_participants){
                         window.showAlert('会签节点内容不能为空')
                         returnValue = true
@@ -346,10 +307,13 @@ var myEvent = function($scope,$http){
     }
 
     window.saveModel = function (callback) {
+        
         /* 提前把redux转换成oryx数据 */
         window.saveHandlerApprove()
         window.saveHandlerEndPoint()
         window.saveHandlerParallel()
+        window.saveHandlerBranch()
+        
         /* 为空的限制条件 */
         if(checkEmpty()){
             return ;
@@ -426,8 +390,9 @@ var myEvent = function($scope,$http){
         })
 
         .success(function (data, status, headers, config) {
+            
             window.reduxStore.dispatch({type:'closeSpin'})
-
+            
             window.showAlert('保存成功')
             // Fire event to all who is listening
             $scope.editor.handleEvents({
@@ -436,7 +401,8 @@ var myEvent = function($scope,$http){
 
             KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent);
             // console.log(transformRequest(params))
-            console.log($scope.editor.getJSON())
+            // console.log($scope.editor.getJSON())
+            console.log(json)
             callback()
         })
         .error(function (data, status, headers, config) {

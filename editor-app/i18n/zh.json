@@ -5,7 +5,7 @@
     
     "UserTask":"审批节点",
     "ExclusiveGateway":"分支节点",
-    "MuleTask":"会签节点",
+    "MultiUserTask":"会签节点",
     "EndErrorEvent":"异常结束",
     "SequenceFlow":"连线",
     "EndNoneEvent":"结束",

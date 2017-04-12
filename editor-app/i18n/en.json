@@ -4,7 +4,7 @@
     "NODE.BIG.TITLE":"Node Properties",
     "UserTask":"Aprroval",
     "ExclusiveGateway":"Branch",
-    "MuleTask":"Group Approval",
+    "MultiUserTask":"Group Approval",
     "EndErrorEvent":"Error End",
     "SequenceFlow":"Line",
     "Line.remark":"Line Remark",

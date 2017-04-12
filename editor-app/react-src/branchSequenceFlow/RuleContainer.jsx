@@ -2,7 +2,6 @@ import React,{createClass} from 'react';
 import Dropdown from '../basicComp/branch-dropdown'
 import store from '../../redux/configureStore.js'
 import { connect } from 'react-redux'
-// import $ from 'jquery'
 
 const Rule = ({dropdown,ruleMode,del,oninput}) => {
     let border = '1px solid white'
@@ -43,33 +42,12 @@ const RuleContainer = ({key1,key2,ruleMode, conditions,dispatch,template}) =>{
 
     const ruleData = conditions && conditions[key1] && conditions[key1][key2] || {}
     const dropdown = template
+    dropdown.entry2.options = ruleData.entry2template || []
     
-    //ruleData.entry1 &&
-    dropdown.entry1.choosedText = (ruleData.entry1 != 'initial') && dropdown.entry1.options[ruleData.entry1].text || dropdown.entry1.defaultText
-    dropdown.entry2.choosedText = (ruleData.entry2 != 'initial') && dropdown.entry2.options[ruleData.entry2].text || dropdown.entry2.defaultText
-    dropdown.entry3.choosedText = (ruleData.entry3 != 'initial') && dropdown.entry3.options[ruleData.entry3].text || dropdown.entry3.defaultText
+    dropdown.entry1.choosedText = (ruleData.entry1.index != 'initial') && dropdown.entry1.options[ruleData.entry1.index].text || dropdown.entry1.defaultText
+    dropdown.entry2.choosedText = (ruleData.entry2.index != 'initial') && dropdown.entry2.options[ruleData.entry2.index].text || dropdown.entry2.defaultText
+    dropdown.entry3.choosedText = (ruleData.entry3.index != 'initial') && dropdown.entry3.options[ruleData.entry3.index].text || dropdown.entry3.defaultText
     
-        // switch(value){
-        //     case 0:
-        //         // $.post
-
-        //     break
-
-        //     case 1:                
-        //         let linkageData = []
-        //         let k
-        //         for( k in window.userProperties){
-        //             // console.log(k)
-        //             linkageData.push({text:k,value:k})
-        //         }
-
-        //         dispatch({type:'linkage',options:linkageData})
-        //     break
-
-        //     case 2:
-
-        //     break
-        // }
     dropdown.entry1.choose = (value) => {
         dispatch({value,type:'branchUpdate',groupIndex:key1,ruleIndex:key2,entryIndex:'entry1'})
         activeSave()
@@ -84,7 +62,6 @@ const RuleContainer = ({key1,key2,ruleMode, conditions,dispatch,template}) =>{
         dispatch({value,type:'branchUpdate',groupIndex:key1,ruleIndex:key2,entryIndex:'entry3'})
     }
     
-    dropdown.entry2.options = ruleData.entry2template || []
 
     dropdown.entry1.usePut = true
     dropdown.entry2.usePut = false

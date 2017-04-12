@@ -8,38 +8,49 @@ const saveHandler = () => {
 
     let data = []
     if(choosedElement[0]){
-        data = choosedElement[0].data
+        data = choosedElement[0].conditions
     }
     
     let jsonArray = []
-    data.conditions.forEach((condition)=>{
+    let returnString = '${'
+    data.forEach((condition,i)=>{
         
-        let innerArray  = []
+        let conditionArray  = []
         
         condition.forEach((el,index)=>{
-            switch(el.cate){
-                case "boss":
-                    innerArray.push({"value":"boss" + "("+ el.value +")",cate:el.cate,text:el.text,id:el.value}) 
-                    break
-                case "role":
-                    innerArray.push({"value":"role" + "("+ el.value2 +":"+ el.value +")",cate:el.cate,text:el.text,id:el.value,value2:el.value2}) 
-                    break
-                case "EMPLOYEE":
-                    innerArray.push({"value":"user" + "("+ el.value +")",cate:el.cate,text:el.text,id:el.value}) 
-                    break
-                case "ORG":
-                case "DEPT":
-                    innerArray.push({"value":"org" + "("+ el.value +")",cate:el.cate,text:el.text,id:el.value}) 
-                    break
+            switch(el.entry1.index){
+                case 0:
+                    returnString += ' f.'
+                break
+                case 1:
+                    returnString += ' u.'
+                break
+                case 2:
+                    returnString += ' e.'
+                break
+            }
+            returnString += el.entry2.value
+            returnString += ' '
+            returnString += el.entry3.value
+            returnString += ' '
+            returnString += el.input
+
+            if(index < (condition.length-1)){
+                returnString += ' && '                
             }
         })
-        jsonArray.push(innerArray)
-    })
 
-    window.updatePropertyInModel({key:"multiinstance_participants",value:jsonArray})
+        if(i < (data.length-1)){
+            returnString += ' || '                
+        }
+    })
+    returnString += '}'
+    debugger
+
+    // window.updatePropertyInModel({key:"multiinstance_participants",value:jsonArray})
 
 }
 
-window.saveHandlerParallel = saveHandler
+window.saveHandlerBranch = saveHandler
 
 export default saveHandler

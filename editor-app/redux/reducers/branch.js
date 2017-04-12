@@ -113,20 +113,20 @@ const Reducer = (state = initial, action) => {
             })
 
             if(action.entryIndex == 'entry1'){
-                switch(action.value){
+                switch(action.value.index){
                     case 0:
                         return dataRaw.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,action.ruleIndex],'inital',(el)=>{
-                            return el.set('entry2template',fromJS(window.formProperties))
+                            return el.set('entry2template',fromJS(window.formProperties)).set('entry2',fromJS({index:'initial'}))
                         }).toJS()
                     break
 
                     case 1:
                         return dataRaw.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,action.ruleIndex],'inital',(el)=>{
-                            return el.set('entry2template',fromJS(window.userProperties))
+                            return el.set('entry2template',fromJS(window.userProperties)).set('entry2',fromJS({index:'initial'}))
                         }).toJS()
                     case 2:
                         return dataRaw.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,action.ruleIndex],'inital',(el)=>{
-                            return el.set('entry2template',fromJS(environmentVariable))
+                            return el.set('entry2template',fromJS(environmentVariable)).set('entry2',fromJS({index:'initial'}))
                         }).toJS()
                 }
             }
@@ -140,7 +140,7 @@ const Reducer = (state = initial, action) => {
         case 'initCondition':
             let initIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
             if (!initIndex && (initIndex != 0) ) { //如果nextRepoIndex不存在
-                const newCreate = fromJS({ id: state.id, conditions: [[{entry1:'initial',entry2:'initial',entry3:'initial',input:''}]] })
+                const newCreate = fromJS({ id: state.id, conditions: [[{entry1:{index:'initial'},entry2:{index:'initial'},entry3:{index:'initial',value:"="},input:''}]] })
                 return data.updateIn(['dataRepo'], 'initial', (el) => {
                     return el.push(newCreate)
                 }).toJS()
@@ -170,19 +170,19 @@ const Reducer = (state = initial, action) => {
         case 'addCondition':
             let repoIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
             if (!repoIndex && (repoIndex != 0) ) { //如果nextRepoIndex不存在
-                const newCreate = fromJS({ id: state.id, conditions: [[{entry1:'initial',entry2:'initial',entry3:'initial',input:''}]] })
+                const newCreate = fromJS({ id: state.id, conditions: [[{entry1:{index:'initial'},entry2:{index:'initial'},entry3:{index:'initial',value:"="},input:''}]] })
                 return data.updateIn(['dataRepo'], 'initial', (el) => {
                     return el.push(newCreate)
                 }).toJS()
             }
             return data.updateIn(['dataRepo',repoIndex],'initial',(el)=>{
-                return el.set('conditions',el.get('conditions').push(fromJS([{entry1:'initial',entry2:'initial',entry3:'initial',input:''}])))
+                return el.set('conditions',el.get('conditions').push(fromJS([{entry1:{index:'initial'},entry2:{index:'initial'},entry3:{index:'initial',value:"="},input:''}])))
             }).toJS()
 
         case 'addRule':
             let repoIndex2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
             return data.updateIn(['dataRepo',repoIndex2,'conditions',action.index],'initial',(el)=>{
-                return el.push( fromJS({entry1:'initial',entry2:'initial',entry3:'initial',input:''}) )
+                return el.push( fromJS({entry1:{index:'initial'},entry2:{index:'initial'},entry3:{index:'initial',value:"="},input:''}) )
             }).toJS()
 
         case 'deleteCondition':
