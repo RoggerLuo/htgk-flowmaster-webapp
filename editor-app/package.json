@@ -1,11 +1,10 @@
 {
-  "name": "pure-react",
+  "name": "flow-master",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node build-config/dev.js",
-    "build": "node build-config/build.js",
+    "build": "NODE_ENV=production node ./build-config/build.js",
     "start": "webpack-dev-server --inline --hot"
   },
   "author": "",
@@ -15,16 +14,18 @@
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
+    "css-loader": "^0.15.1",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "file-loader": "^0.8.4",
+    "gulp": "^3.9.1",
+    "gulp-uglify": "^2.1.2",
     "jsx-loader": "^0.13.2",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.1",
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
-    "extract-text-webpack-plugin": "^0.8.2",
     "style-loader": "^0.12.3",
     "url-loader": "^0.5.6",
-    "file-loader": "^0.8.4",
-    "css-loader": "^0.15.1"
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.1"
   },
   "dependencies": {
     "immutable": "^3.8.1",

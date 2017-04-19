@@ -1,6 +1,7 @@
 function limitedCondition(option) {
     /* sequnce flow 的限制 */
     if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'Exclusive gateway')) {
+        // window.showAlert('Exclusive gateway节点');
     }
     /* 审批节点的限制 */
     if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'User task')) {
@@ -11,10 +12,23 @@ function limitedCondition(option) {
             // }
         });
         if (branchCounter >= 1) {
-            alert('审批节点不能有分支');
+            window.showAlert('审批节点不能有分支');
             return false;
         }
     }
+    if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'Multi user task')) {
+        var branchCounter = 0;
+        option.connectedShape.outgoing.forEach(function(el) {
+            // if (el._stencil._jsonStencil.title == 'Sequence flow'){
+            branchCounter += 1;
+            // }
+        });
+        if (branchCounter >= 1) {
+            window.showAlert('会签节点不能有分支');
+            return false;
+        }
+    }
+
     return true;
 }
 
@@ -728,12 +742,10 @@ angular.module('activitiModeler')
         };
 
         /*
-
         // 看看有没有key-type或者直接type的配置信息
         var propertyConfig = KISBPM.PROPERTY_CONFIG[key + '-' + property.type()];
         Urls信息都是预先存在Kisbpm.Propery_config这个里面的
         然后根据这个item的type去取相应的url配置，然后存在porperties里面响应的属性
-
         */
 
         /* Helper method to retrieve the template url for a property */

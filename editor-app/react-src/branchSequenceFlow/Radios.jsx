@@ -1,9 +1,9 @@
 import React,{createClass} from 'react';
 import { connect } from 'react-redux'
 
-const Radios = ({mode1,mode2,radio,put}) => {
+const Radios = ({mode1,mode2,element,put}) => {
     let view = ''
-    if(radio=="text"){
+    if(element.radio){
         view = (
             <div className="radio-box">
                 <label className="radio-lable" onClick={mode1}>
@@ -34,14 +34,27 @@ const Radios = ({mode1,mode2,radio,put}) => {
     return view
 }
 const mapStateToProps = (state) => {
-    return {radio:state.branch.radio}
+    const elementFound = state.branch.dataRepo.filter((el,index)=>{
+        return el.id == state.branch.id
+    })
+    // const conditions = elementFound[0] && elementFound[0].conditions || []
+    const element = elementFound[0] && elementFound[0]||{}
+    return {element}
+
+    // return {radio:state.branch.radio}
 }
 const mapDispatchToProps = (dispatch) => {
     const mode1 =()=>{
         dispatch({type:'switchRadio',value:'dropdown'})
+        dispatch({type:'radioChange',radio:false})
+        dispatch({type:'saveActive'})
+
     }
     const mode2 =()=>{
         dispatch({type:'switchRadio',value:'text'})
+        dispatch({type:'radioChange',radio:true})
+        dispatch({type:'saveActive'})
+
     }
     return {mode1,mode2}
 }

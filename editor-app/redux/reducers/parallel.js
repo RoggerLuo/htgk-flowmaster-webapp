@@ -2,12 +2,12 @@ import {fromJS,List, Map} from 'immutable';
 
 const initial = {
     repo:[
-        {
-            data:[ //循环出现的
-                []
-            ],
-            id:'initial'
-        },
+        // {
+        //     data:[ 
+        //         []
+        //     ],
+        //     id:'initial'
+        // },
     ],
     mode:'normal',
     id:'initial'

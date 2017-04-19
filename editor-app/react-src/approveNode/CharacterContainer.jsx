@@ -1,7 +1,7 @@
 import React,{createClass} from 'react'
 import {connect} from 'react-redux'
 import Character from '../presentations/Character/Character'
-import save from './save'
+// import save from './save'
 
 /* 
     主要是把click的逻辑 组装好了， 还有拿出了text
@@ -15,7 +15,7 @@ const CharacterContainer = ({el,index,dispatch}) => {
     const text = el.text    
     const click = () => {  //删除，得知道是第几组，第几个character
         dispatch({type:'removeApproveList',index:index})
-        save()
+        // save()
     }
     return (<Character text={text} click={click}/>)
 }

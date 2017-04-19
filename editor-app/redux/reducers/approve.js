@@ -1,7 +1,9 @@
 import { toJS, fromJS, List, Map } from 'immutable';
 
 const initial = {
-    approveListRepo: [{id:'id',data:'obj'}],
+    approveListRepo: [
+        // {id:'id',data:'obj'}
+    ],
     id:''
 }
 

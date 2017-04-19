@@ -1,12 +1,12 @@
 import React,{createClass} from 'react'
 import BoardbuttonContainer from '../containers/BoardbuttonContainer'
-import save from './save'
+// import save from './save'
 import {connect} from 'react-redux'
 
 const ButtonContainer = ({dispatch,children,index}) => { //parallel 个性化版本  button
     const add = (item) => {
         dispatch({type:'addCharacter',item,index}) //点击popup的确定按钮时返回 popup选择的item
-        save()
+        // save()
         window.activeSave() 
     }
 
@@ -21,7 +21,7 @@ const ButtonContainer = ({dispatch,children,index}) => { //parallel 个性化版
                 }                            
                 dispatch({type:'addCharacter',item,index}) //点击popup的确定按钮时返回 popup选择的item
             })
-            save()
+            // save()
             window.activeSave() 
         }
         window.addEventListener('message',chooseCallback,false)

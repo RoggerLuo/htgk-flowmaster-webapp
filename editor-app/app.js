@@ -96,64 +96,55 @@ activitiModeler
             /* Helper method to fetch model from server (always needed) */
             function fetchModel(modelId) {
 
+                /* get user fields data */
+                $http({    
+                    method: 'GET',
+                    url: 'http://'+window.globalHost+'/identity/properties'
+                }).success(function (data2) {
+                    let linkageData = []
+                    let k
+                    for( k in data2){
+                        linkageData.push({text:k,value:k})
+                    }
+                    window.userProperties = linkageData
+                })
+                /* get form and user fields data */
+                $http({    
+                    method: 'GET',
+                    url: 'http://'+window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'/forms?processType=Normal'
+                }).success(function (data) {
+                    const obj = JSON.parse(data.formDefinition)
+                    window.formProperties = obj
+                    window.formProperties = obj.components.map((el)=>{
+                        return {text:el.title,value:el.name}
+                    })
+                })
+
+
+
+                /* get role data*/
+                $http({    
+                    method: 'GET',
+                    url: 'http://'+window.globalHost+'/identity/roles?orgId='+window.getQueryString("orgId")
+                }).success(function (data) {
+                    const roleData = data.data.map((el)=>{
+                        return {
+                            text:el.name,
+                            value:el.id
+                        }                            
+                    })
+                    window.reduxStore.dispatch({type:'updateRoleData',roleData})
+                })
+
+                /* get pid data*/
+                $http({    
+                    method: 'GET',
+                    url: 'http://'+window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'?processType=Normal'
+                }).success(function (data2) {
+                    window.pidName = data2.name
+                })
+
                 const getModel = (callback)=>{
-
-                    /* get user fields data */
-                    $http({    
-                        method: 'GET',
-                        url: 'http://'+window.globalHost+'/identity/properties'
-                    }).success(function (data) {
-                        let linkageData = []
-                        let k
-                        for( k in data){
-                            // console.log(k)
-                            linkageData.push({text:k,value:k})
-                        }
-                        window.userProperties = linkageData
-                        // console.log(obj)
-                    })
-
-
-                    /* get form and user fields data */
-                    $http({    
-                        method: 'GET',
-                        url: 'http://'+window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'/forms?processType=Normal'
-                    }).success(function (data) {
-                        const obj = JSON.parse(data.formDefinition)
-                        window.formProperties = obj
-                        window.formProperties = obj.components.map((el)=>{
-                            return {text:el.title,value:el.name}
-                        })
-                    })
-
-
-                    /* get role data*/
-                    $http({    
-                        method: 'GET',
-                        url: 'http://'+window.globalHost+'/identity/roles?orgId='+window.getQueryString("orgId")
-                    }).success(function (data) {
-                        const roleData = data.data.map((el)=>{
-                            return {
-                                text:el.name,
-                                value:el.id
-                            }                            
-                        })
-                        // setTimeout(function(){
-
-                        window.reduxStore.dispatch({type:'updateRoleData',roleData})
-
-                        // },5000)
-                        
-                    })
-
-                    /* get pid data*/
-                    $http({    
-                        method: 'GET',
-                        url: 'http://'+window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'?processType=Normal'
-                    }).success(function (data2) {
-                        window.pidName = data2.name
-                    })
-
                     /* get model data*/
                     $http({    
                         method: 'GET',
@@ -167,10 +158,11 @@ activitiModeler
                         console.log('Something went wrong when updating the process model:' + JSON.stringify(data));
                     });
                 }
-                getModel(function (data, status, headers, config) {
-                    
-                    if(data.description!="flowMaster"){
 
+
+
+                getModel(function (data, status, headers, config) {                    
+                    if(data.description!="flowMaster"){
                         var modelUrl = KISBPM.URL.getModel(modelId);
                         $http({method: 'GET', url: modelUrl}).success(function (data, status, headers, config) {
 
@@ -181,10 +173,17 @@ activitiModeler
                         return ;
                     }
 
-
-
+                    /* 对服务器上的数据进行 解析 然后加载进redux */
                     data.model.childShapes.forEach((el,index)=>{
                         switch(el.stencil.id){
+                            case 'SequenceFlow':
+                                let sf = []
+                                if(!el.properties.reduxdata){return;}
+                                window.reduxStore.dispatch({type:'sequenceDataInit',data:el.properties.reduxdata})
+                                delete data.model.childShapes[index].properties.reduxdata
+                                delete data.model.childShapes[index].properties.conditionsequenceflow
+                                break
+
                             case 'EndNoneEvent':
                                 let endData = []
                                 if(!el.properties.deliverToUsers){return;}
@@ -202,7 +201,10 @@ activitiModeler
                             case 'UserTask':
                                 let approveData = []
                                 if(!el.properties.usertaskassignment){return;}
-
+                                if(typeof(el.properties.usertaskassignment.assignment.candidateOwners) !='object'){
+                                    delete data.model.childShapes[index].properties.usertaskassignment
+                                    return ;                                    
+                                }
                                 approveData = el.properties.usertaskassignment.assignment.candidateOwners.map((el2)=>{ //会签组12345
                                     let obj = {cate:el2.cate,value:el2.id,text:el2.text}
                                     if(el2.value2){
@@ -216,8 +218,8 @@ activitiModeler
 
                             case 'MultiUserTask':
                                 let theData = []
-                                if(!el.properties.multiinstance_participants){return;}
-                                theData = el.properties.multiinstance_participants.map((el2)=>{ //会签组12345
+                                if(!el.properties.multiinstance_parties){return;}
+                                theData = el.properties.multiinstance_parties.map((el2)=>{ //会签组12345
                                     
                                     return el2.map((el3)=>{ 
                                         let obj = {cate:el3.cate,value:el3.id,text:el3.text}
@@ -228,27 +230,22 @@ activitiModeler
                                     })
                                 })  
                                 window.reduxStore.dispatch({type:'parallelDataInit',data:{data:theData,id:el.resourceId}})
-                                delete data.model.childShapes[index].properties.multiinstance_participants
                                 delete data.model.childShapes[index].properties.multiinstance_parties
+                                delete data.model.childShapes[index].properties.multiinstance_cardinality
                             break
                         }
                     })
-
-
                     $rootScope.editor = new ORYX.Editor(data.model);  //initialised   10866 12431 10060
                     $rootScope.modelData = angular.fromJson(data.model);
 
 
 
-                    
 
                 // var modelUrl = KISBPM.URL.getModel(modelId);
                 // $http({method: 'GET', url: modelUrl}).success(function (data, status, headers, config) {
                 //     $rootScope.editor = new ORYX.Editor(data);  //initialised   10866 12431 10060
                 //     $rootScope.modelData = angular.fromJson(data);
                     
-
-
 
 
 
@@ -262,6 +259,7 @@ activitiModeler
                 //       console.log('Error loading model with id ' + modelId + ' ' + data);
                 //     });
             }
+
 
 
             function initScrollHandling() {

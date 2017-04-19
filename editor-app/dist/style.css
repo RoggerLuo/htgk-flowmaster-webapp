@@ -368,6 +368,9 @@ input:hover {
   font-size: 14px !important;
   color: #6da5d8;
 }
+.character .icon-guanbi2fill:hover {
+  color: red;
+}
 .boardbutton {
   -webkit-user-select: none;
   /* Chrome all / Safari all /opera15+*/

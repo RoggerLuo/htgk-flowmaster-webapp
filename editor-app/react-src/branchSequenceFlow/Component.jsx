@@ -8,7 +8,7 @@ import SectionTitleContainer from './SectionTitleContainer'
 import Radios from './Radios'
 import Options from './Options'
 import './style'
-import './save'
+// import './save'
 
 
 const Component = ({put}) => {

@@ -22529,15 +22529,16 @@ ORYX.Plugins.KeysMove = ORYX.Plugins.AbstractPlugin.extend({
         //this.facade.registerOnEvent(ORYX.CONFIG.EVENT_KEYDOWN, this.keyHandler.bind(this));
 
 		// SELECT ALL
-		this.facade.offer({
-		keyCodes: [{
-		 		metaKeys: [ORYX.CONFIG.META_KEY_META_CTRL],
-				keyCode: 65,
-				keyAction: ORYX.CONFIG.KEY_ACTION_DOWN 
-			}
-		 ],
-         functionality: this.selectAll.bind(this)
-         });
+		
+		// this.facade.offer({
+		// keyCodes: [{
+		//  		metaKeys: [ORYX.CONFIG.META_KEY_META_CTRL],
+		// 		keyCode: 65,
+		// 		keyAction: ORYX.CONFIG.KEY_ACTION_DOWN 
+		// 	}
+		//  ],
+  //        functionality: this.selectAll.bind(this)
+  //        });
 		 
 		// MOVE LEFT SMALL		
 		/*this.facade.offer({

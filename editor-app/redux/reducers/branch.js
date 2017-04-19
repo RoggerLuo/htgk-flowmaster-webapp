@@ -9,18 +9,20 @@ let initial = {
     radio:'dropdown',
     conditionMode:'normal',
     dataRepo:[
-        {
-            id:'test',
-            conditions:[
-                [
-                    {entry1:0,entry2:1,entry3:2,input:''},
-                    {entry1:0,entry2:1,entry3:2,input:'',entry2template:[]},
-                ],
-                [
-                    {entry1:0,entry2:1,entry3:2,input:''},
-                ]
-            ]
-        }
+        // {
+        //     id:'test',
+        //     radio:false,
+        //     text:'',
+        //     conditions:[
+        //         [
+        //             {entry1:0,entry2:1,entry3:2,input:''},
+        //             {entry1:0,entry2:1,entry3:2,input:'',entry2template:[]},
+        //         ],
+        //         [
+        //             {entry1:0,entry2:1,entry3:2,input:''},
+        //         ]
+        //     ]
+        // }
     ],
     template:{
         entry1:{
@@ -98,6 +100,28 @@ const environmentVariable =[{value:'date',text:'date'}]
 const Reducer = (state = initial, action) => {
     const data = fromJS(state)
     switch (action.type) {
+        case 'radioTextChange':
+            let repoIndexRadio2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
+            
+            return data.updateIn(['dataRepo',repoIndexRadio2],'inital',(el)=>{
+                return el.set('text',action.text)//false or true
+            }).toJS()
+        case 'radioChange':
+            let repoIndexRadio = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
+            return data.updateIn(['dataRepo',repoIndexRadio],'inital',(el)=>{
+                return el.set('radio',action.radio)//.set('text',action.text)//false or true
+            }).toJS()
+
+        case 'switchElement':
+            return data.updateIn(['id'], 'initial', (el) => {
+                return action.nextId
+            }).toJS()
+
+        case 'sequenceDataInit':
+            return data.updateIn(['dataRepo'], 'initial', (el) => {
+                return el.push(fromJS(action.data))
+            }).toJS()
+
         case 'ruleOnInput':
             let repoIndex4 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
             
@@ -139,6 +163,7 @@ const Reducer = (state = initial, action) => {
 
         case 'initCondition':
             let initIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) //如果这里找不到会怎么样
+            
             if (!initIndex && (initIndex != 0) ) { //如果nextRepoIndex不存在
                 const newCreate = fromJS({ id: state.id, conditions: [[{entry1:{index:'initial'},entry2:{index:'initial'},entry3:{index:'initial',value:"="},input:''}]] })
                 return data.updateIn(['dataRepo'], 'initial', (el) => {

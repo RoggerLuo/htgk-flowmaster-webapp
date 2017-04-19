@@ -16,17 +16,17 @@ const saveHandler = () => {
        data && data.forEach((el,index)=>{
            switch(el.cate){
               case "boss":
-                 jsonArray.push({"value": "boss" + "("+ el.value +")",cate:el.cate,text:el.text,id:el.value})
+                 jsonArray.push({"value": ["boss" + "("+ el.value +")"],cate:el.cate,text:el.text,id:el.value})
                  break
              case "role":
-                 jsonArray.push({"value": "role" + "("+ el.value2 +":"+ el.value +")",cate:el.cate,text:el.text,id:el.value,value2:el.value2})
+                 jsonArray.push({"value": ["role" + "("+ el.value2 +":"+ el.value +")"],cate:el.cate,text:el.text,id:el.value,value2:el.value2})
                  break
              case "EMPLOYEE":
-                 jsonArray.push({"value": "user" + "("+ el.value +")",cate:el.cate,text:el.text,id:el.value})
+                 jsonArray.push({"value": ["user" + "("+ el.value +")"],cate:el.cate,text:el.text,id:el.value})
                  break
              case "ORG":
              case "DEPT":
-                 jsonArray.push({"value": "org" + "("+ el.value +")",cate:el.cate,text:el.text,id:el.value})
+                 jsonArray.push({"value": ["org" + "("+ el.value +")"],cate:el.cate,text:el.text,id:el.value})
                  break
            }
        })

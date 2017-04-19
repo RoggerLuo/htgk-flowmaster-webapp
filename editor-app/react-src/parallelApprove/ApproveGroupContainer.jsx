@@ -3,7 +3,7 @@ import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
 import ApproveGroup from './presentations/ApproveGroup.jsx'
-import save from './save'
+// import save from './save'
 
 const ApproveGroupContainer = ({el,index,deleteMode,dispatch}) => { //el是会签组group, index 是会签组所在的index
     const data = el.map((el)=>{  //data 是 会签组 //for Character
