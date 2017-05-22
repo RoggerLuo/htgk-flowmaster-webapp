@@ -75,12 +75,12 @@ text * {
 }
 
 .Oryx_button img {
-	width:26px;
-	height:26px;
+	width:30px;
+	height:30px;
 	top:0px;
 	left:0px;
-	line-height: 16px;
-    margin:-10px;
+	line-height: 30px;
+    // margin:-10px;
 }
 
 .Oryx_Right .Oryx_button,
@@ -126,12 +126,12 @@ text * {
 
 .Oryx_button {
 
-	width:24px;
-	height:24px;
-	padding:2px;
+	width:30px;
+	height:30px;
+	// padding:2px;
 	position:absolute;
-	background-color: #ffffff;
-	background-color: rgba(255,255,255,0.7);
+	// background-color: #ffffff;
+	background-color: white;
 	cursor: pointer;
 
     -webkit-user-select: none;
@@ -141,6 +141,10 @@ text * {
     -ms-user-select: none;
     /* IE 10+ */
     user-select: none;
+
+    box-shadow: 8px 7px 9px -2px rgba(204, 204, 204, 0.47);
+    border-bottom-right-radius: 1px;
+    z-index: 99;
 }
 
 .Oryx_button_with_caption {
@@ -174,12 +178,12 @@ text * {
 }
 
 .Oryx_hover, .Oryx_button:hover {
-    background-color: #999999;
-    background-color: rgba(193, 229, 238, 0.7);
-    opacity: 1 !important;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+    // background-color: #999999;
+    // background-color: rgba(193, 229, 238, 0.7);
+    // opacity: 1 !important;
+    // -webkit-border-radius: 3px;
+    // -moz-border-radius: 3px;
+    // border-radius: 3px;
 }
 
 .ValidateButton {

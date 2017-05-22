@@ -5,6 +5,7 @@ import BoardbuttonContainer from '../ButtonContainer'
 import './ApproveGroup.less'
 
 const ApproveGroup = ({data,mode,solidFrame,index,put}) => { 
+
     if(mode == 'initial'){
         return (
             <SolidFrame {...solidFrame}> 
@@ -13,8 +14,8 @@ const ApproveGroup = ({data,mode,solidFrame,index,put}) => {
                         <div style={{fontSize:'14px',paddingLeft:'2px'}}>{put('parallel.group',(index+1))}</div>
                     </div>
                     <div>
-                        <BoardbuttonContainer index={index}>
-                            <div style={{paddingLeft: '27px',color:'#00b0ff',fontSize:'14px'}} >{put('parallel.addGroup')}</div>
+                        <BoardbuttonContainer xClass={{right: '13px'}} index={index} >
+                            <div style={{cursor:'pointer',paddingLeft: '27px',color:'#00b0ff',fontSize:'14px'}} >{put('parallel.addGroup')}</div>
                         </BoardbuttonContainer>
 
                     </div>
@@ -29,9 +30,9 @@ const ApproveGroup = ({data,mode,solidFrame,index,put}) => {
                         <div style={{fontSize:'14px',paddingLeft:'2px',marginTop:'3px'}}>
                             {put('parallel.group',(index+1))}
                         </div>
-                        <BoardbuttonContainer index={index}>
+                        <BoardbuttonContainer index={index} xClass={{marginTop:'-8px',left: '27px',backgroundImage: "url(./editor-app/dist/"+require('../../../images/pad2.png')+")"}}>
                             <div style={{textAlign:'center',height: '50px',lineHeight: '50px'}}>
-                                <i style={{fontSize:'22px',color:'#00b0ff'}} className="icon qingicon icon-jiahao2fill"></i>
+                                <i style={{cursor:'pointer',fontSize:'22px',color:'#00b0ff'}} className="icon iconfont icon-jiahao2fill"></i>
                             </div>
                         </BoardbuttonContainer>
                     </div>

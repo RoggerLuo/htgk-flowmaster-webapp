@@ -24,4 +24,20 @@ ACTIVITI.CONFIG = {
     // 'contextRoot' : './activiti-explorer/service',
     // 'contextRoot' : 'http://activiti.ooad.io/activiti-rest/service',
     'contextRoot' : './resources',
+    ngAppConfig : function($httpProvider){
+        // $httpProvider.defaults.headers.common = { 
+        //     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        //     'Accept': 'application/json',
+        //     'from': 'admin',
+        //     "Authorization": "Bearer " + window.getQueryString("token")
+        // };
+    },
+    httpSaveHeaders:{
+        // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    }
 };
+
+
+// window.globalHost = '172.16.1.27'
+// window.globalHost = 'bpm.yyang.io'
+window.globalHost = '172.16.1.178:9001'

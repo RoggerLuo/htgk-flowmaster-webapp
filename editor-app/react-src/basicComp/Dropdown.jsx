@@ -1,11 +1,15 @@
-import React,{createClass} from 'react';
+/*
+    dropdown的默认值无法直接手动添加
+    实现方式是:
+        在mutate dropdown options数据的时候[通过一个redux action]
+        同时更新 选中值(默认值)
+*/
+import React,{createClass} from 'react'
 import { render } from 'react-dom'
 import './dropdown.less'
 const Dropdown = createClass({
     getInitialState(){
         const choosedOption = this.props.data[0]
-        // this.props.choosed(choosedOption)
-
         return {visibleStatus:'none',zIndex:'1',choosedOption:choosedOption}
     },
     toggle(e){
@@ -23,14 +27,14 @@ const Dropdown = createClass({
             <div className="drop-down" style={{flex:'1'}}>
                 <div style={{display: 'flex',visibility:'hidden'}} className="drop-down-choosed" onClick={this.toggle}>
                     <div className="choosed-text">{this.state.choosedOption.text}</div>
-                    <div className="inverted-triangle">▼</div>
+                    <div className="inverted-triangle"></div>
                 </div>
 
                 <table className="drop-down-table" style={{zIndex:this.state.zIndex}} >
                     <tbody>
                         <tr className="title-tr" style={{}}>
                             <td className="drop-down-choosed stop-propagation" onClick={this.toggle} style={{color:'black',display:'flex',justifyContent: 'space-between'}}>
-                                <div className="choosed-text">{this.state.choosedOption.text}</div> <div className="inverted-triangle">▼</div>
+                                <div className="choosed-text">{this.state.choosedOption.text}</div> <div className="inverted-triangle"></div>
                             </td>
                         </tr>
                         <tr className="drop-down-options" style={{display:this.state.visibleStatus}}>

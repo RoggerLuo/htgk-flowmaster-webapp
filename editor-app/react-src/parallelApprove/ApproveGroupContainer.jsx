@@ -22,6 +22,7 @@ const ApproveGroupContainer = ({el,index,deleteMode,dispatch}) => { //el是会�
         mode:deleteMode,
         del(){
             dispatch({type:'deleteGroup',groupIndex:index})
+            activeSave()
         }
     }
 

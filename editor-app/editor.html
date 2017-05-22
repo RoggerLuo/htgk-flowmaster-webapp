@@ -27,9 +27,12 @@
                             <ul class="stencil-group" class="first" style="height:100%;display:flex;flex-direction:column;padding-bottom: 20px">
                                 <li style="text-align:center;flex:1;display:flex;flex-direction:column;" ng-repeat="item in stencilItemGroups[0].paletteItems" class="stencil-item" id="{{item.id}}" title="{{item.description}}" ng-model="draggedElement" data-drag="true" jqyoui-draggable="{onStart:'startDragCallback', onDrag:'dragCallback'}" data-jqyoui-options="{revert: 'invalid', helper: 'clone', opacity : 0.5}">
                                     <div style="flex:1;display:flex;">
-                                        <div style="margin:auto;">
-                                            <img style="margin:6px 0px;" ng-src="editor-app/stencilsets/bpmn2.0/icons/{{item.icon}}" width="38px;" height="38px;" />
-                                            <div style="font-size:14px;">{{item.name|translate}}</div>
+                                        <div  ng-mouseleave="hover = false" ng-mouseenter="hover = true" style="margin:auto;">
+                                            <img ng-init="hover=false" ng-hide="hover" style="margin:6px 0px;" ng-src="editor-app/stencilsets/bpmn2.0/icons/{{item.icon}}.svg" width="38px;" height="38px;" />
+                                            <div ng-hide="hover" style="font-size:14px;">{{item.name|translate}}</div>
+
+                                            <img ng-hide="!hover" style="margin:6px 0px;" ng-src="editor-app/stencilsets/bpmn2.0/icons/{{item.icon}}blue.svg" width="38px;" height="38px;" />
+                                            <div ng-hide="!hover" style="font-size:14px;color:#00b0ff;">{{item.name|translate}}</div>
                                         </div>
                                     </div>
                                 </li>
@@ -41,11 +44,18 @@
             <div id="canvasHelpWrapper" class="col-xs-7" style="width:67%;">
                 <div class="canvas-wrapper" id="canvasSection" ng-model="droppedElement" ng-model="droppedElement" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'dropCallback',onOver: 'overCallback', onOut: 'outCallback'}">
                     <div class="canvas-message" id="model-modified-date"></div>
-                    <div class="Oryx_button" id="delete-button" title="{{'BUTTON.ACTION.DELETE.TOOLTIP' | translate}}" ng-click="deleteShape()" style="display:none">
-                        <img src="editor-app/images/delete.png" style='width:16px; height:16px' ; />
-                    </div>
-                    <div class="Oryx_button" ng-repeat="item in quickMenuItems" id="{{item.id}}" title="{{item.description}}" ng-click="quickAddItem(item.id)" ng-model="draggedElement" data-drag="true" jqyoui-draggable="{onStart:'startDragCallbackQuickMenu', onDrag:'dragCallbackQuickMenu'}" data-jqyoui-options="{revert: 'invalid', helper: 'clone', opacity : 0.5}" style="display:none">
-                        <img ng-src="editor-app/stencilsets/bpmn2.0/icons/{{item.icon}}" />
+                    <div>
+                        <!-- <div class="Oryx_button" id="delete-button" title="{{'BUTTON.ACTION.DELETE.TOOLTIP' | translate}}" ng-click="deleteShape()" style="display:none"> -->
+                        <div ng-mouseleave="hover = false" ng-mouseenter="hover = true" class="Oryx_button" id="delete-button" title="删除" ng-click="deleteShape()" style="display:none;">
+                            <img ng-hide="hover"  ng-init="hover=false" src="editor-app/images/delete.svg" style='margin:auto;width:15px; height:16px;padding-right:1px;margin-top: 6px;' />
+                            <img ng-hide="!hover" src="editor-app/images/deleteblue.svg" style='margin:auto;width:15px; height:16px;padding-right:1px;margin-top: 6px;' />
+
+                        </div>
+                        <div ng-mouseleave="hover = false" ng-mouseenter="hover = true" class="Oryx_button" ng-repeat="item in quickMenuItems" id="{{item.id}}" title="{{item.description}}" ng-click="quickAddItem(item.id)" ng-model="draggedElement" data-drag="true" jqyoui-draggable="{onStart:'startDragCallbackQuickMenu', onDrag:'dragCallbackQuickMenu'}" data-jqyoui-options="{revert: 'invalid', helper: 'clone', opacity : 0.5}" style="display:none">
+                            <img ng-src="editor-app/stencilsets/bpmn2.0/icons/{{item.icon}}.svg" ng-hide="hover"  ng-init="hover=false"/>
+                            <img ng-src="editor-app/stencilsets/bpmn2.0/icons/{{item.icon}}blue.svg" ng-hide="!hover"/>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -66,16 +76,21 @@
                         </div>
                         <div class="selected-item-body">
                             <ng-include src="propertyTpl"></ng-include>
-                        </div>
-                        
-                        <div class="clearfix" style="bottom: 0px;">
-                            <div class="selected-item-bottom">
-                                <div id="bottom-save" class="bottom-text-div">
-                                    <div class="save" >Loading...</div>
-                                    <!-- <div class="save">{{'EDITOR.SAVE' | translate}}</div> -->
+
+
+
+                            <div class="clearfix" style="bottom: 0px;">
+                                <div class="selected-item-bottom">
+                                    <div id="bottom-save" class="bottom-text-div">
+                                        <div class="save" >Loading...</div>
+                                        <!-- <div class="save">{{'EDITOR.SAVE' | translate}}</div> -->
+                                    </div>
                                 </div>
                             </div>
+                            
                         </div>
+                        
+                        
                     </div>
                 </div>
             </div>

@@ -2,11 +2,25 @@ import React,{createClass} from 'react'
 import BoardbuttonContainer from '../containers/BoardbuttonContainer'
 // import save from './save'
 import {connect} from 'react-redux'
+import { toJS, fromJS, List, Map } from 'immutable'
 
-const ButtonContainer = ({dispatch,children,index}) => { //parallel 个性化版本  button
+const ButtonContainer = ({state,dispatch,children,index,xClass}) => { //parallel 个性化版本  button
+    const isDupli = (item)=>{
+        let data = fromJS(state.parallel)
+        const currentIndex = data.get('repo').findKey((el) => el.get('id') == state.parallel.id) //如果这里找不到会怎么样
+        const flag = state.parallel.repo[currentIndex].data[index].some((el, index) => {
+            if (el.text == item.text) {
+                window.showAlert('已经存在"' + item.text + '"的选项')
+                return true
+            }
+        })
+        return flag        
+    }
     const add = (item) => {
+        if(isDupli(item)){
+            return ;
+        }
         dispatch({type:'addCharacter',item,index}) //点击popup的确定按钮时返回 popup选择的item
-        // save()
         window.activeSave() 
     }
 
@@ -17,20 +31,25 @@ const ButtonContainer = ({dispatch,children,index}) => { //parallel 个性化版
                 let item = {
                     text:el.name,
                     value:el.id,
-                    cate:el.type
-                }                            
+                    cate:'EMPLOYEE'//el.type
+                }
+                if(isDupli(item)){
+                    return ;
+                }
+
                 dispatch({type:'addCharacter',item,index}) //点击popup的确定按钮时返回 popup选择的item
             })
-            // save()
             window.activeSave() 
         }
         window.addEventListener('message',chooseCallback,false)
-        let message = {type:"openSelectUserPanel",value:"",params:{pickerType:'people',title:'选择人员'}}
+        // let message = {type:"openSelectUserPanel",value:"",params:{pickerType:'onlyPeople',title:'选择人员'}}
+
+        let message = {type:"openSelectUserPanel",value:"",params:{pickerType:'onlyPeople',title:'选择人员',orgId:window.getQueryString("rootOrgId")}}
         window.parent.postMessage(message,'*')
     }
     
     return ( 
-        <BoardbuttonContainer popupConfirm={add} action3={action3}>
+        <BoardbuttonContainer xClass={xClass} popupConfirm={add} action3={action3}>
             {children}
         </BoardbuttonContainer>
     )

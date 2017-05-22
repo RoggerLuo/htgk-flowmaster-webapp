@@ -7,7 +7,8 @@
     "MultiUserTask":"Group Approval",
     "EndErrorEvent":"Error End",
     "SequenceFlow":"Line",
-    "Line.remark":"Line Remark",
+    "Line.remark":"Line",
+    "BranchLine":"Branch Line",
     "Line.remark.placeholder":"Please enter remark",
     "Line.hint":"Line remark will appear in the canvas for explanation",
     "NODE.placeholder":"Give node a name"

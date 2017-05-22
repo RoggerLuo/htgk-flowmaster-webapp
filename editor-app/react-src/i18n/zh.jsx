@@ -21,11 +21,12 @@ export default {
   'branch.remark.content1':'条件与条件间是“或”的关系',
   'branch.remark.content2':'规则与规则间是“与”的关系',
 
+  'branch.remark.contentTimeDoc':'当表单组件为日期控件时，输入的格式为：YYYY-MM-DD或YYYY-MM-DD HH:MM',
   'branch.remark.content3':'1、$字段名称来标识表单字段，若无法找到对应系统会显示红色；',//
   'branch.remark.content4':'2、#人员属性来标识发起人的参数，支持参数有：性别、职级等，以个人资料中的信息字段为准，若无法找到对应系统会显示红色；', //
   'branch.remark.content5':'3、%date来标识当前日期', //
   'branch.remark.content6':"4、支持基础的计算公式，如：∑、+、-、*、/、>、>=、==、<、<=、AND、OR等；", //{}
-  'branch.remark.content7':'5. 请输入英文字符;', //
+  'branch.remark.content7':'请输入英文字符;', //
   'branch.menu.add':'添加规则',//
   'branch.menu.del':'删除规则',//
   'branch.condition':'条件',//

@@ -2,14 +2,31 @@ import React,{createClass} from 'react'
 import BoardbuttonContainer from '../containers/BoardbuttonContainer'
 import {connect} from 'react-redux'
 // import save from './save'
+import { toJS, fromJS, List, Map } from 'immutable'
 
-const ButtonContainer = ({dispatch,children}) => { //parallel 个性化版本  button
+
+const ButtonContainer = ({state,dispatch,children}) => { //parallel 个性化版本  button
+    const isDupli = (item)=>{
+        let data = fromJS(state)
+        let repoIndex = data.get('endpoint').get('approveListRepo').findKey((el) => el.get('id') == data.get('endpoint').get('id')) //如果这里找不到会怎么样
+        if (!repoIndex && (repoIndex != 0) ) { 
+            return false
+        }else{
+            let flag = state.endpoint.approveListRepo[repoIndex].data.some((el, index) => {
+                if (el.text == item.text) {
+                    window.showAlert('已经存在"' + item.text + '"的选项')
+                    return true
+                }
+            })
+            return flag
+        }
+    }
     const confirm = (item) => { 
+        if(isDupli(item)){return ;}
         dispatch({
             type:'pushEndpoint',
             item
         })   
-        // save()
         window.activeSave() 
     }
 
@@ -20,8 +37,10 @@ const ButtonContainer = ({dispatch,children}) => { //parallel 个性化版本  b
                 let item = {
                     text:el.name,
                     value:el.id,
-                    cate:el.type
-                }                            
+                    cate:'EMPLOYEE'//el.type
+                }
+                if(isDupli(item)){return ;}
+                
                 dispatch({type:'pushEndpoint',item}) //点击popup的确定按钮时返回 popup选择的item
             })
             // save()

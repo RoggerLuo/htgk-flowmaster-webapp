@@ -33,7 +33,7 @@ const Reducer = (state = initial, action) => {
 
             let flag = state.approveListRepo[repoIndex].data.some((el, index) => {
                 if (el.text == action.item.text) {
-                    alert('已经存在"' + action.item.text + '"的选项')
+                    // alert('已经存在"' + action.item.text + '"的选项')
                     return true
                 }
             })
@@ -50,13 +50,6 @@ const Reducer = (state = initial, action) => {
             return data.updateIn(['approveListRepo',repoI],'initial',(el)=>{
                 return el.set('data',el.get('data').delete(action.index))
             }).toJS()
-
-            // let tempArr = [].concat(state.approveListRepo[repoI].data)
-            // tempArr.splice(action.index, 1)
-            // return Object.assign({}, state, {
-            //     approveList: {id:state.approveList.id,data:tempArr}
-            // })
-        
 
         default:
             return state

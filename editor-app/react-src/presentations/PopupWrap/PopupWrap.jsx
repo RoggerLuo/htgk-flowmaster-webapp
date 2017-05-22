@@ -6,6 +6,9 @@ const Component = ({title,cancel,confirm,display,put, /*后面可选*/ children,
     const confirmDecorated = ()=>{
         confirm()
         cancel()
+        // debugger
+        // window.hideShadow()
+
     }
     let compClass1=""
     let compClass2=""
@@ -21,10 +24,10 @@ const Component = ({title,cancel,confirm,display,put, /*后面可选*/ children,
     }
     // style={{display:display}} className={compClass2} className={compClass1}
     return(
-        <div className={"popup-coverwrap "+compClass2} style={{display:display}}>
-            <div className={"popup "+compClass1} style={{height:height,width:width}} >
+        <div className={"popup-coverwrap "} style={{display:display}}>
+            <div className={"popup "+compClass1+" "+compClass2} style={{height:height,width:width}} >
                 <div className="x">                
-                    <i className="icon qingicon icon-close" onClick={cancel}></i>
+                    <i className="icon iconfont icon-close" onClick={cancel}></i>
                 </div>
                 <div className="header">
                     {title}

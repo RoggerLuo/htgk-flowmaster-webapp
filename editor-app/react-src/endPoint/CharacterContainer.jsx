@@ -15,7 +15,7 @@ const CharacterContainer = ({el,index,dispatch}) => {
     const text = el.text    
     const click = () => {  //删除，得知道是第几组，第几个character
         dispatch({type:'removeEndpoint',index:index})
-        // save()
+        activeSave()
     }
     return (<Character text={text} click={click}/>)
 }

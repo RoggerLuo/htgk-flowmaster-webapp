@@ -1,3 +1,5 @@
+'use strict';
+
 window.globalEvent =  window.globalEvent || {}
 window.globalEvent.checkEmpty =  window.globalEvent.checkEmpty || {}
 
@@ -16,8 +18,6 @@ window.globalEvent.checkEmpty = ($scope) => {
         switch(el.stencil.id){
             case 'EndNoneEvent':
                 // el.incoming.length
-                // debugger
-
 
             break
             case 'StartNoneEvent':

@@ -16,7 +16,9 @@ const Component = ({put}) => {
         <div className="react-approve" >
             <SectionTitleContainer text={put('branch.sectionTitle')}/>   
             <Radios />
-            <div className="section-content">{put('branch.sectionContent',window.nextElementIs)}</div>
+            <div className="section-content">
+                {put('branch.sectionContent',window.nextElementIs)}
+            </div>
             <Options />
             
         </div>

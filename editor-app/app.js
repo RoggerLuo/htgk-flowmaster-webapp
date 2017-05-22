@@ -17,7 +17,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 'use strict';
-
 var activitiModeler = angular.module('activitiModeler', [
   'ngCookies',
   'ngResource',
@@ -34,7 +33,9 @@ var activitiModeler = angular.module('activitiModeler', [
 var activitiModule = activitiModeler;
 activitiModeler
   // Initialize routes
-  .config(['$selectProvider', '$translateProvider', function ($selectProvider, $translateProvider) {
+  .config(['$selectProvider', '$translateProvider','$httpProvider', function ($selectProvider, $translateProvider,$httpProvider) {
+        
+        ACTIVITI.CONFIG.ngAppConfig($httpProvider)
 
       // Override caret for bs-select directive
       angular.extend($selectProvider.defaults, {
@@ -48,7 +49,6 @@ activitiModeler
         });
 
         $translateProvider.preferredLanguage('zh');
-
         // remember language
         // $translateProvider.useCookieStorage();
         
@@ -107,7 +107,14 @@ activitiModeler
                         linkageData.push({text:k,value:k})
                     }
                     window.userProperties = linkageData
+
+                    window.userProperties.unshift({text:'请选择',value:'initial',index:'initial'})
+
+                    window.reduxStore.dispatch({type:'updateUserProperties',data:window.userProperties})
                 })
+
+
+
                 /* get form and user fields data */
                 $http({    
                     method: 'GET',
@@ -115,24 +122,60 @@ activitiModeler
                 }).success(function (data) {
                     const obj = JSON.parse(data.formDefinition)
                     window.formProperties = obj
-                    window.formProperties = obj.components.map((el)=>{
+                    if(!obj){
+                        window.formProperties = []
+                        return ;    
+                    }
+                    const mapmap = {
+                        "text":true,
+                        "textarea":true,
+                        "number":true,
+                        "money":true,
+                        "date":true,
+                        "selection":true
+                    }
+                    const filteredComponents = obj.components.filter((el)=>{
+                        return !!mapmap[el.type]
+                    })
+
+                    window.formProperties = filteredComponents.map((el)=>{
                         return {text:el.title,value:el.name}
                     })
+                    window.formProperties.unshift({text:'请选择',value:'initial',index:'initial'})
+
+                    window.reduxStore.dispatch({type:'updateFormProperties',data:window.formProperties})
+
                 })
 
 
 
-                /* get role data*/
+                /* get role data */
                 $http({    
                     method: 'GET',
                     url: 'http://'+window.globalHost+'/identity/roles?orgId='+window.getQueryString("orgId")
                 }).success(function (data) {
-                    const roleData = data.data.map((el)=>{
+                    let roleData = data.data.map((el)=>{
                         return {
                             text:el.name,
-                            value:el.id
+                            value:el.id,
+                            orgId:el.orgId
                         }                            
                     })
+                    .filter((el)=>(el.value!='OrgSupervisor')&&(el.value!='OrgLeader'))
+
+
+                    roleData.forEach((el,ind,arr)=>{
+                        if(arr.filter((el2)=>el2.text == el.text).length>1){
+                            $http({    
+                                method: 'GET',
+                                url: 'http://'+window.globalHost+'/identity/organizations/'+el.orgId
+                            }).success(function (data) {
+                                arr[ind].text = arr[ind].text + '('+data.name+')'
+                            })
+                        }
+                    })
+
+                    roleData = roleData.length === 0 ? [{text:'尚无角色可选择',value:'initial'}]:roleData
                     window.reduxStore.dispatch({type:'updateRoleData',roleData})
                 })
 
@@ -142,13 +185,19 @@ activitiModeler
                     url: 'http://'+window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'?processType=Normal'
                 }).success(function (data2) {
                     window.pidName = data2.name
+                    window.pidDescription = data2.description
                 })
 
                 const getModel = (callback)=>{
                     /* get model data*/
                     $http({    
                         method: 'GET',
-                        url: 'http://'+window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'/design?processType=Normal'
+                        url: 'http://'+window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'/design?processType=Normal',
+                        // headers: {
+                        //     'Accept': 'application/json',
+                        //     "Authorization": "Bearer " + window.getQueryString("token"),
+                        //     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        // },
                     })
                     .success(function (data, status, headers, config) {
                         callback(data, status, headers, config)
@@ -162,7 +211,8 @@ activitiModeler
 
 
                 getModel(function (data, status, headers, config) {                    
-                    if(data.description!="flowMaster"){
+                    if(!data.model.childShapes){
+                    // if(data.description!="flowMaster"){
                         var modelUrl = KISBPM.URL.getModel(modelId);
                         $http({method: 'GET', url: modelUrl}).success(function (data, status, headers, config) {
 
@@ -173,14 +223,50 @@ activitiModeler
                         return ;
                     }
 
+
                     /* 对服务器上的数据进行 解析 然后加载进redux */
                     data.model.childShapes.forEach((el,index)=>{
                         switch(el.stencil.id){
                             case 'SequenceFlow':
                                 let sf = []
-                                if(!el.properties.reduxdata){return;}
-                                window.reduxStore.dispatch({type:'sequenceDataInit',data:el.properties.reduxdata})
+                                if(!el.properties.reduxdata){
+                                    // return;
+                                }else{
+                                    window.reduxStore.dispatch({type:'sequenceDataInit',data:el.properties.reduxdata})                                    
+                                }
+
+                                
+                                /* exclusive gate的内容 */
+                                if(el.properties.defaultflow== "true" ){
+                                    /*  
+                                        寻找sequenceflow的上一个节点（分支）
+                                        循环所有的节点，找他们的outgoing里面是不是有这个sequenceflow的resourceId
+                                    */
+                                    const theExclusiveGate = data.model.childShapes.filter((everyChild)=>{ 
+                                        return everyChild.outgoing.some((outgoingEl)=>{
+                                            return outgoingEl.resourceId == el.resourceId
+                                        })
+                                    })[0]
+
+                                    let elName =  data.model.childShapes.filter((eachChild)=>eachChild.resourceId == el.outgoing[0].resourceId)[0].properties.name
+                                    const branchObj = theExclusiveGate.outgoing.map((elOfEx)=>{
+                                        let currentElement = data.model.childShapes.filter((eachChild)=>eachChild.resourceId == elOfEx.resourceId)[0]
+                                        let name = data.model.childShapes.filter((eachChild)=>eachChild.resourceId == currentElement.outgoing[0].resourceId)[0].properties['oryx-name']
+                                        return {branchResourceId:elOfEx.resourceId,name,defaultflow:'df',choosed:'false'}
+                                    })
+
+
+                                    const reduxObj = {resourceId:theExclusiveGate.resourceId,data:branchObj,choosed:{text:elName,value:el.resourceId}}
+                                    if(reduxObj.data.length){
+                                        /* 要放在switchElement后面，不然会顺序会出问题，元素id还没更新 */
+                                        window.reduxStore.dispatch({ type: 'branchNodeInit',data:reduxObj})
+                                    }
+                                    // window.reduxStore.dispatch({type:'branchNodeInit',data:el.properties.reduxdata})
+                                }
+
+                                // delete data.model.childShapes[index].properties.name
                                 delete data.model.childShapes[index].properties.reduxdata
+                                delete data.model.childShapes[index].properties.defaultflow
                                 delete data.model.childShapes[index].properties.conditionsequenceflow
                                 break
 
@@ -195,6 +281,19 @@ activitiModeler
                                     return  obj
                                 })  
                                 window.reduxStore.dispatch({type:'endPointDataInit',data:{data:endData,id:el.resourceId}})
+                                delete data.model.childShapes[index].properties.deliverToUsers
+                            break
+                            case 'EndErrorEvent':
+                                let endData2 = []
+                                if(!el.properties.deliverToUsers){return;}
+                                endData2 = el.properties.deliverToUsers.map((el2)=>{ //会签组12345
+                                    let obj = {cate:el2.cate,value:el2.id,text:el2.text}
+                                    if(el2.value2){
+                                        obj.value2 = el2.value2
+                                    }
+                                    return  obj
+                                })  
+                                window.reduxStore.dispatch({type:'endPointDataInit',data:{data:endData2,id:el.resourceId}})
                                 delete data.model.childShapes[index].properties.deliverToUsers
                             break
 
@@ -231,7 +330,10 @@ activitiModeler
                                 })  
                                 window.reduxStore.dispatch({type:'parallelDataInit',data:{data:theData,id:el.resourceId}})
                                 delete data.model.childShapes[index].properties.multiinstance_parties
+                                delete data.model.childShapes[index].properties.multiinstance_type
                                 delete data.model.childShapes[index].properties.multiinstance_cardinality
+                                delete data.model.childShapes[index].properties.multiinstance_variable
+                                delete data.model.childShapes[index].properties.usertaskassignment
                             break
                         }
                     })
@@ -250,6 +352,7 @@ activitiModeler
 
 
                     $rootScope.editorFactory.resolve();
+
                 })
 
 
@@ -337,8 +440,8 @@ activitiModeler
 
 	            	ORYX._loadPlugins();
 	
-	                var modelId = EDITOR.UTIL.getParameterByName('modelId'); //获取url的值
-	                
+                    var modelId = 'test'
+                    // var modelId = EDITOR.UTIL.getParameterByName('modelId'); //获取url的值
                     fetchModel(modelId); 
 	                /*
                         $rootScope.editor = new ORYX.Editor(data); 初始化editor

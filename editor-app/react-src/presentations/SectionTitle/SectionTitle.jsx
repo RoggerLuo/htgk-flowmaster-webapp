@@ -7,8 +7,9 @@ const SectionTitle = ({text,mode,add,del,cancel,put}) => {
     if(mode == 'icon'){
         rightSide = (
             <span>
-                <i className="icon qingicon icon-add" onClick={add}></i>
-                <i className="icon qingicon icon-delete" onClick={del}></i>
+                <i className="icon iconfont icon-tianjia" onClick={add}></i>
+                <i className="icon iconfont icon-shanchu" onClick={del}></i>
+
             </span>
         )
     }else{
@@ -16,7 +17,7 @@ const SectionTitle = ({text,mode,add,del,cancel,put}) => {
     }
     return (
         <div className="section-title">
-            <span>{text}</span>
+            <span style={{lineHeight: "25px"}}>{text}</span>
             {rightSide}
         </div>
     )

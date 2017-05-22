@@ -1,20 +1,84 @@
+'use strict';
 window.globalEvent =  window.globalEvent || {}
+function LTrim(str){ 
+  var i; 
+  for(i=0;i<str.length;i++){
+    if(str.charAt(i)!=" ") 
+      break; 
+  } 
+  str = str.substring(i,str.length); 
+  return str; 
+}
+
+function RTrim(str){ 
+  var i; 
+  for(i=str.length-1;i>=0;i--){ 
+    if(str.charAt(i)!=" ") 
+      break; 
+  } 
+  str = str.substring(0,i+1); 
+  return str; 
+}
+
+function Trim(str){ 
+   return LTrim(RTrim(str)); 
+}                    
+
+const saveHandlerBranchNode = (canvas) => {
+    canvas.children.forEach((el)=>{
+        if(el._stencil._jsonStencil.title == 'Sequence flow'){
+            el.setProperty('defaultflow',"false")
+        }
+    })
+    window.reduxStore.getState().branchNode.repo.forEach((el)=>{
+        let currentElement = canvas.getChildShapeByResourceId(el.choosed.value)
+        if(el.resourceId && !currentElement){
+            return ;
+        }
+        currentElement.setProperty('defaultflow',"true")
+        currentElement.setProperty('conditionsequenceflow','')
+        currentElement.setProperty('reduxdata','')
+    })
+}
 
 const saveHandlerBranch = (canvas) => {
-    /* 这个data是一个多层数组*/
+    let canSave = true
     window.reduxStore.getState().branch.dataRepo.forEach((el,index)=>{ 
         let currentElement = canvas.getChildShapeByResourceId(el.id)
         if(el.id && !currentElement){
             return ;
         }
+        let name = ''
         let returnString = ''
         if(el.radio){
-            returnString = el.text
+            returnString = '${' + el.text + '}'
+            window.setPropertyAdvance({key:'oryx-name',value: el.text},currentElement)
+
         }else{
             returnString = '${'
+            if(el.conditions.some((condition,i)=>{
+                return condition.data.some((el,index)=>{
+                    if((el.entry1.value == 'initial')||
+                    (el.entry2.value == 'initial')||
+                    (el.entry3.value == 'initial')){
+                        return true
+                    }
+                })
+            })){
+                /* 如果有一个为为空值，整个条件都为空 */
+                if(currentElement.properties.defaultflow != 'true'){
+                    window.showAlert('保存失败，分支条件和规则不能为空') 
+                    window.setPropertyAdvance({key:'oryx-name',value:''},currentElement)
+                    canSave = false
+                    return                    
+                }
+                // currentElement.setProperty('conditionsequenceflow','')
+                // return
+            }
+
             el.conditions.forEach((condition,i)=>{
                 let conditionArray  = []        
-                condition.forEach((el,index)=>{
+                condition.data.forEach((el,index)=>{
                     switch(el.entry1.index){
                         case 0:
                             returnString += ' f.'
@@ -30,21 +94,120 @@ const saveHandlerBranch = (canvas) => {
                     returnString += ' '
                     returnString += el.entry3.value
                     returnString += ' '
-                    returnString += el.input
 
-                    if(index < (condition.length-1)){
+                    el.input = Trim(el.input)
+                    if(!isNaN(el.input)){
+                        returnString += el.input
+                    }else{
+                        /* 如果是yyyy-mm-dd，转换成时间戳 */
+                        const re = new RegExp(/\d{4}(\-|\/|\.)\d{1,2}\1\d{1,2}/)
+                        if(re.test(el.input)){
+                            returnString +=  Date.parse(new Date(el.input)) //+ new Date().getTimezoneOffset()*60*1000
+                        }else{
+                            returnString += '"'+ el.input +'"'
+                        }
+                    }
+                    name += el.entry2.text
+                    name += ' '
+                    name += el.entry3.text
+                    name += ' '
+                    if(!isNaN(el.input)){
+                        name += el.input
+                    }else{
+                        name += '"'+el.input+'"'
+                    }
+
+                    if(index < (condition.data.length-1)){
                         returnString += ' && '                
+                        name += ' && '                
                     }
                 })
 
                 if(i < (el.conditions.length-1)){
                     returnString += ' || '                
+                    name += ' || '               
                 }
             })
             returnString += '}'
         }
+        
+        const reduxdataConditions = el.conditions.map((originEl)=>{
+            originEl.ruleMode = 'normal'
+            return originEl
+        })
+
+        el.conditions = reduxdataConditions
         currentElement.setProperty('conditionsequenceflow',returnString)
         currentElement.setProperty('reduxdata',el)
+
+        if(currentElement.properties.defaultflow != 'true'){
+            window.setPropertyAdvance({key:'oryx-name',value:name},currentElement)
+        }
+    })
+
+    /* 遍历所有exclusiveGate 然后再遍历他们的sequenceflow */
+    window.windowCanvas.getChildNodes().filter((el)=>{
+        return el._stencil._jsonStencil.title == "Exclusive gateway"   
+    })// theExclusiveGate  
+    .forEach((el)=>{
+        /*  update 空值不能提交 */
+        /*  目前取消空值提交，空着也能提交 */
+        el.outgoing.forEach((el2)=>{
+            if(!el2.properties.defaultflow){ //不存在
+                if(!el2.properties.conditionsequenceflow){ //也不存在
+                    window.showAlert('保存失败，分支条件和规则不能为空')
+                    canSave = false
+                }
+            }
+        })
+    })
+    return canSave
+}
+
+window.updateBranch = () => {
+    let canvas = window.windowCanvas
+    /* 这个data是一个多层数组*/
+    window.reduxStore.getState().branch.dataRepo.forEach((el,index)=>{ 
+        let currentElement = canvas.getChildShapeByResourceId(el.id)
+        if(el.id && !currentElement){
+            return ;
+        }
+        let name = ''
+        if(el.radio){
+            window.setPropertyAdvance({key:'oryx-name',value: el.text},currentElement)
+        }else{
+            el.conditions.forEach((condition,i)=>{
+                let conditionArray  = []        
+                condition.data.forEach((el,index)=>{
+                    if(el.entry2.value != 'initial'){
+                        name += el.entry2.text||''
+                        name += ' '
+                    }
+                    if(el.entry3.value != 'initial'){
+                        name += el.entry3.text||''
+                        name += ' '                        
+                    }
+
+                    if(!isNaN(el.input)){
+                        name += el.input
+                    }else{
+                        name += '"'+el.input+'"'
+                    }
+
+                    if(index < (condition.data.length-1)){
+                        name += ' && '                
+                    }
+                })
+
+                if(i < (el.conditions.length-1)){
+                    name += ' || '               
+                }
+            })
+        }
+        if(currentElement.properties.defaultflow != 'true'){
+            window.setPropertyAdvance({key:'oryx-name',value:name},currentElement)
+        }
+        // window.setPropertyAdvance({key:'oryx-name',value:name},currentElement)
     })
 }
 
@@ -77,11 +240,10 @@ const saveHandlerParallel = (canvas) => {
             })
             jsonArray.push(innerArray)
         })
-
         currentElement.setProperty('multiinstance_parties',jsonArray)
         currentElement.setProperty('multiinstance_type',"parallel")
         currentElement.setProperty('multiinstance_variable',"per")
-        currentElement.setProperty('usertaskassignment',{"assignment": {"candidateOwners": "${per}"}})
+        currentElement.setProperty('usertaskassignment',{"assignment": {"candidateOwners": [{"value":"${per}"}]}})
     })
 }
 
@@ -110,6 +272,7 @@ const saveHandlerApprove = (canvas) => {
                    break
             }
         })
+
         let value = {
             "assignment": {
                 "candidateOwners": jsonArray
@@ -157,16 +320,20 @@ window.globalEvent.save = function($scope,$http){
         saveHandlerApprove(canvas)
         saveHandlerParallel(canvas)
         saveHandlerEndPoint(canvas)
-        saveHandlerBranch(canvas)
+        if(!saveHandlerBranch(canvas)){
+            activeSave()
+            return 
+        }
+        saveHandlerBranchNode(canvas)
         
         /* 为空的限制条件 */
         if(window.globalEvent.checkEmpty($scope)){
+            window.reduxStore.dispatch({type:'saveActive'})
             return ;
         }
 
         /* 等待动画 */
         window.reduxStore.dispatch({type:'callSpin'})
-
 
         var json = $scope.editor.getJSON();
         json.properties.process_id = window.getQueryString("pid")
@@ -197,8 +364,8 @@ window.globalEvent.save = function($scope,$http){
         var params = {
             json_xml: json,
             svg_xml: svgDOM,
-            name: window.pidName,
-            description: 'flowMaster'
+            name: window.pidName
+            // descriptionPrivate: 'flowMaster'
         };
         const transformRequest = function (obj) {
             var str = [];
@@ -218,11 +385,7 @@ window.globalEvent.save = function($scope,$http){
             method: 'PUT',
             data: params,
             ignoreErrors: true,
-            headers: {
-                // 'Accept': 'application/json',
-                // "Authorization": "Bearer acf49858556241e89b7c4e9d3f0a9b84",
-                // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            },
+            headers: ACTIVITI.CONFIG.httpSaveHeaders,
             transformRequest: function (obj) {
                 var str = [];
                 for (var p in obj) {
@@ -247,8 +410,6 @@ window.globalEvent.save = function($scope,$http){
             KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent);
             callback()
             
-            // console.log(transformRequest(params))
-            // console.log($scope.editor.getJSON())
             console.log(json)
             window.reduxStore.dispatch({type:'saveDeactive'})
 

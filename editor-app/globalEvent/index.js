@@ -1,3 +1,5 @@
+'use strict';
+
 //currentSelectedShape 
 window.activeSave = ()=>{
     window.reduxStore.dispatch({ type: 'saveActive'})
@@ -6,16 +8,54 @@ window.lastSelectedShape = false
 window.canvasFlag = false
 window.lastSelectedItem = false
 // window.globalHost = 'localhost:9001'
-window.globalHost = '172.16.1.178:9001'
 window.pidName = 'pidName'
+
+
+
+/* 和vue部分的阴影遮罩一致 */
+const shadowCallback = (e) => {
+    window.removeEventListener("message",shadowCallback, false)
+}
+window.callShadow = () => {
+    window.addEventListener('message',shadowCallback,false)
+    let message = {type:"openShadow"}
+    window.parent.postMessage(message,'*')
+}
+
+
+/* 和vue部分的阴影遮罩一致 */
+const hideShadowCallback = (e) => {
+    window.removeEventListener("message",hideShadowCallback, false)
+}
+window.hideShadow = () => {
+    window.addEventListener('message',hideShadowCallback,false)
+    let message = {type:"closeShadow"}
+    window.parent.postMessage(message,'*')
+}
+
+
+
+
+
 window.getQueryString = (name)=> { 
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
     var r = window.location.search.substr(1).match(reg); 
     if (r != null) return unescape(r[2]); return null; 
 } 
 
+const checkIfModified=(e)=>{
+    if(e.data.type == 'checkIfModified'){
+        const isActive = window.reduxStore.getState().common.active //true就是修改了，false就是没修改
+        const message = {type:"checkIfModified",value:isActive}
+        window.parent.postMessage(message,'*')   
+    }
+    // window.removeEventListener("message",checkIfModified, false)
+}
+window.addEventListener('message',checkIfModified,false)
 
-/* 构造#的pat */
+
+
+/* 构造#的pattern */
 const regFactor = (options,color) => {
     color = color || 'red'
     let pattern1 = ''
@@ -49,7 +89,12 @@ const moveCursorToEnd = (obj)=>{
     sel.addRange(range);
 }
 
+
+
+
 var myEvent = function($scope,$http){
+    window.windowCanvas = $scope.editor.getCanvas() //拿到canvas
+
     window.globalEvent =  window.globalEvent || {}
     window.saveModel = window.globalEvent.save($scope,$http)
 
@@ -69,14 +114,26 @@ var myEvent = function($scope,$http){
     $scope.lastSelectedUserTaskId = false
     $scope.propertyTpl = './editor-app/property-tpl/canvas.html';
 
+    /* 每次改变都激活保存 */
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_EXECUTE_COMMANDS, function(event) {
         window.activeSave()        
     })
-    
-    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
 
+
+
+
+    /* 画布加载完成以后的事件 */
+    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_LOADED, function(event) {
+
+        /* 画布加载以后 */
+
+        window.reduxStore.getState().branchNode.repo.forEach((el)=>{
+            let currentElement = window.windowCanvas.getChildShapeByResourceId(el.choosed.value)
+            window.setPropertyAdvance({key:'defaultflow',value:'true'},currentElement)
+
+        })
+       
     })
-
 
 
     /*
@@ -106,9 +163,41 @@ var myEvent = function($scope,$http){
     })
 
 
-    /* ----UI color change ----*/
+
+    /* branchNode的angular逻辑内容 */
+    /* 每次点击branchNode重新计算 */
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
         
+        var selectedShape = event.elements.first()
+        if(!selectedShape){return false}
+        let name = selectedShape._stencil._jsonStencil.title
+        
+        const canvas = $scope.editor.getCanvas() //拿到canvas
+        if( name == 'Exclusive gateway'){
+            let branchObj = selectedShape.outgoing.map((el)=>{
+                return {
+                    branchResourceId:el.resourceId,
+                    name:el.outgoing[0].properties['oryx-name']||"未命名分支"
+                }
+            })
+            branchObj.unshift({branchResourceId:selectedShape.resourceId,name:'请选择'})
+            
+            const reduxObj = {
+                resourceId:selectedShape.resourceId,
+                data:branchObj,
+                choosed:{text:'请选择',value:false}
+            }
+            
+            if(reduxObj.data.length){
+                /* 要放在switchElement后面，不然会顺序会出问题，元素id还没更新 */
+                window.reduxStore.dispatch({ type: 'branchNodeDataUpdate',data:reduxObj})
+            }
+        }
+    })
+
+
+    /* ----UI color change ----*/
+    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
         /* 箭头 变回黑色 */
         (function(){
             if(window.lastSelectedShape){
@@ -141,7 +230,10 @@ var myEvent = function($scope,$http){
         if(!selectedShape){
             return false
         }
+
+
         window.lastSelectedShape = selectedShape
+
 
         /* 改变 正要选中 边框颜色的代码部分 */   
         if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'User task' 
@@ -180,34 +272,21 @@ var myEvent = function($scope,$http){
         if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title){
             if(!selectedShape.outgoing[0]){return false}
                 window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
-                // switch(selectedShape.outgoing[0]._stencil._jsonStencil.title){
-                //     case 'User task':
-                //         window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
-                //         break;
-                //     case 'Exclusive gateway':
-                //         window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (分支节点)';
-                //         break;
-                //     case '':
-                //     break;
-                // }
         }
     })
-
-    window.afterElementSelected = ($scope,event)=>{
-        
-        window.globalEvent.router($scope,event)
-            
+    window.beforeShapeUpdate = ($scope,event)=>{
         if(saveButton.flag){ //必须在页面tpl加载之后才加载
             saveButton.render()
             saveButton.flag = false
         }
-        
-        console.log('window.isThisCanvas:'+window.isThisCanvas)
-        if(!window.isThisCanvas){
-            window.inputBlurred && window.inputBlurred('canvas')            
-        }else{
-            window.inputBlurred && window.inputBlurred()    
-        }
+        window.inputBlurred && window.inputBlurred()            
+    }
+    window.afterShapeUpdate = ($scope,event)=>{
+        window.globalEvent.router($scope,event)       
     }
 }
 
+
+/*
+
+*/

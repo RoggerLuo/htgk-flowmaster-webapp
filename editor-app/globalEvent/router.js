@@ -1,3 +1,5 @@
+'use strict';
+
 window.globalEvent =  window.globalEvent || {}
 window.globalEvent.router =  window.globalEvent.router || {}
 
@@ -60,12 +62,20 @@ window.globalEvent.router = function($scope,event){
     
     /* 命名 */
     if(selectedShape.properties["oryx-name"]==''){
-        $scope.updatePropertyInModel({ key: 'oryx-name', value: giveName(selectedShape._stencil._jsonStencil.title)})
-        window.activeSave()
+        if(selectedShape._stencil._jsonStencil.title != "Sequence flow"){
+            $scope.updatePropertyInModel({ key: 'oryx-name', value: giveName(selectedShape._stencil._jsonStencil.title)})
+            window.activeSave()            
+        }
     }
 
     if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title == 'Exclusive gateway') {
-        $scope.propertyTpl = './editor-app/property-tpl/branchSequenceFlow.html';
+        /* 如果defaultflow为 true则显示普通节点 */
+        if(selectedShape.properties['defaultflow'] == 'true'){
+            $scope.propertyTpl = './editor-app/property-tpl/sequenceFlow.html';
+            // window.setPropertyAdvance({key:'oryx-name',value:''},selectedShape)
+        }else{
+            $scope.propertyTpl = './editor-app/property-tpl/branchSequenceFlow.html';
+        }
     } else {
 
         switch (selectedShape._stencil._jsonStencil.title) {

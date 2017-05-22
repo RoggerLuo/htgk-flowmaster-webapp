@@ -1,49 +1,33 @@
 
-@font-face {font-family: "qingicon";
-  src: url('iconfont.eot?t=1487751477822'); /* IE9*/
-  src: url('iconfont.eot?t=1487751477822#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1487751477822') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1487751477822') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1487751477822#qingicon') format('svg'); /* iOS 4.1- */
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1494901696384'); /* IE9*/
+  src: url('iconfont.eot?t=1494901696384#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1494901696384') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1494901696384') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1494901696384#iconfont') format('svg'); /* iOS 4.1- */
 }
 
-.qingicon {
-  font-family:"qingicon" !important;
+.iconfont {
+  font-family:"iconfont" !important;
   font-size:16px;
   font-style:normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-roundclosefill:before { content: "\e658"; }
-
-.icon-roundclose:before { content: "\e659"; }
-
 .icon-sanjiao1:before { content: "\e600"; }
-
-.icon-sanjiao3:before { content: "\e601"; }
-
-.icon-anzhuoxiala:before { content: "\e602"; }
-
-.icon-delete:before { content: "\e67e"; }
-
-.icon-defaultsort:before { content: "\e6b5"; }
-
-.icon-triangledownfill:before { content: "\e79b"; }
-
-.icon-triangleupfill:before { content: "\e79c"; }
 
 .icon-guanbi2fill:before { content: "\e724"; }
 
 .icon-jiahao2fill:before { content: "\e728"; }
 
-.icon-salefill:before { content: "\e78a"; }
-
-.icon-add:before { content: "\e775"; }
-
 .icon-close:before { content: "\e779"; }
 
-.icon-jian:before { content: "\e620"; }
+.icon-gengduo:before { content: "\e620"; }
 
-.icon-icon-test:before { content: "\e66f"; }
+.icon-check:before { content: "\e827"; }
+
+.icon-shanchu:before { content: "\e60f"; }
+
+.icon-tianjia:before { content: "\e610"; }
 

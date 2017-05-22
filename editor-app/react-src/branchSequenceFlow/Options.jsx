@@ -1,12 +1,10 @@
 import React,{createClass} from 'react';
 import { render } from 'react-dom'
-
 import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
-import ConditionContainer from './condition/Container'
+import ConditionContainer from './condition/ConditionContainer'
 import './style'
-// import {regFactor,moveCursorToEnd} from './regAlgorithm'
 
 const Button=(props)=>{
     return(
@@ -20,21 +18,31 @@ const Button=(props)=>{
 
 const dropdownMode = () => {
     store.dispatch({type:'modeChange',value:'dropdown'})
+    activeSave()
 }
 const textMode = () => {
     store.dispatch({type:'modeChange',value:'text'})
+    activeSave()
+
 }
 
 const addRule = (index) => {
     store.dispatch({type:'addRule',index})
+    activeSave()
 }
 const onchange = (event) => {
     store.dispatch({type:'radioTextChange',text:event.target.value})
-    store.dispatch({type:'saveActive'})
+    activeSave()
 }
 
 const Options =   ({conditions,element,put}) => {
     if(element.radio){
+        /*
+        <p>{put('branch.remark.content3')}</p>
+        <p>{put('branch.remark.content4')}</p>
+        <p>{put('branch.remark.content5')}</p>
+        <p>{put('branch.remark.content6')}</p>
+        */
         return (
             <div>
                 <textarea 
@@ -45,10 +53,6 @@ const Options =   ({conditions,element,put}) => {
                 
                 <div className="section-title">{put('branch.remark.title')}</div>
                 <div className="section-content" style={{}}>
-                    <p>{put('branch.remark.content3')}</p>
-                    <p>{put('branch.remark.content4')}</p>
-                    <p>{put('branch.remark.content5')}</p>
-                    <p>{put('branch.remark.content6')}</p>
                     <p>{put('branch.remark.content7')}</p>
                 </div>
             </div>
@@ -65,7 +69,8 @@ const Options =   ({conditions,element,put}) => {
                     <div className="section-title">{put('branch.remark.title')}</div>
                     <div className="section-content">
                         {put('branch.remark.content1')}<br/>
-                        {put('branch.remark.content2')}
+                        {put('branch.remark.content2')}<br/>
+                        {put('branch.remark.contentTimeDoc')}
                     </div>
                 </div>
             )

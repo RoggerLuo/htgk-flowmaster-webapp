@@ -14,9 +14,13 @@ const MainCompContainer = ({data,mode,dispatch}) => {
         },
         add(){
             dispatch({type:'addGroup'})            
+            activeSave()
+
         },
         del(){
             dispatch({type:'modeChange',value:'delete'})            
+            activeSave()
+
         }
     }
     return (

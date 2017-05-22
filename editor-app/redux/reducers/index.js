@@ -8,6 +8,7 @@ import dropdown from './dropdown'
 import parallel from './parallel'
 import common from './common'
 import endpoint from './endpoint'
+import branchNode from './branchNode'
 
 
 const rootRuducer = combineReducers({
@@ -19,7 +20,8 @@ const rootRuducer = combineReducers({
     dropdown,
     parallel,
     common,
-    endpoint
+    endpoint,
+    branchNode
 })
 
 export default rootRuducer

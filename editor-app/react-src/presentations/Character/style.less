@@ -32,9 +32,18 @@
     margin-bottom: 5px;
     margin-right: 5px;
     border-radius: 1px;
-    .cross {
+    .name{
+        max-width: 160px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
         display: inline-block;
+    }
+    .cross {
+        cursor:pointer;
         padding-left: 3px;
+        display: inline-block;
+        vertical-align: top;
     }
     .cross:active {
         color: black;

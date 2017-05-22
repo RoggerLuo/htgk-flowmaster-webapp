@@ -11,7 +11,8 @@
     "EndNoneEvent":"结束",
     "StartNoneEvent":"开始",
 
-    "Line.remark":"连线备注",
+    "Line.remark":"普通连线",
+    "BranchLine":"分支连线",
     "Line.remark.placeholder":"请输入备注信息",
     "Line.hint":"连线备注会显示在流程设计界面，更好的为流程流转作诠释。",
     "NODE.placeholder":"输入节点名称"

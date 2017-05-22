@@ -11,7 +11,6 @@ const Component = ({data,dispatch,put}) => {
     const choosed = (item)=>{
         dispatch({type:'dropdown1Choose',item})
     }
-    // choosed(data[0])
     return (
         <div>
             {put('popup.higherLevel1')}<Dropdown data={data} choosed={choosed}/>{put('popup.higherLevel2')}

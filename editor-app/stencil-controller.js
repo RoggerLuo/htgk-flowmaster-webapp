@@ -1,8 +1,23 @@
+'use strict';
+
 function limitedCondition(option) {
     /* sequnce flow 的限制 */
     if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'Exclusive gateway')) {
         // window.showAlert('Exclusive gateway节点');
     }
+    
+    /* 开始节点的限制 */
+    if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'Start event')) {
+        var branchCounter = 0;
+        option.connectedShape.outgoing.forEach(function(el) {
+            branchCounter += 1;
+        });
+        if (branchCounter >= 1) {
+            window.showAlert('开始节点不能有分支');
+            return false;
+        }
+    }
+
     /* 审批节点的限制 */
     if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'User task')) {
         var branchCounter = 0;
@@ -95,7 +110,7 @@ angular.module('activitiModeler')
                     'ExclusiveGateway',
                     // 'MuleTask',
                     'MultiUserTask',
-                    'EndErrorEvent',
+                    // 'EndErrorEvent',
                     // 'EndNoneEvent', 
                     // 'CatchTimerEvent', 
                     // 'ThrowNoneEvent', 
@@ -280,6 +295,8 @@ angular.module('activitiModeler')
                             // 这次push的是stencilItem上次是group
                         }
                     }
+
+
                 }
                 //超级大循环结束
 
@@ -315,6 +332,14 @@ angular.module('activitiModeler')
                 $scope.quickMenuItems = availableQuickMenuItems;
                 $scope.morphRoles = morphRoles; //这个用来干啥??
 
+
+
+                /* 发送加载完成的消息 */
+                let message = {type:"designLoadComplete",value:""}
+                window.parent.postMessage(message,'*')
+
+                window.windowCanvas = $scope.editor.getCanvas()
+                
             }).
 
             error(function(data, status, headers, config) {
@@ -482,10 +507,32 @@ angular.module('activitiModeler')
 
                     // Need to wrap this in an $apply block, see http://jimhoskins.com/2012/12/17/angularjs-and-apply.html
                     $scope.safeApply(function() {
+                        /* 
+                            如果把afterElementSelected放在 selectedShape更新后面，
+                            就会出现顺序问题，
+
+                            从 组件 跳到 canvas的时候,
+                            如果先更新了，那么selectedShape就变成canvas对象,
+
+                            如果 只是失焦，不跳转组件，那么slectedShape不变,先后都无所谓
+                        */
                         $scope.selectedItem = selectedItem;
-                        $scope.selectedShape = selectedShape;
-                        window.afterElementSelected($scope,event)
+
+                        window.beforeShapeUpdate($scope,event) //调用updateProperty会使用到selectedShape
+                        $scope.selectedShape = selectedShape; //更新 selectedShape 在使用之后
+                        window.afterShapeUpdate($scope,event) 
+                        
                         window.lastSelectedItem = selectedItem;
+                        /* 
+                            一共有
+                            window.lastSelectedItem
+                            window.lastSelectedShape
+
+                            $scope.selectedShape
+                            $scope.selectedItem
+
+                            4个，不要弄混淆了
+                        */
                     });
 
                 } else {
@@ -499,6 +546,8 @@ angular.module('activitiModeler')
 
             });
 
+
+        
             /*
                 这个决定了所有 div 的位置，the div which 用来在ORYX上加一层按钮
             */
@@ -590,11 +639,11 @@ angular.module('activitiModeler')
                                 quickButtonCounter++;
                                 if (quickButtonCounter > 3) {
                                     quickButtonX = shapeXY.x + bounds.width() + 5;
-                                    quickButtonY += 24;
+                                    quickButtonY += 30;
                                     quickButtonCounter = 1;
 
                                 } else if (quickButtonCounter > 1) {
-                                    quickButtonX += 24;
+                                    quickButtonX += 30;
                                 }
                                 obj.style.display = "block";
                                 obj.style.left = quickButtonX + 'px';
@@ -658,7 +707,7 @@ angular.module('activitiModeler')
                     }
                 });
             };
-
+            
             $scope.deleteShape = function() {
                 //我手动添加了一个属性jsonStencilTitle 用来判断node的type
                 if ($scope.selectedItem.jsonStencilTitle == "Start event") {
@@ -836,6 +885,68 @@ angular.module('activitiModeler')
         };
         //把scope上的function绑定到全局
         window.updatePropertyInModel = $scope.updatePropertyInModel
+
+        window.setPropertyAdvance = function(property,shape) {
+
+            var key = property.key;
+            var newValue = property.value;
+            var oldValue = shape.properties[key];
+
+
+            if (newValue != oldValue) {
+                var commandClass = ORYX.Core.Command.extend({
+                    construct: function() {
+                        this.key = key;
+                        this.oldValue = oldValue;
+                        this.newValue = newValue;
+                        this.shape = shape;
+                        this.facade = $scope.editor;
+                    },
+                    execute: function() {
+                        this.shape.setProperty(this.key, this.newValue);
+
+                        this.facade.getCanvas().update();
+                        this.facade.updateSelection();
+                    },
+                    rollback: function() {
+                        this.shape.setProperty(this.key, this.oldValue);
+
+                        this.facade.getCanvas().update();
+                        this.facade.updateSelection();
+                    }
+                });
+                // Instantiate the class
+                var command = new commandClass();
+
+                // Execute the command
+                $scope.editor.executeCommands([command]);
+
+
+                $scope.editor.handleEvents({
+                    type: ORYX.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED,
+                    elements: [shape],
+                    key: key
+                });
+
+                // Switch the property back to read mode, now the update is done
+                property.mode = 'read';
+
+                // Fire event to all who is interested
+                // Fire event to all who want to know about this
+                var event = {
+                    type: KISBPM.eventBus.EVENT_TYPE_PROPERTY_VALUE_CHANGED,
+                    property: property,
+                    oldValue: oldValue,
+                    newValue: newValue
+                };
+                KISBPM.eventBus.dispatch(event.type, event);
+            } else {
+                // Switch the property back to read mode, no update was needed
+                property.mode = 'read';
+            }
+            // console.log(window.getJson())
+            // debugger
+        };
 
         /**
          * Helper method that searches a group for an item with the given id.

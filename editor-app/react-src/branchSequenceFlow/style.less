@@ -3,13 +3,16 @@
         display: flex;
         justify-content: space-between;
         font-size: 14px;
-        font-weight: bold;
+        // font-weight: bold;
         margin: 7px 0;
+        margin-top: 14px;
 
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+
+        line-height: 22px;
     }
     .section-content{
         font-size: 13px;
@@ -38,6 +41,8 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        cursor: pointer;
+
     }
     .radio-text{
         padding:5px;
@@ -45,14 +50,19 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+
+        cursor: pointer;
+
     }
     .the3dots {
-        font-size: 20px;
+        font-size: 13px;
         margin-right: 8px;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+
+        cursor: pointer;
     }
     .the3dots:hover{
         color:#00B1FD;
@@ -78,6 +88,7 @@
             -ms-user-select: none;
             user-select: none;
             .option {
+                cursor:pointer;
                 line-height: 34px;
                 height: 34px;
             }
@@ -98,6 +109,8 @@
             color: red;
             background-color: white;
             border-radius: 10px;
+            z-index:9999;
+            cursor: pointer;
         }
         .solid-container {
             border: 1px solid #dde4ef;
@@ -106,6 +119,7 @@
             vertical-align: middle;
             width: 100%;
             .icon-red-close-for-rule {
+                cursor:pointer;
                 color: red;
                 right: -8px;
                 z-index: 9;
@@ -113,6 +127,8 @@
                 background-color: white;
                 border-radius: 10px;
                 position: absolute;
+                z-index:9999;
+
             }
             .close-wrap {
                 margin-bottom: -20px;
@@ -156,7 +172,7 @@
                 padding:0px 5px;
             }
             .input-text:hover {
-                border: 1px solid black !important;
+                border: 1px solid #00b0ff !important;
             }
             .input-text:focus {
                 outline: 0px !important;

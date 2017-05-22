@@ -8,7 +8,14 @@
     font-weight: normal;
     font-style: normal;
 }
-
+/* 一句话屏蔽输入框 */
+.canvas-wrapper textarea{
+    display: none;
+}
+.property-row-title{
+    font-size: 14px;
+    padding: 8px 0 2px 0;
+}
 .row-no-gutter .col-xs-7 { /* left side */
     padding-left: 0px;
     padding-right: 0px;
@@ -176,8 +183,53 @@ div.canvas-wrapper {
 	overflow: auto;
 	background-color: #F8F8F8;
     // border-right: 12px solid #f1f1f1;
-    margin-right: -16px;
+    // margin-right: -16px;
+
 }
+div.canvas-wrapper::-webkit-scrollbar {
+  height:4px;
+  width: 4px;
+  background: #EDEDED;//rgba(0,177,251, 0.1);
+}
+div.canvas-wrapper::-moz-scrollbar {
+  height:4px;
+  width: 4px;
+  background: #EDEDED;//rgba(0,177,251, 0.1);
+}
+div.canvas-wrapper::-ms-scrollbar {
+  height:4px;
+  width: 4px;
+  background: #EDEDED;//rgba(0,177,251, 0.1);
+}
+div.canvas-wrapper::-o-scrollbar {
+  height:4px;
+  width: 4px;
+  background: #EDEDED;//rgba(0,177,251, 0.1);
+}
+div.canvas-wrapper::scrollbar {
+  height:4px;
+  width: 4px;
+  background: #EDEDED;//rgba(0,177,251, 0.1);
+}
+div.canvas-wrapper::-webkit-scrollbar-thumb {
+  background: #194C7B;// #00b1fb;
+}
+div.canvas-wrapper::-moz-scrollbar-thumb {
+  background: #194C7B;// #00b1fb;
+}
+div.canvas-wrapper::-ms-scrollbar-thumb {
+  background: #194C7B;// #00b1fb;
+}
+div.canvas-wrapper::-o-scrollbar-thumb {
+  background: #194C7B;// #00b1fb;
+}
+div.canvas-wrapper::scrollbar-thumb {
+  background: #194C7B;// #00b1fb;
+}
+
+
+
+
 
 .canvas_resize_indicator i {
 	font-size: 15px;
@@ -186,7 +238,7 @@ div.canvas-wrapper {
 }
 
 .canvas_resize_indicator.N, .canvas_resize_indicator.S, .canvas_resize_indicator.E, .canvas_resize_indicator.W {
-	background: #5fbcd3;
+	background: #00b0ff;
 	height: 17px;
 	width: 17px;
 	text-align: center;
@@ -237,22 +289,32 @@ div.propertySection {
 }
 
 
+
+.clearfix {
+    background-color: white;
+    // position: absolute;
+    width: 100%;
+    z-index: 999;
+}
+
 .selected-item-bottom {
     height: 58px;
     color: white;
-    padding: 9px;
-    border-bottom: 1px solid #a4acb9;
-    cursor: default;
-
+    padding: 9px 0px 9px 1px;
+    cursor: pointer;
 
     -webkit-user-select: none;
-    /* Chrome all / Safari all /opera15+*/
     -moz-user-select: none;
-    /* Firefox all */
     -ms-user-select: none;
-    /* IE 10+ */
     user-select: none;
 }
+.selected-item-body > div {
+    margin-top: 15px;
+}
+
+
+/* button 按钮 */
+
 .selected-item-bottom .bottom-text-div{
     width: 100%;
     background-color: rgb(133, 217, 255);
@@ -301,7 +363,7 @@ div.propertySection {
 	font-size: 13px;
 	overflow: hidden;
 
-    margin: 8px 0px;
+    margin: 8px 0px 0px 0px;
     line-height: 29px;
     // display:flex;
     flex:1;
@@ -318,10 +380,8 @@ div.propertySection {
 }
 
 .selected-item-body .node-name:hover {
-    background-color:white;border:1px solid #bac2ce;
-}
-.selected-item-body .node-name:hover {
-    border: 1px solid black;
+    background-color:white;
+    border:1px solid #00b0ff;
 }
 .selected-item-body {
     display: flex;
@@ -329,15 +389,47 @@ div.propertySection {
     flex: 1;
     position: absolute;
     height: 100%;
-    overflow: auto;
-    padding: 28px 12px 60px 12px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 28px 12px 1px 12px;
     width:100%;
 }
-
-.selected-item-body > div {
-	overflow: hidden;	
-	margin: 8px 5px;
+.selected-item-body::-webkit-scrollbar {
+  width: 4px;
+  background: rgba(0,177,251, 0.1);
 }
+.selected-item-body::-moz-scrollbar {
+  width: 4px;
+  background: rgba(0,177,251, 0.1);
+}
+.selected-item-body::-ms-scrollbar {
+  width: 4px;
+  background: rgba(0,177,251, 0.1);
+}
+.selected-item-body::-o-scrollbar {
+  width: 4px;
+  background: rgba(0,177,251, 0.1);
+}
+.selected-item-body::scrollbar {
+  width: 4px;
+  background: rgba(0,177,251, 0.1);
+}
+.selected-item-body::-webkit-scrollbar-thumb {
+  background: #194C7B;
+}
+.selected-item-body::-moz-scrollbar-thumb {
+  background: #194C7B;
+}
+.selected-item-body::-ms-scrollbar-thumb {
+  background: #194C7B;
+}
+.selected-item-body::-o-scrollbar-thumb {
+  background: #194C7B;
+}
+.selected-item-body::scrollbar-thumb {
+  background: #194C7B;
+}
+
 
 .property-row > span {
 	display: block;
@@ -346,8 +438,7 @@ div.propertySection {
 	padding: 0;	
 	min-height: 25px;
     font-size: 14px;
-    font-weight: bold;
-
+    // font-weight: bold;
 }
 
 .property-row span.value {
@@ -381,12 +472,11 @@ div.propertySection {
 .property-row input[type="text"] {
 	font-size: 14px;
     height: 30px;
-	// margin: 2px 0;
 	padding: 0px 5px;
 	width: 100%;
     outline: none;
-    // border:none !important;
     box-shadow:none !important;
+    border: 1px solid #c5c5c5;
 }
 
 .default-grid {

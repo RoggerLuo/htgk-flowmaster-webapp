@@ -6,7 +6,7 @@ const Character = ({text,click}) => {
         <div className="character">
             <span className="name">{text}</span>
             <span className="cross" onClick={click}>
-                <i className="icon qingicon icon-guanbi2fill"></i>
+                <i className="icon iconfont icon-guanbi2fill"></i>
             </span>
         </div>
     )

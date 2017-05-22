@@ -28,17 +28,15 @@ const ApproveNode = ({data,put}) => {
                 
                 <div style={{display:display1}}>
                     <ButtonContainer>
-                        <i style={{paddingLeft: '102px'}} className="icon qingicon icon-add"></i>
+                        <i style={{paddingLeft: '1px'}} className="icon iconfont icon-tianjia"></i>
                     </ButtonContainer>
                 </div>
             </div>            
             <div style={{display:display2}}>
                 <ButtonContainer>
                     <div className="mybutton" >
-                        <span className="inverted-triangle">
-                            <i className="icon qingicon icon-add"></i>
-                        </span>
                         {put('endPoint.button.title')}
+                            <i className="icon iconfont icon-tianjia"></i>
                     </div>
                 </ButtonContainer>
             </div>

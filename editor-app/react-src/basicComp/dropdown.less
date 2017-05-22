@@ -1,5 +1,4 @@
 .big-cover {
-    // background-color: grey;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -9,6 +8,8 @@
 }
 
 .drop-down {
+    min-width: 110px;
+
     overflow: hidden;
     display: inline-block;
     // margin: 0px 4px;
@@ -21,8 +22,17 @@
     /* IE 10+ */
     user-select: none;
     margin: 0 10px;
+    .inverted-triangle{
+        background-image: url('../../images/dropdown-arrow.png');
+        background-repeat: no-repeat;
+        background-size: 20px 20px;
+        width: 20px;
+        height: 20px;
+        margin: auto 0px;
+    }
+
     .choosed-text {
-        padding: 0px 90px 0px 6px;
+        padding: 0px 40px 0px 6px;
     }
     .drop-down-placeholder {
         font-size: 14px;
@@ -31,19 +41,20 @@
         display: hidden;
     }
     .title-tr {
-        border: 1px solid #b8c1ce;
+        border: 1px solid #c5c5c5;
     }
     .title-tr:active {
-        border-color: black;
+        border-color: #00b0ff;
     }
     .drop-down-choosed {
         height: 30px;
         line-height: 30px;
         font-size: 13px;
-        padding: 0px 10px;
+        padding: 0px 2px 0px 10px;
         justify-content: space-between;
     }
     .drop-down-table {
+        min-width: 110px;
         margin-top: -20px;
         position: absolute;
         text-align: left;
@@ -92,23 +103,34 @@
             }
             .drop-down-option {
                 padding: 3px;
+                .text-wrap {
+                    padding: 0px 13px;
+                    height: 25px;
+                    line-height: 25px;
+                    font-size: 13px;
+                    
+                    max-width: 220px;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+                .text-wrap:hover {
+                    background-color: #e4f5fb;
+                }
+
             }
+            // .drop-down-option:hover{
+            //     border: 1px solid #00b0ff;
+            // }
+
             .drop-down-option + .drop-down-option {
                 border-top: 1px solid #b8c1ce;
             }
-            .text-wrap {
-                padding: 0px 13px;
-                height: 25px;
-                line-height: 25px;
-                font-size: 13px;
-            }
-            .text-wrap:hover {
-                background-color: #e4f5fb;
-            }
+
             .drop-down-option:active {
-                // border: 1px solid black;
-                // background-color: #828282;
             }
         }
     }
 }
+/*
+*/

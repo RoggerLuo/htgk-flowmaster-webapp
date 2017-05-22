@@ -2,11 +2,17 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-    entry: {app:'./react-src/index.jsx'},
+    entry: [
+        'babel-polyfill', 
+        // 'webpack-dev-server/client?http://localhost:8080',
+        // 'webpack/hot/only-dev-server',
+        './react-src/index.jsx'
+    ],
+    // entry: {app:'./react-src/index.jsx'},
     output: {
         path: './dist',
         filename: 'bundle.js',
-        publicPath: '/'
+        publicPath:  + './dist/'
     },
     module: {
         loaders: [

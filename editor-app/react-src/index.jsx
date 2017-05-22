@@ -8,6 +8,7 @@ import approveComponent from './approveNode/Container'
 import endPointComponent from './endPoint/Container'
 import parallelApproveComponent from './parallelApprove/MainCompContainer'
 import branchSequenceFlowComponent from './branchSequenceFlow/Component'
+import branchNodeComponent from './branchNode/Container'
 import popupStart from './popup/popupWrapContainer'
 import store from '../redux/configureStore'
 import saveButton from './saveButton/saveButton'
@@ -22,6 +23,7 @@ global.saveButton = {render:saveButton,flag:true}
 global.branchSequenceFlowComponent = {render:branchSequenceFlowComponent}
 global.parallelApproveComponent = {render:parallelApproveComponent}
 global.approveComponent = {render:approveComponent}
+global.branchComponent = {render:branchNodeComponent}
 global.reduxStore = store
 global.endPointComponent = endPointComponent
 

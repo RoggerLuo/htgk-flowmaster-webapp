@@ -2,17 +2,22 @@ import React,{createClass} from 'react';
 import { render } from 'react-dom'
 import './branch-dropdown.less'
 
+/* 单个下拉选项 */
 const Option = ({click,text,put}) =>{
     return (
         <div className="drop-down-option" onClick={click}>
             <div className="inner-option">
                 {put(text)}
-
             </div>
         </div>
     )           
 }
 
+/*
+    视图只负责输出，
+    技术上来说 text和value中，value都可以不需要的
+    每个单个的dropdown视图需要一个container维护逻辑和数据(store in the redux store)
+*/
 const DropdownRaw = ({options,choose,choosedText,display,toggle,close,put,usePut}) => {
     if(!usePut){
         put = (value)=>value
@@ -20,15 +25,15 @@ const DropdownRaw = ({options,choose,choosedText,display,toggle,close,put,usePut
     return (
         <div className="branch-dropdown" style={{flex:'1'}}>
             <div style={{display: 'flex'}} className="drop-down-choosed" onClick={toggle}>
-                <div>{put(choosedText)}</div> <div className="inverted-triangle"><i className="icon qingicon icon-sanjiao1"></i></div>
+                <div style={{overflow: 'hidden'}}>{put(choosedText)}</div> <div className="inverted-triangle"><i className="icon iconfont icon-sanjiao1"></i></div>
             </div>
-            <table className="drop-down-table" style={{zIndex:'9999',width: '31.8%'}} >
+            <table className="drop-down-table" style={{zIndex:'9999',width: '32.3%'}} >
                 <tbody>
                     <tr style={{display:'none'}}>
                         <td className="drop-down-choosed stop-propagation" onClick={toggle} style={{color:'black',display:'flex',justifyContent: 'space-between'}}>
                             <div>{put(choosedText)}</div> 
                             <div className="inverted-triangle">
-                                <i className="icon qingicon icon-sanjiao1"></i>
+                                <i className="icon iconfont icon-sanjiao1"></i>
                             </div>
                         </td>
                     </tr>

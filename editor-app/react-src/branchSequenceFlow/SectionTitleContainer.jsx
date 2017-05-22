@@ -6,12 +6,13 @@ import { connect } from 'react-redux'
 const SectionTitle = ({text,widgetDisplay,cancel,add,del}) => {
     let widget=''
     if(widgetDisplay){
-        widget = (<span style={{color:'#00B1FD'}} onClick={cancel}>取消</span>)
+        widget = (<span style={{cursor:'pointer',color:'#00B1FD'}} onClick={cancel}>取消</span>)
     }else{
         widget = (
             <span>
-                <i className="icon qingicon icon-add" onClick={add}></i>
-                <i className="icon qingicon icon-delete" onClick={del}></i>
+
+                <i className="icon iconfont icon-tianjia" onClick={add}></i>
+                <i className="icon iconfont icon-shanchu" onClick={del}></i>
             </span>
         )
     }
@@ -38,10 +39,12 @@ const mapDispatchToProps = (dispatch) => {
         // 滑到底
         const element = jQuery('.propertySection .selected-item-section .selected-item-body')
         const h = element[0].scrollHeight - element.height()
-        element.scrollTop(h);
+        element.scrollTop(h)
+        activeSave()
     }
     const del = () => {
         dispatch({type:'conditionDeleteMode'})
+        activeSave()
     }
     return {add,cancel,del}
 }

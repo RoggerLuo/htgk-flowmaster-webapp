@@ -16,8 +16,8 @@ const CharacterContainer = ({el,index,dispatch}) => {
     const text = el.text
     
     const click = () => {  //删除，得知道是第几组，第几个character
-        // 这个逻辑对应reduce的结构和方法
         dispatch({type:'deleteCharacter',groupIndex,characterIndex})
+        activeSave()
     }
     return (<Character text={text} click={click}/>)
 }

@@ -24,21 +24,19 @@ const ApproveNode = ({data,put}) => {
     return(
         <div className="react-approve">
             <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
-                <div>{put('approveNode.title.staff')}</div>
+                <div style={{lineHeight: '24px'}}>{put('approveNode.title.staff')}</div>
                 
                 <div style={{display:display1}}>
                     <ButtonContainer>    
-                        <i style={{paddingLeft: '102px'}} className="icon qingicon icon-add"></i>
+                        <i style={{paddingLeft: '1px'}} className="icon iconfont icon-tianjia"></i>
                     </ButtonContainer>    
                 </div>
             </div>            
             <div style={{display:display2}}>
                 <ButtonContainer>    
                     <div className="mybutton" >
-                        <span className="inverted-triangle">
-                            <i className="icon qingicon icon-add"></i>
-                        </span>
                         {put('approveNode.button.add')}
+                            <i className="icon iconfont icon-tianjia"></i>
                     </div>
                 </ButtonContainer>    
             </div>

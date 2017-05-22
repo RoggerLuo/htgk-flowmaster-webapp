@@ -1865,7 +1865,7 @@ ORYX.CONFIG.NAMESPACE_SVG =				"http://www.w3.org/2000/svg";
 
 	/* UI */
 ORYX.CONFIG.CANVAS_WIDTH =				1200; 
-ORYX.CONFIG.CANVAS_HEIGHT =				1050;
+ORYX.CONFIG.CANVAS_HEIGHT =				750;
 ORYX.CONFIG.CANVAS_RESIZE_INTERVAL =	100;
 ORYX.CONFIG.CANVAS_MIN_WIDTH =  800;
 ORYX.CONFIG.CANVAS_MIN_HEIGHT =  300;
@@ -2028,7 +2028,8 @@ ORYX.CONFIG.EDIT_OFFSET_PASTE =			10;
 ORYX.CONFIG.KEY_CODE_X = 				88;
 ORYX.CONFIG.KEY_CODE_C = 				67;
 ORYX.CONFIG.KEY_CODE_V = 				86;
-ORYX.CONFIG.KEY_CODE_DELETE = 			46;
+ORYX.CONFIG.KEY_CODE_DELETE = 			4644;//屏蔽delete事件
+// ORYX.CONFIG.KEY_CODE_DELETE = 			46; 
 ORYX.CONFIG.KEY_CODE_META =				224;
 ORYX.CONFIG.KEY_CODE_BACKSPACE =		8;
 ORYX.CONFIG.KEY_CODE_LEFT =				37;
@@ -17505,9 +17506,9 @@ ORYX.Plugins.Edit = Clazz.extend({
         this.facade = facade;
         this.clipboard = new ORYX.Plugins.Edit.ClipBoard();
         
-        //this.facade.registerOnEvent(ORYX.CONFIG.EVENT_KEYDOWN, this.keyHandler.bind(this));
+        // this.facade.registerOnEvent(ORYX.CONFIG.EVENT_KEYDOWN, this.keyHandler.bind(this));
         
-        this.facade.offer({
+        /*this.facade.offer({
          name: ORYX.I18N.Edit.cut,
          description: ORYX.I18N.Edit.cutDesc,
          icon: ORYX.PATH + "images/cut.png",
@@ -17575,7 +17576,7 @@ ORYX.Plugins.Edit = Clazz.extend({
             group: ORYX.I18N.Edit.group,
             index: 4,
             minShape: 1
-        });
+        });*/
     },
 	
 	callEdit: function(fn, args){
@@ -17609,53 +17610,54 @@ ORYX.Plugins.Edit = Clazz.extend({
      * @param {Object} event The keyboard event that should be analysed for
      *     triggering of this plugin.
      */
-//    keyHandler: function(event){
-//        //TODO document what event.which is.
-//        
-//        ORYX.Log.debug("edit.js handles a keyEvent.");
-//        
-//        // assure we have the current event.
-//        if (!event) 
-//            event = window.event;
-//        
-//        
-//        // get the currently pressed key and state of control key.
-//        var pressedKey = event.which || event.keyCode;
-//        var ctrlPressed = event.ctrlKey;
-//        
-//        // if the object is to be deleted, do so, and return immediately.
-//        if ((pressedKey == ORYX.CONFIG.KEY_CODE_DELETE) ||
-//        ((pressedKey == ORYX.CONFIG.KEY_CODE_BACKSPACE) &&
-//        (event.metaKey || event.appleMetaKey))) {
-//        
-//            ORYX.Log.debug("edit.js deletes the shape.");
-//            this.editDelete();
-//            return;
-//        }
-//        
-//         // if control key is not pressed, we're not interested anymore.
-//         if (!ctrlPressed)
-//         return;
-//         
-//         // when ctrl is pressed, switch trough the possibilities.
-//         switch (pressedKey) {
-//         
-//	         // cut.
-//	         case ORYX.CONFIG.KEY_CODE_X:
-//	         this.editCut();
-//	         break;
-//	         
-//	         // copy.
-//	         case ORYX.CONFIG.KEY_CODE_C:
-//	         this.editCopy();
-//	         break;
-//	         
-//	         // paste.
-//	         case ORYX.CONFIG.KEY_CODE_V:
-//	         this.editPaste();
-//	         break;
-//         }
-//    },
+   // keyHandler: function(event){
+       //TODO document what event.which is.
+       
+       /*ORYX.Log.debug("edit.js handles a keyEvent.");
+       
+       // assure we have the current event.
+       if (!event) 
+           event = window.event;
+       
+       
+       // get the currently pressed key and state of control key.
+       var pressedKey = event.which || event.keyCode;
+       var ctrlPressed = event.ctrlKey;
+
+
+       // if the object is to be deleted, do so, and return immediately.
+       if ((pressedKey == ORYX.CONFIG.KEY_CODE_DELETE) ||
+       ((pressedKey == ORYX.CONFIG.KEY_CODE_BACKSPACE) &&
+       (event.metaKey || event.appleMetaKey))) {
+       
+           ORYX.Log.debug("edit.js deletes the shape.");
+           this.editDelete();
+           return;
+       }
+       
+        // if control key is not pressed, we're not interested anymore.
+        if (!ctrlPressed)
+        return;
+        
+        // when ctrl is pressed, switch trough the possibilities.
+        switch (pressedKey) {
+        
+	         // cut.
+	         case ORYX.CONFIG.KEY_CODE_X:
+	         this.editCut();
+	         break;
+	         
+	         // copy.
+	         case ORYX.CONFIG.KEY_CODE_C:
+	         this.editCopy();
+	         break;
+	         
+	         // paste.
+	         case ORYX.CONFIG.KEY_CODE_V:
+	         this.editPaste();
+	         break;
+        }*/
+   // },
 	
     /**
      * Returns a list of shapes which should be considered while copying.
@@ -22526,22 +22528,22 @@ ORYX.Plugins.KeysMove = ORYX.Plugins.AbstractPlugin.extend({
         this.facade = facade;
         this.copyElements = [];
         
-        //this.facade.registerOnEvent(ORYX.CONFIG.EVENT_KEYDOWN, this.keyHandler.bind(this));
+        // this.facade.registerOnEvent(ORYX.CONFIG.EVENT_KEYDOWN, this.keyHandler.bind(this));
 
 		// SELECT ALL
 		
-		// this.facade.offer({
-		// keyCodes: [{
-		//  		metaKeys: [ORYX.CONFIG.META_KEY_META_CTRL],
-		// 		keyCode: 65,
-		// 		keyAction: ORYX.CONFIG.KEY_ACTION_DOWN 
-		// 	}
-		//  ],
-  //        functionality: this.selectAll.bind(this)
-  //        });
+		/*this.facade.offer({
+		keyCodes: [{
+		 		metaKeys: [ORYX.CONFIG.META_KEY_META_CTRL],
+				keyCode: 65,
+				keyAction: ORYX.CONFIG.KEY_ACTION_DOWN 
+			}
+		 ],
+         functionality: this.selectAll.bind(this)
+         });
 		 
 		// MOVE LEFT SMALL		
-		/*this.facade.offer({
+		this.facade.offer({
 		keyCodes: [{
 		 		metaKeys: [ORYX.CONFIG.META_KEY_META_CTRL],
 				keyCode: ORYX.CONFIG.KEY_CODE_LEFT,
@@ -22549,20 +22551,20 @@ ORYX.Plugins.KeysMove = ORYX.Plugins.AbstractPlugin.extend({
 			}
 		 ],
          functionality: this.move.bind(this, ORYX.CONFIG.KEY_CODE_LEFT, false)
-         });*/
+         });
 		 
 		 // MOVE LEFT
-		 /*this.facade.offer({
+		 this.facade.offer({
 		 keyCodes: [{
 				keyCode: ORYX.CONFIG.KEY_CODE_LEFT,
 				keyAction: ORYX.CONFIG.KEY_ACTION_DOWN 
 			}
 		 ],
          functionality: this.move.bind(this, ORYX.CONFIG.KEY_CODE_LEFT, true)
-         });*/
+         });
 		 
 		// MOVE RIGHT SMALL	
-		 /*this.facade.offer({
+		 this.facade.offer({
 		 keyCodes: [{
 		 		metaKeys: [ORYX.CONFIG.META_KEY_META_CTRL],
 				keyCode: ORYX.CONFIG.KEY_CODE_RIGHT,
@@ -22570,17 +22572,17 @@ ORYX.Plugins.KeysMove = ORYX.Plugins.AbstractPlugin.extend({
 			}
 		 ],
          functionality: this.move.bind(this, ORYX.CONFIG.KEY_CODE_RIGHT, false)
-         });*/
+         });
 		 
 		// MOVE RIGHT	
-		 /*this.facade.offer({
+		 this.facade.offer({
 		 keyCodes: [{
 				keyCode: ORYX.CONFIG.KEY_CODE_RIGHT,
 				keyAction: ORYX.CONFIG.KEY_ACTION_DOWN 
 			}
 		 ],
          functionality: this.move.bind(this, ORYX.CONFIG.KEY_CODE_RIGHT, true)
-         });*/
+         });
 		 
 		// MOVE UP SMALL	
 		 this.facade.offer({
@@ -22622,7 +22624,7 @@ ORYX.Plugins.KeysMove = ORYX.Plugins.AbstractPlugin.extend({
 			}
 		 ],
          functionality: this.move.bind(this, ORYX.CONFIG.KEY_CODE_DOWN, true)
-         });
+         });*/
 		 
          
     },
@@ -22632,8 +22634,8 @@ ORYX.Plugins.KeysMove = ORYX.Plugins.AbstractPlugin.extend({
 	 *
 	 */
 	selectAll: function(e){
-    	Event.stop(e.event);
-		this.facade.setSelection(this.facade.getCanvas().getChildShapes(true))
+/*    	Event.stop(e.event);
+		this.facade.setSelection(this.facade.getCanvas().getChildShapes(true))*/
 	},
 	
 	move: function(key, far, e) {
@@ -22794,28 +22796,28 @@ ORYX.Plugins.KeysMove = ORYX.Plugins.AbstractPlugin.extend({
 //     * @param {Object} event The keyboard event that should be analysed for
 //     *     triggering of this plugin.
 //     */
-//    keyHandler: function(event){
-//        //TODO document what event.which is.
-//        
-//        ORYX.Log.debug("keysMove.js handles a keyEvent.");
-//        
-//        // assure we have the current event.
-//        if (!event) 
-//            event = window.event;
-//        
-//        // get the currently pressed key and state of control key.
-//        var pressedKey = event.which || event.keyCode;
-//        var ctrlPressed = event.ctrlKey;
-//
-//		// if the key is one of the arrow keys, forward to move and return.
-//		if ([ORYX.CONFIG.KEY_CODE_LEFT, ORYX.CONFIG.KEY_CODE_RIGHT,
-//			ORYX.CONFIG.KEY_CODE_UP, ORYX.CONFIG.KEY_CODE_DOWN].include(pressedKey)) {
-//			
-//			this.move(pressedKey, !ctrlPressed);
-//			return;
-//		}
-//		
-//    }
+   // keyHandler: function(event){
+       //TODO document what event.which is.
+       
+       /*ORYX.Log.debug("keysMove.js handles a keyEvent.");
+       
+       // assure we have the current event.
+       if (!event) 
+           event = window.event;
+       
+       // get the currently pressed key and state of control key.
+       var pressedKey = event.which || event.keyCode;
+       var ctrlPressed = event.ctrlKey;
+		// if the key is one of the arrow keys, forward to move and return.
+		if ([ORYX.CONFIG.KEY_CODE_LEFT, ORYX.CONFIG.KEY_CODE_RIGHT,
+			ORYX.CONFIG.KEY_CODE_UP, ORYX.CONFIG.KEY_CODE_DOWN].include(pressedKey)) {
+			console.log('rogerrogerrogerroger')
+			this.move(pressedKey, !ctrlPressed);
+			return;
+		}*/
+
+		
+   // }
 	
 });
 /*
