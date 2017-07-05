@@ -17,7 +17,7 @@ import Dropdown from './dropdown.jsx'
 //     }
 // ]
 
-const BranchNode = ({choosedText,choosed,data,put}) => {
+const BranchNode = ({choosedText,choosed,data,put,choosedOption}) => {
     return(
         <div className="react-approve" style={{height: '91px'}}>
             <div className="row-title" style={{justifyContent:'space-between'}}>
@@ -25,7 +25,7 @@ const BranchNode = ({choosedText,choosed,data,put}) => {
             </div>    
             <div className="content-text">所有分支条件都不满足流向节点</div>
             <div style={{display: 'flex',position: 'absolute',width: '100%',paddingRight: '22px'}}>
-                <Dropdown options={data} choose={choosed} choosedText={choosedText}/>
+                <Dropdown options={data} choose={choosed} choosedOption={choosedOption}/>
             </div>
         </div>
     )

@@ -1864,8 +1864,8 @@ ORYX.CONFIG.NAMESPACE_ORYX =			"http://www.b3mn.org/oryx";
 ORYX.CONFIG.NAMESPACE_SVG =				"http://www.w3.org/2000/svg";
 
 	/* UI */
-ORYX.CONFIG.CANVAS_WIDTH =				1200; 
-ORYX.CONFIG.CANVAS_HEIGHT =				750;
+ORYX.CONFIG.CANVAS_WIDTH =				1500; 
+ORYX.CONFIG.CANVAS_HEIGHT =				950;
 ORYX.CONFIG.CANVAS_RESIZE_INTERVAL =	100;
 ORYX.CONFIG.CANVAS_MIN_WIDTH =  800;
 ORYX.CONFIG.CANVAS_MIN_HEIGHT =  300;
@@ -2028,8 +2028,10 @@ ORYX.CONFIG.EDIT_OFFSET_PASTE =			10;
 ORYX.CONFIG.KEY_CODE_X = 				88;
 ORYX.CONFIG.KEY_CODE_C = 				67;
 ORYX.CONFIG.KEY_CODE_V = 				86;
-ORYX.CONFIG.KEY_CODE_DELETE = 			4644;//屏蔽delete事件
+
+ORYX.CONFIG.KEY_CODE_DELETE = 			144;//屏蔽delete事件
 // ORYX.CONFIG.KEY_CODE_DELETE = 			46; 
+
 ORYX.CONFIG.KEY_CODE_META =				224;
 ORYX.CONFIG.KEY_CODE_BACKSPACE =		8;
 ORYX.CONFIG.KEY_CODE_LEFT =				37;
@@ -12098,25 +12100,25 @@ ORYX.Editor = {
 	},
 
 	catchKeyUpEvents: function(event) {
-		if(!this._keyupEnabled) {
-			return;
-		}
-		/* assure we have the current event. */
-        if (!event) 
-            event = window.event;
+		// if(!this._keyupEnabled) {
+		// 	return;
+		// }
+		// /* assure we have the current event. */
+  //       if (!event) 
+  //           event = window.event;
         
-		// Checks if the event comes from some input field
-		if (!this.isValidEvent(event)){
-			return;
-		}
+		// // Checks if the event comes from some input field
+		// if (!this.isValidEvent(event)){
+		// 	return;
+		// }
 		
-		/* Create key up event type */
-		var keyUpEvent = this.createKeyCombEvent(event,	ORYX.CONFIG.KEY_ACTION_UP);
+		// /* Create key up event type */
+		// var keyUpEvent = this.createKeyCombEvent(event,	ORYX.CONFIG.KEY_ACTION_UP);
 		
-		ORYX.Log.debug("Key Event to handle: %0", keyUpEvent);
+		// ORYX.Log.debug("Key Event to handle: %0", keyUpEvent);
 
-		/* forward to dispatching. */
-		this.handleEvents({type: keyUpEvent, event:event});
+		// /* forward to dispatching. */
+		// this.handleEvents({type: keyUpEvent, event:event});
 	},
 	
 	/**
@@ -12127,12 +12129,17 @@ ORYX.Editor = {
 	 * 		The key down event to handle
 	 */
 	catchKeyDownEvents: function(event) {
-		if(!this._keydownEnabled) {
-			return;
+		if(event.keyCode == 46){
+			event.preventDefault()
+			event.stopPropagation()			
 		}
+
+		// if(!this._keydownEnabled) {
+		// 	return;
+		// }
 		/* Assure we have the current event. */
-        if (!event) 
-            event = window.event;
+        // if (!event) 
+        //     event = window.event;
         
 		/* Fixed in FF3 */
 		// This is a mac-specific fix. The mozilla event object has no knowledge
@@ -12147,17 +12154,17 @@ ORYX.Editor = {
 		//this.__currentKey = pressedKey;
 		
 		// Checks if the event comes from some input field
-		if (!this.isValidEvent(event)){
-			return;
-		}
+		// if (!this.isValidEvent(event)){
+		// 	return;
+		// }
 		
 		/* Create key up event type */
-		var keyDownEvent = this.createKeyCombEvent(event, ORYX.CONFIG.KEY_ACTION_DOWN);
+		// var keyDownEvent = this.createKeyCombEvent(event, ORYX.CONFIG.KEY_ACTION_DOWN);
 		
-		ORYX.Log.debug("Key Event to handle: %0", keyDownEvent);
+		// ORYX.Log.debug("Key Event to handle: %0", keyDownEvent);
 		
-		/* Forward to dispatching. */
-		this.handleEvents({type: keyDownEvent,event: event});
+		// /* Forward to dispatching. */
+		// this.handleEvents({type: keyDownEvent,event: event});
 	},
 	
 	/**

@@ -1,3 +1,4 @@
+
 .branch-dropdown+.branch-dropdown{
     margin-left: 3px;
 }
@@ -15,14 +16,22 @@
     margin: 0 1px;
     overflow: hidden;
     cursor: pointer;
+    .checkok{
+        padding-right: 25px !important;
+        background-color: transparent;
+        background-image: url("./check-selected.svg");
+        background-size: 24px;
+        background-position: right;
+        background-repeat: no-repeat;
+    }
     .drop-down-placeholder {
-        font-size: 14px;
+        font-size: 13px;
         padding: 0px 14px;
         height: 1px;
         display: hidden;
     }
     .drop-down-choosed {
-        border: 1px solid #dde4ef;
+        border: 1px solid #DDDDDD;
         height: 32px;
         line-height: 30px;
         font-size: 13px;
@@ -40,20 +49,19 @@
 
     .drop-down-choosed:hover {
         border: 1px solid #00b0ff;
-        color: #00b0ff;
+        // color: #00b0ff;
     }
     .drop-down-table {
-        margin-top: 33px;
-
-        // margin-top: -5px;
+        margin-top: 31px;
         position: absolute;
         text-align: left;
         background-color: white;
         .drop-down-options {
             background-color: white;
-            border-left: 1px solid #dde4ef;
-            border-bottom: 1px solid #dde4ef;
-            border-right: 1px solid #dde4ef;
+            border-left: 1px solid #DDDDDD;
+            border-bottom: 1px solid #DDDDDD;
+            border-right: 1px solid #DDDDDD;
+            border-top: 1px solid #DDDDDD;
             .scrollbar{
                   &::-webkit-scrollbar {
                     width: 2px;
@@ -93,7 +101,7 @@
             }
 
             .drop-down-option + .drop-down-option {
-                border-top: 1px solid #dde4ef;
+                border-top: 1px solid #DDDDDD;
             }
             .drop-down-option {
                 .inner-option{
@@ -103,23 +111,20 @@
                     font-size: 13px;
                     margin: 3px;
                     min-width: 66px;
-
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    max-width: 140px;
                 }
             }
-            // .drop-down-option:hover{
-            //     border: 1px solid #00b0ff;
-            // }
-
             .inner-option:hover {
                 background-color: #e4f5fb;
-
             }
             .inner-option:active {
                 // border: 1px solid white;
                 // background-color: #00b0ff;
                 // color: white;
             }
-
         }
     }
 }

@@ -40,4 +40,4 @@ ACTIVITI.CONFIG = {
 
 // window.globalHost = '172.16.1.27'
 // window.globalHost = 'bpm.yyang.io'
-window.globalHost = '172.16.1.178:9001'
+window.globalHost = 'http://172.16.1.178:9001'

@@ -1,16 +1,97 @@
 'use strict';
+import './save'
+import './checkEmpty'
+import './router'
+const checkConnect = ($scope) => {
+    const json = window.getRawJson()
+    return !json.childShapes.some((el,index)=>{
+        if(el.outgoing.length == 0){
+            if(el.stencil.id != 'EndNoneEvent' && el.stencil.id != 'EndErrorEvent'){
+                //window.showAlert('请连接上所有的节点')
+                // isOK = false
+                return true
+            }
+        }
+        switch(el.stencil.id){
+            case 'StartNoneEvent':
+                if(el.outgoing.length == 0){
+                    // isOK = false
+                    // window.showAlert('请连接上开始节点')
+                    // returnValue = true
+                    return true
+                }
+            break
+        }
+        return false
+    })
+}
 
-//currentSelectedShape 
 window.activeSave = ()=>{
+    /*
+        saveHandler也会调用activeSave
+        这会导致，最外层的逻辑还没跑完，全局变量showAlertDisable就回归false了
+        这是全局变量混乱的地方
+        增加一个逻辑判断,如果发现 全局变量showAlertDisable 已经被使用了，那这一轮逻辑就不要动它
+    */
+    // if(window.showAlertDisable){
+    //     const canvas = window.windowCanvas
+    //     saveHandlerApprove(canvas)
+    //     saveHandlerParallel(canvas)
+    //     saveHandlerEndPoint(canvas)
+    //     if(!saveHandlerBranch(canvas)){}
+    //     saveHandlerBranchNode(canvas)
+    //     if(checkConnect()){
+    //         window.reduxStore.dispatch({ type: 'saveActive'})
+    //     }else{
+    //         window.reduxStore.dispatch({ type: 'saveDeactive'})
+    //     }
+    //     window.localDesignData.save(window.getQueryString("pid"),window.getRawJson())
+    //     return ;
+    // }
+    // window.showAlertDisable = true
+    // /* 提前把redux转换成oryx数据 */
+    // const canvas = window.windowCanvas
+    // saveHandlerApprove(canvas)
+    // saveHandlerParallel(canvas)
+    // saveHandlerEndPoint(canvas)
+    // if(!saveHandlerBranch(canvas)){}
+    // saveHandlerBranchNode(canvas)
+    // if(checkConnect()){
+    //     window.reduxStore.dispatch({ type: 'saveActive'})
+    // }else{
+    //     window.reduxStore.dispatch({ type: 'saveDeactive'})
+    // }
+    // window.localDesignData.save(window.getQueryString("pid"),window.getRawJson())
+    // window.showAlertDisable = false
+
     window.reduxStore.dispatch({ type: 'saveActive'})
 }
+
 window.lastSelectedShape = false
 window.canvasFlag = false
 window.lastSelectedItem = false
 // window.globalHost = 'localhost:9001'
 window.pidName = 'pidName'
 
-
+/*
+     每次move都压入 localstorage
+     保存 清空key
+    
+    读取的时候 判断key是否存在，存在就读取localstorage     
+*/
+window.localDesignData={}
+window.localDesignData.read=(pid)=>{
+    if(localStorage.getItem(pid) !== "undefined"){
+        return JSON.parse(localStorage.getItem(pid))
+    }
+    return ''
+}
+window.localDesignData.save=(pid,obj)=>{
+    localStorage.setItem(pid,JSON.stringify(obj))
+}
+window.localDesignData.clear=(pid)=>{
+    localStorage.removeItem(pid)
+}
 
 /* 和vue部分的阴影遮罩一致 */
 const shadowCallback = (e) => {
@@ -90,9 +171,7 @@ const moveCursorToEnd = (obj)=>{
 }
 
 
-
-
-var myEvent = function($scope,$http){
+window.myEvent = function($scope,$http){
     window.windowCanvas = $scope.editor.getCanvas() //拿到canvas
 
     window.globalEvent =  window.globalEvent || {}
@@ -119,20 +198,23 @@ var myEvent = function($scope,$http){
         window.activeSave()        
     })
 
-
-
-
     /* 画布加载完成以后的事件 */
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_LOADED, function(event) {
-
-        /* 画布加载以后 */
-
+        /* 画布加载以后，把sequenceflow设置为true */
         window.reduxStore.getState().branchNode.repo.forEach((el)=>{
             let currentElement = window.windowCanvas.getChildShapeByResourceId(el.choosed.value)
             window.setPropertyAdvance({key:'defaultflow',value:'true'},currentElement)
-
         })
-       
+
+        /* 保存事件deactive */
+        const saveEvent = {
+            type: KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED,
+            model: '',
+            modelId: window.getQueryString("pid"),
+            eventType: 'update-model'
+        }
+        KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent)
+        window.reduxStore.dispatch({type:'saveDeactive'})   
     })
 
 
@@ -163,11 +245,9 @@ var myEvent = function($scope,$http){
     })
 
 
-
     /* branchNode的angular逻辑内容 */
     /* 每次点击branchNode重新计算 */
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
-        
         var selectedShape = event.elements.first()
         if(!selectedShape){return false}
         let name = selectedShape._stencil._jsonStencil.title
@@ -175,26 +255,43 @@ var myEvent = function($scope,$http){
         const canvas = $scope.editor.getCanvas() //拿到canvas
         if( name == 'Exclusive gateway'){
             let branchObj = selectedShape.outgoing.map((el)=>{
-                return {
-                    branchResourceId:el.resourceId,
-                    name:el.outgoing[0].properties['oryx-name']||"未命名分支"
+                if(el.outgoing[0]){
+                    return {
+                        branchResourceId:el.resourceId,
+                        name: el.outgoing[0].properties['oryx-name']||"未命名分支"
+                    }                    
+                }else{
+                    return false
                 }
-            })
-            branchObj.unshift({branchResourceId:selectedShape.resourceId,name:'请选择'})
+            }).filter((el)=>!!el)
+            branchObj.unshift({branchResourceId:selectedShape.resourceId,name:'请选择'}) //这里的select是为了后面的黑魔法做准备的，如果 text为“请选择”则读取value来获取exclusiveGate
             
             const reduxObj = {
                 resourceId:selectedShape.resourceId,
                 data:branchObj,
-                choosed:{text:'请选择',value:false}
             }
             
             if(reduxObj.data.length){
                 /* 要放在switchElement后面，不然会顺序会出问题，元素id还没更新 */
-                window.reduxStore.dispatch({ type: 'branchNodeDataUpdate',data:reduxObj})
+                window.reduxStore.dispatch({ type: 'branchNodeOptionDataUpdate',data:reduxObj})
             }
         }
-    })
+        
+        /* 判断:如果当前选择项的sequenceflow不存在则改成请选择 */
+        let theRepo = window.reduxStore.getState().branchNode.repo.filter((el)=>el.resourceId == selectedShape.resourceId)
+        theRepo = theRepo[0] || false
+        if(theRepo){
+            if(theRepo.choosed.value){
+                let sequenceflow = window.windowCanvas.getChildShapeByResourceId(theRepo.choosed.value)
+                if(sequenceflow === undefined){
 
+                    /* 为什么控制台没有输出这个redux action事件，调试了好久...这 */
+                    window.reduxStore.dispatch({ type: 'branchNodeDropdownChoose',item:{text:'请选择',value:'请选择'}})
+                }
+            }
+        }
+
+    })
 
     /* ----UI color change ----*/
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
@@ -217,13 +314,31 @@ var myEvent = function($scope,$http){
 
         // 这段代码的目的是把userTask的边框颜色变回来
         if ($scope.lastSelectedUserTaskId ) {
-            if(jQuery('#' + $scope.lastSelectedUserTaskId)[0]){
+            if(jQuery('#' + $scope.lastSelectedUserTaskId)[0] && jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[1] && jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[3]){
+
+                // console.log(jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[1])
+                // console.log(jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[0])
+                // console.log(jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[3].children[0])
+
                jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[1].style.stroke = 'black'//'rgb(187, 187, 187)'
                jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[0] &&  (jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[0].style.fill= 'black')
+               if(jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[1] ){
+                    jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[1].style.fill= 'black'
+               }
+               if(jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[2] ){
+                    jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[2].children[2].style.fill= 'black'
+               }
                jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[3].children[0].style.fill = 'black' 
                $scope.lastSelectedUserTaskId = false
             }
+
+            if(jQuery('#' + $scope.lastSelectedUserTaskId)[0] && jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[0]){
+                jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[0].style.stroke = 'black'
+                // jQuery('#' + $scope.lastSelectedUserTaskId)[0].children[0].style.strokeWidth = 2                
+            }
+
         }
+
 
         /* 放在后面，canvas是没有elements的，所以会一直触发false */
         var selectedShape = event.elements.first()
@@ -231,20 +346,31 @@ var myEvent = function($scope,$http){
             return false
         }
 
-
         window.lastSelectedShape = selectedShape
-
 
         /* 改变 正要选中 边框颜色的代码部分 */   
         if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'User task' 
             || selectedShape._stencil._jsonStencil.title == 'Multi user task'
+            || selectedShape._stencil._jsonStencil.title == 'Exclusive gateway'
             )) {
             //控制边框颜色的办法
-            jQuery('#' + selectedShape.id)[0].children[3].children[0].style.fill = '#00b0ff' 
-            jQuery('#' + selectedShape.id)[0].children[1].style.stroke = '#00b0ff' //'rgb(0,176,255)'
-            jQuery('#' + selectedShape.id)[0].children[2].children[0] && (jQuery('#' + selectedShape.id)[0].children[2].children[0].style.fill= '#00b0ff')
+            // jQuery('#' + selectedShape.id)[0].children[3].children[0].style.fill = '#00b0ff' 
+            jQuery('#' + selectedShape.id)[0].children[1].style.stroke = '#00b0ff' 
+            // jQuery('#' + selectedShape.id)[0].children[2].children[0] && (jQuery('#' + selectedShape.id)[0].children[2].children[0].style.fill= '#00b0ff')
+            
+            // if(jQuery('#' + selectedShape.id)[0].children[2].children[1]){
+            //     jQuery('#' + selectedShape.id)[0].children[2].children[1].style.fill= '#00b0ff'
+            // }
+            // if(jQuery('#' + selectedShape.id)[0].children[2].children[2]){
+            //     jQuery('#' + selectedShape.id)[0].children[2].children[2].style.fill= '#00b0ff'
+            // }
             $scope.lastSelectedUserTaskId = selectedShape.id
         }
+        if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'Exclusive gateway')){
+            jQuery('#' + selectedShape.id)[0].children[0].style.stroke = '#00b0ff'
+            // jQuery('#' + selectedShape.id)[0].children[0].style.strokeWidth = 2
+        }
+
 
         /* 箭头 变蓝色 */
         if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'Sequence flow' )){
@@ -270,8 +396,11 @@ var myEvent = function($scope,$http){
             return false;
         }
         if (selectedShape.incoming[0] && selectedShape.incoming[0]._stencil._jsonStencil.title){
-            if(!selectedShape.outgoing[0]){return false}
-                window.nextElementIs = selectedShape.outgoing[0].properties['oryx-name']//+' (审批节点)';
+            window.reduxStore.dispatch({type:'nextElOfSF',name:selectedShape.outgoing[0] && selectedShape.outgoing[0].properties['oryx-name']||"暂无"})
+
+            if(!selectedShape.outgoing[0]){
+                return false
+            }
         }
     })
     window.beforeShapeUpdate = ($scope,event)=>{
@@ -285,8 +414,3 @@ var myEvent = function($scope,$http){
         window.globalEvent.router($scope,event)       
     }
 }
-
-
-/*
-
-*/

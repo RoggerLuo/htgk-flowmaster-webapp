@@ -43,6 +43,12 @@ var approvePropertyCtrl = ['$scope', function($scope) {
 var canvasPropertyCtrl = ['$scope', function($scope) {
     $scope.pidName = window.pidName
     $scope.pidDescription = window.pidDescription
+    // if(!!window.localDesignData.read(window.getQueryString("pid"))){
+    //     $scope.draft = '(草稿)'    
+    // }else{
+    //     $scope.draft = ''    
+    // }
+    $scope.draft = ''        
 }];
 
 

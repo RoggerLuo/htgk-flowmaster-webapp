@@ -15,7 +15,7 @@
     position: absolute;
     width: 100%;
     padding-right: 24px;
-    z-index: 9999;
+    z-index: 9999999;
 
     .choosed-text{
         // color:#ccc;
@@ -27,7 +27,7 @@
         display: hidden;
     }
     .drop-down-choosed {
-        border: 1px solid #ccc;
+        border: 1px solid #DDDDDD;
         height: 32px;
         line-height: 30px;
         font-size: 13px;
@@ -40,6 +40,15 @@
         border: 1px solid #00b0ff;
         color: black;
     }
+    .checkok{
+        padding-right: 25px !important;
+        background-color: transparent;
+        background-image: url("../basicComp/check-selected.svg");
+        background-size: 24px;
+        background-position: right;
+        background-repeat: no-repeat;
+    }
+
     .drop-down-table {
         // position: absolute;
         text-align: left;
@@ -48,9 +57,9 @@
         width: 100%;
         .drop-down-options {
             background-color: white;
-            border-left: 1px solid #dde4ef;
-            border-bottom: 1px solid #dde4ef;
-            border-right: 1px solid #dde4ef;
+            border-left: 1px solid #DDDDDD;
+            border-bottom: 1px solid #DDDDDD;
+            border-right: 1px solid #DDDDDD;
             .scrollbar{
                   &::-webkit-scrollbar {
                     width: 2px;
@@ -90,7 +99,7 @@
             }
 
             .drop-down-option + .drop-down-option {
-                border-top: 1px solid #dde4ef;
+                border-top: 1px solid #DDDDDD;
             }
             .drop-down-option {
                 .inner-option{

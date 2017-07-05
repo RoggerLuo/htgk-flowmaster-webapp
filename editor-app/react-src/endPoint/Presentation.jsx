@@ -23,7 +23,7 @@ const ApproveNode = ({data,put}) => {
     }
     return(
         <div className="react-approve">
-            <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
+            <div className="property-row-title" style={{display:'flex',justifyContent:'space-between'}}>
                 <div>{put('endPoint.title')}</div>
                 
                 <div style={{display:display1}}>

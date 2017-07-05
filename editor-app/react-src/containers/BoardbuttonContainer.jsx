@@ -56,25 +56,23 @@ const BoardbuttonContainer = createClass({
                 text
             }
             confirm(item)
-
-            store.dispatch({type:'dropdown1Choose',item:{text:'一',value:'1'}})
-
+            dispatch({type:'getBackToDefaultDp1'})
         }
         const action1 = {
             type:'callPopup',
             confirm:()=>{popupConfirm('boss')},
             content:HigherLevel,
             text:this.props.put('button.option1'),
-            height:'45%',
-            width:'38%'
+            height:'300px',
+            width:'500px'
         }
         const action2 = {
             type:'callPopup',
-            height:'45%',
+            height:'300px',
             confirm:()=>{popupConfirm('role')},
             content:Org,
             text:this.props.put('button.option2'),
-            width:'38%'
+            width:'500px'
         }
 
         const buttonOptions = [

@@ -7,7 +7,7 @@ import { render } from 'react-dom'
 import { connect } from 'react-redux'
 import { Provider } from 'react-redux'
 import store from '../../redux/configureStore.js'
-import PopupWrap from '../presentations/PopupWrap/PopupWrap'
+import PopupWrap from './PopupWrap/PopupWrap'
 
 const Component = ({width,title,confirm,content,display,dispatch,height}) => {
     const options = {

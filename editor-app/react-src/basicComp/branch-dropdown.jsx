@@ -1,13 +1,24 @@
 import React,{createClass} from 'react';
 import { render } from 'react-dom'
 import './branch-dropdown.less'
+/*
+html:
+    drop-down-choosed是占位符 用来显示
+    drop-down-table是下拉选项
+逻辑:
+choosedOption和options都是传入进来的，所以逻辑在外面，有一个container来托管数据和逻辑,以及负责切换options实现二级联动
+*/
 
 /* 单个下拉选项 */
-const Option = ({click,text,put}) =>{
+const Option = ({click,el,put,choosedOption}) =>{
+    let className="inner-option "
+    if(el.value == choosedOption.value){
+        className="inner-option checkok"
+    }
     return (
         <div className="drop-down-option" onClick={click}>
-            <div className="inner-option">
-                {put(text)}
+            <div className={className} >
+                {put(el.text)}
             </div>
         </div>
     )           
@@ -18,20 +29,30 @@ const Option = ({click,text,put}) =>{
     技术上来说 text和value中，value都可以不需要的
     每个单个的dropdown视图需要一个container维护逻辑和数据(store in the redux store)
 */
-const DropdownRaw = ({options,choose,choosedText,display,toggle,close,put,usePut}) => {
+const DropdownRaw = ({options,choose,choosedOption,display,toggle,close,put,usePut}) => {
+    // if(!choosedOption){
+    //     console.log(choosedOption)
+    //     debugger
+    // }
+    let nDisplay = display == 'none'? '':'none'
     if(!usePut){
         put = (value)=>value
     }
+
     return (
         <div className="branch-dropdown" style={{flex:'1'}}>
             <div style={{display: 'flex'}} className="drop-down-choosed" onClick={toggle}>
-                <div style={{overflow: 'hidden'}}>{put(choosedText)}</div> <div className="inverted-triangle"><i className="icon iconfont icon-sanjiao1"></i></div>
+                <div style={{overflow: 'hidden'}}>{put(choosedOption.text)}</div> 
+                <div className="inverted-triangle">
+                    <i style={{display: nDisplay,top:'0px'}} className="icon iconfont icon-sanjiao1"></i>
+                    <i style={{paddingTop: '3px',color:'#00b0ff',transform:'rotate(180deg)',display:display}} className="icon iconfont icon-sanjiao1" ></i>
+                </div>
             </div>
             <table className="drop-down-table" style={{zIndex:'9999',width: '32.3%'}} >
                 <tbody>
                     <tr style={{display:'none'}}>
                         <td className="drop-down-choosed stop-propagation" onClick={toggle} style={{color:'black',display:'flex',justifyContent: 'space-between'}}>
-                            <div>{put(choosedText)}</div> 
+                            <div>{put(choosedOption.text)}</div> 
                             <div className="inverted-triangle">
                                 <i className="icon iconfont icon-sanjiao1"></i>
                             </div>
@@ -39,10 +60,10 @@ const DropdownRaw = ({options,choose,choosedText,display,toggle,close,put,usePut
                     </tr>
                     <tr className="drop-down-options" style={{display:display}}>
                         <td>
-                            <div className="scrollbar" style={{overflow:'auto',maxHeight:'200px'}}>
+                            <div className="scrollbar" style={{overflow:'auto',maxHeight:'191px'}}>
                                 {options.map((el,index)=>{
                                     el.index = index
-                                    return(<Option click={()=>{close();choose(el)}} text={el.text} key={index} put={put}/>)
+                                    return(<Option click={()=>{close();choose(el)}} choosedOption={choosedOption} el={el} key={index} put={put}/>)
                                 })}
                             </div>
                         </td>                
@@ -76,9 +97,24 @@ const DropdownContainer = createClass({
     },
     render(){        
         return (
-            <Dropdown {...{usePut:this.props.usePut,options:this.props.options,choose:this.props.choose,choosedText:this.props.choosedText,display:this.state.display,toggle:this.toggle,close:this.close}}/>
+            <Dropdown {...{usePut:this.props.usePut,
+                options:this.props.options,
+                choose:this.props.choose,
+                choosedOption:this.props.choosedOption,
+                
+                display:this.state.display,
+                toggle:this.toggle,
+                close:this.close}}/>
         )
     }
 })
+
+/*
+    需要输入的 
+    usePut（是否翻译)
+    choose(item) //item 是 options 子元素
+    choosedOption //text & value
+    options
+*/
 
 export default DropdownContainer

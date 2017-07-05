@@ -24,7 +24,11 @@ const ApproveNode = ({data,put}) => {
     return(
         <div className="react-approve">
             <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
-                <div style={{lineHeight: '24px'}}>{put('approveNode.title.staff')}</div>
+                <div style={{lineHeight: '30px'}} 
+                    className="property-row-title-only-font"
+                >
+                    {put('approveNode.title.staff')}
+                </div>
                 
                 <div style={{display:display1}}>
                     <ButtonContainer>    
@@ -41,8 +45,8 @@ const ApproveNode = ({data,put}) => {
                 </ButtonContainer>    
             </div>
             {list}
-            <div className="row-title">{put('approveNode.remark.title')}</div>
-            <div className="the-content">{put('approveNode.remark.content')}</div>
+            <div className="property-row-title">{put('approveNode.remark.title')}</div>
+            <div className="property-row-content">{put('approveNode.remark.content')}</div>
         </div>
     )
 }

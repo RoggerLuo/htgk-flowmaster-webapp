@@ -13,8 +13,12 @@ const Component = ({data,sectionTitle,put}) => {
                     <ApproveGroupContainer el={el} index={index} key={index}/>
                 )
             })}
-            <div className="section-title">{put('parallel.remark.title')}</div>
-            <div className="content" style={{padding:'0',fontSize:'14px',color:'#878787'}}>{put('parallel.remark.content')}</div>
+            <div className="property-row-title">{put('parallel.remark.title')}</div>
+            <div className="property-row-content" 
+                style={{padding:'0',fontSize:'13px',color:'#333333'}}
+            >
+                {put('parallel.remark.content')}
+            </div>
         </div>
     )
 }
@@ -23,6 +27,5 @@ const Component = ({data,sectionTitle,put}) => {
 import connectPut from 'react-put'
 const options = {mapPropToDictionary: (props)=>window.reactI18n}
 const ConnectedApp = connectPut(options)(Component)
-
 
 export default ConnectedApp

@@ -1,20 +1,25 @@
 .branchSequenceFlowPropertyCtrl {
+    .icon-shanchu{
+        padding-left: 10px;
+    }
     .section-title {
         display: flex;
         justify-content: space-between;
-        font-size: 14px;
-        // font-weight: bold;
+        font-size: 12px;
+        font-weight: 600;
+
         margin: 7px 0;
-        margin-top: 14px;
+        margin-top: 20px;
 
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
 
-        line-height: 22px;
+        line-height: 26px;
     }
     .section-content{
+        padding: 8px 0 4px 0;
         font-size: 13px;
         color: #717171;
         margin-bottom: 5px;
@@ -30,7 +35,7 @@
         justify-content: space-between;
     }
     .radio-lable {
-        font-size: 14px;
+        font-size: 13px;
     }
     .radio {
         display: inline-block;
@@ -69,19 +74,28 @@
     }
     .rule-control {
         position: absolute;
-        right: 22px;
-        z-index: 9999;
-        margin-top: 30px;
+            right: 6px;
+            z-index: 9999;
+            margin-top: 24px;
         .placeholder {
             height: 30px;
         }
         .options {
+            height: 92px;
+            width: 140px;
+
+            background-image: url('../../images/smallpad.png');
+            background-repeat: no-repeat;
+            background-size: 140px 92px;
+            // background-position: -6px 0px;
+            padding-top: 9px;
+
+
             text-align: center;
-            background-color: white;
-            width: 100px;
-            -webkit-box-shadow: 0 0 10px #adadad;
-            -moz-box-shadow: 0 0 10px #adadad;
-            box-shadow: 0 0 10px #adadad;
+            background-color: transparent;
+            // -webkit-box-shadow: 0 2px 6px #adadad;
+            // -moz-box-shadow: 0 2px 6px #adadad;
+            // box-shadow: 0 2px 6px #adadad;
 
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -89,14 +103,18 @@
             user-select: none;
             .option {
                 cursor:pointer;
-                line-height: 34px;
-                height: 34px;
+                line-height: 28px;
+                // height: 34px;
+                padding: 2px;
             }
             .option + .option {
-                border-top: 1px solid #ccc;
+                border-top: 1px solid #DDDDDD;
             }
-            .option:hover {
-                background-color: #CCC;
+            .option-inner{
+                margin: 2px 9px;
+            }
+            .option-inner:hover {
+                background-color: #e4f7ff;
             }
 
         }
@@ -113,7 +131,7 @@
             cursor: pointer;
         }
         .solid-container {
-            border: 1px solid #dde4ef;
+            border: 1px solid #DDDDDD;
             display: inline-block;
             margin: 5px 0px;
             vertical-align: middle;
@@ -156,7 +174,7 @@
             .container-row {
                 position: absolute;
                 left: 22px;
-                right: 22px;
+                right: 23px;
                 display: flex;
                 margin-top: 1px;
             }
@@ -166,8 +184,8 @@
             .input-text {
                 height: 29px;
                 line-height: 29px;
-                font-size: 14px;
-                border: 1px solid #dde4ef !important;
+                font-size: 13px;
+                border: 1px solid #DDDDDD !important;
                 width: 100%;
                 padding:0px 5px;
             }

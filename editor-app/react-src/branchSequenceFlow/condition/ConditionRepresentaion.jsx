@@ -8,7 +8,6 @@ RuleContainer需要的参数
     ruleMode 当前显示状态(删除or正常)
     cancelDeleteRuleStatus 取消当前规则的删除状态
 */
-
 /* 当前组件字典
     
     状态类：
@@ -22,34 +21,32 @@ RuleContainer需要的参数
 */
 const Condition = ({ruleData,conditionMode,headerProps,deleteCondition,index1,ruleMode}) => {
     let deleteDisplay = 'none'
-    let border = '1px solid #dde4ef'
-    
+    let border = '1px solid #DDDDDD'
+    let style
     if(conditionMode == 'delete'){
         deleteDisplay = ''
         border = '1px solid red'
+        style = {
+            border:'1px solid red',
+            opacity:'0.5',
+            pointerEvents: 'none'
+        }
     }else{
         deleteDisplay = 'none'
-        border = '1px solid #dde4ef'
+        border = '1px solid #DDDDDD'
+        style = {
+            border:'1px solid #DDDDDD'
+        }
     }
     return (
         <div className="solid-container-container">
-            <div className="solid-container" style={{border:border}}>
-                
-                <div style={{display:deleteDisplay,height: '115px',
-                    background: 'rgba(255, 255, 255, 0.63)',
-                    position: 'absolute',
-                    zIndex: '999',
-                    left: '14px',
-                    right: '14px',
-                }}></div>
-
+            <div className="solid-container" style={style}>
                 <Header {...headerProps}/>
                 {ruleData.map((el2,index2)=>{
                     let and = ''
                     if(index2>=1){
                         and = (<div className="and">并且</div>)
                     }
-
                     return (
                         <div className="condition-container" key={index2}>
                             {and}

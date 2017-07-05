@@ -5,16 +5,21 @@ window.globalEvent.checkEmpty =  window.globalEvent.checkEmpty || {}
 
 window.globalEvent.checkEmpty = ($scope) => {
     let returnValue = false
-    var json = $scope.editor.getJSON();
-    return json.childShapes.some((el,index)=>{
-
+    var json = $scope.editor.getJSON()
+    
+    //先检查是否连接上
+    const checkConnect =  json.childShapes.some((el,index)=>{
         if(el.outgoing.length == 0){
             if(el.stencil.id != 'EndNoneEvent' && el.stencil.id != 'EndErrorEvent'){
-                window.showAlert('请连接上所有的节点')
+                let nodeName = el.properties.name && '"'+el.properties.name+'"' || ''
+                window.showAlert('节点'+ nodeName +'未连接上')
                 return true
             }
         }
+    })
+    if(checkConnect) return true
 
+    return json.childShapes.some((el,index)=>{
         switch(el.stencil.id){
             case 'EndNoneEvent':
                 // el.incoming.length
@@ -35,12 +40,12 @@ window.globalEvent.checkEmpty = ($scope) => {
             break
             case 'UserTask':
                 if(!el.properties.usertaskassignment){
-                    window.showAlert('审批节点内容不能为空')
+                    window.showAlert('审批节点"'+el.properties.name+'"内容不能为空')
                     return true
                 }
 
                 if(el.properties.usertaskassignment && el.properties.usertaskassignment.assignment && (el.properties.usertaskassignment.assignment.candidateOwners.length == 0)){
-                    window.showAlert('审批节点内容不能为空')
+                    window.showAlert('审批节点"'+el.properties.name+'"内容不能为空')
                     return true
                 }
 
@@ -48,20 +53,19 @@ window.globalEvent.checkEmpty = ($scope) => {
 
             case 'MultiUserTask':
                 if(!el.properties.multiinstance_parties){
-                    window.showAlert('会签节点内容不能为空')
+                    window.showAlert('会签节点"'+el.properties.name+'"内容不能为空')
                     return true
                 }
 
                 if(el.properties.multiinstance_parties.length == 0){
-                    window.showAlert('会签节点内容不能为空')
+                    window.showAlert('会签节点"'+el.properties.name+'"内容不能为空')
                     return true
                 }
 
                 if((el.properties.multiinstance_parties.length == 1)&&(el.properties.multiinstance_parties[0] == 0)){
-                    window.showAlert('会签节点内容不能为空')
+                    window.showAlert('会签节点"'+el.properties.name+'"内容不能为空')
                     return true
                 }
-
             break
         }
     })

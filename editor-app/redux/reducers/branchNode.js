@@ -29,7 +29,7 @@ const Reducer = (state = initial, action) => {
                 return state
             }
 
-        case 'branchNodeDataUpdate':
+        case 'branchNodeOptionDataUpdate':
             let repoIndex = data.get('repo').findKey((el, index, iter) => el.get('resourceId') == state.id) //如果这里找不到会怎么样
             if((repoIndex === 0) || repoIndex){//exist means it has already here
                 
@@ -44,9 +44,8 @@ const Reducer = (state = initial, action) => {
             }else{
                 //create a new obj
                 let dataMod = Object.assign({}, action.data, {
-                    choosed:action.data.choosed//data.map((el)=>{return {text:el.name,value:el.branchResourceId}})[0]
+                    choosed:{text:'请选择',value:'请选择'}//action.data.choosed//data.map((el)=>{return {text:el.name,value:el.branchResourceId}})[0]
                 })
-
                 return data.updateIn(['repo'], 'initial', (el) => {
                     return el.push(fromJS(dataMod))
                 }).toJS()                

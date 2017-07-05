@@ -9,6 +9,7 @@
 
 .drop-down {
     min-width: 110px;
+    cursor: pointer;
 
     overflow: hidden;
     display: inline-block;
@@ -22,6 +23,15 @@
     /* IE 10+ */
     user-select: none;
     margin: 0 10px;
+
+    .checkok{
+        padding-right: 25px !important;
+        background-color: transparent;
+        background-image: url("./check-selected.svg");
+        background-size: 24px;
+        background-position: right;
+        background-repeat: no-repeat;
+    }
     .inverted-triangle{
         background-image: url('../../images/dropdown-arrow.png');
         background-repeat: no-repeat;
@@ -32,17 +42,22 @@
     }
 
     .choosed-text {
-        padding: 0px 40px 0px 6px;
+        padding: 0px 0px 0px 6px;
     }
     .drop-down-placeholder {
-        font-size: 14px;
+        font-size: 13px;
         padding: 0px 14px;
         height: 1px;
         display: hidden;
     }
     .title-tr {
-        border: 1px solid #c5c5c5;
+        border: 1px solid #DDDDDD;
     }
+    .title-tr:hover {
+        border: 1px solid #00b0ff;
+        color: #00b0ff;
+    }
+
     .title-tr:active {
         border-color: #00b0ff;
     }
@@ -53,6 +68,7 @@
         padding: 0px 2px 0px 10px;
         justify-content: space-between;
     }
+
     .drop-down-table {
         min-width: 110px;
         margin-top: -20px;
@@ -61,9 +77,9 @@
         background-color: white;
         .drop-down-options {
             background-color: white;
-            border-left: 1px solid #b8c1ce;
-            border-bottom: 1px solid #b8c1ce;
-            border-right: 1px solid #b8c1ce;
+            border-left: 1px solid #DDDDDD;
+            border-bottom: 1px solid #DDDDDD;
+            border-right: 1px solid #DDDDDD;
             .scrollbar{
                   &::-webkit-scrollbar {
                     width: 2px;
@@ -124,7 +140,7 @@
             // }
 
             .drop-down-option + .drop-down-option {
-                border-top: 1px solid #b8c1ce;
+                border-top: 1px solid #DDDDDD;
             }
 
             .drop-down-option:active {

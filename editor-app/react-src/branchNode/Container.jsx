@@ -10,6 +10,7 @@ const BranchNode = ({repo,id,dispatch}) => {
         return el.resourceId == id
     })
     const dataRaw = currentRepo && currentRepo[0] && currentRepo[0].data||[]
+    
     /* 
         做了映射，redux里存的是name和resourceId
         这里把options数据映射了一下
@@ -17,8 +18,7 @@ const BranchNode = ({repo,id,dispatch}) => {
     const data = dataRaw.map((el)=>{
         return {text:el.name,value:el.branchResourceId}
     })
-
-    const choosedText = currentRepo[0] && currentRepo[0].choosed.text || '请选择' //currentRepo[0] && currentRepo[0].choosed.text||'请选择' //choosed的default的值映射在redux里
+    const choosedOption = currentRepo[0] && currentRepo[0].choosed || {text:'请选择',value:'请选择'} //currentRepo[0] && currentRepo[0].choosed.text||'请选择' //choosed的default的值映射在redux里
     /* 后期选择就不需要映射了 */
 
     const choosed = (item)=>{
@@ -47,7 +47,6 @@ const BranchNode = ({repo,id,dispatch}) => {
             elOfEx.setProperty('defaultflow','false')
         })
         
-
         if(item.text =='请选择'){ //直接跳过，
             return 
         }
@@ -67,9 +66,8 @@ const BranchNode = ({repo,id,dispatch}) => {
         currentElement.setProperty('reduxdata','')
         window.setPropertyAdvance({key:'oryx-name',value:''},currentElement) //使用setPropertyAdvance可以马上更新到canvas视图上，但是会触发不必要的事件，尽量少用
     }
-
     return(
-        <Presentation data={data} choosedText={choosedText} choosed={choosed} />
+        <Presentation data={data} choosedOption={choosedOption} choosed={choosed} />
     )
 }
 

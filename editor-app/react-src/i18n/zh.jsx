@@ -17,7 +17,7 @@ export default {
   'branch.sectionTitle':'条件设置',//'
   'branch.radio.manual':'手动选择',//'',
   'branch.radio.formula':'编写公式',//'',
-  'branch.remark.title':'说明：',//
+  'branch.remark.title':'条件说明',//
   'branch.remark.content1':'条件与条件间是“或”的关系',
   'branch.remark.content2':'规则与规则间是“与”的关系',
 

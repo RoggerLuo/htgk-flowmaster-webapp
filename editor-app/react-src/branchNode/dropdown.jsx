@@ -10,10 +10,17 @@ import React,{createClass} from 'react';
 import { render } from 'react-dom'
 import './dropdown.less'
 
-const Option = ({click,text,put}) =>{
+const Option = ({click,text,value,put,choosedOption}) =>{
+    let className="inner-option "
+    if(value == choosedOption.value){
+        className="inner-option checkok"
+    }
+    if((choosedOption.text == '请选择')&&(text == choosedOption.text)){
+        className="inner-option checkok"        
+    }
     return (
         <div className="drop-down-option" onClick={click}>
-            <div className="inner-option">
+            <div className={className} >
                 {put(text)}
             </div>
         </div>
@@ -21,7 +28,7 @@ const Option = ({click,text,put}) =>{
 }
 //这个文件后面还有一个 自带的 container ... 看完整个js文件再说
 //这个 display是 由state控制的
-const DropdownRaw = ({options,choose,choosedText,display,toggle,close,put,usePut}) => {
+const DropdownRaw = ({options,choose,choosedOption,display,toggle,close,put,usePut}) => {
     let nDisplay = display == 'none'? '':'none'
     if(!usePut){
         put = (value)=>value
@@ -30,9 +37,9 @@ const DropdownRaw = ({options,choose,choosedText,display,toggle,close,put,usePut
         <div>
             <div className="branch-node-dropdown" style={{flex:'1'}}>
                 <div style={{display: 'flex'}} className="drop-down-choosed" onClick={toggle}>
-                    <div className="choosed-text">{put(choosedText)}</div> 
+                    <div className="choosed-text">{put(choosedOption.text)}</div> 
                     <div className="inverted-triangle">
-                        <i style={{display: nDisplay }} className="icon iconfont icon-sanjiao1"></i>
+                        <i style={{display: nDisplay,top:'0px'}} className="icon iconfont icon-sanjiao1"></i>
                         <i style={{paddingTop: '3px',color:'#00b0ff',transform:'rotate(180deg)',display:display}} className="icon iconfont icon-sanjiao1" ></i>
                     </div>
                 </div>
@@ -42,7 +49,7 @@ const DropdownRaw = ({options,choose,choosedText,display,toggle,close,put,usePut
                     <tbody>
                         <tr style={{display:'none'}}>
                             <td className="drop-down-choosed stop-propagation" onClick={toggle} style={{color:'black',display:'flex',justifyContent: 'space-between'}}>
-                                <div>{put(choosedText)}</div> 
+                                <div>{put(choosedOption.text)}</div> 
                                 <div className="inverted-triangle"><i className="icon qingicon icon-sanjiao1"></i></div>
 
                             </td>
@@ -52,7 +59,7 @@ const DropdownRaw = ({options,choose,choosedText,display,toggle,close,put,usePut
                                 <div className="scrollbar" style={{overflow:'auto',maxHeight:'200px'}}>
                                     {options.map((el,index)=>{
                                         el.index = index
-                                        return(<Option click={()=>{close();choose(el)}} text={el.text} key={index} put={put}/>)
+                                        return(<Option click={()=>{close();choose(el)}} text={el.text} value={el.value} key={index} put={put} choosedOption={choosedOption}/>)
                                     })}
                                 </div>
                             </td>                
@@ -87,7 +94,7 @@ const DropdownContainer = createClass({
     },
     render(){        
         return (
-            <Dropdown {...{usePut:this.props.usePut,options:this.props.options,choose:this.props.choose,choosedText:this.props.choosedText,display:this.state.display,toggle:this.toggle,close:this.close}}/>
+            <Dropdown {...{usePut:this.props.usePut,options:this.props.options,choose:this.props.choose,choosedOption:this.props.choosedOption,display:this.state.display,toggle:this.toggle,close:this.close}}/>
         )
     }
 })

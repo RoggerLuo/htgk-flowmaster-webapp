@@ -8,17 +8,12 @@ import SectionTitleContainer from './SectionTitleContainer'
 import Radios from './Radios'
 import Options from './Options'
 import './style'
-// import './save'
-
 
 const Component = ({put}) => {
     return(
         <div className="react-approve" >
             <SectionTitleContainer text={put('branch.sectionTitle')}/>   
             <Radios />
-            <div className="section-content">
-                {put('branch.sectionContent',window.nextElementIs)}
-            </div>
             <Options />
             
         </div>

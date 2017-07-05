@@ -99,7 +99,7 @@ activitiModeler
                 /* get user fields data */
                 $http({    
                     method: 'GET',
-                    url: 'http://'+window.globalHost+'/identity/properties'
+                    url: window.globalHost+'/identity/properties'
                 }).success(function (data2) {
                     let linkageData = []
                     let k
@@ -113,12 +113,10 @@ activitiModeler
                     window.reduxStore.dispatch({type:'updateUserProperties',data:window.userProperties})
                 })
 
-
-
-                /* get form and user fields data */
+                /* get form fields data */
                 $http({    
                     method: 'GET',
-                    url: 'http://'+window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'/forms?processType=Normal'
+                    url: window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'/forms?processType=Normal'
                 }).success(function (data) {
                     const obj = JSON.parse(data.formDefinition)
                     window.formProperties = obj
@@ -132,16 +130,28 @@ activitiModeler
                         "number":true,
                         "money":true,
                         "date":true,
-                        "selection":true
+                        "time":true,
+                        "selection":true,
+                        multi_selection:true,
+                        select_employee:true,
+                        select_org:true,
+                        mobile:true,
+                        email:true,
+                        phone:true,
+                        calculate:true
                     }
                     const filteredComponents = obj.components.filter((el)=>{
                         return !!mapmap[el.type]
                     })
-
                     window.formProperties = filteredComponents.map((el)=>{
-                        return {text:el.title,value:el.name}
+                        if(el.type == "calculate"){
+                            if(el.rule.type != 'dateDiff'){
+                                return {text:el.title,value:el.name,type:'double',cate:el.type}
+                            }
+                        }
+                        return {text:el.title,value:el.name,type:el.name_type,cate:el.type}
                     })
-                    window.formProperties.unshift({text:'请选择',value:'initial',index:'initial'})
+                    window.formProperties.unshift({text:'请选择',value:'initial',index:'initial',type:'initial'})
 
                     window.reduxStore.dispatch({type:'updateFormProperties',data:window.formProperties})
 
@@ -152,7 +162,7 @@ activitiModeler
                 /* get role data */
                 $http({    
                     method: 'GET',
-                    url: 'http://'+window.globalHost+'/identity/roles?orgId='+window.getQueryString("orgId")
+                    url: window.globalHost+'/identity/roles?orgId='+window.getQueryString("orgId")
                 }).success(function (data) {
                     let roleData = data.data.map((el)=>{
                         return {
@@ -163,12 +173,11 @@ activitiModeler
                     })
                     .filter((el)=>(el.value!='OrgSupervisor')&&(el.value!='OrgLeader'))
 
-
                     roleData.forEach((el,ind,arr)=>{
                         if(arr.filter((el2)=>el2.text == el.text).length>1){
                             $http({    
                                 method: 'GET',
-                                url: 'http://'+window.globalHost+'/identity/organizations/'+el.orgId
+                                url: window.globalHost+'/identity/organizations/'+el.orgId
                             }).success(function (data) {
                                 arr[ind].text = arr[ind].text + '('+data.name+')'
                             })
@@ -182,22 +191,17 @@ activitiModeler
                 /* get pid data*/
                 $http({    
                     method: 'GET',
-                    url: 'http://'+window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'?processType=Normal'
+                    url: window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'?processType=Normal'
                 }).success(function (data2) {
                     window.pidName = data2.name
                     window.pidDescription = data2.description
                 })
 
                 const getModel = (callback)=>{
-                    /* get model data*/
+                    /* get model data */
                     $http({    
                         method: 'GET',
-                        url: 'http://'+window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'/design?processType=Normal',
-                        // headers: {
-                        //     'Accept': 'application/json',
-                        //     "Authorization": "Bearer " + window.getQueryString("token"),
-                        //     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                        // },
+                        url: window.globalHost+'/repository/process-definitions/'+window.getQueryString("pid")+'/design?processType=Normal',
                     })
                     .success(function (data, status, headers, config) {
                         callback(data, status, headers, config)
@@ -208,24 +212,25 @@ activitiModeler
                     });
                 }
 
-
-
                 getModel(function (data, status, headers, config) {                    
-                    if(!data.model.childShapes){
-                    // if(data.description!="flowMaster"){
-                        var modelUrl = KISBPM.URL.getModel(modelId);
-                        $http({method: 'GET', url: modelUrl}).success(function (data, status, headers, config) {
-
-                            $rootScope.editor = new ORYX.Editor(data);  //initialised   10866 12431 10060
-                            $rootScope.modelData = angular.fromJson(data);
-                            $rootScope.editorFactory.resolve();
-                        })
-                        return ;
-                    }
-
+                    /* 如果是初始化数据,则替换成本地，or using remote api */
+                    // let localData = window.localDesignData.read(window.getQueryString("pid"))
+                    // if( !!localData){
+                    //     data.model = localData
+                    // }else{
+                        if(!data.model.childShapes){ 
+                            var modelUrl = KISBPM.URL.getModel(modelId);
+                            $http({method: 'GET', url: modelUrl}).success(function (data, status, headers, config) {
+                                $rootScope.editor = new ORYX.Editor(data);  //initialised   10866 12431 10060
+                                $rootScope.modelData = angular.fromJson(data);
+                                $rootScope.editorFactory.resolve();
+                            })
+                            return ;
+                        }
+                    // }
 
                     /* 对服务器上的数据进行 解析 然后加载进redux */
-                    data.model.childShapes.forEach((el,index)=>{
+                    data.model.childShapes && data.model.childShapes.forEach((el,index)=>{
                         switch(el.stencil.id){
                             case 'SequenceFlow':
                                 let sf = []
@@ -235,7 +240,6 @@ activitiModeler
                                     window.reduxStore.dispatch({type:'sequenceDataInit',data:el.properties.reduxdata})                                    
                                 }
 
-                                
                                 /* exclusive gate的内容 */
                                 if(el.properties.defaultflow== "true" ){
                                     /*  
@@ -261,7 +265,6 @@ activitiModeler
                                         /* 要放在switchElement后面，不然会顺序会出问题，元素id还没更新 */
                                         window.reduxStore.dispatch({ type: 'branchNodeInit',data:reduxObj})
                                     }
-                                    // window.reduxStore.dispatch({type:'branchNodeInit',data:el.properties.reduxdata})
                                 }
 
                                 // delete data.model.childShapes[index].properties.name
@@ -514,8 +517,8 @@ activitiModeler
                         
                         canvas.height(totalAvailable);
                         
-                        if(totalAvailable < 600){
-                            jQuery('#paletteSection').height('600');
+                        if(totalAvailable < 400){
+                            jQuery('#paletteSection').height('400');
                         }else{
                             jQuery('#paletteSection').height(totalAvailable);
                         }

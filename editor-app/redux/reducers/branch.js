@@ -1,16 +1,12 @@
-import {toJS,fromJS,List, Map} from 'immutable';
-
-/*
-    entry2template 是
-*/
+import { toJS, fromJS, List, Map } from 'immutable';
 let initial = {
-    environmentVariable:[{value:'date',text:'date'}],
-    formProperties:[],
-    userProperties:[],
-    id:'',
-    radio:'dropdown',
-    conditionMode:'normal',
-    dataRepo:[
+    environmentVariable: [{ value: 'date', text: 'date' }],
+    formProperties: [],
+    userProperties: [],
+    id: '',
+    radio: 'dropdown',
+    conditionMode: 'normal',
+    dataRepo: [
         /*
         {
             id:'test',
@@ -26,141 +22,63 @@ let initial = {
             ]
         }
         */
-    ],
-    template:{
-        entry1:{
-            options:[
-                {
-                    value:'initial',
-                    text:'pleaseChoose'
-                },
-
-                {
-                    value:'',
-                    text:'form.properties'
-                },
-                {
-                    value:'',
-                    text:'user.properties'
-                },
-                {
-                    value:'',
-                    text:'e.properties'
-                }
-
-            ],
-            click(){},
-            defaultText:'pleaseChoose'
-        },
-        entry2:{
-            options:[
-                {text:'请选择',value:'initial'}
-                // {
-                //     value:'',
-                //     text:'请假天数'
-                // },
-                // {
-                //     value:'',
-                //     text:'职级'
-                // },
-                // {
-                //     value:'',
-                //     text:'条件'
-                // }
-            ],
-            click(){},
-            defaultText:'请选择'
-        },
-        entry3:{
-            options:[
-                {
-                    value:'initial',
-                    text:'请选择'
-                },
-                {
-                    value:'==',
-                    text:'=='
-                },
-                {
-                    value:'>',
-                    text:'>'
-                },
-                {
-                    value:'<',
-                    text:'<'
-                },
-                {
-                    value:'>=',
-                    text:'>='
-                },
-                {
-                    value:'<=',
-                    text:'<='
-                },
-                {
-                    value:'!=',
-                    text:'!='
-                },
-            ],
-            click(){},
-            defaultText:'请选择'
-        }
-    }
+    ]
 }
-
-// const environmentVariable =[{value:'date',text:'date'}]
-
-
-const newOption = () => {
-    return {text:'请选择',value:'initial',index:'initial'}
-}
-const newRule = () => {
-    /* 
-        创建的时候就指定了默认值 
-    */
-
-    return {
-        entry1:{text:'pleaseChoose',value:'initial',index:'initial'},
-        entry2:{text:'请选择',value:'initial',index:'initial'},
-        entry3:{text:'请选择',index:'initial',value:"initial"},
-        input:''
-    }
-}
-const newCreate = (state) => {
-    return { 
-        id: state.id, 
-        conditions: [
-            {
-                data:[
-                    newRule()
-                ],
-                ruleMode:'normal'
-            }
-        ]
-    }
-}
-
-
+import { defaultOption, newRule, newCreate } from './branch/basic'
 const Reducer = (state = initial, action) => {
-    const data = fromJS(state)
+    let data = fromJS(state)
     switch (action.type) {
-        /* 清空某个sequenceflow */
+        /* 任何下拉框 被选择的时候 */
+        case 'branchUpdate':
+            //获取在dataRepo里的位置
+            let repoIndex4branchUpdate = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id)
+                //位置信息(ind)汇总
+            const dataRepoInd = repoIndex4branchUpdate
+            const groupIndex = action.groupIndex
+            const ruleInd = action.ruleIndex
+            const lastCascaderInd = action.optionItem.index
+                //获取当前‘规则’所在的数据路径
+            const ruleDataPath = ['dataRepo', dataRepoInd, 'conditions', groupIndex, 'data', ruleInd]
+                /* 定义核心 mutate 逻辑 */
+            const updateOption = el => el.set(action.entryIndex, action.optionItem) //改变当前dropdown的选中项
+            const cascade2 = el => el.set('entry2template', String(lastCascaderInd)) //改变entry2template的值
+                .set('entry2', fromJS(defaultOption())) //设置默认值
+            const cascade3 = el => {
+                const entry2tplInd = el.toJS().entry2template 
+                if(entry2tplInd == 1){ //1表单组件
+                    console.log(action.optionItem)                    
+                    return el.set('ctrlTemplate',action.optionItem.cate) //ctrlTemplate代表了控件类型，决定第三个下拉和最后一个空间类型
+                        .set('entry3', fromJS(defaultOption()))
+                }
+                if(entry2tplInd == 2){ //2用户字段
+                    return el
+                }
+            }
+            /* 执行逻辑 */
+            data = data.updateIn(ruleDataPath, 'initial', updateOption)
+            if (action.entryIndex == 'entry1') {
+                data = data.updateIn(ruleDataPath, 'initial', cascade2)
+            }
+            if (action.entryIndex == 'entry2') {
+                data = data.updateIn(ruleDataPath, 'initial', cascade3)
+            }
+            return data.toJS()
+
+            /* 清空某个sequenceflow */
         case 'clearSFData':
-            let clearIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == action.id) 
-            return data.updateIn(['dataRepo',clearIndex,'conditions'],'initial',(el)=>{
-                return fromJS([
-                    {
-                        data:[
-                            newRule()
-                        ],
-                        ruleMode:'normal'
-                    }
-                ])
+            let clearIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == action.id)
+            return data.updateIn(['dataRepo', clearIndex, 'conditions'], 'initial', (el) => {
+                return fromJS([{
+                    data: [
+                        newRule()
+                    ],
+                    ruleMode: 'normal'
+                }])
             }).toJS()
 
-        /* 清空某个sequenceflow */
+            /* 清空某个sequenceflow */
 
-        /* 加载 表单字段 和 用户字段 时 */
+            /* 加载 表单字段 和 用户字段 时 */
         case 'updateFormProperties':
             return data.updateIn(['formProperties'], 'initial', (el) => {
                 return action.data
@@ -168,34 +86,34 @@ const Reducer = (state = initial, action) => {
 
         case 'updateUserProperties':
             return data.updateIn(['userProperties'], 'initial', (el) => {
-                return action.data
-            }).toJS()
-        /* 加载 表单字段 和 用户字段 时 */
+                    return action.data
+                }).toJS()
+                /* 加载 表单字段 和 用户字段 时 */
 
-        /* 改变每个condition的rule删除模式 */
+            /* 改变每个condition的rule删除模式 */
         case 'allRuleModeEQdelete':
-            let allRuleModeEQdeleteIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) 
-            return data.updateIn(['dataRepo',allRuleModeEQdeleteIndex,'conditions',action.index],'initial',(el)=>{ 
-                return el.set('ruleMode','delete')
+            let allRuleModeEQdeleteIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id)
+            return data.updateIn(['dataRepo', allRuleModeEQdeleteIndex, 'conditions', action.index], 'initial', (el) => {
+                return el.set('ruleMode', 'delete')
             }).toJS()
         case 'allRuleModeEQnormal':
-            let allRuleModeEQdeleteIndex2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) 
-            return data.updateIn(['dataRepo',allRuleModeEQdeleteIndex2,'conditions',action.index],'initial',(el)=>{ 
-                return el.set('ruleMode','normal')
-            }).toJS()
-        /* 改变每个condition的rule删除模式 */
+            let allRuleModeEQdeleteIndex2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id)
+            return data.updateIn(['dataRepo', allRuleModeEQdeleteIndex2, 'conditions', action.index], 'initial', (el) => {
+                    return el.set('ruleMode', 'normal')
+                }).toJS()
+                /* 改变每个condition的rule删除模式 */
 
 
         case 'radioTextChange':
-            let repoIndexRadio2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) 
-            
-            return data.updateIn(['dataRepo',repoIndexRadio2],'initial',(el)=>{
-                return el.set('text',action.text)//false or true
+            let repoIndexRadio2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id)
+
+            return data.updateIn(['dataRepo', repoIndexRadio2], 'initial', (el) => {
+                return el.set('text', action.text) //false or true
             }).toJS()
         case 'radioChange':
-            let repoIndexRadio = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) 
-            return data.updateIn(['dataRepo',repoIndexRadio],'initial',(el)=>{
-                return el.set('radio',action.radio)
+            let repoIndexRadio = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id)
+            return data.updateIn(['dataRepo', repoIndexRadio], 'initial', (el) => {
+                return el.set('radio', action.radio)
             }).toJS()
 
         case 'switchElement':
@@ -209,64 +127,21 @@ const Reducer = (state = initial, action) => {
             }).toJS()
 
         case 'ruleOnInput':
-            let repoIndex4 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) 
-            
-            return data.updateIn(['dataRepo',repoIndex4,'conditions',action.key1,'data',action.key2],'initial',(el)=>{
-                return el.set('input',action.content)
+            let repoIndex4 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id)
+            return data.updateIn(['dataRepo', repoIndex4, 'conditions', action.key1, 'data', action.key2], 'initial', (el) => {
+                return el.set('input', action.content)
             }).toJS()
 
-
-        /* 下拉框选择触发事件 */
-        case 'branchUpdate':
-            let repoIndex3 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) 
-            let dataRaw = data.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,'data',action.ruleIndex],'initial',(el)=>{
-                return el.set(action.entryIndex,action.value)
-            })
-
-            if(action.entryIndex == 'entry1'){
-                /*
-                    第一个下拉选了之后动态改变第二个下拉
-                    !!同时设置第二个下拉的默认值!!
-                */
-                switch(action.value.index){
-                    case 0:
-                        return dataRaw.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,'data',action.ruleIndex],'initial',(el)=>{
-                            /*
-                                这里更新了默认值
-                                更新默认选项的逻辑比较散，如何优化
-                            */
-                            return el.set('entry2template','0' ).set('entry2',fromJS(newOption()))
-                        }).toJS()
-                    case 1:
-                        return dataRaw.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,'data',action.ruleIndex],'initial',(el)=>{
-                            return el.set('entry2template','1' ).set('entry2',fromJS(newOption()))
-                        }).toJS()
-                    break
-
-                    case 2:
-                        return dataRaw.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,'data',action.ruleIndex],'initial',(el)=>{
-                            return el.set('entry2template','2').set('entry2',fromJS(newOption()))
-                        }).toJS()
-
-                    case 3:
-                        return dataRaw.updateIn(['dataRepo',repoIndex3,'conditions',action.groupIndex,'data',action.ruleIndex],'initial',(el)=>{
-                            return el.set('entry2template','3').set('entry2',fromJS(newOption()))
-                        }).toJS()
-                }
-            }
-            return dataRaw.toJS()
-
-
         case 'linkage':
-            return data.updateIn(['template','entry2','options'], 'initial', (el) => {
+            return data.updateIn(['template', 'entry2', 'options'], 'initial', (el) => {
                 return action.options
             }).toJS()
 
         case 'initCondition':
-            let initIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) 
-            
-            if (!initIndex && (initIndex != 0) ) { //如果nextRepoIndex不存在
-                
+            let initIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id)
+
+            if (!initIndex && (initIndex != 0)) { //如果nextRepoIndex不存在
+
                 return data.updateIn(['dataRepo'], 'initial', (el) => {
                     return el.push(fromJS(newCreate(state)))
                 }).toJS()
@@ -275,7 +150,7 @@ const Reducer = (state = initial, action) => {
 
         case 'switchRadio':
             return Object.assign({}, state, {
-                radio:action.value
+                radio: action.value
             })
 
         case 'switchApproveData':
@@ -285,49 +160,48 @@ const Reducer = (state = initial, action) => {
 
         case 'conditionDeleteMode':
             return Object.assign({}, state, {
-                conditionMode:'delete'
+                conditionMode: 'delete'
             })
 
         case 'closeConditionDeleteMode':
             return Object.assign({}, state, {
-                conditionMode:'normal'
+                conditionMode: 'normal'
             })
 
         case 'addCondition':
-            let repoIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) 
-            if (!repoIndex && (repoIndex != 0) ) { //如果nextRepoIndex不存在
+            let repoIndex = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id)
+            if (!repoIndex && (repoIndex != 0)) { //如果nextRepoIndex不存在
                 return data.updateIn(['dataRepo'], 'initial', (el) => {
                     return el.push(fromJS(newCreate(state)))
                 }).toJS()
             }
-            return data.updateIn(['dataRepo',repoIndex],'initial',(el)=>{
-                
-                return el.set('conditions',el.get('conditions').push(fromJS({
-                        data:[
-                            newRule()
-                            // {entry1:newOption(),entry2:newOption(),entry3:{index:'initial',value:"=="},input:''}
-                        ],
-                        ruleMode:'normal'
-                    }
-                )))
+            return data.updateIn(['dataRepo', repoIndex], 'initial', (el) => {
+
+                return el.set('conditions', el.get('conditions').push(fromJS({
+                    data: [
+                        newRule()
+                        // {entry1:defaultOption(),entry2:defaultOption(),entry3:{index:'initial',value:"=="},input:''}
+                    ],
+                    ruleMode: 'normal'
+                })))
 
             }).toJS()
 
         case 'addRule':
-            let repoIndex2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) 
-            return data.updateIn(['dataRepo',repoIndex2,'conditions',action.index,'data'],'initial',(el)=>{
-                return el.push( fromJS(newRule()) )
+            let repoIndex2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id)
+            return data.updateIn(['dataRepo', repoIndex2, 'conditions', action.index, 'data'], 'initial', (el) => {
+                return el.push(fromJS(newRule()))
             }).toJS()
 
         case 'deleteCondition':
-            let repoIndexDelete = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) 
-            return data.updateIn(['dataRepo',repoIndexDelete,'conditions'],'initial',(el)=>{
+            let repoIndexDelete = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id)
+            return data.updateIn(['dataRepo', repoIndexDelete, 'conditions'], 'initial', (el) => {
                 return el.delete(action.conditionIndex)
             }).toJS()
 
         case 'deleteRule':
-            let repoIndexDelete2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id) 
-            return data.updateIn(['dataRepo',repoIndexDelete2,'conditions',action.groupIndex,'data'],'initial',(el)=>{
+            let repoIndexDelete2 = data.get('dataRepo').findKey((el, index, iter) => el.get('id') == state.id)
+            return data.updateIn(['dataRepo', repoIndexDelete2, 'conditions', action.groupIndex, 'data'], 'initial', (el) => {
                 return el.delete(action.ruleIndex)
             }).toJS()
 

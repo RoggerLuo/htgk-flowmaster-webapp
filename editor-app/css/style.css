@@ -12,10 +12,7 @@
 .canvas-wrapper textarea{
     display: none;
 }
-.property-row-title{
-    font-size: 14px;
-    padding: 8px 0 2px 0;
-}
+
 .row-no-gutter .col-xs-7 { /* left side */
     padding-left: 0px;
     padding-right: 0px;
@@ -212,19 +209,19 @@ div.canvas-wrapper::scrollbar {
   background: #EDEDED;//rgba(0,177,251, 0.1);
 }
 div.canvas-wrapper::-webkit-scrollbar-thumb {
-  background: #194C7B;// #00b1fb;
+  background: #DDDDDD;// #00b1fb;
 }
 div.canvas-wrapper::-moz-scrollbar-thumb {
-  background: #194C7B;// #00b1fb;
+  background: #DDDDDD;// #00b1fb;
 }
 div.canvas-wrapper::-ms-scrollbar-thumb {
-  background: #194C7B;// #00b1fb;
+  background: #DDDDDD;// #00b1fb;
 }
 div.canvas-wrapper::-o-scrollbar-thumb {
-  background: #194C7B;// #00b1fb;
+  background: #DDDDDD;// #00b1fb;
 }
 div.canvas-wrapper::scrollbar-thumb {
-  background: #194C7B;// #00b1fb;
+  background: #DDDDDD;// #00b1fb;
 }
 
 
@@ -292,9 +289,8 @@ div.propertySection {
 
 .clearfix {
     background-color: white;
-    // position: absolute;
     width: 100%;
-    z-index: 999;
+    z-index: 99999;
 }
 
 .selected-item-bottom {
@@ -302,14 +298,15 @@ div.propertySection {
     color: white;
     padding: 9px 0px 9px 1px;
     cursor: pointer;
-
+    margin: 0 6px;
+    
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
 .selected-item-body > div {
-    margin-top: 15px;
+    margin-top: 51px;
 }
 
 
@@ -323,12 +320,11 @@ div.propertySection {
 }
 .selected-item-bottom .bottom-text-div .save{
     line-height:30px;
-    font-size:15px;
+    font-size:13px;
+    font-weight: 700;
     text-align: center;
     margin: auto;
 }
-
-
 
 
 .selected-item-title a {
@@ -363,7 +359,7 @@ div.propertySection {
 	font-size: 13px;
 	overflow: hidden;
 
-    margin: 8px 0px 0px 0px;
+    margin: -11px 0px 0px 0px;
     line-height: 29px;
     // display:flex;
     flex:1;
@@ -391,7 +387,7 @@ div.propertySection {
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 28px 12px 1px 12px;
+    padding: 28px 12px 100px 12px;
     width:100%;
 }
 .selected-item-body::-webkit-scrollbar {
@@ -415,19 +411,19 @@ div.propertySection {
   background: rgba(0,177,251, 0.1);
 }
 .selected-item-body::-webkit-scrollbar-thumb {
-  background: #194C7B;
+  background: #00B1FB;
 }
 .selected-item-body::-moz-scrollbar-thumb {
-  background: #194C7B;
+  background: #00B1FB;
 }
 .selected-item-body::-ms-scrollbar-thumb {
-  background: #194C7B;
+  background: #00B1FB;
 }
 .selected-item-body::-o-scrollbar-thumb {
-  background: #194C7B;
+  background: #00B1FB;
 }
 .selected-item-body::scrollbar-thumb {
-  background: #194C7B;
+  background: #00B1FB;
 }
 
 
@@ -470,13 +466,13 @@ div.propertySection {
 }
 
 .property-row input[type="text"] {
-	font-size: 14px;
+	font-size: 13px;
     height: 30px;
 	padding: 0px 5px;
 	width: 100%;
     outline: none;
     box-shadow:none !important;
-    border: 1px solid #c5c5c5;
+    border: 1px solid #DDDDDD;
 }
 
 .default-grid {

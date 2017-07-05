@@ -2,7 +2,7 @@ import React,{createClass} from 'react';
 import { connect } from 'react-redux'
 import Dropdown from '../basicComp/Dropdown'
 
-const Component = ({data1,data2,dispatch,put}) => {    
+const Component = ({data1,data2,dispatch,put,choosedOption,choosedOption2}) => {    
     
     const choosed = (item)=>{
         dispatch({type:'dropdown1Choose',item})
@@ -13,14 +13,15 @@ const Component = ({data1,data2,dispatch,put}) => {
     
     return (
         <div>
-            {put('popup.org1')}<Dropdown data={data1} choosed={choosed}/>{put('popup.org2')}<Dropdown data={data2} choosed={choosed2}/>
+            {put('popup.org1')}<Dropdown width={'auto'} data={data1} choosedOption={choosedOption} choosed={choosed}/>
+            {put('popup.org2')}<Dropdown choosedOption={choosedOption2} data={data2} choosed={choosed2}/>
         </div>
     )
 }
 
   
 const mapStateToProps = (state) => {
-    return {data1:state.dropdown.dropdown1Data,data2:state.dropdown.dropdown2Data}
+    return {choosedOption2:state.dropdown.dropdown2,choosedOption:state.dropdown.dropdown1,data1:state.dropdown.dropdown1Data,data2:state.dropdown.dropdown2Data}
 }
 
 const mapDispatchToProps = (dispatch) => {

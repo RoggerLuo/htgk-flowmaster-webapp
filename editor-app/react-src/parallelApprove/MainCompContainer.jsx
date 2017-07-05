@@ -20,7 +20,6 @@ const MainCompContainer = ({data,mode,dispatch}) => {
         del(){
             dispatch({type:'modeChange',value:'delete'})            
             activeSave()
-
         }
     }
     return (

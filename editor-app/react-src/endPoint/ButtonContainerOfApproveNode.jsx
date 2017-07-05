@@ -47,7 +47,7 @@ const ButtonContainer = ({state,dispatch,children}) => { //parallel 个性化版
             window.activeSave() 
         }
         window.addEventListener('message',chooseCallback,false)
-        let message = {type:"openSelectUserPanel",value:"",params:{pickerType:'people',title:'选择人员'}}
+        let message = {type:"openSelectUserPanel",value:"",params:{pickerType:'people',title:'选择人员',orgId:window.getQueryString("rootOrgId")}}
         window.parent.postMessage(message,'*')
     }
 

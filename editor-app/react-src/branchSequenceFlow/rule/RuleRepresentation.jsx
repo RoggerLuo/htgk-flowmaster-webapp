@@ -1,12 +1,7 @@
 import React,{createClass} from 'react';
 import Dropdown from '../../basicComp/branch-dropdown'
-
-/* 字典
-    dropdownData : 给3个dropdown传递的数据组合
-    ruleMode: 是否显示规则的 删除按钮
-    del: 点击删除当前 规则
-    oninput: 为了输入的时候保存文字
-*/
+import ctrlComponents from '../ctrl.conf.js'
+/* ruleMode: 是否显示规则的 删除按钮 */
 const Rule = ({dropdownData,ruleMode,del,oninput}) => {
     let border = '1px solid white'
     let display = 'none'
@@ -17,6 +12,7 @@ const Rule = ({dropdownData,ruleMode,del,oninput}) => {
         border = '1px solid white'
         display = 'none'
     }
+    const InputComp = ctrlComponents[dropdownData.ctrlTemplate]
     return (
         <div className="delete-frame" style={{border:border}}>
             <div style={{display:display,
@@ -37,10 +33,9 @@ const Rule = ({dropdownData,ruleMode,del,oninput}) => {
                 </i>
             </div>    
             <div className="container-row-placeholder"></div>
-            <div className="input-text-container">
-                <input type='text' className="input-text" value={dropdownData.input} onChange={oninput}/>
-            </div>
+            <InputComp inputCompData = {}/>
         </div>
     )
 }
+/* <InputTest value={dropdownData.input} oninput={oninput}/> */
 export default Rule

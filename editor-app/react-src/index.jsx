@@ -1,3 +1,5 @@
+import '../ngEvent'
+
 import './userGuide/component'
 import '../qingfont/iconfont.css'
 import './global.less'

@@ -19,13 +19,24 @@ const initial = {
         // {text:'财务专员',value:'finance'},
         // {text:'人事专员',value:'hr'},
         // {text:'xx专员',value:'xx'}
-    ]
-    
+    ]   
 }
 
 const Reducer = (state = initial, action) => {
     let data = fromJS(state)
     switch (action.type) {
+        case 'getBackToDefaultDp1':
+            if(state.dropdown2Data.length!=0){
+                return Object.assign({}, state, {
+                    dropdown1:{text:'一',value:'1'},
+                    dropdown2:state.dropdown2Data[0]
+                })
+
+            }else{
+                return Object.assign({}, state, {
+                    dropdown1:{text:'一',value:'1'}
+                })
+            }
         case 'updateRoleData':
             const stage1 = Object.assign({}, state, {
                 dropdown2Data:action.roleData

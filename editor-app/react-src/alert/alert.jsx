@@ -16,12 +16,12 @@ const Component = createClass({
         return {currentStep:'d'}
     },
     mixins: [TimerMixin],
-    show(){
-        this.setTimeout(
-           () => { console.log('timeout test'); },
-           500
-        );
-    },
+    // show(){
+    //     this.setTimeout(
+    //        () => { console.log('timeout test'); },
+    //        1000
+    //     );
+    // },
     render(){
         // let dynamicClass = th
         let display = 'none'
@@ -37,12 +37,26 @@ const Component = createClass({
         if(this.props.showAlert == 'hideAlert'){
             display = 'none'
         }
-
+        const type = this.props.alertType
+        let iconText = (<div className="content">
+                    {this.props.alertContent}
+                </div>)
+        if(type=='good'){
+            iconText = (<div className="content">
+                    <i className="icon iconfont icon-check"></i>
+                    {this.props.alertContent}
+                </div>)
+        }
+        if(type=='bad'){
+            iconText = (<div className="content">
+                    <i className="icon iconfont icon-gantanhao-xianxingyuankuang"></i>
+                    {this.props.alertContent}
+                </div>)            
+        }
+        
         return (
             <div className={'alertComponent '+theClass} style={{display:display}}>
-                <div className="content">
-                    {this.props.alertContent}
-                </div>
+                {iconText}
             </div>
         )
     }
@@ -63,12 +77,15 @@ const ComponentContainer = connect(
 )(Component)
 
 export default function(){
-    window.showAlert = (text)=>{
-        store.dispatch({type:'callAlert',alertContent:text})
+    window.showAlert = (text,alertType)=>{
+        if(window.showAlertDisable){
+            return
+        }
+        store.dispatch({type:'callAlert',alertContent:text,alertType:alertType||'bad'})
         store.dispatch({type:'hideAlertAnimation'})
         setTimeout(function(){
             store.dispatch({type:'hideAlert'})
-        },1000)
+        },1500)
     }
 
     render(

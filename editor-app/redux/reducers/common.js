@@ -4,12 +4,19 @@ let initial = {
     active:false,
     showAlert:false,
     showSpin:false,
-    alertContent:''
+    alertContent:'',
+    alertType:'good',
+    nextElOfSF:''
 }
 
 const Reducer = (state = initial, action) => {
     const data = fromJS(state)
     switch (action.type) {
+        case 'nextElOfSF':
+            return Object.assign({}, state, {
+                nextElOfSF:action.name,
+            })
+
         case 'callSpin':
             return Object.assign({}, state, {
                 showSpin:true,
@@ -23,6 +30,7 @@ const Reducer = (state = initial, action) => {
         case 'callAlert':
             return Object.assign({}, state, {
                 showAlert:'show',
+                alertType:action.alertType,
                 alertContent:action.alertContent||'default'
             })
         case 'hideAlertAnimation':

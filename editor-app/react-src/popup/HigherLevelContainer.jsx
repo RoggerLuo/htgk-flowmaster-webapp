@@ -2,7 +2,7 @@ import React,{createClass} from 'react';
 import { connect } from 'react-redux'
 import Dropdown from '../basicComp/Dropdown'
 
-const Component = ({data,dispatch,put}) => {    
+const Component = ({data,dispatch,put,choosedOption}) => {    
     // const data = [
     //     {text:'一',value:'1'},
     //     {text:'二',value:'2'},
@@ -13,14 +13,14 @@ const Component = ({data,dispatch,put}) => {
     }
     return (
         <div>
-            {put('popup.higherLevel1')}<Dropdown data={data} choosed={choosed}/>{put('popup.higherLevel2')}
+            {put('popup.higherLevel1')}<Dropdown data={data} choosedOption={choosedOption} choosed={choosed}/>{put('popup.higherLevel2')}
         </div>
     )
 }
 
   
 const mapStateToProps = (state) => {
-    return {data:state.dropdown.dropdown1Data}
+    return {data:state.dropdown.dropdown1Data,choosedOption:state.dropdown.dropdown1}
 }
 
 const mapDispatchToProps = (dispatch) => {

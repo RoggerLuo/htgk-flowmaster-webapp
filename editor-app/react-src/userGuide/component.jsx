@@ -4,30 +4,30 @@ import './style'
 
 const step1 =  {
     step:'1',
-    header:'10px solid rgba(0, 0, 0, 0.38)',
+    header:'10px solid rgba(50, 54, 61, 0.6)',
     leftBackground:'rgba(0, 0, 0, 0)',
-    leftBorderBackground:'rgba(0, 0, 0, 0.38)',
-    rightBackground:'rgba(0, 0, 0, 0.38)',
+    leftBorderBackground:'rgba(50, 54, 61, 0.6)',
+    rightBackground:'rgba(50, 54, 61, 0.6)',
     rightBorderBackground:'rgba(0, 0, 0, 0)',
-    middleBackground:'rgba(0, 0, 0, 0.38)',
+    middleBackground:'rgba(50, 54, 61, 0.6)',
 }
 const step2 =  {
     step:'2',
-    header:'10px solid rgba(0, 0, 0, 0.38)',
-    leftBackground:'rgba(0, 0, 0, 0.38)',
+    header:'10px solid rgba(50, 54, 61, 0.6)',
+    leftBackground:'rgba(50, 54, 61, 0.6)',
     leftBorderBackground:'rgba(0, 0, 0, 0)',
-    rightBackground:'rgba(0, 0, 0, 0.38)',
+    rightBackground:'rgba(50, 54, 61, 0.6)',
     rightBorderBackground:'rgba(0, 0, 0, 0)',
     middleBackground:'rgba(0, 0, 0, 0)'
 }
 const step3 =  {
     step:'3',
-    header:'10px solid rgba(0, 0, 0, 0.38)',
-    leftBackground:'rgba(0, 0, 0, 0.38)',
+    header:'10px solid rgba(50, 54, 61, 0.6)',
+    leftBackground:'rgba(50, 54, 61, 0.6)',
     leftBorderBackground:'rgba(0, 0, 0, 0)',
     rightBackground:'rgba(0, 0, 0, 0)',
-    rightBorderBackground:'rgba(0, 0, 0, 0.38)',
-    middleBackground:'rgba(0, 0, 0, 0.38)'
+    rightBorderBackground:'rgba(50, 54, 61, 0.6)',
+    middleBackground:'rgba(50, 54, 61, 0.6)'
 }
 const final =  {
     step:'4',
@@ -44,6 +44,18 @@ const Component = createClass({
 
         return {currentStep:step1}
     },
+    closeShadow(){
+        const chooseCallback = (e) => {
+            window.removeEventListener("message",chooseCallback, false)
+        }
+
+        const callDialogue = () => {
+            window.addEventListener('message',chooseCallback,false)
+            let message = {type:"closeShadow",value:"123test",params:{pickerType:'people',title:'选择人员'}}
+            window.parent.postMessage(message,'*')
+        }
+        callDialogue()
+    },
     nextStep(){
         
         switch(this.state.currentStep.step){
@@ -55,12 +67,13 @@ const Component = createClass({
                 break
             case '3':
                 this.setState({currentStep:final,text:'从左边点击或拖动功能点',display:'none'})
+                this.closeShadow()
                 break
         }
 
     },
     stopRemind(){
-        
+        this.closeShadow()
         this.setState({currentStep:final,text:'从左边点击或拖动功能点',display:'none'})
     },
     render(){
@@ -154,5 +167,17 @@ window.userGuide = function(){
             document.getElementById('userGuideComponent')
         )
         window.localStorage.setItem('userGuide','readed')
+
+        const chooseCallback = (e) => {
+            window.removeEventListener("message",chooseCallback, false)
+        }
+
+        const callDialogue = () => {
+            window.addEventListener('message',chooseCallback,false)
+            let message = {type:"openShadow",value:"123test",params:{pickerType:'people',title:'选择人员'}}
+            window.parent.postMessage(message,'*')
+        }
+        callDialogue()
+
     }    
 }

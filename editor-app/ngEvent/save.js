@@ -1,5 +1,7 @@
 'use strict';
+
 window.globalEvent =  window.globalEvent || {}
+
 function LTrim(str){ 
   var i; 
   for(i=0;i<str.length;i++){
@@ -67,26 +69,25 @@ const saveHandlerBranch = (canvas) => {
             })){
                 /* 如果有一个为为空值，整个条件都为空 */
                 if(currentElement.properties.defaultflow != 'true'){
-                    window.showAlert('保存失败，分支条件和规则不能为空') 
+                    let nodeName = currentElement.incoming && currentElement.incoming[0] && currentElement.incoming[0].properties["oryx-name"]
+                    window.showAlert('保存失败，节点"'+nodeName+'"的分支条件和规则不能为空') 
                     window.setPropertyAdvance({key:'oryx-name',value:''},currentElement)
                     canSave = false
                     return                    
                 }
-                // currentElement.setProperty('conditionsequenceflow','')
-                // return
             }
 
             el.conditions.forEach((condition,i)=>{
                 let conditionArray  = []        
-                condition.data.forEach((el,index)=>{
+                condition.data.forEach((el,index,wholeArr)=>{
                     switch(el.entry1.index){
-                        case 0:
+                        case 1:
                             returnString += ' f.'
                         break
-                        case 1:
+                        case 2:
                             returnString += ' u.'
                         break
-                        case 2:
+                        case 3:
                             returnString += ' e.'
                         break
                     }
@@ -96,8 +97,15 @@ const saveHandlerBranch = (canvas) => {
                     returnString += ' '
 
                     el.input = Trim(el.input)
-                    if(!isNaN(el.input)){
-                        returnString += el.input
+                    if((el.entry2.type == 'double')||(el.entry2.type == 'int')){
+                        if(!isNaN(el.input)){
+                            returnString += el.input
+                        }else{
+                            window.showAlert('保存失败，分支条件中填写数据类型不正确') 
+                            window.setPropertyAdvance({key:'oryx-name',value:''},currentElement)
+                            canSave = false
+                            return                    
+                        }
                     }else{
                         /* 如果是yyyy-mm-dd，转换成时间戳 */
                         const re = new RegExp(/\d{4}(\-|\/|\.)\d{1,2}\1\d{1,2}/)
@@ -107,16 +115,20 @@ const saveHandlerBranch = (canvas) => {
                             returnString += '"'+ el.input +'"'
                         }
                     }
+
                     name += el.entry2.text
                     name += ' '
                     name += el.entry3.text
                     name += ' '
-                    if(!isNaN(el.input)){
-                        name += el.input
+                    if((el.entry2.type == 'double')||(el.entry2.type == 'int')){
+                        if(!isNaN(el.input)){
+                            name += el.input
+                        }else{
+                            name += '"'+el.input+'"'
+                        }
                     }else{
                         name += '"'+el.input+'"'
                     }
-
                     if(index < (condition.data.length-1)){
                         returnString += ' && '                
                         name += ' && '                
@@ -155,7 +167,10 @@ const saveHandlerBranch = (canvas) => {
         el.outgoing.forEach((el2)=>{
             if(!el2.properties.defaultflow){ //不存在
                 if(!el2.properties.conditionsequenceflow){ //也不存在
-                    window.showAlert('保存失败，分支条件和规则不能为空')
+                    // window.showAlert('保存失败，分支条件和规则不能为空')
+                    let nodeName = el2.incoming && el2.incoming[0] && el2.incoming[0].properties["oryx-name"]
+                    window.showAlert('保存失败，节点"'+nodeName+'"的分支条件和规则不能为空') 
+
                     canSave = false
                 }
             }
@@ -207,7 +222,6 @@ window.updateBranch = () => {
         if(currentElement.properties.defaultflow != 'true'){
             window.setPropertyAdvance({key:'oryx-name',value:name},currentElement)
         }
-        // window.setPropertyAdvance({key:'oryx-name',value:name},currentElement)
     })
 }
 
@@ -393,14 +407,13 @@ window.globalEvent.save = function($scope,$http){
                 }
                 return str.join("&");
             },
-            url: 'http://'+window.globalHost+'/repository/process-definitions/'+ window.getQueryString("pid") +'/design?processType=Normal'
+            url: window.globalHost+'/repository/process-definitions/'+ window.getQueryString("pid") +'/design?processType=Normal'
         })
 
         .success(function (data, status, headers, config) {
             
             window.reduxStore.dispatch({type:'closeSpin'})
-            
-            window.showAlert('保存成功')
+            window.showAlert('保存成功','good')
 
             // Fire event to all who is listening
             $scope.editor.handleEvents({
@@ -412,14 +425,12 @@ window.globalEvent.save = function($scope,$http){
             
             console.log(json)
             window.reduxStore.dispatch({type:'saveDeactive'})
-
+            window.localDesignData.clear(window.getQueryString("pid"))
         })
         .error(function (data, status, headers, config) {
-
             $scope.error = {};
             console.log('Something went wrong when updating the process model:' + JSON.stringify(data));
             window.reduxStore.dispatch({type:'saveActive'})
-
         });
     };
 

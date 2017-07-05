@@ -15,7 +15,6 @@ import React,{createClass} from 'react';
     ------------
     put 从插件中来
 
-
 */
 const Header = ({index,display,addRule,startRuleDeleteStatus,close,cancelRuleDeleteStatus,isDots,toggleMenu,put}) => {
     let dots = ''
@@ -34,8 +33,12 @@ const Header = ({index,display,addRule,startRuleDeleteStatus,close,cancelRuleDel
             {dots}
             <div className="rule-control" style={{display:display}}>
                 <div className="options">
-                    <div className="option" onClick={addRule}>{put('branch.menu.add')}</div>
-                    <div className="option" onClick={startRuleDeleteStatus}>{put('branch.menu.del')}</div>
+                    <div className="option" onClick={addRule}>
+                        <div className="option-inner">{put('branch.menu.add')}</div>
+                    </div>
+                    <div className="option" onClick={startRuleDeleteStatus}>
+                        <div className="option-inner">{put('branch.menu.del')}</div>
+                    </div>
                 </div>
             </div>
             <div onClick={close} style={{display:display}} className="big-cover" ></div>
