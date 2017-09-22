@@ -95,9 +95,9 @@ angular.module('activitiModeler')
             var addGroup = function(groupName, groupArray) { //通过groupName来添加group，但是内容是空的
                 //给stencilItemGroups添加一个空的group, 有items属性，有paletteItems，还有子groups
                 var group = { name: groupName, items: [], paletteItems: [], groups: [], visible: true };
-                groupArray.push(group);
+                groupArray.push(group)                
                 return group;
-            };
+            }
 
             /*
              StencilSet items
@@ -108,8 +108,8 @@ angular.module('activitiModeler')
                     'SequenceFlow',
                     'UserTask',
                     'ExclusiveGateway',
-                    // 'MuleTask',
                     'MultiUserTask',
+                    // 'MuleTask',
                     // 'EndErrorEvent',
                     // 'EndNoneEvent', 
                     // 'CatchTimerEvent', 
@@ -145,9 +145,10 @@ angular.module('activitiModeler')
                         @stencilItem ,映射 data.stencils[stencilIndex] 的对象，增加了canConnect等对象                    
                     */
 
-                    // Check if the root group is the 'diagram' group. If so, this item should not be shown.
-                    // 在这里，循环内，定义当前循环的stencils[i]的groups
-                    var currentGroupName = data.stencils[stencilIndex].groups[0]; //为什么是数组，可以出现在多个子菜单吗
+                    // Check if the root group is the 'diagram' group. If so, this item should not be shown.                    
+                    // roger:虽然stencils里面group是数组，但是它只取第一个
+                    var currentGroupName = data.stencils[stencilIndex].groups[0];
+                    
 
                     if (currentGroupName === 'Diagram' || currentGroupName === 'Form') {
                         continue; // go to next item
@@ -298,22 +299,22 @@ angular.module('activitiModeler')
 
 
                 }
-                //超级大循环结束
 
-
-                /* stencilItemGroups 是所有左边的menu，只有一层数组，因为只有一层子菜单 */
-                //addGroup给stencilItemGroups添加一个空的group, 有items属性，有paletteItems，还有子groups
+                /* 
+                    stencilItemGroups 是所有左边的menu
+                    addGroup给stencilItemGroups添加一个暂时为空的group
+                */
                 for (var i = 0; i < stencilItemGroups.length; i++) {
                     //逐个检查每个菜单栏,如果没有内容就不要显示
                     if (stencilItemGroups[i].paletteItems && stencilItemGroups[i].paletteItems.length == 0) {
                         stencilItemGroups[i].visible = false;
                     }
                 }
-
-                // 给scope戴上这个属性
+                // 给scope绑上这个属性
                 $scope.stencilItemGroups = stencilItemGroups;
+                $scope.flowMasterGroups = stencilItemGroups.filter(el=>el.name=="flowMaster")[0]
 
-                //data.rules.containmentRules这个又是干嘛的
+                //data.rules.containmentRules 用途不清楚 
                 var containmentRules = [];
                 for (var i = 0; i < data.rules.containmentRules.length; i++) {
                     var rule = data.rules.containmentRules[i];
@@ -1722,10 +1723,6 @@ KISBPM.CreateCommand = ORYX.Core.Command.extend({
         //this.currentParent.update();
         this.facade.setSelection(this.facade.getSelection().without(this.shape, this.edge));
     }
-
-
-
-
 
 });
 

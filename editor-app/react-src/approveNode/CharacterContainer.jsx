@@ -14,7 +14,7 @@ import Character from '../presentations/Character/Character'
 const CharacterContainer = ({el,index,dispatch}) => { 
     const text = el.text    
     const click = () => {  //删除，得知道是第几组，第几个character
-        dispatch({type:'removeApproveList',index:index})
+        dispatch({type:'approve/delChar',index:index})
         activeSave()
     }
     return (<Character text={text} click={click}/>)

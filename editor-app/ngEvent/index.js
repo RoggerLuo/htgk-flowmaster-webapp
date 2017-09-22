@@ -1,7 +1,9 @@
 'use strict';
+import './globalEvents'
 import './save'
 import './checkEmpty'
-import './router'
+import propertyRouter from './propertyRouter'
+
 const checkConnect = ($scope) => {
     const json = window.getRawJson()
     return !json.childShapes.some((el,index)=>{
@@ -24,47 +26,6 @@ const checkConnect = ($scope) => {
         }
         return false
     })
-}
-
-window.activeSave = ()=>{
-    /*
-        saveHandler也会调用activeSave
-        这会导致，最外层的逻辑还没跑完，全局变量showAlertDisable就回归false了
-        这是全局变量混乱的地方
-        增加一个逻辑判断,如果发现 全局变量showAlertDisable 已经被使用了，那这一轮逻辑就不要动它
-    */
-    // if(window.showAlertDisable){
-    //     const canvas = window.windowCanvas
-    //     saveHandlerApprove(canvas)
-    //     saveHandlerParallel(canvas)
-    //     saveHandlerEndPoint(canvas)
-    //     if(!saveHandlerBranch(canvas)){}
-    //     saveHandlerBranchNode(canvas)
-    //     if(checkConnect()){
-    //         window.reduxStore.dispatch({ type: 'saveActive'})
-    //     }else{
-    //         window.reduxStore.dispatch({ type: 'saveDeactive'})
-    //     }
-    //     window.localDesignData.save(window.getQueryString("pid"),window.getRawJson())
-    //     return ;
-    // }
-    // window.showAlertDisable = true
-    // /* 提前把redux转换成oryx数据 */
-    // const canvas = window.windowCanvas
-    // saveHandlerApprove(canvas)
-    // saveHandlerParallel(canvas)
-    // saveHandlerEndPoint(canvas)
-    // if(!saveHandlerBranch(canvas)){}
-    // saveHandlerBranchNode(canvas)
-    // if(checkConnect()){
-    //     window.reduxStore.dispatch({ type: 'saveActive'})
-    // }else{
-    //     window.reduxStore.dispatch({ type: 'saveDeactive'})
-    // }
-    // window.localDesignData.save(window.getQueryString("pid"),window.getRawJson())
-    // window.showAlertDisable = false
-
-    window.reduxStore.dispatch({ type: 'saveActive'})
 }
 
 window.lastSelectedShape = false
@@ -227,10 +188,10 @@ window.myEvent = function($scope,$http){
         
         var prevId = $scope.lastSelectedUserTaskId
         var nextId = selectedShape.resourceId
-
+        var nextStencilTitle = selectedShape._stencil._jsonStencil.title
 
         window.currentSelectedShape = selectedShape
-        window.reduxStore.dispatch({ type: 'switchElement', prevId, nextId })
+        global.reduxStore.dispatch({ type: 'switchElement', prevId, nextId, nextStencilTitle })
         
         if (selectedShape.incoming[0]){
             let incomming = selectedShape.incoming[0]._stencil._jsonStencil.title
@@ -411,6 +372,6 @@ window.myEvent = function($scope,$http){
         window.inputBlurred && window.inputBlurred()            
     }
     window.afterShapeUpdate = ($scope,event)=>{
-        window.globalEvent.router($scope,event)       
+        propertyRouter($scope,event)       
     }
 }

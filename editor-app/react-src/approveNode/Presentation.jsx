@@ -1,7 +1,7 @@
-import React,{createClass} from 'react';
+import React from 'react'
 import  './style'
 import CharacterContainer from './CharacterContainer'
-import ButtonContainer from './ButtonContainerOfApproveNode.jsx'
+import Button from './ButtonConfig.jsx'
 import SolidFrame from '../presentations/SolidFrame/SolidFrame'
 
 const ApproveNode = ({data,put}) => {
@@ -31,18 +31,18 @@ const ApproveNode = ({data,put}) => {
                 </div>
                 
                 <div style={{display:display1}}>
-                    <ButtonContainer>    
+                    <Button>    
                         <i style={{paddingLeft: '1px'}} className="icon iconfont icon-tianjia"></i>
-                    </ButtonContainer>    
+                    </Button>    
                 </div>
             </div>            
             <div style={{display:display2}}>
-                <ButtonContainer>    
+                <Button>    
                     <div className="mybutton" >
                         {put('approveNode.button.add')}
                             <i className="icon iconfont icon-tianjia"></i>
                     </div>
-                </ButtonContainer>    
+                </Button>    
             </div>
             {list}
             <div className="property-row-title">{put('approveNode.remark.title')}</div>

@@ -1,3 +1,6 @@
+import store from '../redux/configureStore'
+global.reduxStore = store
+
 import '../ngEvent'
 
 import './userGuide/component'
@@ -6,17 +9,16 @@ import './global.less'
 import './icon.less'
 import './basic.less'
 
+
 import approveComponent from './approveNode/Container'
 import endPointComponent from './endPoint/Container'
 import parallelApproveComponent from './parallelApprove/MainCompContainer'
 import branchSequenceFlowComponent from './branchSequenceFlow/Component'
 import branchNodeComponent from './branchNode/Container'
-import popupStart from './popup/popupWrapContainer'
-import store from '../redux/configureStore'
+import popupStart from './popup'
 import saveButton from './saveButton/saveButton'
 import myAlert from './alert/alert'
 import mySpin from './alert/spin'
-
 
 popupStart()
 myAlert()
@@ -26,7 +28,6 @@ global.branchSequenceFlowComponent = {render:branchSequenceFlowComponent}
 global.parallelApproveComponent = {render:parallelApproveComponent}
 global.approveComponent = {render:approveComponent}
 global.branchComponent = {render:branchNodeComponent}
-global.reduxStore = store
 global.endPointComponent = endPointComponent
 
 import zh from './i18n/zh'

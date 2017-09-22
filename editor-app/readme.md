@@ -1,29 +1,32 @@
-## 默认分支不能设置条件
-在路由里面  
-如果defaultflow为 true则显示普通节点
-
-##注意事项
-频繁更新文件  
-- `dist`  
-- `globalEvent`  
-- `globalEvent/save` http header Content-Type 要取消注释  
-- `app.js`的 defaults.headers的注释要取消  
+22 Sep
+## 重构buttonContainer
+移动button的presentation部分
 
 
-其次  
-- configuration/default-controller  
-- 模版类，property-tpl, editor.html,  
-- css, `./css`,`editor/css`  
+21 Sep
+## 把global配置和事件 集中管理
+把app加载的逻辑放在initialize文件夹里
 
-资源类  
-- `./stencilsets`文件夹  
-- `./images`  
-- `../resources`  
+## approve保存失败，repo的名字没有修改
 
-容易忘记的  
-- `i18n`
 
- 
+## reduce 的通用wrap
+固定了id 和 stencilTitle的结构  
+以及当前选中ind
+
+
+20 Sep
+## buttonContainer重构
+选择人员时，删掉了判断是否重复的逻辑，如果有重复直接覆盖
+19 Sep 
+## palette修改
+在scope上增加了flowMasterGroups属性，
+
+在resource的stencilset里删除了My Object Group,  
+把一些components的Group改成了flowMaster
+
+---
+流程大师一期 
 ##更新测试环境
 scp -r design/* root@172.16.1.27:/root/volumes/nginx/bpm/design/
 

@@ -1,5 +1,7 @@
 import React,{createClass} from 'react'
-import BoardbuttonContainer from '../containers/BoardbuttonContainer'
+// import Button from '../containers/Button'
+import Button from '../DropdownButton'
+
 // import save from './save'
 import {connect} from 'react-redux'
 import { toJS, fromJS, List, Map } from 'immutable'
@@ -47,9 +49,9 @@ const ButtonContainer = ({state,dispatch,children,index,xClass}) => { //parallel
     }
     
     return ( 
-        <BoardbuttonContainer xClass={xClass} popupConfirm={add} action3={action3}>
+        <Button xClass={xClass} popupConfirm={add} action3={action3}>
             {children}
-        </BoardbuttonContainer>
+        </Button>
     )
 }
 

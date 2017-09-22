@@ -17,9 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
- var branchNodePropertyCtrl = ['$scope', function($scope) {
-     branchComponent.render()
- }];
+var branchNodePropertyCtrl = ['$scope', function($scope) {
+ branchComponent.render()
+}];
 
 var endPointPropertyCtrl = ['$scope', function($scope) {
     endPointComponent()
@@ -28,6 +28,7 @@ var endPointPropertyCtrl = ['$scope', function($scope) {
 var sequenceFlowPropertyCtrl = ['$scope', function($scope) {
 
 }];
+
 var branchSequenceFlowPropertyCtrl = ['$scope', function($scope) {
     branchSequenceFlowComponent.render()
 }];

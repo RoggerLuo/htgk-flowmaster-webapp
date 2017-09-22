@@ -6,9 +6,7 @@ import { connect } from 'react-redux'
 import Presentation from './Presentation'
 
 const Approve = ({repo,id}) => {
-    const currentRepo = repo.filter((el,index)=>{
-        return el.id == id
-    })
+    const currentRepo = repo.filter((el,index)=>el.id == id)
     const data = currentRepo && currentRepo[0] && currentRepo[0].data||[]
     return(
         <Presentation data={data} />
@@ -16,9 +14,8 @@ const Approve = ({repo,id}) => {
 }
 
 const mapStateToProps = (state) => {
-    return {repo:state.endpoint.approveListRepo,id:state.endpoint.id}
+    return {repo:state.endpoint.repo,id:state.endpoint.id}
 }
-
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
@@ -32,8 +29,7 @@ export default function(){
     render(
         <Provider store={store}>
                 <ApproveContainer />
-        </Provider>
-        ,
+        </Provider>,
         document.getElementById('endPointPropertyCtrl')
-    );
+    )
 }

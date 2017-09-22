@@ -1,8 +1,4 @@
-import {toJS,fromJS,List, Map} from 'immutable';
-
-// dispatch({type:'callPopup',options,content})
-// dispatch({type:'hidePopup',options,content})
-
+import {toJS,fromJS,List, Map} from 'immutable'
 let initial = {
     confirm(){},
     content:'',
@@ -19,11 +15,10 @@ const Reducer = (state = initial, action) => {
             return Object.assign({}, state, {
                 confirm:action.confirm||function(){},
                 content:action.content||'',
-                title:action.text||"请输入title",
+                title:action.title||"请输入title",
                 display:'',
                 height:action.height||'65%',
                 width:action.width||'50%',
-
             })
         case 'hidePopup':
             return Object.assign({}, state, {
