@@ -46,6 +46,12 @@ export default {
   'button.option1':"添加发起人上级",//''
   'button.option2':"添加机构角色",//
   'button.option3':"添加特定人员",//
+  'button.option4':"添加角色",//
+  'button.option5':"从表单中获取",//
+  'button.option6':"特定节点审批人",//
+  'button.option7':"SQL指定审批人",//
+  'button.option8':"二次开发",//
+
   'button.save':'保存',
 
   'popup.org1':"最近",//""

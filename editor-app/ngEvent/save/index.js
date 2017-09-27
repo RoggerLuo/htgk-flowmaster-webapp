@@ -1,66 +1,12 @@
-'use strict';
-import saveHandlerApprove from './saveHandlerApprove'
-import saveHandlerEndPoint from './saveHandlerEndPoint'
-
+'use strict'
+import saveHandlerApprove from './approve'
+import saveHandlerEndPoint from './endPoint'
 import { saveHandlerBranch, updateBranchText } from './branch'
-window.globalEvent = window.globalEvent || {}
 window.updateBranchText = updateBranchText
+import saveHandlerBranchNode from './branchNode'
+import saveHandlerParallel from './parallel'
 
-const saveHandlerBranchNode = (canvas) => {
-    canvas.children.forEach((el) => {
-        if (el._stencil._jsonStencil.title == 'Sequence flow') {
-            el.setProperty('defaultflow', "false")
-        }
-    })
-    window.reduxStore.getState().branchNode.repo.forEach((el) => {
-        let currentElement = canvas.getChildShapeByResourceId(el.choosed.value)
-        if (el.resourceId && !currentElement) {
-            return;
-        }
-        currentElement.setProperty('defaultflow', "true")
-        currentElement.setProperty('conditionsequenceflow', '')
-        currentElement.setProperty('reduxdata', '')
-    })
-}
-
-
-const saveHandlerParallel = (canvas) => {
-    window.reduxStore.getState().parallel.repo.forEach((el) => {
-        let currentElement = canvas.getChildShapeByResourceId(el.id)
-        if (el.id && !currentElement) {
-            return;
-        }
-
-        let jsonArray = []
-        el.data.forEach((group) => {
-            let innerArray = []
-            group.forEach((el, index) => {
-                switch (el.cate) {
-                    case "boss":
-                        innerArray.push({ "value": "boss" + "(" + el.value + ")", cate: el.cate, text: el.text, id: el.value })
-                        break
-                    case "role":
-                        innerArray.push({ "value": "role" + "(" + el.value2 + ":" + el.value + ")", cate: el.cate, text: el.text, id: el.value, value2: el.value2 })
-                        break
-                    case "EMPLOYEE":
-                        innerArray.push({ "value": "user" + "(" + el.value + ")", cate: el.cate, text: el.text, id: el.value })
-                        break
-                    case "ORG":
-                    case "DEPT":
-                        innerArray.push({ "value": "org" + "(" + el.value + ")", cate: el.cate, text: el.text, id: el.value })
-                        break
-                }
-            })
-            jsonArray.push(innerArray)
-        })
-        currentElement.setProperty('multiinstance_parties', jsonArray)
-        currentElement.setProperty('multiinstance_type', "parallel")
-        currentElement.setProperty('multiinstance_variable', "per")
-        currentElement.setProperty('usertaskassignment', { "assignment": { "candidateOwners": [{ "value": "${per}" }] } })
-    })
-}
-
-window.globalEvent.save = function($scope, $http) {
+export default function($scope, $http) {
     return function(callback) {
         window.reduxStore.dispatch({ type: 'saveDeactive' })
 
@@ -78,12 +24,14 @@ window.globalEvent.save = function($scope, $http) {
         /* 为空的限制条件 */
         if (window.globalEvent.checkEmpty($scope)) {
             window.reduxStore.dispatch({ type: 'saveActive' })
-            return;
+            return
         }
 
         /* 等待动画 */
         window.reduxStore.dispatch({ type: 'callSpin' })
 
+
+        /* 接下来是 activiti ng original的代码 */
         var json = $scope.editor.getJSON();
         json.properties.process_id = window.getQueryString("pid")
         json = JSON.stringify(json);
@@ -146,27 +94,25 @@ window.globalEvent.save = function($scope, $http) {
         })
 
         .success(function(data, status, headers, config) {
+            window.reduxStore.dispatch({ type: 'closeSpin' })
+            window.showAlert('保存成功', 'good')
 
-                window.reduxStore.dispatch({ type: 'closeSpin' })
-                window.showAlert('保存成功', 'good')
-
-                // Fire event to all who is listening
-                $scope.editor.handleEvents({
-                    type: ORYX.CONFIG.EVENT_SAVED
-                });
-
-                KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent);
-                callback()
-
-                console.log(json)
-                window.reduxStore.dispatch({ type: 'saveDeactive' })
-                window.localDesignData.clear(window.getQueryString("pid"))
-            })
-            .error(function(data, status, headers, config) {
-                $scope.error = {};
-                console.log('Something went wrong when updating the process model:' + JSON.stringify(data));
-                window.reduxStore.dispatch({ type: 'saveActive' })
+            // Fire event to all who is listening
+            $scope.editor.handleEvents({
+                type: ORYX.CONFIG.EVENT_SAVED
             });
-    };
 
+            KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent);
+            callback()
+
+            console.log(json)
+            window.reduxStore.dispatch({ type: 'saveDeactive' })
+            // window.localDesignData.clear(window.getQueryString("pid"))
+        })
+        .error(function(data, status, headers, config) {
+            $scope.error = {};
+            console.log('Something went wrong when updating the process model:' + JSON.stringify(data));
+            window.reduxStore.dispatch({ type: 'saveActive' })
+        })
+    }
 }

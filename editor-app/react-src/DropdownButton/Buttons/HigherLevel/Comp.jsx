@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Dropdown from '../../basicComp/Dropdown'
+import Dropdown from '../../../basicComp/Dropdown'
 
 const Component = ({data,dispatch,put,choosedOption}) => {    
     const choosed = (item)=>{

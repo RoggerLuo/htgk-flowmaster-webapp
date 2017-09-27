@@ -1,9 +1,8 @@
 import React,{createClass} from 'react';
 import { connect } from 'react-redux'
-import Dropdown from '../../basicComp/Dropdown'
+import Dropdown from '../../../basicComp/Dropdown'
 
 const Component = ({data1,data2,dispatch,put,choosedOption,choosedOption2}) => {    
-    
     const choosed = (item)=>{
         dispatch({type:'dropdown1Choose',item})
     }

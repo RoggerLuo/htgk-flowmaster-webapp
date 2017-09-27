@@ -70,7 +70,7 @@ export default function(modelData){
                         return  obj
                     })
                 })  
-                window.reduxStore.dispatch({type:'parallelDataInit',data:{data:theData,id:el.resourceId}})
+                window.reduxStore.dispatch({type:'parallel/dataInit',data:{data:theData,id:el.resourceId}})
                 delete modelData.childShapes[index].properties.multiinstance_parties
                 delete modelData.childShapes[index].properties.multiinstance_type
                 delete modelData.childShapes[index].properties.multiinstance_cardinality

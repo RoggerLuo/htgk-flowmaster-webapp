@@ -1,7 +1,7 @@
 import React,{createClass} from 'react'
 import CharacterContainer from '../CharacterContainer'
 import SolidFrame from '../../presentations/SolidFrame/SolidFrame'
-import BoardbuttonContainer from '../ButtonContainer'
+import Button from '../ButtonContainer'
 import './ApproveGroup.less'
 
 const ApproveGroup = ({data,mode,solidFrame,index,put}) => { 
@@ -14,11 +14,11 @@ const ApproveGroup = ({data,mode,solidFrame,index,put}) => {
                         <div style={{fontSize:'13px',paddingLeft:'2px'}}>{put('parallel.group',(index+1))}</div>
                     </div>
                     <div>
-                        <BoardbuttonContainer xClass={{right: '13px'}} index={index} >
+                        <Button xClass={{right: '13px'}} index={index} >
                             <div style={{cursor:'pointer',paddingLeft: '27px',color:'#00b0ff',fontSize:'12.5px'}} >
                                 {put('parallel.addGroup')}
                             </div>
-                        </BoardbuttonContainer>
+                        </Button>
                     </div>
                 </div>
             </SolidFrame>
@@ -31,7 +31,7 @@ const ApproveGroup = ({data,mode,solidFrame,index,put}) => {
                         <div style={{fontSize:'13px',paddingLeft:'6px',marginTop:'3px'}}>
                             {put('parallel.group',(index+1))}
                         </div>
-                        <BoardbuttonContainer index={index} 
+                        <Button index={index} 
                             xClass={{
                                 marginTop:'-14px',left: '16px',
                                 backgroundSize: '142px 140px',
@@ -44,7 +44,7 @@ const ApproveGroup = ({data,mode,solidFrame,index,put}) => {
                             <div style={{textAlign:'center',height: '50px',lineHeight: '50px'}}>
                                 <i style={{cursor:'pointer',fontSize:'20px',color:'#00b0ff'}} className="icon iconfont icon-jiahao2fill"></i>
                             </div>
-                        </BoardbuttonContainer>
+                        </Button>
                     </div>
                     <div style={{flex:'3.5',whiteSpace:'normal',marginLeft: '4px',marginTop:'1px'}}>
                         {data.map((el,index)=>{ //data 是 会签组, el是 一组character对象的array

@@ -723,14 +723,14 @@ angular.module('activitiModeler')
             };
 
             $scope.quickAddItem = function(newItemId) {
+                
                 $scope.safeApply(function() {
-
                     var shapes = $rootScope.editor.getSelection();
                     if (shapes && shapes.length == 1) {
-                        $rootScope.currentSelectedShape = shapes.first(); //first()是什么鬼，看来shapes数组里面 是一种特殊对象
-
-                        /*  为了从stencilSets里面获得newItemId这种类型的"node" 
-                            赋值给containedStencil
+                        $rootScope.currentSelectedShape = shapes.first()
+                        /*  
+                            从stencilSets里面获得newItemId这种类型的"node" 
+                            然后赋值给containedStencil
                         */
                         var containedStencil = undefined;
                         var stencilSets = $scope.editor.getStencilSets().values();
@@ -744,11 +744,9 @@ angular.module('activitiModeler')
                                 }
                             }
                         }
-
-                        if (!containedStencil) return;
+                        if (!containedStencil) return
 
                         //现在从stencilSets拿到了一个node，在containedStencil里
-
                         var option = { type: $scope.currentSelectedShape.getStencil().namespace() + newItemId, namespace: $scope.currentSelectedShape.getStencil().namespace() };
                         option['connectedShape'] = $rootScope.currentSelectedShape;
                         option['parent'] = $rootScope.currentSelectedShape.parent;
@@ -762,26 +760,18 @@ angular.module('activitiModeler')
                         } // Check if there can be a target shape
                         option['connectingType'] = targetStencil.id();
 
-                        //拼了一个option，传入CreateCommand（来自ORYX）,最后一个参数editor
-                        //返回command
 
-
-                        /* 我的条件限制 用来限制审批节点的分支数量 */
-                        if (!limitedCondition(option)) {
-                            return false;
-                        }
-
+                        /* roger: 我的条件限制 用来限制审批节点的分支数量 */
+                        if (!limitedCondition(option)) return false
 
                         var command = new KISBPM.CreateCommand(option, undefined, undefined, $scope.editor);
-                        //然后editor执行
-                        $scope.editor.executeCommands([command]);
-                        // window.activeSave()
-
+                        $scope.editor.executeCommands([command])
                     }
-                });
-            };
-
-        }); // end of $scope.editorFactory.promise block
+                })
+            }
+            window.quickAddItem = $scope.quickAddItem
+        })
+        // end of $scope.editorFactory.promise block
 
         /* Click handler for clicking a property */
         /* 不是固有属性，而是都可以编辑的，只是在点击的时候才变成编辑 */

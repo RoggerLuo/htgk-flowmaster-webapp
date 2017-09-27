@@ -1,7 +1,7 @@
 import React,{createClass} from 'react'
 import { connect } from 'react-redux'
 import store from '../../redux/configureStore.js'
-import titleAndClickLogic from './titleAndClickLogic'
+import getButtons from './Buttons'
 import './style.less'
 const BoardbuttonContainer = createClass({ 
     getInitialState(){
@@ -16,10 +16,10 @@ const BoardbuttonContainer = createClass({
     },
     close(){this.setState({display:'none'})},
     render(){
-        const xClass = this.props.xClass || {}
         const dispatch = this.props.dispatch
+        const data = getButtons(this.props.confirm, dispatch) 
+        const xClass = this.props.xClass || {}
         const menuClass = Object.assign({}, xClass, {display: this.state.display})
-        const data = titleAndClickLogic(this.props.confirm, dispatch) 
         return (
             <div className="boardbutton">
                 <div onClick={this.toggle}>
@@ -36,7 +36,7 @@ const BoardbuttonContainer = createClass({
                         )
                     })}
                 </div>
-                <div className="big-cover" style={{display:this.state.display}} onClick={close}></div>
+                <div className="big-cover" style={{display:this.state.display}} onClick={this.close}></div>
             </div>  
         )
     }
