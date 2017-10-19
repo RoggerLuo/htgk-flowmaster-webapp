@@ -5,26 +5,32 @@ import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
 import Presentation from './Presentation'
 
-const Approve = ({repo,id}) => {
-    const currentRepo = repo.filter((el,index)=>{
-        return el.id == id
-    })
-    const data = currentRepo && currentRepo[0] && currentRepo[0].data||[]
-    const chooseCallback = (e) => {
-        window.removeEventListener("message",chooseCallback, false)
-    }
-    const callDialogue = () => {
-        window.addEventListener('message',chooseCallback,false)
-        let message = {type:"openSelectUserPanel",value:"test",params:{pickerType:'people',title:'选择人员'}}
-        window.parent.postMessage(message,'*')
-    }
+const Approve = ({ currentRepo }) => {
+    if(!currentRepo[0]) return null
+
+    const data = currentRepo[0].data||[]
+    const cate = currentRepo[0].cate||false
+    // const chooseCallback = (e) => {
+    //     window.removeEventListener("message",chooseCallback, false)
+    // }
+    // const callDialogue = () => {
+    //     window.addEventListener('message',chooseCallback,false)
+    //     let message = {type:"openSelectUserPanel",value:"test",params:{pickerType:'people',title:'选择人员'}}
+    //     window.parent.postMessage(message,'*')
+    // }
     return(
-        <Presentation data={data} />
+        <Presentation data={data} cate={cate} />
     )
 }
 
 const mapStateToProps = (state) => {
-    return {repo:state.approve.repo,id:state.approve.id}
+    const repo = state.approve.repo
+    const id = state.approve.id
+    const currentRepo = repo.filter((el,index)=>el.id == id) || false
+
+    return {currentRepo} 
+
+
 }
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}

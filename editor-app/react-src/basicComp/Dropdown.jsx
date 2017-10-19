@@ -29,7 +29,7 @@ const Dropdown = createClass({
         }
         
         return(
-            <div className="drop-down" style={{flex:'1'}}>
+            <div className="drop-down" style={{flex:'1',margin: this.props.margin||'0 10px'}}>
                 <div style={{width: this.props.width||'152px',display: 'flex',visibility:'hidden'}} className="drop-down-choosed" onClick={this.toggle}>
                     <div className="choosed-text">{this.props.choosedOption && this.props.choosedOption.text}</div>
                     <div className="inverted-triangle" style={color}></div>

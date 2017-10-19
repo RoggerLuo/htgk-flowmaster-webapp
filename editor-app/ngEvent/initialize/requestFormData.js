@@ -29,7 +29,7 @@ const mapmap = {
     mobile:true,
     email:true,
     phone:true,
-    calculate:true
+    calculate:true,
 }
 
 export default function($http){
@@ -42,6 +42,9 @@ export default function($http){
             window.formProperties = []
             return  
         }
+        
+        global.formPeople = obj.components.filter(el=>el.type=="select_employee")
+
         const filteredComponents = obj.components.filter((el)=>{
             return !!mapmap[el.type]
         })

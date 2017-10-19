@@ -22,11 +22,10 @@ const uniqAdd = (data, item) => {
 export default reduceWrap('Multi user task', (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
-
-        case 'parallel/dataInit':
+        case 'parallel/init':
             return data.updateIn(['repo'], 'initial',
                 (el) => el.push(fromJS(action.data))
-            ).data.updateIn(['mode'], 'normal', (el) => 'normal').toJS()
+            ).updateIn(['mode'], 'normal', (el) => 'normal').toJS()
 
         case 'parallel/optionInit':
             if (ind == 'not exist') {
@@ -68,25 +67,10 @@ export default reduceWrap('Multi user task', (state, action, ind) => {
             }).toJS()
 
         case 'parallel/addChar':
-            // const flag = state.repo[currentIndex].data.some((el, index) => {
-            //     if (el.text == action.item.text) {
-            //         alert('已经存在"' + action.item.text + '"的选项')
-            //         return true
-            //     }
-            // })
-            // if (flag) {
-            //     return state 
-            // }
             const poolData = state.repo[ind].data[action.index]
-            // fromJS(uniqAdd(poolData, action.item))
-
             return data.updateIn(['repo', ind, 'data', action.index], 'initial', (el) => {
                 return fromJS(uniqAdd(poolData, action.item))
             }).toJS()
-
-            // return data.updateIn(['repo', ind], 'initial', (el) => {
-            //     return el.set('data', fromJS(uniqAdd(poolData, action.item)))
-            // }).toJS()
 
         case 'deleteCharacter':
             return data.updateIn(['repo', currentIndex, 'data', action.groupIndex], 'initial', (el) => {

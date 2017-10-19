@@ -1,10 +1,10 @@
 'use strict'
 import saveHandlerApprove from './approve'
 import saveHandlerEndPoint from './endPoint'
-import { saveHandlerBranch, updateBranchText } from './branch'
-window.updateBranchText = updateBranchText
+import saveHandlerBranch from './branch'
 import saveHandlerBranchNode from './branchNode'
 import saveHandlerParallel from './parallel'
+import checkEmpty from './checkEmpty'
 
 export default function($scope, $http) {
     return function(callback) {
@@ -22,7 +22,7 @@ export default function($scope, $http) {
         saveHandlerBranchNode(canvas)
 
         /* 为空的限制条件 */
-        if (window.globalEvent.checkEmpty($scope)) {
+        if (checkEmpty($scope)) {
             window.reduxStore.dispatch({ type: 'saveActive' })
             return
         }

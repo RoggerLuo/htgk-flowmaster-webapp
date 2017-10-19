@@ -58,6 +58,7 @@ export default function(event,$scope){
     if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'User task' 
         || selectedShape._stencil._jsonStencil.title == 'Multi user task'
         || selectedShape._stencil._jsonStencil.title == 'Exclusive gateway'
+        || selectedShape._stencil._jsonStencil.title == 'Manual task'
         )) {
         //控制边框颜色的办法
         // jQuery('#' + selectedShape.id)[0].children[3].children[0].style.fill = '#00b0ff' 

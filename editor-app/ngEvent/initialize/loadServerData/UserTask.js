@@ -16,4 +16,6 @@ export default function(el,index,modelData){
 
     global.reduxStore.dispatch({type:'approve/init',data:{data:approveData,id:el.resourceId}})
     delete modelData.childShapes[index].properties.usertaskassignment
+    delete modelData.childShapes[index].properties.dataSourceRef
+    delete modelData.childShapes[index].properties.dataSourceSTDdata
 }

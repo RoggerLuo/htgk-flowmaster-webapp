@@ -1,12 +1,7 @@
-'use strict';
-
-window.globalEvent =  window.globalEvent || {}
-window.globalEvent.checkEmpty =  window.globalEvent.checkEmpty || {}
-
-window.globalEvent.checkEmpty = ($scope) => {
+'use strict'
+export default ($scope) => { //checkEmpty
     let returnValue = false
-    var json = $scope.editor.getJSON()
-    
+    var json =  window.getRawJson() //$scope.editor.getJSON()
     //先检查是否连接上
     const checkConnect =  json.childShapes.some((el,index)=>{
         if(el.outgoing.length == 0){

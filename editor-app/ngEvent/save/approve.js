@@ -1,4 +1,4 @@
-export default function(canvas){
+export default function(canvas) {
     window.reduxStore.getState().approve.repo.forEach((el) => {
         let currentElement = canvas.getChildShapeByResourceId(el.id)
         if (el.id && !currentElement) {
@@ -19,6 +19,17 @@ export default function(canvas){
                 case "ORG":
                 case "DEPT":
                     jsonArray.push({ "value": "org" + "(" + el.value + ")", cate: el.cate, text: el.text, id: el.value })
+                    break
+                    // 这是所有审批类节点共用的 需要共用和优化
+                case "fromDb":
+                    jsonArray = {
+                        "value": "fromDb()",
+                        "cate": "fromDb",
+                        "text": "从DB中获取",
+                        "id": "1"
+                    }
+                    currentElement.setProperty('dataSourceRef', el.dataSourceRef)
+                    currentElement.setProperty('dataSourceSTDdata', el.dataSourceSTDdata)
                     break
             }
         })

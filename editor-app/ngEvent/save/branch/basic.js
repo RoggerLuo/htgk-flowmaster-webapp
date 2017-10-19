@@ -1,5 +1,6 @@
 'use strict'
 import Trim from './trim.js'
+
 export const ifEmptyWithoutInit = (canBeSaved) => {
     /* 在分支条件没有初始化的情况下，
         检查分支节点是否为空，
@@ -9,6 +10,9 @@ export const ifEmptyWithoutInit = (canBeSaved) => {
     window.windowCanvas.getChildNodes().filter((el) => {
         return el._stencil._jsonStencil.title == "Exclusive gateway"
     }).forEach((el) => {
+        /* 如果是 会签分支 */
+        if(global.isMultiGateway(el)) return 
+
         /*  update 空值不能提交 */
         el.outgoing.forEach((el2) => {
             if (!el2.properties.defaultflow) { //不存在,说明不是默认流向的分支
@@ -23,6 +27,9 @@ export const ifEmptyWithoutInit = (canBeSaved) => {
     return canBeSaved
 }
 export const ifEmpty = (el, currentElement) => {
+    const gateway = currentElement.incoming[0]
+    if( gateway && global.isMultiGateway(gateway)) return false
+
     if (el.conditions.some((condition, i) => {
             return condition.data.some((el, index) => {
                 if ((el.entry1.value == 'initial') ||

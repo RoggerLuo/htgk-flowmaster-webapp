@@ -1,50 +1,36 @@
 import React from 'react'
 import  './style'
-import CharacterContainer from './CharacterContainer'
 import Button from './ButtonConfig.jsx'
-import SolidFrame from '../presentations/SolidFrame/SolidFrame'
+import List from './List'
 
-const ApproveNode = ({data,put}) => {
-    let list = ''
-    let display1 = 'none'
-    let display2 = ''
-    if(data.length != 0){
-        list = (
-            <SolidFrame>
-                <div style={{padding:'2px'}}>
-                    {data.map((el,index)=>{ //data 是 会签组, el是 一组character对象的array
-                        return (<CharacterContainer index={index} el={el} key={index} />) //el 需要包含上一级 groupIndex
-                    })}
-                </div>
-            </SolidFrame> 
-        )
-        display2 = 'none'
-        display1 = ''
-    }
+const ApproveNode = ({ data, cate, put }) => {
+    const isListEmpty = data.length == 0
     return(
         <div className="react-approve">
             <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
-                <div style={{lineHeight: '30px'}} 
-                    className="property-row-title-only-font"
-                >
+                <div style={{lineHeight: '30px'}} className="property-row-title-only-font">
                     {put('approveNode.title.staff')}
                 </div>
                 
-                <div style={{display:display1}}>
+                {!isListEmpty?(
                     <Button>    
                         <i style={{paddingLeft: '1px'}} className="icon iconfont icon-tianjia"></i>
                     </Button>    
-                </div>
-            </div>            
-            <div style={{display:display2}}>
+                ):null}
+            </div>    
+
+            {isListEmpty?(
                 <Button>    
                     <div className="mybutton" >
                         {put('approveNode.button.add')}
                             <i className="icon iconfont icon-tianjia"></i>
                     </div>
                 </Button>    
-            </div>
-            {list}
+            ):null}
+            {!isListEmpty?(
+                <List data={data} cate={cate}/>
+            ):null}
+
             <div className="property-row-title">{put('approveNode.remark.title')}</div>
             <div className="property-row-content">{put('approveNode.remark.content')}</div>
         </div>

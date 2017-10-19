@@ -11,13 +11,11 @@ export default function(cb){
     return {
         confirm(){
             const state = global.reduxStore.getState()
-            if(roleIsEmpty(state)) return 
-            const text = '最近'+state.dropdown.dropdown1.text+'级分管，' + state.dropdown.dropdown2.text
+            if(!state.dropdown.dropdown2.value) return
             const item = {
-                cate:'role',
-                value:state.dropdown.dropdown1.value,
-                value2:state.dropdown.dropdown2.value,
-                text
+                cate:'form',
+                value:state.dropdown.dropdown2.value,
+                text:state.dropdown.dropdown2.text
             }
             cb(item)
             global.reduxStore.dispatch({type:'getBackToDefaultDp1'})

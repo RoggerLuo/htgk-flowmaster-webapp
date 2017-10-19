@@ -1,49 +1,4 @@
 'use strict'
-
-
-/* both ng and react */
-global.activeSave = () => {
-    global.reduxStore.dispatch({ type: 'saveActive' })
-}
-
-
-
-/* reactTools */
-/* 节点名称是否重复 */
-global.isRepeated = (name) => { 
-    return window.getRawJson().childShapes.some((el, index) => {
-        return el.properties.name == name
-    })
-}
-
-
-
-/* ngEvent */
-window.lastSelectedShape = false
-window.canvasFlag = false
-window.lastSelectedItem = false
-window.pidName = 'pidName'
-window.getQueryString = (name) => {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]);
-    return null;
-}
-//app.js
-import { fetchModelWrap } from './initialize'
-global.fetchModelWrap = fetchModelWrap
-//stencilcontroller.js
-global.beforeShapeUpdate = () => {
-    if (saveButton.flag) { //必须在页面tpl加载之后才加载
-        saveButton.render()
-        saveButton.flag = false
-    }
-    global.inputBlurred && global.inputBlurred()
-}
-
-
-
-
 /* UI 交互 */
 /* 和vue部分的阴影遮罩一致 */
 const shadowCallback = (e) => {

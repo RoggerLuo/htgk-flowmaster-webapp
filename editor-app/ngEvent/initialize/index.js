@@ -2,7 +2,7 @@
 import loadServerData from './loadServerData'
 import requestUserData from './requestUserData'
 import requestFormData from './requestFormData'
-import { getModel, getPid } from './requestCollection'
+import { getModel, getPid } from './getModelAndPid'
 
 export function fetchModelWrap($http, $rootScope) {
     const angularInit = (data) => {
@@ -10,20 +10,43 @@ export function fetchModelWrap($http, $rootScope) {
         $rootScope.modelData = angular.fromJson(data)
         $rootScope.editorFactory.resolve()
     }
-    const dataInit = (data) => {
-        if (!data.model.childShapes) { //第一次使用本地的配置
-            var modelUrl = KISBPM.URL.getModel(modelId)
-            $http({ method: 'GET', url: modelUrl }).success(angularInit(data))
-        } else {
-            loadServerData(data.model)
-            angularInit(data.model)
+    const dataInit = modelId => {
+        return (data) => {
+            if (!data.model.childShapes) { //第一次使用本地的配置
+                var modelUrl = KISBPM.URL.getModel(modelId)
+                $http({ method: 'GET', url: modelUrl }).success(angularInit)
+            } else {
+                loadServerData(data.model)
+                angularInit(data.model)
+            }
         }
     }
     return function(modelId) {
         requestUserData($http)
         requestFormData($http)
         getPid($http)
-        getModel(dataInit, $http)
+        getModel(dataInit(modelId), $http)
+
+
+        $http({    
+            method: 'GET',
+            url: window.globalHost + '/identity/organizations/customrole-assignments'
+        }).success(function (data) {
+            window.customRoles = data.data
+        })
+
+
+        $http({    
+            method: 'GET',
+            url: window.globalHost + '/source/dataSources?orgId='+window.getQueryString("orgId")
+        }).success(function (data) {
+            window.dataSources = data.data.map(el=>{
+                el.text = el.name
+                el.value = el.id
+                return el
+            })
+        })
+
     }
 }
 

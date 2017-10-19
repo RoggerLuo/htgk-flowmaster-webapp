@@ -34,7 +34,8 @@ const Reducer = (state = initial, action) => {
 
             }else{
                 return Object.assign({}, state, {
-                    dropdown1:{text:'一',value:'1'}
+                    dropdown1:{text:'一',value:'1'},
+                    dropdown2:{}
                 })
             }
         case 'updateRoleData':

@@ -17888,31 +17888,37 @@ ORYX.Plugins.Edit = Clazz.extend({
         var selection = this.facade.getSelection();
 
         /* roger edited delete */
-		var incomings = selection[0].incoming
-		var outgoings = selection[0].outgoing
-		var that = this
-		if(selection[0] && (selection[0]._stencil._jsonStencil.title == "Sequence flow")){
-		}else{
-			that.editDeleteCounterPart(incomings)
-			that.editDeleteCounterPart(outgoings)			
-		}
+        if(window.deleteNode){
+        	if(window.deleteNode(selection,this) == "stop") return
+        }
 		/* roger edited delete */
-
         var clipboard = new ORYX.Plugins.Edit.ClipBoard();
         clipboard.refresh(selection, this.getAllShapesToConsider(selection));
-        
 		var command = new ORYX.Plugins.Edit.DeleteCommand(clipboard , this.facade);
-                                       
 		this.facade.executeCommands([command]);
     },
-    editDeleteCounterPart: function(selection){
-        // var selection = this.facade.getSelection();
-
+    editDeleteCounterPart: function(selection){ //write by roger
+    	var that = this
+    	if(!selection[0]) return
+    	var incomings = selection[0].incoming
+    	var outgoings = selection[0].outgoing
+    	if(selection[0] && (selection[0]._stencil._jsonStencil.title == "Sequence flow")){
+    	
+    	}else{
+    		incomings && that.editDeleteCounterPart2(incomings)
+    		outgoings && that.editDeleteCounterPart2(outgoings)
+    	}
+        var clipboard = new ORYX.Plugins.Edit.ClipBoard();
+        clipboard.refresh(selection, this.getAllShapesToConsider(selection));        
+		var command = new ORYX.Plugins.Edit.DeleteCommand(clipboard , this.facade);
+		this.facade.executeCommands([command]);
+    },
+    editDeleteCounterPart2: function(selection){ //write by roger
+    	var that = this
+    	if(!selection[0]) return
         var clipboard = new ORYX.Plugins.Edit.ClipBoard();
         clipboard.refresh(selection, this.getAllShapesToConsider(selection));
-        
 		var command = new ORYX.Plugins.Edit.DeleteCommand(clipboard , this.facade);
-                                       
 		this.facade.executeCommands([command]);
     }
 }); 

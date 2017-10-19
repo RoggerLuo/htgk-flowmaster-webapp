@@ -7,8 +7,10 @@ export const tplMap = {
     'End error event':'errorNotify.html',         
     'End event':'notify.html',         
     'Start event':'start.html',         
-    'Exclusive gateway':'exclusive.html'
+    'Exclusive gateway':'exclusive.html',
+    "Manual task":"manualNode.html"
 }
+
 export const titleToCN = {
     "Start event":"开始",
     "End event":"结束",
@@ -16,7 +18,8 @@ export const titleToCN = {
     "User task":"审批",
     "Exclusive gateway":"分支",
     "End error event":"异常结束",
-    "Multi user task":"会签"
+    "Multi user task":"会签",
+    "Manual task":"人工节点"
 }
 // const titleToFormal = {
 //     "Start event": "StartNoneEvent",

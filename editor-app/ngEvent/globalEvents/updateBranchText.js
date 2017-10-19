@@ -1,5 +1,5 @@
 'use strict'
-export default () => {
+global.updateBranchText = () => {
     let canvas = window.windowCanvas
     window.reduxStore.getState().branch.dataRepo.forEach((el, index) => {
         let currentElement = canvas.getChildShapeByResourceId(el.id)

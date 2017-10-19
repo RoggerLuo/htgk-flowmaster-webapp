@@ -11,7 +11,7 @@ const giveName = (cate) => {
     }
     return name
 }
-
+global.giveName = giveName
 function autoNaming(selectedShape, $scope) {
     /* 
         selectedShape来自event

@@ -1,53 +1,4 @@
-'use strict';
-
-function limitedCondition(option) {
-    /* sequnce flow 的限制 */
-    if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'Exclusive gateway')) {
-        // window.showAlert('Exclusive gateway节点');
-    }
-    
-    /* 开始节点的限制 */
-    if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'Start event')) {
-        var branchCounter = 0;
-        option.connectedShape.outgoing.forEach(function(el) {
-            branchCounter += 1;
-        });
-        if (branchCounter >= 1) {
-            window.showAlert('开始节点不能有分支');
-            return false;
-        }
-    }
-
-    /* 审批节点的限制 */
-    if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'User task')) {
-        var branchCounter = 0;
-        option.connectedShape.outgoing.forEach(function(el) {
-            // if (el._stencil._jsonStencil.title == 'Sequence flow'){
-            branchCounter += 1;
-            // }
-        });
-        if (branchCounter >= 1) {
-            window.showAlert('审批节点不能有分支');
-            return false;
-        }
-    }
-    if (option.connectedShape && (option.connectedShape._stencil._jsonStencil.title == 'Multi user task')) {
-        var branchCounter = 0;
-        option.connectedShape.outgoing.forEach(function(el) {
-            // if (el._stencil._jsonStencil.title == 'Sequence flow'){
-            branchCounter += 1;
-            // }
-        });
-        if (branchCounter >= 1) {
-            window.showAlert('会签节点不能有分支');
-            return false;
-        }
-    }
-
-    return true;
-}
-
-'use strict';
+'use strict'
 angular.module('activitiModeler')
     .controller('StencilController', ['$rootScope', '$scope', '$http', '$modal', '$timeout', function($rootScope, $scope, $http, $modal, $timeout) {
         
@@ -762,7 +713,7 @@ angular.module('activitiModeler')
 
 
                         /* roger: 我的条件限制 用来限制审批节点的分支数量 */
-                        if (!limitedCondition(option)) return false
+                        if (!window.limitingRuleOfAdding(option)) return false
 
                         var command = new KISBPM.CreateCommand(option, undefined, undefined, $scope.editor);
                         $scope.editor.executeCommands([command])
@@ -1105,12 +1056,8 @@ angular.module('activitiModeler')
 
                         option.position = pos;
 
-
-
                         /* 我的条件限制 用来限制审批节点的分支数量 */
-                        if (!limitedCondition(option)) {
-                            return false;
-                        }
+                        if (!window.window.limitingRuleOfAdding(option)) return
 
 
                         if (containedStencil.idWithoutNs() !== 'SequenceFlow' && containedStencil.idWithoutNs() !== 'Association' &&
@@ -1152,9 +1099,7 @@ angular.module('activitiModeler')
 
                     
                     /* 我的条件限制 用来限制审批节点的分支数量 */
-                    if (!limitedCondition(option)) {
-                        return false;
-                    }
+                    if (!window.limitingRuleOfAdding(option)) return
 
 
 

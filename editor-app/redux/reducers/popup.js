@@ -5,12 +5,17 @@ let initial = {
     display:'none',
     title:'请输入title',
     height:'65%',
-    width:'50%'
+    width:'50%',
+    customRoles:[]
 }
 
 const Reducer = (state = initial, action) => {
     const data = fromJS(state)
     switch (action.type) {
+        case 'popup/update':
+            return Object.assign({}, state, {
+                customRoles:action.data
+            })
         case 'callPopup':
             return Object.assign({}, state, {
                 confirm:action.confirm||function(){},

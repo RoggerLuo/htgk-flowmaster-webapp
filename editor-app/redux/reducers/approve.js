@@ -15,19 +15,23 @@ export default reduceWrap('User task', (state, action, ind) => {
             }).toJS()
         case 'approve/add2pool':  //pushApproveList
             if (ind == 'not exist') {
-                const newCreate = fromJS({ id: state.id, data: [action.item] })
+                const newCreate = fromJS({ id: state.id, data: [action.item], cate: action.item.cate })
                 return data.updateIn(['repo'], 'initial', (el) => {
                     return el.push(newCreate)
                 }).toJS()
             }
             const poolData = state.repo[ind].data
-            return data.updateIn(['repo', ind], 'initial', (el) => {
+            return data.updateIn(['repo',ind,'cate'],'',(el)=>action.item.cate).updateIn(['repo', ind], 'initial', (el) => {
                 return el.set('data', fromJS(uniqAdd(poolData, action.item)))
             }).toJS()
         case 'approve/delChar':
             return data.updateIn(['repo', ind], 'initial', (el) => {
                 return el.set('data', el.get('data').delete(action.index))
             }).toJS()
+
+        case 'approve/clearPool':
+            return data.updateIn(['repo', ind, 'data'], [], (el) => fromJS([])).toJS()
+
         default:
             return state
     }

@@ -33,13 +33,13 @@ const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,h
                     {put(title)}
                 </div>
                 
-                <div className="content">
+                <div className="popupContent">
                     <div className="innerContent">
                         {children}
                     </div>
                 </div>
 
-                <div className="footer">
+                <div className="footer" >
                     <div className="button-group">
                         <div className="cancel" onClick={cancel}>
                             {put('global.cancel')}
