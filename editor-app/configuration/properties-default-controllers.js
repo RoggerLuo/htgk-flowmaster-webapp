@@ -17,8 +17,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
+var subflowPropertyCtrl = ['$scope', function($scope) {
+    window.subflowCompInitializer()
+}]
+var customPropertyCtrl = ['$scope', function($scope) {
+    window.customCompInitializer()
+}]
+var servicePropertyCtrl = ['$scope', function($scope) {
+    window.serviceCompInitializer()
+}]
+var manualPropertyCtrl = ['$scope', function($scope) {
+    window.manualCompInitializer()
+}]
+
 var branchNodePropertyCtrl = ['$scope', function($scope) {
- branchComponent.render()
+    branchComponent.render()
 }];
 
 var endPointPropertyCtrl = ['$scope', function($scope) {
@@ -49,59 +63,59 @@ var canvasPropertyCtrl = ['$scope', function($scope) {
     // }else{
     //     $scope.draft = ''    
     // }
-    $scope.draft = ''        
+    $scope.draft = ''
 }];
 
 
 
 
 var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
-    if($scope.selectedItem.title==''){
+    if ($scope.selectedItem.title == '') {
         $scope.selectedItem.title = giveName($scope.selectedItem.jsonStencilTitle)
         $scope.updatePropertyInModel({ key: 'oryx-name', value: $scope.selectedItem.title })
         window.activeSave()
     }
 
-    const blurImplementation = (enter) =>{
-        if(!window.namePropertyClicked){//如果没有初始化,那么切换到时候就不要保存,不然会保存成空白
-            return ;
+    const blurImplementation = (enter) => {
+        if (!window.namePropertyClicked) { //如果没有初始化,那么切换到时候就不要保存,不然会保存成空白
+            return;
         }
         window.namePropertyClicked = false //重新上锁
 
         // $scope.valueFlushed = true;
-        
+
         //这个暂时deprecated
         // if(enter == 'canvas') { 
-            // return ;
+        // return ;
         // }
 
         const mySelectedItem = window.lastSelectedItem
-        if(!mySelectedItem){return ;}
+        if (!mySelectedItem) { return; }
 
-        if(mySelectedItem.title == '') {
+        if (mySelectedItem.title == '') {
             window.showAlert('节点名称不能为空')
             mySelectedItem.title = window.currentSelectedShape.properties['oryx-name']
-            return ;
+            return;
         }
-        
+
         if (window.currentSelectedShape.properties['oryx-name'] != mySelectedItem.title) {
             /* 如果节点名称变更，才判断是否重复   因为不变更肯定与当前自己的名称重复 */
-            if(isRepeated(mySelectedItem.title)){ 
+            if (isRepeated(mySelectedItem.title)) {
                 window.showAlert('节点名称已重复，请重新修改再保存。')
                 mySelectedItem.title = window.currentSelectedShape.properties['oryx-name']
-                return ;
-            }                
+                return;
+            }
         }
 
         if (mySelectedItem.title) {
             mySelectedItem.title = mySelectedItem.title.replace(/(<([^>]+)>)/ig, "");
         }
         if (window.currentSelectedShape.properties['oryx-name'] != mySelectedItem.title) {
-            $scope.updatePropertyInModel({ key: 'oryx-name', value: mySelectedItem.title })            
+            $scope.updatePropertyInModel({ key: 'oryx-name', value: mySelectedItem.title })
             window.activeSave()
         }
     }
-    $scope.onchangeEqualClick=()=>{
+    $scope.onchangeEqualClick = () => {
         window.namePropertyClicked = true
         // if(!window.inputBlurred){
         //     window.inputBlurred = blurImplementation
@@ -117,14 +131,14 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
 
         /* 如果是直接切换item 则是每次都是空字符，这时候不能保存，如果保存则会用null string覆盖本来的名字 */
         /* 所以要分开时切换item的情况 和 不是切换的情况 */
-        
+
         // $scope.inputBlurred = blurImplementation
         // function(enter) {//enter为true则是切换，空字串不保存
-            
+
         // }
         /* 一定是要先编辑了，鼠标点了，才能blur */
         // window.inputBlurred = $scope.inputBlurred
-        
+
 
         $scope.$on('$destroy', function controllerDestroyed() {
             // if (!$scope.valueFlushed) {

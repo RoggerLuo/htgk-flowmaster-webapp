@@ -8,16 +8,6 @@ import Presentation from './Presentation'
 const Approve = ({ currentRepo }) => {
     if(!currentRepo[0]) return null
 
-    const data = currentRepo[0].data||[]
-    const cate = currentRepo[0].cate||false
-    // const chooseCallback = (e) => {
-    //     window.removeEventListener("message",chooseCallback, false)
-    // }
-    // const callDialogue = () => {
-    //     window.addEventListener('message',chooseCallback,false)
-    //     let message = {type:"openSelectUserPanel",value:"test",params:{pickerType:'people',title:'选择人员'}}
-    //     window.parent.postMessage(message,'*')
-    // }
     return(
         <Presentation data={data} cate={cate} />
     )

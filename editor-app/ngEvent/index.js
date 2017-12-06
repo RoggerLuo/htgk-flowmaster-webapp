@@ -1,7 +1,14 @@
 'use strict'
 import './globalEvents'
+import './restrictionRule'
 import save from './save'
-import {selectEvent,loadedEvent} from './oryxEvent'
+import selectEvent from './selectEvent'
+import loadedEvent from './loadedEvent'
+
+
+import './multiusertask'
+import './manual'
+
 window.myEvent = function($scope, $http) {
     $scope.lastSelectedUserTaskId = false
     $scope.propertyTpl = './editor-app/property-tpl/canvas.html'
@@ -23,6 +30,8 @@ window.myEvent = function($scope, $http) {
     /* 每次改变都激活保存 */
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_EXECUTE_COMMANDS, function(event) {
         window.activeSave()
+        // window.multiCompleteCheck()
+        window.everyMove()
     })
 }
 
@@ -30,4 +39,9 @@ import { fetchModelWrap } from './initialize'
 global.fetchModelWrap = fetchModelWrap
 
 import propertyRouter from './propertyRouter'
-window.afterShapeUpdate = propertyRouter
+import nameMultiBranch from './multiusertask/nameMultiBranch'
+
+window.afterShapeUpdate = ($scope, event) => {
+    propertyRouter($scope, event)
+    nameMultiBranch($scope, event)
+} 

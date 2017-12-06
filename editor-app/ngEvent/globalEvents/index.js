@@ -1,6 +1,6 @@
 'use strict'
 import './VUEcover'
-import './deleteNode'
+import './deleteEvent'
 import './updateBranchText'
 import './tool-oryx-identify-nodes'
 
@@ -10,11 +10,7 @@ global.activeSave = () => {
 }
 
 /* reactTools */
-global.isRepeated = (name) => { /* 节点名称是否重复 */
-    return window.getRawJson().childShapes.some((el, index) => {
-        return el.properties.name == name
-    })
-}
+
 
 /* ngEvent */
 window.lastSelectedShape = false

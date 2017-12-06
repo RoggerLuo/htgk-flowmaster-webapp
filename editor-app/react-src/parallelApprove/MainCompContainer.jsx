@@ -15,7 +15,6 @@ const MainCompContainer = ({data,mode,dispatch}) => {
         add(){
             dispatch({type:'addGroup'})            
             activeSave()
-
         },
         del(){
             dispatch({type:'modeChange',value:'delete'})            
@@ -37,8 +36,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
-
-
 
 
 const MainCompContainer2 = connect(

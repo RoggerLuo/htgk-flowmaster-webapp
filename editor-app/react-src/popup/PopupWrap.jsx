@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import './style'
 
-const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,height,width}) => {    
+const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,height,width,style}) => {    
     function cancel(){
         dispatch({type:'hidePopup'})
         window.hideShadow()
@@ -17,11 +17,9 @@ const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,h
     if(display=='none'){
         compClass1="slideOutUp "
         compClass2 = "fadeOut"
-
     }else{
         compClass1="slideInDown "
         compClass2 = "fadeInSpecial"
-
     }
     return(
         <div className={"popup-coverwrap "} style={{display:display}}>
@@ -34,7 +32,7 @@ const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,h
                 </div>
                 
                 <div className="popupContent">
-                    <div className="innerContent">
+                    <div className="innerContent" style={style||{display:'block'}}>
                         {children}
                     </div>
                 </div>

@@ -51,6 +51,8 @@ export default {
   'button.option6':"特定节点审批人",//
   'button.option7':"SQL指定审批人",//
   'button.option8':"二次开发",//
+  'button.option9':"添加触发的子流程",//
+  'button.option10':"外部回调",//
 
   'button.save':'保存',
 

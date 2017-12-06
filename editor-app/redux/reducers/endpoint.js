@@ -6,7 +6,7 @@ const uniqAdd = (data, item) => {
     data.push(item)
     return data
 }
-export default reduceWrap('End event', (state, action, ind) => {
+export default reduceWrap('End event', {},(state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
         case 'endpoint/init':

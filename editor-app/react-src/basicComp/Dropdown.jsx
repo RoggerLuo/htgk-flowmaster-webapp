@@ -9,7 +9,7 @@ import { render } from 'react-dom'
 import './dropdown.less'
 const Dropdown = createClass({
     getInitialState(){
-        const choosedOption = this.props.data[0]
+        const choosedOption = this.props.data && this.props.data[0] || []
         return {visibleStatus:'none',zIndex:'1',choosedOption:choosedOption}
     },
     toggle(e){
@@ -44,7 +44,7 @@ const Dropdown = createClass({
                         </tr>
                         <tr className="drop-down-options" style={{display:this.state.visibleStatus}}>
                             <td><div style={{maxHeight: '192px',overflow: 'auto'}} className="scrollbar">
-                                {this.props.data.map((el,index)=>{
+                                {this.props.data && this.props.data.map((el,index)=>{
                                     
                                     let className="text-wrap "
                                     if(el.value == (this.props.choosedOption && this.props.choosedOption.value)){
@@ -66,7 +66,7 @@ const Dropdown = createClass({
                                             <div className={className}>{el.text}</div>
                                         </div>                                                    
                                     )
-                                })}
+                                })||null}
                             </div></td>                
                         </tr>    
                     </tbody>

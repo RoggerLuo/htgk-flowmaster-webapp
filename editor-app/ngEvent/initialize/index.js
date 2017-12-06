@@ -2,7 +2,7 @@
 import loadServerData from './loadServerData'
 import requestUserData from './requestUserData'
 import requestFormData from './requestFormData'
-import { getModel, getPid } from './getModelAndPid'
+import { getModel, getPid, getProList } from './getOtherData'
 
 export function fetchModelWrap($http, $rootScope) {
     const angularInit = (data) => {
@@ -12,8 +12,11 @@ export function fetchModelWrap($http, $rootScope) {
     }
     const dataInit = modelId => {
         return (data) => {
+            // data.model = data //本地断网调试
             if (!data.model.childShapes) { //第一次使用本地的配置
                 var modelUrl = KISBPM.URL.getModel(modelId)
+                // debugger
+                // $http({ method: 'GET', url: '/resources/model/test.model.json' }).success(angularInit)
                 $http({ method: 'GET', url: modelUrl }).success(angularInit)
             } else {
                 loadServerData(data.model)
@@ -26,7 +29,7 @@ export function fetchModelWrap($http, $rootScope) {
         requestFormData($http)
         getPid($http)
         getModel(dataInit(modelId), $http)
-
+        getProList($http)
 
         $http({    
             method: 'GET',
@@ -34,7 +37,6 @@ export function fetchModelWrap($http, $rootScope) {
         }).success(function (data) {
             window.customRoles = data.data
         })
-
 
         $http({    
             method: 'GET',

@@ -5,6 +5,7 @@ import Button from './ButtonConfig.jsx'
 import SolidFrame from '../presentations/SolidFrame/SolidFrame'
 
 const ApproveNode = ({data,put}) => {
+    return null
     let list = ''
     let display1 = 'none'
     let display2 = ''

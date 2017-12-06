@@ -9,9 +9,7 @@ const Component = ({data,sectionTitle,put}) => {
         <div className="react-approve" >
             <SectionTitle {...sectionTitle} text={put('parallel.contentTitle')} /> 
             {data.map((el,index)=>{ //data是state.parallel.data， el是会签组group
-                return (
-                    <ApproveGroupContainer el={el} index={index} key={index}/>
-                )
+                return (<ApproveGroupContainer el={el} index={index} key={index}/>)
             })}
             <div className="property-row-title">{put('parallel.remark.title')}</div>
             <div className="property-row-content" 
@@ -19,10 +17,10 @@ const Component = ({data,sectionTitle,put}) => {
             >
                 {put('parallel.remark.content')}
             </div>
+            <div style={{height:'163px',width:'1px'}}></div>
         </div>
     )
 }
-
 
 import connectPut from 'react-put'
 const options = {mapPropToDictionary: (props)=>window.reactI18n}

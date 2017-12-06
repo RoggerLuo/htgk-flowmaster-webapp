@@ -12,7 +12,8 @@ const newRule = () => {
         "variableName": { value: 'initial', text: '请选择' }
     }
 }
-
+// 有多个 {id,data}
+//    data里又有多个不同的 refs
 let initial = {
     conditions: [newRule()],
     sql: "",
@@ -34,8 +35,24 @@ let initial = {
     */
 }
 export default (state = initial, action) => {
+// export default reduceWrap('all', {}, (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
+        // case 'sql/init':
+        //     if (ind == 'not exist') {
+        //         const basic = { id: state.id, data: initial} // cate: action.item.cate 
+        //         const newCreate = fromJS(basic)
+        //         return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate)).toJS()
+        //     }
+        //     return state
+        case 'sql/renew':
+            return initial
+
+        case 'sql/reload':
+            return action.savedSqlState
+        case 'sql/saveDataSourceRef':
+            return data.updateIn(['dataSourceRef'], '', (el) => action.dataSourceRef).toJS()
+
         case 'sql/chooseSource':
             return data.updateIn(['dataSource'], '', (el) => {
                 return action.item

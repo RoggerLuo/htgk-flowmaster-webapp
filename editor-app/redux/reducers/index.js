@@ -9,8 +9,11 @@ import parallel from './parallel'
 import common from './common'
 import endpoint from './endpoint'
 import branchNode from './branchNode'
-import manualTask from './manualTask'
+import manual from './manual'
 import sql from './sql'
+import service from './service'
+import custom from './custom'
+import subflow from './subflow'
 
 
 const rootRuducer = combineReducers({
@@ -24,8 +27,10 @@ const rootRuducer = combineReducers({
     common,
     endpoint,
     branchNode,
-    manualTask,
-    sql
+    manual,
+    sql,custom,
+    service,
+    subflow
 })
 
 export default rootRuducer

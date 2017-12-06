@@ -3,32 +3,30 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
 import PopupWrap from './PopupWrap'
+import ForSubflow from './ForSubflow'
 import store from '../../redux/configureStore'
 
-const Component = ({width,title,confirm,content,height}) => {
-    const options = {confirm,title,height,width}
+const Component = ({width,title,confirm,content,height,isSubflow,style}) => {
+    const options = {confirm,title,height,width,style}
     const Content = content
     if(Content == '') return (<div></div>)
+    let Wrap = PopupWrap
+    if(isSubflow)    Wrap = ForSubflow
     return (
-        <PopupWrap {...options}>
+        <Wrap {...options}>
             <Content />
-        </PopupWrap>
+        </Wrap>
     )
 }
 
-    
 const mapStateToProps = (state) => {
     return state.popup
 }
-
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
 
-const ComponentContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Component)
+const ComponentContainer = connect(mapStateToProps,mapDispatchToProps)(Component)
 
     
 export default function(){

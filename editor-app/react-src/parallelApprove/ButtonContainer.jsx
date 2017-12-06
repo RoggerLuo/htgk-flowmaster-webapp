@@ -1,66 +1,35 @@
 import React,{createClass} from 'react'
 import Button from '../DropdownButton'
 import {connect} from 'react-redux'
-import { toJS, fromJS, List, Map } from 'immutable'
+import confirmGenerator from '../confirmGenerator'
 
-const ButtonContainer = ({state,dispatch,children,index,xClass}) => { //parallel 个性化版本  button
-    // const isDupli = (item)=>{
-    //     let data = fromJS(state.parallel)
-    //     const currentIndex = data.get('repo').findKey((el) => el.get('id') == state.parallel.id) //如果这里找不到会怎么样
-    //     const flag = state.parallel.repo[currentIndex].data[index].some((el, index) => {
-    //         if (el.text == item.text) {
-    //             window.showAlert('已经存在"' + item.text + '"的选项')
-    //             return true
-    //         }
-    //     })
-    //     return flag        
-    // }
+const ButtonContainer = ({currentRepo,dispatch,children,index,xClass}) => { 
     const add = (item) => {
-        // if(isDupli(item)){
-        //     return ;
-        // }
-        dispatch({type:'parallel/addChar',item,index}) //点击popup的确定按钮时返回 popup选择的item
+        dispatch({type:'parallel/addChar',item,index}) //index是group index
         window.activeSave() 
     }
-
-    // const action3 = ()=>{
-    //     const chooseCallback = (e) => {
-    //         window.removeEventListener("message",chooseCallback, false)
-    //         e.data.value.forEach((el)=>{
-    //             let item = {
-    //                 text:el.name,
-    //                 value:el.id,
-    //                 cate:'EMPLOYEE'//el.type
-    //             }
-    //             if(isDupli(item)){
-    //                 return ;
-    //             }
-
-    //             dispatch({type:'addCharacter',item,index}) //点击popup的确定按钮时返回 popup选择的item
-    //         })
-    //         window.activeSave() 
-    //     }
-    //     window.addEventListener('message',chooseCallback,false)
-    //     let message = {type:"openSelectUserPanel",value:"",params:{pickerType:'onlyPeople',title:'选择人员',orgId:window.getQueryString("rootOrgId")}}
-    //     window.parent.postMessage(message,'*')
-    // }
-    
+    const clear = () => dispatch({type:'parallel/clear',index}) //index是group index
+    const reduxCate = ( //reduxCate是从现有的第一个item上获取的
+        currentRepo.data 
+        && currentRepo.data[index]
+        && currentRepo.data[index][0]
+        && currentRepo.data[index][0].cate || false)
+    const confirmFunction = confirmGenerator({reduxCate,add,clear})
     return ( 
-        <Button xClass={xClass} confirm={add}>
+        <Button xClass={xClass} confirm={confirmFunction} existCate={reduxCate} groupInd={index}>
             {children}
         </Button>
     )
 }
 
 const mapStateToProps = (state) => {
-    return {state}
+    const filteredRepo = state.parallel.repo.filter((el,index)=>el.id == state.parallel.id)
+    const currentRepo = filteredRepo[0] && filteredRepo[0] || false
+    return { currentRepo }
 }
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ButtonContainer)
+export default connect(mapStateToProps,mapDispatchToProps)(ButtonContainer)
 

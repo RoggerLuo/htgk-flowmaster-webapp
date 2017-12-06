@@ -1,10 +1,8 @@
 import { toJS, fromJS, List, Map } from 'immutable'
-const initial = {
-    repo: [],
-    id:''
-}
-export default function(stencilTitle, cb){
-    return function(state = initial, action) {
+const initial = {repo: [],id:''}
+export default function(stencilTitle, initialState = initial, cb ){
+    initialState = Object.assign({}, initial, initialState)
+    return function(state = initialState, action) {
         //if切换组件
         if (action.type == 'switchElement') { 
             return Object.assign({}, state, { id: action.nextId, stencilTitle: action.nextStencilTitle })

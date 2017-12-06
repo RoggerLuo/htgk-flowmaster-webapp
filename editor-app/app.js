@@ -84,14 +84,11 @@ activitiModeler
 		          }
 		      };
 	  
-	  
             /**
              * Initialize the event bus: couple all Oryx events with a dispatch of the
              * event of the event bus. This way, it gets much easier to attach custom logic
              * to any event.
              */
-
-             
 
             function initScrollHandling() {
                 var canvasSection = jQuery('#canvasSection');
@@ -122,15 +119,12 @@ activitiModeler
                         obj.style.display = 'none';
                     });
 
-
-
                     $rootScope.editor.handleEvents({type:ORYX.CONFIG.EVENT_CANVAS_SCROLL});
                 });
 
                 canvasSection.scrollStopped(function(){
 
                     // Puts the quick menu items and resizer back when scroll is stopped.
-
                     $rootScope.editor.setSelection([]); // needed cause it checks for element changes and does nothing if the elements are the same
                     $rootScope.editor.setSelection($rootScope.selectedElements, $rootScope.subSelectionElements);
                     $rootScope.selectedElements = undefined;
@@ -147,7 +141,6 @@ activitiModeler
                     jQuery('.Oryx_button').each(function(i, obj) {
                         handleDisplayProperty(obj);
                     });
-                    
                     jQuery('.resizer_southeast').each(function(i, obj) {
                         handleDisplayProperty(obj);
                     });
@@ -161,8 +154,6 @@ activitiModeler
             /**
              * Initialize the Oryx Editor when the content has been loaded
              */
-            // includeContentLoaded这个事件在哪
-            // editorInitialized这个属性在哪
             $rootScope.$on('$includeContentLoaded', function (event) {
 	            if (!$rootScope.editorInitialized) {
 
@@ -350,7 +341,6 @@ activitiModeler
                     { oryxType : ORYX.CONFIG.EVENT_DBLCLICK, kisBpmType : KISBPM.eventBus.EVENT_TYPE_DOUBLE_CLICK },
                     { oryxType : ORYX.CONFIG.EVENT_MOUSEOUT, kisBpmType : KISBPM.eventBus.EVENT_TYPE_MOUSE_OUT },
                     { oryxType : ORYX.CONFIG.EVENT_MOUSEOVER, kisBpmType : KISBPM.eventBus.EVENT_TYPE_MOUSE_OVER }
-
                 ];
 
                 //代理：把Oryx事件都 映射到 ksbpm事件

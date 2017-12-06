@@ -3,8 +3,12 @@ export default function(el,index,modelData){
     if(!el.properties.multiinstance_parties) return 
     theData = el.properties.multiinstance_parties.map((el2)=>{
         return el2.map((el3)=>{ 
+            if(el3.cate == "fromDb"){
+                
+                return el3   
+            }
             let obj = {cate:el3.cate,value:el3.id,text:el3.text}
-            if(el3.value2) obj.value2 = el3.value2
+            if(el3.value2) obj.value2 = el3.value2                
             return  obj
         })
     })  

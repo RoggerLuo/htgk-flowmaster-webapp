@@ -23,7 +23,6 @@ const Option = ({click,el,put,choosedOption}) =>{
         </div>
     )           
 }
-
 /*
     视图只负责输出，
     技术上来说 text和value中，value都可以不需要的
@@ -39,7 +38,7 @@ const DropdownRaw = ({options,choose,choosedOption,display,toggle,close,put,useP
         put = (value)=>value
     }
     return (
-        <div className="branch-dropdown" style={{flex:'1'}}>
+        <div className="branch-dropdown" style={{flex:'1',zIndex:'999'}}>
             <div style={{display: 'flex'}} className="drop-down-choosed" onClick={toggle}>
                 <div style={{overflow: 'hidden'}}>{put(choosedOption.text)}</div> 
                 <div className="inverted-triangle">

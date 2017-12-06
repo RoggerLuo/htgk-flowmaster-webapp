@@ -1,7 +1,12 @@
 'use strict'
-import { titleToCN } from "./config"
+import { titleToCN } from "./conf"
 
-const giveName = (cate) => {
+global.isRepeated = (name) => { /* 节点名称是否重复 */
+    return window.getRawJson().childShapes.some((el, index) => {
+        return el.properties.name == name
+    })
+}
+global.giveName = (cate) => {
     /* 如果“审批”有3个，那就是“审批3”，如果重复，则加1，加到不重复为止 */
     let num = 1
     let name = titleToCN[cate] + num
@@ -11,7 +16,7 @@ const giveName = (cate) => {
     }
     return name
 }
-global.giveName = giveName
+
 function autoNaming(selectedShape, $scope) {
     /* 
         selectedShape来自event

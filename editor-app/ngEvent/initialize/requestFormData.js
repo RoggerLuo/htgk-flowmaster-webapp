@@ -37,7 +37,10 @@ export default function($http){
     $http({    
         method: 'GET', url
     }).success(function (data) {
-        const obj = JSON.parse(data.formDefinition)
+        let obj = false
+        if(data.formDefinition != ""){
+            obj = JSON.parse(data.formDefinition)
+        }
         if(!obj){
             window.formProperties = []
             return  

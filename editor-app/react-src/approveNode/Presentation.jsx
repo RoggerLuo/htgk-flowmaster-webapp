@@ -1,17 +1,17 @@
 import React from 'react'
 import  './style'
-import Button from './ButtonConfig.jsx'
-import List from './List'
+import Button from './ButtonConf'
+import RolesFrame from './RolesFrameConf'
+import NextHalfText from './NextHalfText'
 
-const ApproveNode = ({ data, cate, put }) => {
-    const isListEmpty = data.length == 0
+const ApproveNode = ({ currentRepo, put }) => {
+    const isListEmpty = currentRepo.length == 0
     return(
         <div className="react-approve">
             <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
                 <div style={{lineHeight: '30px'}} className="property-row-title-only-font">
                     {put('approveNode.title.staff')}
                 </div>
-                
                 {!isListEmpty?(
                     <Button>    
                         <i style={{paddingLeft: '1px'}} className="icon iconfont icon-tianjia"></i>
@@ -28,11 +28,9 @@ const ApproveNode = ({ data, cate, put }) => {
                 </Button>    
             ):null}
             {!isListEmpty?(
-                <List data={data} cate={cate}/>
+                <RolesFrame data={data}/>
             ):null}
-
-            <div className="property-row-title">{put('approveNode.remark.title')}</div>
-            <div className="property-row-content">{put('approveNode.remark.content')}</div>
+            <NextHalfText put={put}/>
         </div>
     )
 }

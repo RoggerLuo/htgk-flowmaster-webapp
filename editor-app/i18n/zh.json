@@ -1,5 +1,6 @@
 {    
     "NODE.NAME":"节点名称",
+    "NODE.RESOURCEID":"节点ID",
     "EDITOR.SAVE":"保存",
     "NODE.BIG.TITLE":"节点设置",
     
@@ -10,6 +11,11 @@
     "SequenceFlow":"连线",
     "EndNoneEvent":"结束",
     "StartNoneEvent":"开始",
+    "ServiceTask":"传阅节点",
+    "ParallelGateway":"并行分支节点",
+    "InclusiveGateway":"并行汇聚节点",
+    "CustomTask":"自定义任务节点",
+
 
     "Start event":"开始",
     "End event":"结束",
@@ -19,6 +25,11 @@
     "End error event":"异常结束",
     "Multi user task":"会签节点",
     "Manual task":"人工节点",
+    "Service task":"传阅节点",
+    "Parallel gateway":"并行分支节点",
+    "Inclusive gateway":"并行汇聚节点",
+    "Custom task":"自定义任务节点",
+    "Subflow":"子流程",
 
     "Line.remark":"普通连线",
     "BranchLine":"分支连线",

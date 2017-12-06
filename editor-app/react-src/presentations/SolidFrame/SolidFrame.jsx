@@ -1,7 +1,7 @@
 import React,{createClass} from 'react';
 import './style'
 
-const SolidFrame = ({del,mode,children}) => { //click点击删除,modeSwitch=='delete',children
+const SolidFrame = ({del,mode,children,innerStyle,outerStyle}) => { //click点击删除,modeSwitch=='delete',children
     // let style = "1px solid #c5c5c5"
     let display = "none"
     let style
@@ -25,10 +25,9 @@ const SolidFrame = ({del,mode,children}) => { //click点击删除,modeSwitch=='d
     }
     return(
         <div className="solid-frame-container">
-            <div className="solid-frame" style={style}>
-                <div style={{padding: '7px 0'}}>{children}</div>
+            <div className="solid-frame" style={style} style={outerStyle||{}}>
+                <div style={innerStyle||{padding: '7px 7px'}}>{children}</div>
             </div>
-            
             <i 
                 onClick={del} 
                 className="icon iconfont icon-guanbi2fill" 

@@ -3,9 +3,10 @@ import CharacterContainer from '../CharacterContainer'
 import SolidFrame from '../../presentations/SolidFrame/SolidFrame'
 import Button from '../ButtonContainer'
 import './ApproveGroup.less'
+import RoleComp from '../RolesFrameConf'
 
 const ApproveGroup = ({data,mode,solidFrame,index,put}) => { 
-
+    const cate = data && data[0] && data[0].cate || false
     if(mode == 'initial'){
         return (
             <SolidFrame {...solidFrame}> 
@@ -47,16 +48,18 @@ const ApproveGroup = ({data,mode,solidFrame,index,put}) => {
                         </Button>
                     </div>
                     <div style={{flex:'3.5',whiteSpace:'normal',marginLeft: '4px',marginTop:'1px'}}>
-                        {data.map((el,index)=>{ //data 是 会签组, el是 一组character对象的array
-                            return (<CharacterContainer index={index} el={el} key={index} />) //el 需要包含上一级 groupIndex
-                        })}
+                        <RoleComp data={data} cate={cate} index={index}/>
                     </div>
                 </div>
             </SolidFrame>
         )
     }
 }
-
+/*
+{data.map((el,index)=>{ //data 是 会签组, el是 一组character对象的array
+    return (<CharacterContainer index={index} el={el} key={index} />) //el 需要包含上一级 groupIndex
+})}
+*/
 import connectPut from 'react-put'
 const options = {mapPropToDictionary: (props)=>window.reactI18n}
 const ConnectedApp = connectPut(options)(ApproveGroup)

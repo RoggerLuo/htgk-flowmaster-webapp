@@ -15,13 +15,6 @@ angular.module('activitiModeler')
             });
         };
 
-        /*
-            $scope.editorFactory.promise 这个方法的目的就是初始化以下属性：
-            $scope.stencilItemGroups
-            $scope.morphingRules 
-            $scope.containmentRules 
-        */
-
         // Code that is dependent on an initialised Editor is wrapped in a promise for the editor
         $scope.editorFactory.promise.then(function() {
 
@@ -60,6 +53,12 @@ angular.module('activitiModeler')
                     'UserTask',
                     'ExclusiveGateway',
                     'MultiUserTask',
+                    'ManualTask',
+                    'ServiceTask',
+                    'CustomTask',
+                    'Subflow',
+                    'ParallelGateway',
+                    'InclusiveGateway',
                     // 'MuleTask',
                     // 'EndErrorEvent',
                     // 'EndNoneEvent', 
@@ -137,15 +136,6 @@ angular.module('activitiModeler')
                             }
                         }
                     }
-
-                    // Construct the stencil item
-                    /* 这是把 stencils又映射成另一个item */
-                    /* 现在还在data.stencils的for循环里面 */
-                    /* 映射是为了什么目的呢？ */
-                    /*
-                        就把 title改成name
-                        还加了cuntomIcon, canConnect等属性
-                    */
 
                     var stencilItem = {
                         'id': data.stencils[stencilIndex].id,
@@ -366,6 +356,8 @@ angular.module('activitiModeler')
                     var selectedItem = { 'title': '', 'properties': [] };
 
                     selectedItem.jsonStencilTitle = selectedShape._stencil._jsonStencil.title;
+                    //我手动加的，为了能显示resourceId
+                    selectedItem.resourceId = selectedShape.resourceId
 
                     if (canvasSelected) { //如果选了画布，尼玛这个逻辑太散了吧,不能写在一起吗
                         selectedItem.auditData = { //这个字段什么用，不管了先
@@ -475,16 +467,7 @@ angular.module('activitiModeler')
                         window.afterShapeUpdate($scope,event) 
                         
                         window.lastSelectedItem = selectedItem;
-                        /* 
-                            一共有
-                            window.lastSelectedItem
-                            window.lastSelectedShape
-
-                            $scope.selectedShape
-                            $scope.selectedItem
-
-                            4个，不要弄混淆了
-                        */
+                        
                     });
 
                 } else {
@@ -713,7 +696,7 @@ angular.module('activitiModeler')
 
 
                         /* roger: 我的条件限制 用来限制审批节点的分支数量 */
-                        if (!window.limitingRuleOfAdding(option)) return false
+                        if (!window.restrictionRule(option)) return false
 
                         var command = new KISBPM.CreateCommand(option, undefined, undefined, $scope.editor);
                         $scope.editor.executeCommands([command])
@@ -1057,7 +1040,7 @@ angular.module('activitiModeler')
                         option.position = pos;
 
                         /* 我的条件限制 用来限制审批节点的分支数量 */
-                        if (!window.window.limitingRuleOfAdding(option)) return
+                        if (!window.restrictionRule(option)) return
 
 
                         if (containedStencil.idWithoutNs() !== 'SequenceFlow' && containedStencil.idWithoutNs() !== 'Association' &&
@@ -1099,7 +1082,7 @@ angular.module('activitiModeler')
 
                     
                     /* 我的条件限制 用来限制审批节点的分支数量 */
-                    if (!window.limitingRuleOfAdding(option)) return
+                    if (!window.restrictionRule(option)) return
 
 
 

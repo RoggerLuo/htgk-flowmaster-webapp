@@ -19,20 +19,18 @@ const uniqAdd = (data, item) => {
     return data
 }
 
-export default reduceWrap('Multi user task', (state, action, ind) => {
+export default reduceWrap('Multi user task',{}, (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
-        case 'parallel/init':
+        case 'parallel/init': //very beginning start 
             return data.updateIn(['repo'], 'initial',
                 (el) => el.push(fromJS(action.data))
             ).updateIn(['mode'], 'normal', (el) => 'normal').toJS()
 
-        case 'parallel/optionInit':
-            if (ind == 'not exist') {
-                window.quickAddItem('ExclusiveGateway')
-                const newCreate = fromJS({ id: state.id, data: [
-                        []
-                    ] })
+        case 'parallel/newNodeInit': //
+            if (ind == 'not exist') { 
+                action.init()
+                const newCreate = fromJS({ id: state.id, data: [[]], sqlData:[]}) 
                 return data.updateIn(['repo'], 'initial', (el) => {
                     return el.push(newCreate)
                 }).toJS()
@@ -50,9 +48,7 @@ export default reduceWrap('Multi user task', (state, action, ind) => {
             })
         case 'addGroup':
             if (ind == 'not exist') {
-                const newCreate = fromJS({ id: state.id, data: [
-                        []
-                    ] })
+                const newCreate = fromJS({ id: state.id, data: [[]] }) //cate:false
                 return data.updateIn(['repo'], 'initial', (el) => {
                     return el.push(newCreate)
                 }).toJS()
@@ -66,14 +62,19 @@ export default reduceWrap('Multi user task', (state, action, ind) => {
                 return el.delete(action.groupIndex)
             }).toJS()
 
+        case 'parallel/clear':
+            return data.updateIn(['repo', ind, 'data', action.index], [], (el) =>[]).toJS()
+
         case 'parallel/addChar':
             const poolData = state.repo[ind].data[action.index]
-            return data.updateIn(['repo', ind, 'data', action.index], 'initial', (el) => {
-                return fromJS(uniqAdd(poolData, action.item))
-            }).toJS()
+            return data
+                // deprecated .updateIn(['repo', ind, 'cate'], '', (el) => action.item.cate)
+                .updateIn(['repo', ind, 'data', action.index], 'initial', (el) => {
+                    return fromJS(uniqAdd(poolData, action.item))
+                }).toJS()
 
-        case 'deleteCharacter':
-            return data.updateIn(['repo', currentIndex, 'data', action.groupIndex], 'initial', (el) => {
+        case 'parallel/delelteRole':
+            return data.updateIn(['repo', ind, 'data', action.groupIndex], 'initial', (el) => {
                 return el.delete(action.characterIndex)
             }).toJS()
 
