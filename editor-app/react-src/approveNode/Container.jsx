@@ -6,7 +6,9 @@ import { connect } from 'react-redux'
 import Presentation from './Presentation'
 
 const Approve = ({ currentRepo }) => {
-    if(!currentRepo[0]) return null
+    // if(!currentRepo[0]) return null
+    const data = currentRepo[0]&&currentRepo[0].data||[]
+    const cate = currentRepo[0]&&currentRepo[0].cate||false
 
     return(
         <Presentation data={data} cate={cate} />

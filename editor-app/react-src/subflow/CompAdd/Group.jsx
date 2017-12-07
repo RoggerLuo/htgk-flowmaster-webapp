@@ -4,7 +4,7 @@ import List from './List'
 export default class Group extends React.Component { 
     constructor(props) {
         super(props)
-        this.state = { isOpen: false }
+        this.state = { isOpen: true }
         this.click = this.click.bind(this)
     }
     click(event){

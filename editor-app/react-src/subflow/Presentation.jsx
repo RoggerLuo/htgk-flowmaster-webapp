@@ -28,7 +28,7 @@ const ApproveNode = ({ currentRepo, put, add, setting }) => {
             ):(
                 <SolidFrame>
                     <div style={{display:'flex',justifyContent:'space-between'}}>
-                        <div>维修申请单</div> 
+                        <div>{currentRepo.subProcess.name||''}</div> 
                         <i 
                             onClick={setting} 
                             style={{paddingLeft: '1px'}} 

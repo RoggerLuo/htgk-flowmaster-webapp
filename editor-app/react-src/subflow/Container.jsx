@@ -9,7 +9,7 @@ import CompSetting from './CompSetting'
 
 const Approve = ({ currentRepo, dispatch }) => {
     if(!currentRepo) return null
-    // const data = currentRepo.data||[]
+
     const add = () => {
         dispatch({
             content:CompAdd,

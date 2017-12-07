@@ -4,8 +4,8 @@ import Button from './ButtonConf'
 import RolesFrame from './RolesFrameConf'
 import NextHalfText from './NextHalfText'
 
-const ApproveNode = ({ currentRepo, put }) => {
-    const isListEmpty = currentRepo.length == 0
+const ApproveNode = ({ data, put }) => {
+    const isListEmpty = data.length == 0
     return(
         <div className="react-approve">
             <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
