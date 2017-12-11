@@ -19,7 +19,8 @@ export default function(el,index,modelData){
             data:{
                 data:el.properties.reduxData.data,
                 id:el.properties.reduxData.id,
-                subProcess:el.properties.reduxData.subProcess
+                subProcess:el.properties.reduxData.subProcess,
+                isWaiting:el.properties.reduxData.isWaiting
             }
         })        
     }

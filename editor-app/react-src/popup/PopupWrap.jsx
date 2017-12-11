@@ -31,7 +31,7 @@ const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,h
                     {put(title)}
                 </div>
                 
-                <div className="popupContent">
+                <div className="popupContent" >
                     <div className="innerContent" style={style||{display:'block'}}>
                         {children}
                     </div>

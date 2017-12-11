@@ -28,6 +28,8 @@ const uniqAdd = (data, item) => {
 
 
 */
+const newCreate = (id, data) => fromJS({ id, data, isWaiting: true, subProcess: {} })
+
 export default reduceWrap('Subflow', {}, (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
@@ -37,43 +39,28 @@ export default reduceWrap('Subflow', {}, (state, action, ind) => {
             }).toJS()
 
         case 'subflow/newNodeInit':
-            if (ind == 'not exist') {
-                const newCreate = fromJS({ id: state.id, data: [] })
-                return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate)).toJS()
-            }
+            if (ind == 'not exist') return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate(state.id, []))).toJS()                  
             return state
 
         case 'subflow/add':
-            if (ind == 'not exist') {
-                const basic = { id: state.id, data: [action.item] } // cate: action.item.cate 
-                const newCreate = fromJS(basic)
-                return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate)).toJS()
-            }
-            return data.updateIn(['repo', ind], 'initial', (el) => {
-                return el.set('subProcess', action.subProcess)
-            }).toJS()
+            if (ind == 'not exist') return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate(state.id, [action.item]))).toJS()                
+            return data.updateIn(['repo', ind], 'initial', (el) => el.set('subProcess', action.subProcess) ).toJS()
 
         case 'subflow/addRole':
-            if (ind == 'not exist') {
-                const basic = { id: state.id, data: [action.item] } // cate: action.item.cate 
-                const newCreate = fromJS(basic)
-                return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate)).toJS()
-            }
+            if (ind == 'not exist') return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate(state.id,[action.item]))).toJS()                
             const poolData = state.repo[ind].data
             return data
-                .updateIn(['repo', ind], 'initial', (el) => {
-                    return el.set('data', fromJS(uniqAdd(poolData, action.item)))
-                }).toJS()
-        
+                .updateIn(['repo', ind], 'initial', (el) => el.set('data', fromJS(uniqAdd(poolData, action.item))) ).toJS()
+
         case 'subflow/clear':
             return data.updateIn(['repo', ind, 'data'], [], (el) => fromJS([])).toJS()
-        
+
         case 'subflow/deleteRole':
             return data.updateIn(['repo', ind], 'initial', (el) => {
                 return el.set('data', el.get('data').delete(action.index))
             }).toJS()
         case 'subflow/isWaiting':
-            return data.updateIn(['repo', ind, 'isWaiting'], false, (el) =>  action.isWaiting ).toJS()
+            return data.updateIn(['repo', ind, 'isWaiting'], 'true', (el) => action.isWaiting).toJS()
 
             //deprecated .updateIn(['repo', ind, 'cate'], false, (el) => action.item.cate)
             /*case 'approve/previousNodeSpecifiedChange':

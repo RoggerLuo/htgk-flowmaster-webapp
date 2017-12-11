@@ -40,6 +40,7 @@ const AddComp = ({ currentRepo, put, add }) => {
             <SolidFrame>
                 <div style={{height:'50px'}}>{currentRepo.subProcess&&currentRepo.subProcess.name||''}</div>
             </SolidFrame>
+            <div style={{height:'50px'}}></div>
         </div>
     )
 }

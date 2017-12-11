@@ -4,7 +4,7 @@ import List from './List'
 export default class Group extends React.Component { 
     constructor(props) {
         super(props)
-        this.state = { isOpen: true }
+        this.state = { isOpen: false }
         this.click = this.click.bind(this)
     }
     click(event){
@@ -23,7 +23,7 @@ export default class Group extends React.Component {
                 
                 <div style={{lineHeight:'20px'}} onClick={this.click} >
                     <i style={style} className="icon iconfont icon-sanjiao1"></i> &nbsp;
-                    <span style={{fontSize:'14px'}}>{this.props.data.groupTitle}</span>
+                    <span style={{fontSize:'14px',cursor:'pointer'}}>{this.props.data.groupTitle}</span>
                 </div>
                 
                 <div style={{height:'4px',width:'1px'}}></div>

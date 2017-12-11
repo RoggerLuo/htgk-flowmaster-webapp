@@ -6,7 +6,7 @@ import NextHalfText from './NextHalfText'
 import SolidFrame from '../presentations/SolidFrame/SolidFrame'
 
 const ApproveNode = ({ currentRepo, put, add, setting }) => {
-    const isListEmpty = !currentRepo.subProcess
+    const isListEmpty = !(currentRepo.subProcess && currentRepo.subProcess.name)
     return(
         <div className="react-approve">
             <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
