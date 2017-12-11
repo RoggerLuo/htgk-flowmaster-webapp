@@ -5,11 +5,11 @@ import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
 import Presentation from './Presentation'
 import CompAdd from './CompAdd'
-import CompSetting from './CompSetting'
+import CompSettingPopup from './CompSettingPopup'
 
 const Approve = ({ currentRepo, dispatch }) => {
     if(!currentRepo) return null
-
+    const data = currentRepo.data || []
     const add = () => {
         dispatch({
             content:CompAdd,
@@ -23,9 +23,9 @@ const Approve = ({ currentRepo, dispatch }) => {
     }
     const setting = () => {
         dispatch({
-            content:CompSetting(data),
+            content:CompSettingPopup(data),
             confirm:()=>{},
-            type:'callPopup',
+            type:'callPopupX',
             height:'auto',
             title:'子流程设置',
             width:'988px',

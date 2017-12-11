@@ -4,8 +4,13 @@ import loadMultiUserTask from './loadMultiUserTask'
 import loadSF from './loadSF'
 import manual from './manual'
 import service from './service'
+import subflow from './subflow'
 export default function(modelData){ /* 对服务器上的数据进行 解析 然后加载进redux */
     modelData.childShapes && modelData.childShapes.forEach((el,index)=>{
+        if(el.properties.classify == "SubProcess"){
+            subflow(el,index,modelData)
+            return            
+        }
         switch(el.stencil.id){
             case 'ServiceTask':
                 service(el,index,modelData)

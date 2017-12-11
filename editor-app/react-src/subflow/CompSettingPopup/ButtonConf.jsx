@@ -5,8 +5,11 @@ import Button from '../../DropdownButton'
 import confirmGenerator from '../../confirmGenerator'
 
 const ButtonContainer = ({reduxCate,dispatch,children}) => { 
-    const add = (item) => dispatch({type:'manual/addRole',item})   
-    const clear = () => dispatch({type:'manual/clear'})
+    const add = (item) => {
+        dispatch({type:'subflow/addRole',item})
+    }
+    const clear = () => dispatch({type:'subflow/clear'})
+
     const confirmFunction = confirmGenerator({reduxCate,add,clear})
     const xClass = {marginTop:'5px',marginLeft:'-105px'}
     return ( 
@@ -17,7 +20,7 @@ const ButtonContainer = ({reduxCate,dispatch,children}) => {
 }
 //xClass={{display:'inline-block',marginLeft: '-105px'}}
 const mapStateToProps = (state) => {
-    const currentRepo = state.manual.repo.filter((el,index)=>el.id == state.approve.id)
+    const currentRepo = state.subflow.repo.filter((el,index)=>el.id == state.approve.id)
     const reduxCate = currentRepo && currentRepo[0] && currentRepo[0].data && currentRepo[0].data[0] && currentRepo[0].data[0].cate||false
     return {reduxCate}
 }

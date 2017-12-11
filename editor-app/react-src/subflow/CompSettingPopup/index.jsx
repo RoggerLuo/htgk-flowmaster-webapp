@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import SolidFrame from '../../presentations/SolidFrame/SolidFrame'
 // import List from './List'
 // import Group from './Group'
@@ -8,8 +9,9 @@ import './style.less'
 import FirstHalf from './FirstHalf'
 import Form from './Form'
 
-export default function(data){
-    const AddComp = ({ put, add }) => {//data,
+export default function(data){ //data是 currentRepo的data
+    const AddComp = ({ currentRepo, put, add }) => {//data,
+        // const data = currentRepo.data || []
         const getData = () => {
             return [{text:'123',value:'456'},{text:'1235',value:'4565'}]
         }
@@ -36,6 +38,7 @@ export default function(data){
                 <div className="property-row-title"> 
                     子表单
                 </div>
+                
                 <Form />
             </div>
         )
@@ -43,4 +46,19 @@ export default function(data){
     const options = {mapPropToDictionary: (props)=>window.reactI18n}
     const ConnectedApp = connectPut(options)(AddComp)
     return ConnectedApp
+
+    // const mapStateToProps = (state) => {
+    //     const repo = state.subflow.repo
+    //     const id = state.subflow.id
+    //     const currentRepo = repo.filter((el,index)=>el.id == id) || false
+    //     return {currentRepo} 
+    // }
+    // const mapDispatchToProps = (dispatch) => {
+    //     return {dispatch}
+    // }
+    // return connect(
+    //     mapStateToProps,
+    //     mapDispatchToProps
+    // )(ConnectedApp)
+
 }

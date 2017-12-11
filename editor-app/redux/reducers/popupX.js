@@ -25,7 +25,7 @@ const Reducer = (state = initial, action) => {
         //         height:action.height||'65%',
         //         width:action.width||'50%',
         //     })
-        case 'callPopup':
+        case 'callPopupX':
             return Object.assign({}, state, {
                 confirm:action.confirm||function(){},
                 content:action.content||'',
@@ -36,7 +36,7 @@ const Reducer = (state = initial, action) => {
                 isSubflow:action.isSubflow || false,
                 style:action.style || false
             })
-        case 'hidePopup':
+        case 'hidePopupX':
             return Object.assign({}, state, {
                 display:'none'
             })

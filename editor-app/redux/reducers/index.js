@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import approve from './approve'
 import branch from './branch'
 import popup from './popup'
+import popupX from './popupX'
 import certainPerson from './certainPerson'
 import superPopup from './superPopup'
 import dropdown from './dropdown'
@@ -30,7 +31,8 @@ const rootRuducer = combineReducers({
     manual,
     sql,custom,
     service,
-    subflow
+    subflow,
+    popupX
 })
 
 export default rootRuducer

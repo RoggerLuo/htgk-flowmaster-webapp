@@ -4,7 +4,7 @@ import './style'
 
 const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,height,width,style}) => {    
     function cancel(){
-        dispatch({type:'hidePopup'})
+        dispatch({type:'hidePopupX'})
         window.hideShadow()
     }
     const confirmDecorated = ()=>{
@@ -22,7 +22,7 @@ const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,h
         compClass2 = "fadeInSpecial"
     }
     return(
-        <div className={"popup-coverwrap "} style={{display:display,zIndex:'9999'}}>
+        <div className={"popup-coverwrap "} style={{display:display}}>
             <div className={"popup "+compClass1+" "+compClass2} style={{height:height,width:width}} >
                 <div className="x">                
                     <i className="icon iconfont icon-close" onClick={cancel}></i>
@@ -58,7 +58,7 @@ const ConnectedApp = connectPut(putOptions)(Comp)
 
 
 const mapStateToProps = (state) => {
-    return {display:state.popup.display}
+    return {display:state.popupX.display}
 }
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}

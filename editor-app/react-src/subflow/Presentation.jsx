@@ -1,7 +1,7 @@
 import React from 'react'
 import  './style'
 import Button from './ButtonConf'
-import RolesFrame from './RolesFrameConf'
+// import RolesFrame from './RolesFrameConf'
 import NextHalfText from './NextHalfText'
 import SolidFrame from '../presentations/SolidFrame/SolidFrame'
 
@@ -13,11 +13,6 @@ const ApproveNode = ({ currentRepo, put, add, setting }) => {
                 <div style={{lineHeight: '30px'}} className="property-row-title-only-font">
                     {`触发的子流程`}
                 </div>
-                {!isListEmpty?(
-                    <Button>    
-                        <i style={{paddingLeft: '1px'}} className="icon iconfont icon-tianjia"></i>
-                    </Button>    
-                ):null}
             </div>    
             
             {isListEmpty?(
@@ -31,7 +26,7 @@ const ApproveNode = ({ currentRepo, put, add, setting }) => {
                         <div>{currentRepo.subProcess.name||''}</div> 
                         <i 
                             onClick={setting} 
-                            style={{paddingLeft: '1px'}} 
+                            style={{paddingLeft: '1px',cursor:'pointer'}} 
                             className="icon iconfont icon-gantanhao-yuankuang">
                         </i>
                     </div>
@@ -45,6 +40,13 @@ const ApproveNode = ({ currentRepo, put, add, setting }) => {
 {!isListEmpty?(
     <RolesFrame data={data} />
 ):null}
+
+{!isListEmpty?(
+    <Button>    
+        <i style={{paddingLeft: '1px'}} className="icon iconfont icon-tianjia"></i>
+    </Button>    
+):null}
+
 
 */
 import connectPut from 'react-put'

@@ -1,30 +1,20 @@
 import rolesJsonSpeller from './rolesJsonSpeller'
 
 export default function(canvas) {
-    const service = window.reduxStore.getState().service
-    service.repo.forEach((repoObj) => {
+    const subflow = window.reduxStore.getState().subflow
+    subflow.repo.forEach((repoObj) => {
         let currentElement = canvas.getChildShapeByResourceId(repoObj.id)
         if (repoObj.id && !currentElement) return
         let jsonArray = []
-        jsonArray = rolesJsonSpeller(jsonArray, repoObj.data)
-
-        /*value = {
-            "subProcessSet": [{
-                "subProcDefKey": "Pro_8e9a0d771ccd45d38af0f1a2e954f7a2",
-                "versionId": "1",
-                "name": "子流程1"
-            }, {
-                "subProcDefKey": "Pro_403b405a36ad4014a411dc8b53ae6e36",
-                "versionId": "1",
-                "name": "子流程2"
-            }]
+        // jsonArray = rolesJsonSpeller(jsonArray, repoObj.data)
+        const subProcessSet = {
+            "subProcessSet": [repoObj.subProcess]
         }
-
         let value = {
             "fields": [{
                     "name": "subProcessSet",
                     "implementation": "subProcessSet",
-                    "stringValue": value,
+                    "stringValue": JSON.stringify(subProcessSet),
                     "expression": "",
                     "string": ""
                 },
@@ -37,7 +27,7 @@ export default function(canvas) {
                 }
             ]
         }
-        sub_properties： {
+/*        sub_properties: {
             "versionId": "1",
             "procDefKey": "Pro_9d5ce17c497d497ba81f6a5b9a1ea272",
             "subSettings": [{
@@ -65,9 +55,9 @@ export default function(canvas) {
             ]
         }*/
         // currentElement.setProperty('objData', jsonArray)
-
         currentElement.setProperty('servicetaskexpression', "")
         currentElement.setProperty('servicetaskfields', value)
+        currentElement.setProperty('reduxData', repoObj)
         currentElement.setProperty('servicetaskdelegateexpression', "${subProcessServiceTask}")
         currentElement.setProperty('classify', "SubProcess")
 

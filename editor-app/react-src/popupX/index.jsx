@@ -12,9 +12,7 @@ const Component = ({width,title,confirm,content,height,isSubflow,style}) => {
     if(Content == '') return (<div></div>)
     let Wrap = PopupWrap
 
-
     if(isSubflow)    Wrap = ForSubflow
-
 
     return (
         <Wrap {...options}>
@@ -24,7 +22,7 @@ const Component = ({width,title,confirm,content,height,isSubflow,style}) => {
 }
 
 const mapStateToProps = (state) => {
-    return state.popup
+    return state.popupX
 }
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}
@@ -39,6 +37,6 @@ export default function(){
             <ComponentContainer />
         </Provider>
         ,
-        document.getElementById('hugePopup')
+        document.getElementById('hugePopupX')
     )
 }

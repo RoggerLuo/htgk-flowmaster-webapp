@@ -4,7 +4,7 @@ import './style'
 
 const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,height,width,style}) => {    
     function cancel(){
-        dispatch({type:'hidePopup'})
+        dispatch({type:'hidePopupX'})
         window.hideShadow()
     }
     const confirmDecorated = ()=>{
@@ -17,22 +17,25 @@ const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,h
     if(display=='none'){
         compClass1="slideOutUp "
         compClass2 = "fadeOut"
+
     }else{
         compClass1="slideInDown "
         compClass2 = "fadeInSpecial"
+
     }
+
     return(
-        <div className={"popup-coverwrap "} style={{display:display,zIndex:'9999'}}>
-            <div className={"popup "+compClass1+" "+compClass2} style={{height:height,width:width}} >
+        <div className={"popup-coverwrap "} style={{zIndex:'9992',bottom:'auto',display:display,backgroundColor:"#f3f3f3",width: '100%' }}>
+            <div className={"popup "+compClass1+" "+compClass2} style={{height:height,width:width,margin:'40px auto'}} >
                 <div className="x">                
                     <i className="icon iconfont icon-close" onClick={cancel}></i>
                 </div>
                 <div className="header">
-                    {put(title)}
+                    {title}
                 </div>
                 
                 <div className="popupContent">
-                    <div className="innerContent" style={style||{display:'block'}}>
+                    <div className="innerContent" style={style||{display:'inline-block'}}>
                         {children}
                     </div>
                 </div>
@@ -58,7 +61,7 @@ const ConnectedApp = connectPut(putOptions)(Comp)
 
 
 const mapStateToProps = (state) => {
-    return {display:state.popup.display}
+    return {display:state.popupX.display}
 }
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}

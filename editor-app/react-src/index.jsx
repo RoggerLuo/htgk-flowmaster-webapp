@@ -16,6 +16,7 @@ import parallelApproveComponent from './parallelApprove/MainCompContainer'
 import branchSequenceFlowComponent from './branchSequenceFlow/Component'
 import branchNodeComponent from './branchNode/Container'
 import popupStart from './popup'
+import popupXStart from './popupX'
 import saveButton from './saveButton/saveButton'
 import myAlert from './alert/alert'
 import mySpin from './alert/spin'
@@ -25,6 +26,7 @@ import custom from './custom/Container'
 import subflow from './subflow/Container'
 
 popupStart()
+popupXStart()
 myAlert()
 mySpin()
 global.saveButton = {render:saveButton,flag:true}
