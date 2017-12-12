@@ -9,56 +9,45 @@ import './style.less'
 import FirstHalf from './FirstHalf'
 import Form from './Form'
 
-export default function(data){ //data是 currentRepo的data
+export default function(){ //data是 currentRepo的data //data
     const AddComp = ({ currentRepo, put, add }) => {//data,
-        // const data = currentRepo.data || []
-        const getData = () => {
-            return [{text:'123',value:'456'},{text:'1235',value:'4565'}]
-        }
-        const choosedOption = {text:'123',value:'456'}
-        const choosed = (item)=>{
-            // dispatch({type:'dropdown1Choose',item})
-        }
-
+        if(!currentRepo) return null
+        const data = currentRepo.data || []
         return(
             <div className="setting-subflow" style={{width:'100%'}}>
 
+
                 <FirstHalf data={data}/>
 
-                <div className="property-row-title"> 
-                    子流程内容设置
-                </div>
 
-                <div className="property-row-title"> 
-                    主表
-                </div>
+                <div className="property-row-title" style={{fontSize:'14px'}}> 子流程内容设置 </div>
+                <div className="property-row-title" style={{fontSize:'14px'}}> 主表 </div>
+
+
                 <Form />
 
+
+                <div className="property-row-title" style={{fontSize:'14px'}}> 子表单</div>
                 
-                <div className="property-row-title"> 
-                    子表单
-                </div>
-                
+
                 <Form />
+
+
             </div>
         )
     }
     const options = {mapPropToDictionary: (props)=>window.reactI18n}
     const ConnectedApp = connectPut(options)(AddComp)
-    return ConnectedApp
+    // return ConnectedApp
 
-    // const mapStateToProps = (state) => {
-    //     const repo = state.subflow.repo
-    //     const id = state.subflow.id
-    //     const currentRepo = repo.filter((el,index)=>el.id == id) || false
-    //     return {currentRepo} 
-    // }
-    // const mapDispatchToProps = (dispatch) => {
-    //     return {dispatch}
-    // }
-    // return connect(
-    //     mapStateToProps,
-    //     mapDispatchToProps
-    // )(ConnectedApp)
-
+    const mapStateToProps = (state) => {
+        const repo = state.subflow.repo
+        const id = state.subflow.id
+        const currentRepos = repo.filter((el,index)=>el.id == id)
+        if(!currentRepos[0]) return false
+        const currentRepo = currentRepos[0]
+        return {currentRepo} 
+    }
+    const mapDispatchToProps = (dispatch) => ({dispatch})
+    return connect(mapStateToProps,mapDispatchToProps)(ConnectedApp)
 }

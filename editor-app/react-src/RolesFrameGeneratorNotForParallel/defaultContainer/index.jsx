@@ -6,7 +6,7 @@ export default function(del){
     return function({ data }){
         return (
             <SolidFrame>
-                <div style={{padding:'2px',minHeight: '17px'}}>
+                <div style={{padding:'2px',minHeight: '17px',lineHeight:'8px'}}>
                     {data.map((el,index)=><RoleCube text={el.text} click={del(index)} key={index}/>)}
                 </div>
             </SolidFrame> 

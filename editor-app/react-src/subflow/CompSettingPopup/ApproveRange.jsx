@@ -10,18 +10,22 @@ export default ({ data ,put }) => {//data,
         return [{text:'123',value:'456'},{text:'1235',value:'4565'}]
     }
     const choosedOption = {text:'123',value:'456'}
-
+    const isEmpty = data.length == 0
     return(
         <div>
 
-            <div className="property-row-title"> 
+            <div className="property-row-title" style={{fontSize:'14px'}}> 
                 设置子流程发起后第一个节点的审批人范围
             </div>
-            <div style={{display:'flex'}}>
-                <div style={{width:'230px',height:'34px'}}>
-                    <RolesFrame data = {data}/>
+            <div style={{display:'flex',marginTop:'10px'}}>
+                
+
+                <div style={{width:'230px',height:'49px'}}>
+                    {isEmpty?(<div style={{height:'43px', width:'230px',border: '1px solid #c5c5c5'}}></div>):(<RolesFrame data = {data}/>)}
                 </div>
-                <div style={{position:'relative',top: '4px',left: '5px'}}>
+
+
+                <div style={{position:'relative',top: '11px',left: '5px'}}>
                     <Button >
                         <i style={{paddingLeft: '1px'}} className="icon iconfont icon-tianjia"></i>
                     </Button>

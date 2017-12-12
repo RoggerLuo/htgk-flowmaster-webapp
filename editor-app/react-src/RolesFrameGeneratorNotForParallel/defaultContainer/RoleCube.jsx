@@ -3,7 +3,7 @@ import './style'
 
 const Character = ({text,click}) => {
     return (
-        <div className="character">
+        <div className="role-cube">
             <span className="name">{text}</span>
             <span className="cross" onClick={click}>
                 <i className="icon iconfont icon-guanbi2fill"></i>
