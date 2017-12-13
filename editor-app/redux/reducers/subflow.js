@@ -20,6 +20,10 @@ const uniqAdd = (data, item) => {
                 data:[
                     {}
                 ],
+                mainForm:{},
+                leftFields,
+                mainRight:{},
+
             },
         
         ]
@@ -61,6 +65,11 @@ export default reduceWrap('Subflow', {}, (state, action, ind) => {
             }).toJS()
         case 'subflow/isWaiting':
             return data.updateIn(['repo', ind, 'isWaiting'], 'true', (el) => action.isWaiting).toJS()
+        case 'subflow/leftFields':
+            return data.updateIn(['repo', ind, 'leftFields'], '', (el) => action.leftFields).toJS()
+        case 'subflow/mainRight':
+            return data.updateIn(['repo', ind, 'mainRight',action.fieldId], {}, (el) => action.item).toJS()
+
 
             //deprecated .updateIn(['repo', ind, 'cate'], false, (el) => action.item.cate)
             /*case 'approve/previousNodeSpecifiedChange':

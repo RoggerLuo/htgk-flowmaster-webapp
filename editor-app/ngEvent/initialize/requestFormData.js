@@ -59,4 +59,7 @@ export default function($http, pid) {
         window.formProperties.unshift({ text: '请选择', value: 'initial', index: 'initial', type: 'initial' })
         global.reduxStore.dispatch({ type: 'updateFormProperties', data: window.formProperties })
     })
+    window.requestFormData = (pid,cb) => {
+        requestFormData($http,pid,cb)
+    }
 }

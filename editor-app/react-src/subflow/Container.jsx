@@ -22,6 +22,13 @@ const Approve = ({ currentRepo, dispatch }) => {
         })
     }
     const setting = () => {
+        window.requestFormData(currentRepo.subProcess.subProcDefKey,function(dataObj){
+            if(!dataObj) return
+            dispatch({type:'subflow/leftFields',leftFields:dataObj.components})
+            // window.subFormData = window.subFormData?window.subFormData:{}
+            // window.subFormData[value] = dataObj
+        })
+
         dispatch({
             content:CompSettingPopup(data),
             confirm:()=>{},

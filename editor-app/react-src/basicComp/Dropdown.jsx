@@ -1,9 +1,3 @@
-/*
-    dropdown的默认值无法直接手动添加
-    实现方式是:
-        在mutate dropdown options数据的时候[通过一个redux action]
-        同时更新 选中值(默认值)
-*/
 import React,{createClass} from 'react'
 import { render } from 'react-dom'
 import './dropdown.less'
@@ -27,7 +21,6 @@ const Dropdown = createClass({
         if(this.state.visibleStatus!='none'){
             color={color:'#00b0ff'}
         }
-        
         return(
             <div className="drop-down" style={{flex:'1',margin: this.props.margin||'0 10px'}}>
                 <div style={{width: this.props.width||'152px',display: 'flex',visibility:'hidden'}} className="drop-down-choosed" onClick={this.toggle}>
@@ -59,7 +52,7 @@ const Dropdown = createClass({
                                                 (e)=>{
                                                     this.close(e)
                                                     this.setState({choosedOption:el})
-                                                    this.props.choosed(el)
+                                                    this.props.choosed(el,index)
                                                 }
                                             }
                                         >
