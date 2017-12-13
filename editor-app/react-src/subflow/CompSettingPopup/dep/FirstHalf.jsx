@@ -1,5 +1,4 @@
 import React from 'react'
-import Radios from './Radios'
 import connectPut from 'react-put'
 import Dropdown from '../../basicComp/Dropdown'
 import ApproveRange from './ApproveRange'
@@ -14,19 +13,11 @@ const AddComp = ({ data ,put }) => {//data,
     const choosedOption = {text:'123',value:'456'}
     return(
         <div>
-            <div className="property-row-title" style={{fontSize:'14px'}}> 
-                子流程触发机制
-            </div>
-
-
-
-            <Radios />
 
 
             <ApproveRange data={data}/>
            
 
-            <div style={{margin:'30px 0',height:'1px',borderTop:'0.5px solid #dcdcdc',width:'100%'}}></div>                
         </div>
     )
 }
@@ -37,6 +28,11 @@ export default connectPut(options)(AddComp)
 
 /*
 
+<div style={{margin:'30px 0 10px 0',height:'1px',borderTop:'0.5px solid #dcdcdc',width:'100%'}}></div>                
+
+<div className="property-row-title" style={{fontSize:'14px'}}> 
+    子流程触发机制
+</div>
 
 
 <div style={{margin:'30px 0',height:'1px',borderTop:'0.5px solid #dcdcdc',width:'100%'}}></div>

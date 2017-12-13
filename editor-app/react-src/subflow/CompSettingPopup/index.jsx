@@ -1,13 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SolidFrame from '../../presentations/SolidFrame/SolidFrame'
-// import List from './List'
-// import Group from './Group'
 import connectPut from 'react-put'
 import Dropdown from '../../basicComp/Dropdown'
 import './style.less'
-import FirstHalf from './FirstHalf'
 import Form from './Form'
+import ApproveRange from './ApproveRange'
 
 export default function(){ //data是 currentRepo的data //data
     const AddComp = ({ currentRepo, put, add }) => {//data,
@@ -16,8 +14,8 @@ export default function(){ //data是 currentRepo的data //data
         return(
             <div className="setting-subflow" style={{width:'100%'}}>
 
+                <ApproveRange data={data}/>
 
-                <FirstHalf data={data}/>
 
 
                 <div className="property-row-title" style={{fontSize:'14px'}}> 子流程内容设置 </div>

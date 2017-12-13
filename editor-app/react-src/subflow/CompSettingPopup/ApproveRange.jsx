@@ -14,7 +14,7 @@ export default ({ data ,put }) => {//data,
     return(
         <div>
 
-            <div className="property-row-title" style={{fontSize:'14px'}}> 
+            <div style={{fontSize:'14px',fontWeight:'600',marginBottom:'10px'}}> 
                 设置子流程发起后第一个节点的审批人范围
             </div>
             <div style={{display:'flex',marginTop:'10px'}}>

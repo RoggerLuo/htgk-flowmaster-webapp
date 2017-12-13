@@ -14,7 +14,7 @@ const Radios =  ({dispatch,isWaiting}) => {
             <div className="radio-box">
                 <div >
                     <div className="radio-lable" style={{cursor:'pointer'}}>
-                        <span className="radio-img" style={{position:'relative',bottom:'2px'}}><img width="20" height="20" src={require("../selected.png")} /></span>
+                        <span className="radio-img" style={{position:'relative',bottom:'2px'}}><img width="20" height="20" src={require("./selected.png")} /></span>
                         &nbsp;<span className="radio-text" style={{lineHeight:'30px'}}>{`阻塞等待`}</span> 
                     </div> 
                     <div className="property-row-content radio-detail-text" style={{color: '#999999',paddingLeft:'25px'}}> 
@@ -24,11 +24,10 @@ const Radios =  ({dispatch,isWaiting}) => {
 
                 </div>
 
-                <br/>
                 <div >
 
                     <div className="radio-lable" onClick={mode2} style={{cursor:'pointer'}}>
-                        <span className="radio-img" style={{position:'relative',bottom:'2px'}}><img width="20" height="20" src={require("../unselected.png")} /></span>
+                        <span className="radio-img" style={{position:'relative',bottom:'2px'}}><img width="20" height="20" src={require("./unselected.png")} /></span>
                         &nbsp;<span className="radio-text" style={{lineHeight:'30px'}}>{`非阻塞等待`}</span> 
                     </div>  
                     <div className="property-row-content radio-detail-text" style={{color: '#999999',paddingLeft:'25px'}}> 
@@ -46,7 +45,7 @@ const Radios =  ({dispatch,isWaiting}) => {
                 
                 <div >
                     <div className="radio-lable" onClick={mode1} style={{cursor:'pointer'}}>
-                        <span className="radio-img" style={{position:'relative',bottom:'2px'}}><img width="20" height="20" src={require("../unselected.png")} /></span>
+                        <span className="radio-img" style={{position:'relative',bottom:'2px'}}><img width="20" height="20" src={require("./unselected.png")} /></span>
                         &nbsp;<span className="radio-text" style={{lineHeight:'30px'}}>{`阻塞等待`}</span> 
                     </div> 
                     <div className="property-row-content radio-detail-text" style={{color: '#999999',paddingLeft:'25px'}}> 
@@ -54,12 +53,11 @@ const Radios =  ({dispatch,isWaiting}) => {
                         续流转。                
                     </div>
                 </div>
-                <br/>
 
                 <div >
 
                     <div className="radio-lable" style={{cursor:'pointer'}}>
-                        <span className="radio-img" style={{position:'relative',bottom:'2px'}}><img width="20" height="20" src={require("../selected.png")} /></span>
+                        <span className="radio-img" style={{position:'relative',bottom:'2px'}}><img width="20" height="20" src={require("./selected.png")} /></span>
                         &nbsp;<span className="radio-text" style={{lineHeight:'30px'}}>{`非阻塞等待`}</span> 
                     </div> 
                     <div className="property-row-content radio-detail-text" style={{color: '#999999',paddingLeft:'25px'}}> 
