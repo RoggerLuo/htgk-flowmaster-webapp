@@ -1,5 +1,5 @@
 import React from 'react'
-import Dropdown from '../../basicComp/Dropdown'
+import Dropdown from '../../../basicComp/Dropdown'
 import {connect} from 'react-redux'
 
 const PartLeft = ({title}) => {
@@ -20,7 +20,7 @@ const PartRight = ({leftData,mainRight,dispatch}) => {
     const selectedOption = mainRight[leftData.name] || {text:'请选择',value:''}
     const optionsData = window.formProperties||[]
     const select = (item,optionInd) => {
-        dispatch({type:'subflow/mainRight',fieldId,item})
+        dispatch({type:'subflow/mainRight',fieldId:leftData.name,item})
     }
     return ( <div  style={{width:'342px',display: 'flex'}}>
         <div  style={{width:'160px',marginRight: '10px'}}>
@@ -33,11 +33,11 @@ const PartRight = ({leftData,mainRight,dispatch}) => {
 }
 
 
-const Group = ({leftData,mainRight,dispatch}) => {
+export default ({leftData,mainRight,dispatch}) => {
     return (    
         <div style={{display:'flex',justifyContent: 'space-between'}}>
             <PartLeft title={leftData.title}/>
-            <PartRight leftData={leftData} dispatch={dispatch}/>
+            <PartRight mainRight={mainRight} leftData={leftData} dispatch={dispatch}/>
         </div>
         )
 }

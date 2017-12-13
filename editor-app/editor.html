@@ -23,14 +23,13 @@
             <div id="paletteHelpWrapper" class="col-xs-2" style="width: 10%;">
                 <div class="stencils" id="paletteSection" style="height:100%;margin:0;">
                     <div style="height:100%;margin:0;"> <!-- ng-if="stencilItemGroups.length > 1" -->
-                        <div style="height:100%;">
+                        <div> <!-- style="height:100%;" -->
                             <ul class="stencil-group" class="first" style="height:100%;display:flex;flex-direction:column;padding-bottom: 20px">
                                 <li style="text-align:center;flex:1;display:flex;flex-direction:column;" ng-repeat="item in flowMasterGroups.paletteItems" class="stencil-item" id="{{item.id}}" title="{{item.description}}" ng-model="draggedElement" data-drag="true" jqyoui-draggable="{onStart:'startDragCallback', onDrag:'dragCallback'}" data-jqyoui-options="{revert: 'invalid', helper: 'clone', opacity : 0.5}">
                                     <div style="flex:1;display:flex;">
                                         <div  ng-mouseleave="hover = false" ng-mouseenter="hover = true" style="margin:auto;">
                                             <img ng-init="hover=false" ng-hide="hover" style="margin:6px 0px;" ng-src="editor-app/stencilsets/bpmn2.0/icons/{{item.icon}}.svg" width="38px;" height="38px;" />
                                             <div ng-hide="hover" style="font-size:14px;">{{item.name|translate}}</div>
-
                                             <img ng-hide="!hover" style="margin:6px 0px;" ng-src="editor-app/stencilsets/bpmn2.0/icons/{{item.icon}}blue.svg" width="38px;" height="38px;" />
                                             <div ng-hide="!hover" style="font-size:14px;color:#00b0ff;">{{item.name|translate}}</div>
                                         </div>

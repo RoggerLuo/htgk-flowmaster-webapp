@@ -1,14 +1,11 @@
 import React from 'react'
-import SolidFrame from '../../presentations/SolidFrame/SolidFrame'
-import connectPut from 'react-put'
-import Dropdown from '../../basicComp/Dropdown'
-import './style.less'
+import SolidFrame from '../../../presentations/SolidFrame/SolidFrame'
 import {connect} from 'react-redux'
 
 import Header from './Header'
 import Group from './Group'
 
-const AddComp = ({ currentRepo, dispatch }) => {
+const MainForm = ({ currentRepo, dispatch }) => {
     if(!currentRepo) return null
     const leftFields = currentRepo.leftFields || []
     const mainRight = currentRepo.mainRight || {}
@@ -36,7 +33,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
-export default connect(mapStateToProps,mapDispatchToProps)(AddComp)    
+export default connect(mapStateToProps,mapDispatchToProps)(MainForm)    
 
 
 

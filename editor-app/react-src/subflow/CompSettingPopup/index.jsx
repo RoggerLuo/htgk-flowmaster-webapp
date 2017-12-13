@@ -12,15 +12,6 @@ export default function(){ //data是 currentRepo的data //data
     const AddComp = ({ currentRepo, put, add }) => {//data,
         if(!currentRepo) return null
         const data = currentRepo.data || []
-        // let leftFields = []
-        // if(currentRepo.subProcess){
-        //     if(window.subFormData[currentRepo.subProcess.subProcDefKey]){
-        //         if( window.subFormData[currentRepo.subProcess.subProcDefKey].components ){
-        //             leftFields = window.subFormData[currentRepo.subProcess.subProcDefKey].components
-        //         }
-        //     }
-        // }
-        //leftFields={leftFields}
         return(
             <div className="setting-subflow" style={{width:'100%'}}>
 
@@ -42,7 +33,6 @@ export default function(){ //data是 currentRepo的data //data
     }
     const options = {mapPropToDictionary: (props)=>window.reactI18n}
     const ConnectedApp = connectPut(options)(AddComp)
-    // return ConnectedApp
 
     const mapStateToProps = (state) => {
         const repo = state.subflow.repo
@@ -55,3 +45,19 @@ export default function(){ //data是 currentRepo的data //data
     const mapDispatchToProps = (dispatch) => ({dispatch})
     return connect(mapStateToProps,mapDispatchToProps)(ConnectedApp)
 }
+
+
+
+/*
+// let leftFields = []
+// if(currentRepo.subProcess){
+//     if(window.subFormData[currentRepo.subProcess.subProcDefKey]){
+//         if( window.subFormData[currentRepo.subProcess.subProcDefKey].components ){
+//             leftFields = window.subFormData[currentRepo.subProcess.subProcDefKey].components
+//         }
+//     }
+// }
+//leftFields={leftFields}
+// return ConnectedApp
+
+*/
