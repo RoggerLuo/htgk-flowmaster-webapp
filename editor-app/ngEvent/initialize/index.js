@@ -26,7 +26,7 @@ export function fetchModelWrap($http, $rootScope) {
     }
     return function(modelId) {
         requestUserData($http)
-        requestFormData($http)
+        requestFormData($http,window.getQueryString("pid"))
         getPid($http)
         getModel(dataInit(modelId), $http)
         getProList($http)
