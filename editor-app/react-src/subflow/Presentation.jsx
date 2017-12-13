@@ -23,12 +23,19 @@ const ApproveNode = ({ currentRepo, put, add, setting }) => {
             ):(
                 <SolidFrame>
                     <div style={{display:'flex',justifyContent:'space-between'}}>
-                        <div>{currentRepo.subProcess.name||''}</div> 
-                        <i 
-                            onClick={setting} 
-                            style={{paddingLeft: '1px',cursor:'pointer'}} 
-                            className="icon iconfont icon-gantanhao-yuankuang">
-                        </i>
+                        <div style={{textOverflow: 'ellipsis',whiteSpace: 'nowrap',overflow: 'hidden',maxWidth: '210px'}}>{currentRepo.subProcess.name||''}</div> 
+                        <div>
+                            <i 
+                                onClick={setting} 
+                                style={{paddingLeft: '1px',cursor:'pointer'}} 
+                                className="icon iconfont icon-gantanhao-yuankuang">
+                            </i>
+                            <i 
+                                onClick={setting} 
+                                style={{paddingLeft: '1px',cursor:'pointer'}} 
+                                className="icon iconfont icon-gantanhao-yuankuang">
+                            </i>
+                        </div>
                     </div>
                 </SolidFrame>
             )}

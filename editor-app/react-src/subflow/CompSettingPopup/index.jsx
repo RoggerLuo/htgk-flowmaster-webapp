@@ -22,8 +22,6 @@ export default function(){ //data是 currentRepo的data //data
                 
                 <MainForm />
 
-                <Form />
-
                 <div className="property-row-title" style={{fontSize:'14px'}}> 子表单</div>
                 
                 <Form />
