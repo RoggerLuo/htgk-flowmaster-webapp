@@ -1,14 +1,9 @@
 import store from '../redux/configureStore'
 global.reduxStore = store
 
+import './utils/connect2redux'
 import '../ngEvent'
-
 import './userGuide/component'
-import '../qingfont/iconfont.css'
-import './global.less'
-import './icon.less'
-import './basic.less'
-
 
 import approveComponent from './approveNode/Container'
 import endPointComponent from './endPoint/Container'
@@ -29,11 +24,11 @@ popupStart()
 popupXStart()
 myAlert()
 mySpin()
-global.saveButton = {render:saveButton,flag:true}
-global.branchSequenceFlowComponent = {render:branchSequenceFlowComponent}
-global.parallelApproveComponent = {render:parallelApproveComponent}
-global.approveComponent = {render:approveComponent}
-global.branchComponent = {render:branchNodeComponent}
+global.saveButton = { render: saveButton, flag: true }
+global.branchSequenceFlowComponent = { render: branchSequenceFlowComponent }
+global.parallelApproveComponent = { render: parallelApproveComponent }
+global.approveComponent = { render: approveComponent }
+global.branchComponent = { render: branchNodeComponent }
 global.endPointComponent = endPointComponent
 global.manualCompInitializer = manual
 global.serviceCompInitializer = service
@@ -43,3 +38,9 @@ global.subflowCompInitializer = subflow
 import zh from './i18n/zh'
 import en from './i18n/en'
 window.reactI18n = zh
+
+
+import '../qingfont/iconfont.css'
+import './global.less'
+import './icon.less'
+import './basic.less'

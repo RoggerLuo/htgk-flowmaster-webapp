@@ -12,6 +12,7 @@ const List = ({ value, text, versionId, checked, dispatch,currentRepo }) => {
                 versionId
             }
         })
+        activeSave() 
         window.requestFormData(value,function(dataObj){
             if(!dataObj) return
             dispatch({type:'subflow/leftFields',leftFields:dataObj.components})

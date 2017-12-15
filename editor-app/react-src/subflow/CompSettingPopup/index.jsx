@@ -4,9 +4,8 @@ import SolidFrame from '../../presentations/SolidFrame/SolidFrame'
 import connectPut from 'react-put'
 import Dropdown from '../../basicComp/Dropdown'
 import './style.less'
-import Form from './Form'
 import MainForm from './MainForm'
-import SubForm from './SubForm'
+import SubForm from './SubForm' 
 import ApproveRange from './ApproveRange'
 
 export default function(){ //data是 currentRepo的data //data
@@ -24,7 +23,7 @@ export default function(){ //data是 currentRepo的data //data
                 <MainForm />
 
                 <div className="property-row-title" style={{fontSize:'14px'}}> 子表单</div>
-                
+
                 <SubForm />
 
             </div>

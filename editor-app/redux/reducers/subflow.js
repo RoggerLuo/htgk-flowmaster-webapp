@@ -25,17 +25,16 @@ const uniqAdd = (data, item) => {
                 mainRight:{
                     fieldsId:itemObj
                 },
-                subRight:[
-                    {
-                        leftFormId:'',
+                subRights:{
+                    leftFormId:{
                         rightFormId:'',
-                        map:[
+                        map:{
                             {fieldId:itemObj},
                             {fieldId:itemObj}
-                        ]
+                        }
                     }
 
-                ]
+                }
 
             },
         
@@ -76,14 +75,34 @@ export default reduceWrap('Subflow', {}, (state, action, ind) => {
             return data.updateIn(['repo', ind], 'initial', (el) => {
                 return el.set('data', el.get('data').delete(action.index))
             }).toJS()
+
         case 'subflow/isWaiting':
             return data.updateIn(['repo', ind, 'isWaiting'], 'true', (el) => action.isWaiting).toJS()
+
         case 'subflow/leftFields':
             return data.updateIn(['repo', ind, 'leftFields'], '', (el) => action.leftFields).toJS()
+        
         case 'subflow/mainRight':
             return data.updateIn(['repo', ind, 'mainRight',action.fieldId], {}, (el) => action.item).toJS()
 
+        case 'subflow/subRights/rightFormId':
+            //如果没有就新建
+            //如果有就更新
+            return data.updateIn(['repo', ind, 'subRights',action.leftFormId], fromJS({rightFormId:false,map:{}}), (el) => {
+                // debugger
+                // if(!el) return {rightFormId:action.rightFormId,map:{}}
+                return el.set('rightFormId',action.rightFormId)
+            }).toJS()
 
+        case 'subflow/subRights/rightFormId/fieldId':
+            //如果没有就新建
+            //如果有就更新
+            return data.updateIn(['repo', ind, 'subRights',action.leftFormId, 'map'], fromJS({}), (el) => {
+                // return action.item
+                // debugger
+                // if(!el) return {rightFormId:action.rightFormId,map:{}}
+                return el.set(action.fieldId,action.item)
+            }).toJS()
             //deprecated .updateIn(['repo', ind, 'cate'], false, (el) => action.item.cate)
             /*case 'approve/previousNodeSpecifiedChange':
                 if (ind == 'not exist') {

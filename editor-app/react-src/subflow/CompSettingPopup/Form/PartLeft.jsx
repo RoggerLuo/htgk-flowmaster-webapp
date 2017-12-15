@@ -7,8 +7,9 @@ export default ({title}) => {
                <div className="title-tr" style={{fontSize:'13px',paddingLeft:'10px',width:'150px',lineHeight:'32px',height:'32px'}}>
                   {title}
                </div>
-               <div> * </div>
             </div>
         </div>
         )
 }
+
+//               <div> * </div>

@@ -31,7 +31,6 @@ const mapmap = {
     phone: true,
     calculate: true,
 }
-
 export const requestFormData = ($http, pid, cb) => {
     const url = window.globalHost + '/repository/process-definitions/' + pid + '/forms?processType=Normal'
     $http({
@@ -55,6 +54,7 @@ export default function($http, pid) {
         const filteredComponents = obj.components.filter((el) => {
             return !!mapmap[el.type]
         })
+        window.formPropertiesTotal = formControlAdapter(obj.components)
         window.formProperties = formControlAdapter(filteredComponents)
         window.formProperties.unshift({ text: '请选择', value: 'initial', index: 'initial', type: 'initial' })
         global.reduxStore.dispatch({ type: 'updateFormProperties', data: window.formProperties })

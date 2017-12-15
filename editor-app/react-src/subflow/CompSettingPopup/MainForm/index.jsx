@@ -7,14 +7,13 @@ import Group from './GroupContainer'
 const MainForm = ({ currentRepo, dispatch }) => {
     if(!currentRepo) return null
     const leftFields = currentRepo.leftFields || []
-    const mainRight = currentRepo.mainRight || {}
     return(
-        <SolidFrame innerStyle={{padding:'0px'}} outerStyle={{width:'520px'}}>
+        <SolidFrame innerStyle={{padding:'0px'}} outerStyle={{width:'620px'}}>
             <Header />
             <div style={{padding:'10px 20px'}}>
                 {
                     leftFields.map((el,ind)=>(
-                        <Group leftData={el} mainRight={mainRight} dispatch={dispatch} key={ind}/>
+                        <Group leftData={el} key={ind}/>
                     ))
                 }
             </div>
@@ -22,17 +21,30 @@ const MainForm = ({ currentRepo, dispatch }) => {
     )
 }
 
-const mapStateToProps = (state) => {
-    const repo = state.subflow.repo
-    const id = state.subflow.id
-    const currentRepo = repo.filter((el,index)=>el.id == id) 
-    if(currentRepo.length==0) return {data:[]}
-    return {currentRepo:currentRepo[0]} 
-}
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
-export default connect(mapStateToProps,mapDispatchToProps)(MainForm)    
+export default global.connect2redux('subflow',MainForm)
+
+
+
+
+/*
+mainRight={mainRight} dispatch={dispatch}
+// const mainRight = currentRepo.mainRight || {}
+*/
+
+
+
+
+// const mapStateToProps = (state) => {
+//     const repo = state.subflow.repo
+//     const id = state.subflow.id
+//     const currentRepo = repo.filter((el,index)=>el.id == id) 
+//     if(currentRepo.length==0) return false
+//     return {currentRepo:currentRepo[0]} 
+// }
+// const mapDispatchToProps = (dispatch) => {
+//     return {dispatch}
+// }
+// export default connect(mapStateToProps,mapDispatchToProps)(MainForm)    
 
 
 

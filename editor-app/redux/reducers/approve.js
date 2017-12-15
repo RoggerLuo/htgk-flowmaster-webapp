@@ -15,12 +15,12 @@ export default reduceWrap('User task', {}, (state, action, ind) => {
 
         // case 'approve/withdrawChange':
         //     return data.updateIn(['repo', ind, 'withdraw'], false, (el) => !el).toJS()
-        // case 'approve/previousNodeSpecifiedChange':
-        //     if (ind == 'not exist') {
-        //         const newCreate = fromJS({ id: state.id, data: [],previousNodeSpecified:true})
-        //         return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate)).toJS()
-        //     }
-        //     return data.updateIn(['repo', ind, 'previousNodeSpecified'], false, (el) => !el).toJS()
+        case 'approve/previousNodeSpecifiedChange':
+            if (ind == 'not exist') {
+                const newCreate = fromJS({ id: state.id, data: [], previousNodeSpecified: true })
+                return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate)).toJS()
+            }
+            return data.updateIn(['repo', ind, 'previousNodeSpecified'], false, (el) => !el).toJS()
         // case 'approve/enableSingleSelectChange':
         //     return data.updateIn(['repo', ind, 'enableSingleSelect'], false, (el) => !el).toJS()
 
@@ -28,10 +28,10 @@ export default reduceWrap('User task', {}, (state, action, ind) => {
             return data.updateIn(['repo'], 'initial', (el) => {
                 return el.push(fromJS(action.data))
             }).toJS()
-            
-        case 'approve/addRole': 
+
+        case 'approve/addRole':
             if (ind == 'not exist') {
-                const basic = { id: state.id, data: [action.item]} // cate: action.item.cate 
+                const basic = { id: state.id, data: [action.item] } // cate: action.item.cate 
                 const newCreate = fromJS(basic)
                 return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate)).toJS()
             }
