@@ -22,7 +22,20 @@ const uniqAdd = (data, item) => {
                 ],
                 mainForm:{},
                 leftFields,
-                mainRight:{},
+                mainRight:{
+                    fieldsId:itemObj
+                },
+                subRight:[
+                    {
+                        leftFormId:'',
+                        rightFormId:'',
+                        map:[
+                            {fieldId:itemObj},
+                            {fieldId:itemObj}
+                        ]
+                    }
+
+                ]
 
             },
         

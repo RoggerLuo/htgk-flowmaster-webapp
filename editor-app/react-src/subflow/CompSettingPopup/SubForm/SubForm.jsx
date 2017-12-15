@@ -1,20 +1,27 @@
 import React from 'react'
 import SolidFrame from '../../../presentations/SolidFrame/SolidFrame'
 import {connect} from 'react-redux'
-import Header from '../Form/Header'
-import Group from './GroupContainer'
+import { Header,Group } from './Form'
 
-const MainForm = ({ currentRepo, dispatch }) => {
+const SubForm = ({ currentRepo, dispatch }) => {
     if(!currentRepo) return null
     const leftFields = currentRepo.leftFields || []
+    // debugger
     const mainRight = currentRepo.mainRight || {}
     return(
-        <SolidFrame innerStyle={{padding:'0px'}} outerStyle={{width:'520px'}}>
+        <SolidFrame innerStyle={{padding:'0px'}} outerStyle={{width:'620px'}}>
             <Header />
             <div style={{padding:'10px 20px'}}>
                 {
-                    leftFields.map((el,ind)=>(
-                        <Group leftData={el} mainRight={mainRight} dispatch={dispatch} key={ind}/>
+                    leftFields.filter(el=>el.type == 'sub_form').map((el,ind)=>(
+                        <div key={ind}>
+                            <div style={{color: '#999999', fontSize: '13px'}}>{el.title}</div>
+                            {el.children.map((el2,ind2)=>(
+                                <Group leftData={el2} mainRight={mainRight} dispatch={dispatch} key={ind2}/>
+                                ) 
+                            )}
+                            <div style={{margin:'20px 0',height:'1px',borderTop:'0.5px solid #dcdcdc',width:'100%'}}></div>
+                        </div>
                     ))
                 }
             </div>
@@ -32,7 +39,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
-export default connect(mapStateToProps,mapDispatchToProps)(MainForm)    
+export default connect(mapStateToProps,mapDispatchToProps)(SubForm)    
 
 
 

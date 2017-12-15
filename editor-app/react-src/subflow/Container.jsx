@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
 import Presentation from './Presentation'
 import CompAdd from './CompAdd'
-import CompSettingPopup from './CompSettingPopup'
+// import CompSettingPopup from './CompSettingPopup'
 
 const Approve = ({ currentRepo, dispatch }) => {
     if(!currentRepo) return null
