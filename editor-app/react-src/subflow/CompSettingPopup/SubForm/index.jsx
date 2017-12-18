@@ -7,14 +7,13 @@ import SubGroup from './SubGroup'
 const SubForm = ({ currentRepo, dispatch }) => {
     if(!currentRepo) return null
     const leftFields = currentRepo.leftFields || []
+    const filtered = leftFields.filter(el=>el.type == 'sub_form')
     return(
         <SolidFrame innerStyle={{padding:'0px'}} outerStyle={{width:'620px'}}>
             <Header />
             <div style={{padding:'10px 20px'}}>
                 {
-                    leftFields
-                        .filter(el=>el.type == 'sub_form')
-                        .map((el,ind)=>(<SubGroup key={ind} data={el}/>))
+                    filtered.map((el,ind)=>(<SubGroup key={ind} data={el}/>))
                 }
             </div>
         </SolidFrame>

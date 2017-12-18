@@ -103,6 +103,7 @@ export default reduceWrap('Subflow', {}, (state, action, ind) => {
                 // if(!el) return {rightFormId:action.rightFormId,map:{}}
                 return el.set(action.fieldId,action.item)
             }).toJS()
+            
             //deprecated .updateIn(['repo', ind, 'cate'], false, (el) => action.item.cate)
             /*case 'approve/previousNodeSpecifiedChange':
                 if (ind == 'not exist') {
