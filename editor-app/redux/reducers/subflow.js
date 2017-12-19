@@ -20,6 +20,8 @@ const uniqAdd = (data, item) => {
                 data:[
                     {}
                 ],
+                isWaiting: , 
+                isOne:true,
                 mainForm:{},
                 leftFields,
                 mainRight:{
@@ -44,7 +46,7 @@ const uniqAdd = (data, item) => {
 
 
 */
-const newCreate = (id, data) => fromJS({ id, data, isWaiting: true, subProcess: {} })
+const newCreate = (id, data) => fromJS({ id, data, isOne:true,isWaiting: true, subProcess: {} })
 
 export default reduceWrap('Subflow', {}, (state, action, ind) => {
     let data = fromJS(state)
@@ -78,12 +80,14 @@ export default reduceWrap('Subflow', {}, (state, action, ind) => {
 
         case 'subflow/isWaiting':
             return data.updateIn(['repo', ind, 'isWaiting'], 'true', (el) => action.isWaiting).toJS()
+        case 'subflow/isOne':
+            return data.updateIn(['repo', ind, 'isOne'], 'true', (el) => action.isOne).toJS()
 
         case 'subflow/leftFields':
             return data.updateIn(['repo', ind, 'leftFields'], '', (el) => action.leftFields).toJS()
         
         case 'subflow/mainRight':
-            return data.updateIn(['repo', ind, 'mainRight',action.fieldId], {}, (el) => action.item).toJS()
+            return data.updateIn(['repo', ind, 'mainRight', action.fieldId], fromJS({}), (el) => action.item).toJS()
 
         case 'subflow/subRights/rightFormId':
             //如果没有就新建
