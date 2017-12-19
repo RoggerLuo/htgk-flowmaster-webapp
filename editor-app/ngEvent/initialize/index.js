@@ -5,6 +5,10 @@ import requestFormData from './requestFormData'
 import { getModel, getPid, getProList } from './getOtherData'
 
 export function fetchModelWrap($http, $rootScope) {
+    // global.getModelByPid = (pid,cb) => {
+    //     getModel(cb, $http,pid)
+    // }
+
     const angularInit = (data) => {
         $rootScope.editor = new ORYX.Editor(data) //initialised   10866 12431 10060
         $rootScope.modelData = angular.fromJson(data)
@@ -13,6 +17,23 @@ export function fetchModelWrap($http, $rootScope) {
     const dataInit = modelId => {
         return (data) => {
             // data.model = data //本地断网调试
+
+
+
+            //circulation 和service 转换回来
+            data.model.childShapes && data.model.childShapes.forEach((el)=>{
+                if(el.stencil.id == 'ServiceTask'){
+                    if(el.properties.classify == "Circulation"){
+                        el.stencil.id = 'CirculationTask'                        
+                    }
+                }
+                // console.log(el.stencil.id)
+            })
+
+
+
+
+
             if (!data.model.childShapes) { //第一次使用本地的配置
                 var modelUrl = KISBPM.URL.getModel(modelId)
                 // debugger
@@ -28,7 +49,7 @@ export function fetchModelWrap($http, $rootScope) {
         requestUserData($http)
         requestFormData($http,window.getQueryString("pid"))
         getPid($http)
-        getModel(dataInit(modelId), $http)
+        getModel(dataInit(modelId), $http,window.getQueryString("pid"))
         getProList($http)
 
         $http({    
