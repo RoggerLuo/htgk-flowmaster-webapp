@@ -54,9 +54,11 @@ angular.module('activitiModeler')
                     'ExclusiveGateway',
                     'MultiUserTask',
                     'ManualTask',
+                    'CirculationTask',
                     'ServiceTask',
-                    'CustomTask',
-                    'Subflow',
+                    // 'ServiceTask',
+                    // 'CustomTask',
+                    // 'Subflow',
                     'ParallelGateway',
                     'InclusiveGateway',
                     // 'MuleTask',
@@ -254,7 +256,6 @@ angular.module('activitiModeler')
                 // 给scope绑上这个属性
                 $scope.stencilItemGroups = stencilItemGroups;
                 $scope.flowMasterGroups = stencilItemGroups.filter(el=>el.name=="flowMaster")[0]
-
                 //data.rules.containmentRules 用途不清楚 
                 var containmentRules = [];
                 for (var i = 0; i < data.rules.containmentRules.length; i++) {
@@ -947,7 +948,6 @@ angular.module('activitiModeler')
             KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_HIDE_SHAPE_BUTTONS);
 
             if ($scope.dragCanContain) {
-
                 var item = $scope.getStencilItemById(ui.draggable[0].id); //item是 从ui获取，再用方法获得的，后面会用到，逻辑好散啊，写得简直恶心
 
                 var pos = { x: event.pageX, y: event.pageY };
