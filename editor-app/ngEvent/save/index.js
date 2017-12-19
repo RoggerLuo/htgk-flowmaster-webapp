@@ -20,8 +20,11 @@ export default function($scope, $http) {
 
         /* 把redux转换成oryx数据, 顺序很重要 */
         const canvas = $scope.editor.getCanvas()
-        subflow(canvas)
-        custom(canvas)
+        if(!subflow(canvas)){
+            activeSave()
+            return
+        }
+        // custom(canvas)
         manual(canvas)
         service(canvas)
         saveHandlerApprove(canvas)
@@ -44,6 +47,27 @@ export default function($scope, $http) {
             // alert('empty')
             return
         }
+
+
+
+
+        /*
+            给manual节点的 分支，加上classify
+        */
+        var json =  window.getRawJson() //$scope.editor.getJSON()        
+        json.childShapes.some((el,index)=>{
+            if(el.stencil.id == "ExclusiveGateway"){
+
+                let currentElement = canvas.getChildShapeByResourceId(el.resourceId)
+                if(global.isManualGateway(currentElement)){
+                    currentElement.setProperty('classify', 'manual')
+                } 
+            }
+        })
+
+
+
+
 
         /* 等待动画 */
         window.reduxStore.dispatch({ type: 'callSpin' })
