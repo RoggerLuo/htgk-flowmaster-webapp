@@ -2,11 +2,13 @@ import React from 'react'
 import Dropdown from '../../../basicComp/Dropdown'
 import Group from './GroupContainer'
 
-const SubGroup = ({data,currentRepo,dispatch}) => {
+const SubGroup = ({data,currentRepo,dispatch,isLast}) => {
     const leftFormId = data.name
     const optionsData = window.formPropertiesTotal || []
+
     const newOptions = optionsData.filter(el=>el.cate == 'sub_form').map(el=>({text:el.title,value:el.value}))
     newOptions.unshift({text:'请选择',value:false})
+    
     let subOptions = [{text:'请选择',value:false}]
 
     let selectedOption = {text:'请选择',value:false}
@@ -17,9 +19,11 @@ const SubGroup = ({data,currentRepo,dispatch}) => {
         const foundSelectedOption = newOptions.filter(el=>el.value == rightFormId )
         if( foundSelectedOption.length != 0 ){
             selectedOption = foundSelectedOption[0]
-            subOptions = foundSelectedOption
+        }
+        const foundSubOptions = optionsData.filter(el=>el.value == rightFormId )
+        if( foundSubOptions.length != 0 ){
+            subOptions = foundSubOptions[0].children.map(el=>({text:el.title,value:el.value}))
             subOptions.unshift({text:'请选择',value:false})
-            // debugger
         }
     }
 
@@ -43,8 +47,12 @@ const SubGroup = ({data,currentRepo,dispatch}) => {
                     ) 
                 )}
             </div>
-            <div style={{margin:'20px 0',height:'1px',borderTop:'0.5px solid #dcdcdc',width:'100%'}}></div>
+            {isLast?(<div style={{height:'20px',width:'100%'}}></div>):(<div style={{margin:'20px 0 10px 0',height:'1px',borderTop:'0.5px solid #dcdcdc',width:'100%'}}></div>)}
+            
         </div>
     )
 }
+
 export default global.connect2redux('subflow', SubGroup)
+
+
