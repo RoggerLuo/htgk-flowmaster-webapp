@@ -22,9 +22,9 @@ export default function(selectedShape) {
         })
         return
     }
-    if (name == 'Service task') {
+    if (name == 'Circulation task') {
         window.reduxStore.dispatch({
-            type: 'service/newNodeInit',
+            type: 'circulation/newNodeInit',
             init() {
                 // window.setPropertyAdvance({ key: 'classify', value: 'Circulation' }, selectedShape)
             }

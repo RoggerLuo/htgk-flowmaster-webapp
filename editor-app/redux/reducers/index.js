@@ -12,7 +12,7 @@ import endpoint from './endpoint'
 import branchNode from './branchNode'
 import manual from './manual'
 import sql from './sql'
-import service from './service'
+import circulation from './circulation'
 import custom from './custom'
 import subflow from './subflow'
 
@@ -30,7 +30,7 @@ const rootRuducer = combineReducers({
     branchNode,
     manual,
     sql,custom,
-    service,
+    circulation,
     subflow,
     popupX
 })
