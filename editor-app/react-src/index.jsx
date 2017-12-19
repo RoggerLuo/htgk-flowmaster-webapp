@@ -16,7 +16,7 @@ import saveButton from './saveButton/saveButton'
 import myAlert from './alert/alert'
 import mySpin from './alert/spin'
 import manual from './manual/Container'
-import service from './service/Container'
+import circulation from './circulation/Container'
 import custom from './custom/Container'
 import subflow from './subflow/Container'
 
@@ -31,7 +31,7 @@ global.approveComponent = { render: approveComponent }
 global.branchComponent = { render: branchNodeComponent }
 global.endPointComponent = endPointComponent
 global.manualCompInitializer = manual
-global.serviceCompInitializer = service
+global.circulationCompInitializer = circulation
 global.customCompInitializer = custom
 global.subflowCompInitializer = subflow
 

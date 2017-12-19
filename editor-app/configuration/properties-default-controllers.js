@@ -24,8 +24,8 @@ var subflowPropertyCtrl = ['$scope', function($scope) {
 var customPropertyCtrl = ['$scope', function($scope) {
     window.customCompInitializer()
 }]
-var servicePropertyCtrl = ['$scope', function($scope) {
-    window.serviceCompInitializer()
+var circulationPropertyCtrl = ['$scope', function($scope) {
+    window.circulationCompInitializer()
 }]
 var manualPropertyCtrl = ['$scope', function($scope) {
     window.manualCompInitializer()

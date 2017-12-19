@@ -43,13 +43,18 @@ function handleBranchSequence($scope, selectedShape) {
     }
     return false
 }
+
 import autoNaming from './autoNaming'
+
+
 function handleOthers($scope, selectedShape) {
     autoNaming(selectedShape, $scope)
     const title = selectedShape._stencil._jsonStencil.title
     $scope.propertyTpl = tplSrc + tplMap[title]
-    // console.log(tplSrc + tplMap[title])
+    console.log(tplSrc + tplMap[title])
 }
+
+
 export default function($scope, event) {
     const selectedShape = event.elements.first()
     if (handleCanvas($scope, selectedShape)) return

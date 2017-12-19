@@ -12,7 +12,7 @@ export default function(modelData){ /* 对服务器上的数据进行 解析 然
             return            
         }
         switch(el.stencil.id){
-            case 'ServiceTask':
+            case 'CirculationTask':
                 service(el,index,modelData)
                 break
             case 'ManualTask':
