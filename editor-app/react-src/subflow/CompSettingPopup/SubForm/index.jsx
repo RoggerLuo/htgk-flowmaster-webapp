@@ -13,7 +13,7 @@ const SubForm = ({ currentRepo, dispatch }) => {
             <Header />
             <div style={{padding:'10px 20px'}}>
                 {
-                    filtered.map((el,ind)=>(<SubGroup key={ind} data={el}/>))
+                    filtered.map((el,ind)=>(<SubGroup key={ind} data={el} isLast={(filtered.length-1)==ind}/>))
                 }
             </div>
         </SolidFrame>

@@ -16,12 +16,13 @@ export default function(el,index,modelData){
     if(el.properties.reduxData){
         global.reduxStore.dispatch({
             type:'subflow/init',
-            data:{
-                data:el.properties.reduxData.data,
-                id:el.properties.reduxData.id,
-                subProcess:el.properties.reduxData.subProcess,
-                isWaiting:el.properties.reduxData.isWaiting
-            }
+            data:el.properties.reduxData
+            // {
+            //     data:el.properties.reduxData.data,
+            //     id:el.properties.reduxData.id,
+            //     subProcess:el.properties.reduxData.subProcess,
+            //     isWaiting:el.properties.reduxData.isWaiting
+            // }
         })        
     }
 

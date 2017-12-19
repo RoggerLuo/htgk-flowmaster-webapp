@@ -18,6 +18,8 @@ const Group = ({ leftData, currentRepo, dispatch, leftFormId, subOptions }) => {
     }    
     const select = (item, optionInd) => {
         dispatch({ type: 'subflow/subRights/rightFormId/fieldId', leftFormId, fieldId: leftData.name, item })
+        activeSave() 
+
     }
 
     return (    

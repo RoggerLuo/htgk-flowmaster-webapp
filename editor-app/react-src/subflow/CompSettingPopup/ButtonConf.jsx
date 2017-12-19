@@ -7,8 +7,13 @@ import confirmGenerator from '../../confirmGenerator'
 const ButtonContainer = ({reduxCate,dispatch,children}) => { 
     const add = (item) => {
         dispatch({type:'subflow/addRole',item})
+        activeSave() 
+
     }
-    const clear = () => dispatch({type:'subflow/clear'})
+    const clear = () => {
+        dispatch({type:'subflow/clear'})
+        activeSave() 
+    }
 
     const confirmFunction = confirmGenerator({reduxCate,add,clear})
     const xClass = {marginTop:'5px',marginLeft:'-105px'}

@@ -7,7 +7,7 @@ export default function(el,index,modelData){
         })  
 
         global.reduxStore.dispatch({
-            type:'service/init',
+            type:'circulation/init',
             data:{
                 data:inputData,
                 id:el.resourceId,

@@ -24,9 +24,9 @@ const Radios =  ({dispatch,isWaiting}) => {
 
                 </div>
 
-                <div >
+                <div onClick={mode2}>
 
-                    <div className="radio-lable" onClick={mode2} style={{cursor:'pointer'}}>
+                    <div className="radio-lable"  style={{cursor:'pointer'}}>
                         <span className="radio-img" style={{position:'relative',bottom:'2px'}}><img width="20" height="20" src={require("./unselected.png")} /></span>
                         &nbsp;<span className="radio-text" style={{lineHeight:'30px'}}>{`非阻塞等待`}</span> 
                     </div>  
@@ -43,8 +43,8 @@ const Radios =  ({dispatch,isWaiting}) => {
         view = (
             <div className="radio-box">
                 
-                <div >
-                    <div className="radio-lable" onClick={mode1} style={{cursor:'pointer'}}>
+                <div onClick={mode1} >
+                    <div className="radio-lable"  style={{cursor:'pointer'}}>
                         <span className="radio-img" style={{position:'relative',bottom:'2px'}}><img width="20" height="20" src={require("./unselected.png")} /></span>
                         &nbsp;<span className="radio-text" style={{lineHeight:'30px'}}>{`阻塞等待`}</span> 
                     </div> 

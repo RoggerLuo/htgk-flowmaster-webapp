@@ -17,6 +17,7 @@ const MainForm = ({ currentRepo, dispatch }) => {
                     ))
                 }
             </div>
+            <div style={{height:'20px',width:'100%'}}></div>
         </SolidFrame>
     )
 }

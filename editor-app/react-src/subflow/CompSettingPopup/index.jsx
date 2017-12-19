@@ -7,6 +7,7 @@ import './style.less'
 import MainForm from './MainForm'
 import SubForm from './SubForm' 
 import ApproveRange from './ApproveRange'
+import Radios from './Radios' 
 
 export default function(){ //data是 currentRepo的data //data
     const SettingPopup = ({ currentRepo, put, add }) => {//data,
@@ -25,10 +26,12 @@ export default function(){ //data是 currentRepo的data //data
         return(
             <div className="setting-subflow" style={{width:'100%'}}>
                 <ApproveRange data={data}/>
+                <Radios />
                 <div className="property-row-title" style={{fontSize:'14px'}}> 子流程内容设置 </div>
                 <div className="property-row-title" style={{fontSize:'14px',paddingTop:'10px'}}> 主表 </div>
                 <MainForm />
                 {SubFormComp}
+                <div style={{height:'100px',width:'100%'}}></div>
             </div>
         )
     }
