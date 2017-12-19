@@ -20,6 +20,8 @@ const Approve = ({ currentRepo, dispatch }) => {
             width:'640px',
             style:{margin:'10px 60px'}
         })
+        activeSave() 
+
     }
     const setting = () => {
         window.requestFormData(currentRepo.subProcess.subProcDefKey,function(dataObj){
