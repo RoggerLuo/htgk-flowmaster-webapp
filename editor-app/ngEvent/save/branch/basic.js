@@ -12,6 +12,8 @@ export const ifEmptyWithoutInit = (canBeSaved) => {
     }).forEach((el) => {
         /* 如果是 会签分支 */
         if(global.isMultiGateway(el)) return 
+        /* 如果是 人工分支 */
+        if(global.isManualGateway(el)) return 
 
         /*  update 空值不能提交 */
         el.outgoing.forEach((el2) => {
@@ -29,6 +31,7 @@ export const ifEmptyWithoutInit = (canBeSaved) => {
 export const ifEmpty = (el, currentElement) => {
     const gateway = currentElement.incoming[0]
     if( gateway && global.isMultiGateway(gateway)) return false
+        if( gateway && global.isManualGateway(gateway)) return false
 
     if (el.conditions.some((condition, i) => {
             return condition.data.some((el, index) => {
