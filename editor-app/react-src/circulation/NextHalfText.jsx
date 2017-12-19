@@ -2,12 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import  './style'
 
-const ApproveNode = ({ put, currentRepo, dispatch }) => {
+const CirculationNextHalf = ({ put, currentRepo, dispatch }) => {
     const previousNodeSpecifiedChange = () => {
-        dispatch({type:'service/previousNodeSpecifiedChange'})
+        dispatch({type:'circulation/previousNodeSpecifiedChange'})
         activeSave() 
     }
-    const previousNodeSpecified = currentRepo[0] && currentRepo[0].previousNodeSpecified
+    const previousNodeSpecified = currentRepo.previousNodeSpecified
     return(
         <div>
             <div style={{height:'10px',width:'100%'}}></div>
@@ -37,16 +37,18 @@ const ApproveNode = ({ put, currentRepo, dispatch }) => {
 <div className="property-row-title">{put('approveNode.remark.title')}</div>
 <div className="property-row-content">{put('approveNode.remark.content')}</div>
 */
-const mapStateToProps = (state) => {
-    const repo = state.service.repo
-    const id = state.service.id
-    const currentRepo = repo.filter((el,index)=>el.id == id) || false
-    return {currentRepo} 
-}
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ApproveNode)
+export default global.connect2redux('circulation',CirculationNextHalf)
+
+// const mapStateToProps = (state) => {
+//     const repo = state.service.repo
+//     const id = state.service.id
+//     const currentRepo = repo.filter((el,index)=>el.id == id) || false
+//     return {currentRepo} 
+// }
+// const mapDispatchToProps = (dispatch) => {
+//     return {dispatch}
+// }
+// export default connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(ApproveNode)
