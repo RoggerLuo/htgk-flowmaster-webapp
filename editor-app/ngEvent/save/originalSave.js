@@ -3,6 +3,24 @@ export default function($scope, $http, callback) {
     /* 接下来是 activiti ng original的代码 */
     var json = $scope.editor.getJSON();
     json.properties.process_id = window.getQueryString("pid")
+    
+
+
+
+    // debugger  转换过去
+    json.childShapes.forEach((el)=>{
+        if(el.stencil.id == 'CirculationTask'){
+            // debugger
+            el.stencil.id = 'ServiceTask'
+        }
+        // console.log(el.stencil.id)
+    })
+
+
+    json.sub_properties = window.sub_properties || {}
+
+
+
     json = JSON.stringify(json);
 
     var selection = $scope.editor.getSelection();

@@ -1,8 +1,8 @@
 import rolesJsonSpeller from './rolesJsonSpeller'
 export default function(canvas) {
     
-    const service = window.reduxStore.getState().service
-    service.repo.forEach((repoObj) => {
+    const circulation = window.reduxStore.getState().circulation
+    circulation.repo.forEach((repoObj) => {
         let currentElement = canvas.getChildShapeByResourceId(repoObj.id)
         if (repoObj.id && !currentElement) return
         let jsonArray = []
