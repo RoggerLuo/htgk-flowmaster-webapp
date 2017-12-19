@@ -4,7 +4,7 @@ import Group from './GroupContainer'
 
 const SubGroup = ({data,currentRepo,dispatch,isLast}) => {
     const leftFormId = data.name
-    const optionsData = window.formPropertiesTotal || []
+    const optionsData = window.formPropertiesTotal || [] 
 
     const newOptions = optionsData.filter(el=>el.cate == 'sub_form').map(el=>({text:el.title,value:el.value}))
     newOptions.unshift({text:'请选择',value:false})
@@ -16,12 +16,15 @@ const SubGroup = ({data,currentRepo,dispatch,isLast}) => {
     const subRight = currentRepo.subRights && currentRepo.subRights[data.name] || false
     if(subRight){
         const rightFormId = subRight.rightFormId
-        const foundSelectedOption = newOptions.filter(el=>el.value == rightFormId )
+        const foundSelectedOption = newOptions.filter(el=>el.value == rightFormId ) 
+        //筛选出来是 主表单的 text, value
         if( foundSelectedOption.length != 0 ){
             selectedOption = foundSelectedOption[0]
         }
-        const foundSubOptions = optionsData.filter(el=>el.value == rightFormId )
+        const foundSubOptions = optionsData.filter(el=>el.value == rightFormId ) 
+        //筛选出来是 原始的form接口数据
         if( foundSubOptions.length != 0 ){
+            // 筛选出来之后的children才是可用的 子表单组件
             subOptions = foundSubOptions[0].children.map(el=>({text:el.title,value:el.value}))
             subOptions.unshift({text:'请选择',value:false})
         }
