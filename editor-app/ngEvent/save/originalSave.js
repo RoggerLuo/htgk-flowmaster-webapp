@@ -10,8 +10,10 @@ export default function($scope, $http, callback) {
     // debugger  转换过去
     json.childShapes.forEach((el)=>{
         if(el.stencil.id == 'CirculationTask'){
-            // debugger
             el.stencil.id = 'ServiceTask'
+        }
+        if(el.stencil.id == 'ManualTask'){
+            el.stencil.id = 'UserTask'
         }
         // console.log(el.stencil.id)
     })

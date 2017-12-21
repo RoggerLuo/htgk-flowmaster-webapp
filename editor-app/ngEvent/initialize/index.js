@@ -27,6 +27,11 @@ export function fetchModelWrap($http, $rootScope) {
                         el.stencil.id = 'CirculationTask'                        
                     }
                 }
+                if(el.stencil.id == 'UserTask'){
+                    if(el.properties.classify == "manual"){
+                        el.stencil.id = 'ManualTask'                        
+                    }
+                }
                 // console.log(el.stencil.id)
             })
 
