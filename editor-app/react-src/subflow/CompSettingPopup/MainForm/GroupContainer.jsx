@@ -8,7 +8,7 @@ const Group = ({ leftData, currentRepo, dispatch }) => {
     
     const mainRight = currentRepo.mainRight || {}
 
-    const selectedOption = mainRight[leftData.name] || { text: '请选择', value: '' }
+    const selectedOption = mainRight[leftData.name] || { text: '请选择', value: false }
     
     const optionsData = window.formProperties || []
     

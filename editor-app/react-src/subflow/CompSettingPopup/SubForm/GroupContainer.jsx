@@ -8,7 +8,7 @@ const Group = ({ leftData, currentRepo, dispatch, leftFormId, subOptions }) => {
     
     const mainRight = currentRepo.mainRight || {}
 
-    let selectedOption = { text: '请选择', value: '' }
+    let selectedOption = { text: '请选择', value: false }
     if(currentRepo.subRights){
         if(currentRepo.subRights[leftFormId]){
             if( currentRepo.subRights[leftFormId].map[leftData.name]){
