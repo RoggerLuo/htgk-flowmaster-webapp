@@ -17,8 +17,6 @@ export default function($scope, $http, callback) {
     })
 
 
-    json.sub_properties = window.sub_properties || {}
-
 
 
     json = JSON.stringify(json);
@@ -44,13 +42,16 @@ export default function($scope, $http, callback) {
 
     // Parse dom to string
     var svgDOM = DataManager.serialize(svgClone);
-
+    window.sub_properties = window.sub_properties || {}
     var params = {
         json_xml: json,
         svg_xml: svgDOM,
-        name: window.pidName
+        name: window.pidName,
+        sub_properties: JSON.stringify(window.sub_properties) 
         // descriptionPrivate: 'flowMaster'
     };
+    // console.log(params.sub_properties)
+
     const transformRequest = function(obj) {
         var str = [];
         for (var p in obj) {
