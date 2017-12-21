@@ -61,21 +61,11 @@ export default function(event,$scope){
         || selectedShape._stencil._jsonStencil.title == 'Manual task'
         )) {
         //控制边框颜色的办法
-        // jQuery('#' + selectedShape.id)[0].children[3].children[0].style.fill = '#00b0ff' 
-        jQuery('#' + selectedShape.id)[0].children[1].style.stroke = '#00b0ff' 
-        // jQuery('#' + selectedShape.id)[0].children[2].children[0] && (jQuery('#' + selectedShape.id)[0].children[2].children[0].style.fill= '#00b0ff')
-        
-        // if(jQuery('#' + selectedShape.id)[0].children[2].children[1]){
-        //     jQuery('#' + selectedShape.id)[0].children[2].children[1].style.fill= '#00b0ff'
-        // }
-        // if(jQuery('#' + selectedShape.id)[0].children[2].children[2]){
-        //     jQuery('#' + selectedShape.id)[0].children[2].children[2].style.fill= '#00b0ff'
-        // }
+        // jQuery('#' + selectedShape.id)[0].children[1].style.stroke = '#00b0ff' 
         $scope.lastSelectedUserTaskId = selectedShape.id
     }
     if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'Exclusive gateway')){
-        jQuery('#' + selectedShape.id)[0].children[0].style.stroke = '#00b0ff'
-        // jQuery('#' + selectedShape.id)[0].children[0].style.strokeWidth = 2
+        // jQuery('#' + selectedShape.id)[0].children[0].style.stroke = '#00b0ff'
     }
 
 
