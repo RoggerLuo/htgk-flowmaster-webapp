@@ -5,7 +5,7 @@ import Button from './ButtonConf'
 import NextHalfText from './NextHalfText'
 import SolidFrame from '../presentations/SolidFrame/SolidFrame'
 
-const ApproveNode = ({ currentRepo, put, add, setting }) => {
+const ApproveNode = ({ currentRepo, put, add, setting, del }) => {
     const isListEmpty = !(currentRepo.subProcess && currentRepo.subProcess.name)
     return(
         <div className="react-approve">
@@ -27,13 +27,13 @@ const ApproveNode = ({ currentRepo, put, add, setting }) => {
                         <div>
                             <i 
                                 onClick={setting} 
-                                style={{paddingLeft: '1px',cursor:'pointer'}} 
-                                className="icon iconfont icon-gantanhao-yuankuang">
+                                style={{paddingLeft: '1px',cursor:'pointer',marginRight:'10px'}} 
+                                className="icon iconfont icon-shezhi">
                             </i>
                             <i 
-                                onClick={setting} 
-                                style={{paddingLeft: '1px',cursor:'pointer'}} 
-                                className="icon iconfont icon-gantanhao-yuankuang">
+                                onClick={del} 
+                                style={{paddingLeft: '1px',cursor:'pointer',margin:'-6px 0 0 0',position:'relative',top:'3px'}} 
+                                className="icon iconfont icon-shanchu">
                             </i>
                         </div>
                     </div>

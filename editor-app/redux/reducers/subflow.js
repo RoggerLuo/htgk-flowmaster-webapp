@@ -71,7 +71,9 @@ export default reduceWrap('Subflow', {}, (state, action, ind) => {
                 .updateIn(['repo', ind], 'initial', (el) => el.set('data', fromJS(uniqAdd(poolData, action.item))) ).toJS()
 
         case 'subflow/clear':
-            return data.updateIn(['repo', ind, 'data'], [], (el) => fromJS([])).toJS()
+            return data.updateIn(['repo', ind], fromJS({}), (el) => {
+                return fromJS(newCreate(state.id, []))
+            }).toJS()
 
         case 'subflow/deleteRole':
             return data.updateIn(['repo', ind], 'initial', (el) => {

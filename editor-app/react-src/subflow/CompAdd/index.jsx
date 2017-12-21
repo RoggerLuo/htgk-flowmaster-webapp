@@ -2,17 +2,7 @@ import React from 'react'
 import SolidFrame from '../../presentations/SolidFrame/SolidFrame'
 import Group from './Group'
 import { connect } from 'react-redux'
-// const data = [
-//     {
-//         groupTitle:'我是标题我是标题',
-//         data:[
-//             {value:123,text:'text1text1text1',checked:false},
-//             {value:123,text:'text2text2text2',checked:false},
-//             {value:123,text:'text3text3text3',checked:false},
-//             {value:123,text:'text4text4text4',checked:false}
-//         ]
-//     }
-// ]
+
 const AddComp = ({ currentRepo, put, add }) => {
     const data = []
     window.processList.forEach((el)=>{
@@ -64,14 +54,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(ConnectedApp)
-
-/*
-const Group = ({index,data}) => {
-    return (<div>
-
-        <i style={{cursor:'pointer',fontSize:'20px', transform: 'rotate(-90deg)'}} className="icon iconfont icon-sanjiao1"></i>
-        {data.title}
-        {data.data.map((el,ind) => <List key={ind} index2={ind} index={index} text={el.text}/>)}
-    </div>)
-}
-*/

@@ -27,8 +27,6 @@ const Approve = ({ currentRepo, dispatch }) => {
         window.requestFormData(currentRepo.subProcess.subProcDefKey,function(dataObj){
             if(!dataObj) return
             dispatch({type:'subflow/leftFields',leftFields:dataObj.components})
-            // window.subFormData = window.subFormData?window.subFormData:{}
-            // window.subFormData[value] = dataObj
         })
 
         dispatch({
@@ -42,8 +40,11 @@ const Approve = ({ currentRepo, dispatch }) => {
             style:{margin:'10px 40px',width:'100%'}
         })
     }
+    const del = () => {
+        dispatch({type:'subflow/clear'})
+    }
     return(
-        <Presentation currentRepo={currentRepo} add={add} setting={setting}/>
+        <Presentation currentRepo={currentRepo} add={add} setting={setting} del={del}/>
     )
 }
 

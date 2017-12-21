@@ -23,7 +23,6 @@ const ButtonContainer = ({reduxCate,dispatch,children}) => {
         </Button>
     )
 }
-//xClass={{display:'inline-block',marginLeft: '-105px'}}
 const mapStateToProps = (state) => {
     const currentRepo = state.subflow.repo.filter((el,index)=>el.id == state.approve.id)
     const reduxCate = currentRepo && currentRepo[0] && currentRepo[0].data && currentRepo[0].data[0] && currentRepo[0].data[0].cate||false
