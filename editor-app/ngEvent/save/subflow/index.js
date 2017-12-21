@@ -41,7 +41,7 @@ export default function(canvas) {
             "startUserValue": "",
             "processType": "Normal"
         }
-        if(subSettings.subVersionId == ''){
+        if(subSetting.subVersionId == ''){
             window.showAlert('子流程中子表单versionId未获得')
             returnFlag = false
             return returnFlag
