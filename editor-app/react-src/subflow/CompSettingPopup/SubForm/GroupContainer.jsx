@@ -6,6 +6,10 @@ import PartLeft from '../Form/PartLeft'
 
 const Group = ({ leftData, currentRepo, dispatch, leftFormId, subOptions }) => {
     
+    subOptions = subOptions.filter(el=>{
+        return (el.cate == leftData.type) || (!el.value)
+    })
+
     const mainRight = currentRepo.mainRight || {}
 
     let selectedOption = { text: '请选择', value: false }
@@ -15,11 +19,11 @@ const Group = ({ leftData, currentRepo, dispatch, leftFormId, subOptions }) => {
                 selectedOption = currentRepo.subRights[leftFormId].map[leftData.name]
             }
         }
-    }    
+    } 
+
     const select = (item, optionInd) => {
         dispatch({ type: 'subflow/subRights/rightFormId/fieldId', leftFormId, fieldId: leftData.name, item })
-        activeSave() 
-
+        activeSave()
     }
 
     return (    

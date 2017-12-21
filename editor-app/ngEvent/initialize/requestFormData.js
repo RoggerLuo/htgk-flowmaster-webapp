@@ -56,7 +56,9 @@ export default function($http, pid) {
         })
         window.formPropertiesTotal = formControlAdapter(obj.components)
         window.formProperties = formControlAdapter(filteredComponents)
-        window.formProperties.unshift({ text: '请选择', value: 'initial', index: 'initial', type: 'initial' })
+        
+        const defaultOption = { text: '请选择', value: false, index: 'initial', type: 'initial' }
+        window.formProperties.unshift(defaultOption)
         global.reduxStore.dispatch({ type: 'updateFormProperties', data: window.formProperties })
     })
     window.requestFormData = (pid,cb) => {

@@ -10,8 +10,11 @@ const Group = ({ leftData, currentRepo, dispatch }) => {
 
     const selectedOption = mainRight[leftData.name] || { text: '请选择', value: false }
     
-    const optionsData = window.formProperties || []
-    
+    let optionsData = window.formProperties || []
+    optionsData = optionsData.filter(el=>{
+        return (el.cate == leftData.type) || (!el.value)
+    })
+
     const select = (item, optionInd) => {
         dispatch({ type: 'subflow/mainRight', fieldId: leftData.name, item })
     }

@@ -26,7 +26,7 @@ const SubGroup = ({data,currentRepo,dispatch,isLast}) => {
         //筛选出来是 原始的form接口数据
         if( foundSubOptions.length != 0 ){
             // 筛选出来之后的children才是可用的 子表单组件
-            subOptions = foundSubOptions[0].children.map(el=>({text:el.title,value:el.value,type:el.type}))
+            subOptions = foundSubOptions[0].children.map(el=>({text:el.title,value:el.name,type:el.type,cate:el.type}))
             subOptions.unshift({text:'请选择',value:false})
         }
     }
