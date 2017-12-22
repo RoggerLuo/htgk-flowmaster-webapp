@@ -1,5 +1,3 @@
-import store from '../redux/configureStore'
-global.reduxStore = store
 
 import './utils/connect2redux'
 import '../ngEvent'
@@ -20,10 +18,13 @@ import circulation from './circulation/Container'
 import custom from './custom/Container'
 import subflow from './subflow/Container'
 
+//reduxStore要在下面这一堆东西执行之前执行
+
 popupStart()
 popupXStart()
 myAlert()
 mySpin()
+
 global.saveButton = { render: saveButton, flag: true }
 global.branchSequenceFlowComponent = { render: branchSequenceFlowComponent }
 global.parallelApproveComponent = { render: parallelApproveComponent }
@@ -44,3 +45,5 @@ import '../qingfont/iconfont.css'
 import './global.less'
 import './icon.less'
 import './basic.less'
+// global.reduxStore = store
+debugger

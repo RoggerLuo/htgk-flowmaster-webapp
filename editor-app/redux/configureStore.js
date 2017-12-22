@@ -15,6 +15,7 @@ function configureStore(preloadedState) {
         )
     )
 }
+global.reduxStore = configureStore() 
 
-export default configureStore()
-
+export default configureStore() //很多地方用到这个 暂时必须要有export 不是初始化的问题
+//改成全局的 rdx.store
