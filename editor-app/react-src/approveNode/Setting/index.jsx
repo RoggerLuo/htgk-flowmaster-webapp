@@ -17,24 +17,33 @@ const ApproveNode = ({ put, currentRepo, dispatch }) => {
             oncheck:oncheckFactory('backToStarter'),
             checked:rdx.backToStarter||false,
             defaultValue:'退回发起人',
-            inputValue:'',
-            onchange(){}
+            inputValue:rdx.backToStarterText,
+            onchange(e){
+                dispatch({type:'approve/change',key:'backToStarterText',value:e.target.value||'退回发起人'})
+                activeSave()             
+            }
         },
         {
             title:'允许退回上一节点审批人',
             oncheck:oncheckFactory('backToLast'),
             checked:rdx.backToLast||false,
             defaultValue:'退回上一节点审批人',
-            inputValue:'',
-            onchange(){}
+            inputValue:rdx.backToLastText,
+            onchange(e){
+                dispatch({type:'approve/change',key:'backToLastText',value:e.target.value||'退回上一节点审批人'})
+                activeSave()             
+            }
         },
         {
             title:'允许强制结束流程',
             oncheck:oncheckFactory('allowForceEnd'),
             checked:rdx.allowForceEnd||false,
             defaultValue:'强制结束流程',
-            inputValue:'',
-            onchange(){}
+            inputValue:rdx.allowForceEndText,
+            onchange(e){
+                dispatch({type:'approve/change',key:'allowForceEndText',value:e.target.value||'强制结束流程'})
+                activeSave()             
+            }
         }
     ]
     return(

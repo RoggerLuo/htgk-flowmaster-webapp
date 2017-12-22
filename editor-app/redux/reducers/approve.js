@@ -7,8 +7,10 @@ const uniqAdd = (data, item) => {
     return data
 }
 
+
 export default reduceWrap('User task', {}, (state, action, ind) => {
     let data = fromJS(state)
+
     switch (action.type) {
         case 'approve/change':
             return data.updateIn(['repo', ind, action.key], false, (el) => action.value).toJS()
@@ -25,9 +27,16 @@ export default reduceWrap('User task', {}, (state, action, ind) => {
         //     return data.updateIn(['repo', ind, 'enableSingleSelect'], false, (el) => !el).toJS()
 
         case 'approve/init':
-            return data.updateIn(['repo'], 'initial', (el) => {
-                return el.push(fromJS(action.data))
-            }).toJS()
+            return data.updateIn(['repo'], 'initial', (el) => el.push(fromJS(action.data)) ).toJS()
+        case 'approve/newNodeInit':
+            if (ind == 'not exist') {
+                const basic2 = { id: state.id, data: [] } // cate: action.item.cate 
+                const newCreate2 = fromJS(basic2)
+
+                return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate2)).toJS()
+            }
+            return state
+
 
         case 'approve/addRole':
             if (ind == 'not exist') {

@@ -10,7 +10,16 @@ export default function(selectedShape) {
         })
         return
     }
-
+    if (name == 'User task') {
+        window.reduxStore.dispatch({
+            type: 'approve/newNodeInit',
+            init() {
+                // window.setPropertyAdvance({ key: 'classify', value: 'manual' }, selectedShape)
+                // window.quickAddItem('ExclusiveGateway')
+            }
+        })
+        return
+    }
 
     if (name == 'Manual task') {
         window.reduxStore.dispatch({

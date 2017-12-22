@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 // import { requestFormData } from '../../../ngEvent/initialize/requestFormData'
 
-const List = ({ value, text, versionId, checked, dispatch,currentRepo }) => {
+const List = ({ value, text, versionId, checked, dispatch, currentRepo }) => {
     const onclick = () => {
         dispatch({
             type: 'subflow/add',
@@ -16,8 +16,6 @@ const List = ({ value, text, versionId, checked, dispatch,currentRepo }) => {
         window.requestFormData(value,function(dataObj){
             if(!dataObj) return
             dispatch({type:'subflow/leftFields',leftFields:dataObj.components})
-            // window.subFormData = window.subFormData?window.subFormData:{}
-            // window.subFormData[value] = dataObj
         })
     }
     let style = {cursor:'pointer'}
