@@ -41,9 +41,7 @@ export default function(selectedShape) {
         return
     }
     if (name == 'Subflow') {
-        window.reduxStore.dispatch({
-            type: 'subflow/newNodeInit',
-        })
+        reduxStore.dispatch({type: 'subflow/newNodeInit'})
         return
     }
 

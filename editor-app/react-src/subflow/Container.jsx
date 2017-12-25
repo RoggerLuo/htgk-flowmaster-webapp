@@ -7,7 +7,7 @@ import Presentation from './Presentation'
 import CompAdd from './CompAdd'
 import CompSettingPopup from './CompSettingPopup'
 
-const Approve = ({ currentRepo, dispatch }) => {
+const SubflowContainer = ({ currentRepo, dispatch }) => {
     if(!currentRepo) return null
     const data = currentRepo.data || []
     const add = () => {
@@ -28,7 +28,6 @@ const Approve = ({ currentRepo, dispatch }) => {
             if(!dataObj) return
             dispatch({type:'subflow/leftFields',leftFields:dataObj.components})
         })
-
         dispatch({
             content:CompSettingPopup(data),
             confirm:()=>{},
@@ -47,27 +46,12 @@ const Approve = ({ currentRepo, dispatch }) => {
         <Presentation currentRepo={currentRepo} add={add} setting={setting} del={del}/>
     )
 }
-
-const mapStateToProps = (state) => {
-    const repo = state.subflow.repo
-    const id = state.subflow.id
-    const filteredRepo = repo.filter((el,index)=>el.id == id) || false
-    const currentRepo = filteredRepo && filteredRepo[0] || false
-    return {currentRepo} 
-}
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
-
-const ApproveContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Approve)
+const SubflowContainerConnected = global.connect2redux('subflow',SubflowContainer)
 
 export default function(){
     render(
         <Provider store={store}>
-                <ApproveContainer />
+                <SubflowContainerConnected />
         </Provider>
         ,
         document.getElementById('subflowPropertyCtrl')

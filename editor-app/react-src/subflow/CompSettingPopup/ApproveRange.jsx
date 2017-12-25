@@ -3,13 +3,6 @@ import RolesFrame from './RolesFrameConf'
 import Button from './ButtonConf'
 
 export default ({ data ,put }) => {//data,
-    // const choosed = (item)=>{
-    //     // dispatch({type:'dropdown1Choose',item})
-    // }
-    // const getData = () => {
-    //     return [{text:'123',value:'456'},{text:'1235',value:'4565'}]
-    // }
-    const choosedOption = {text:'123',value:'456'}
     const isEmpty = data.length == 0
     return(
         <div>

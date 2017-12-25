@@ -45,5 +45,3 @@ import '../qingfont/iconfont.css'
 import './global.less'
 import './icon.less'
 import './basic.less'
-// global.reduxStore = store
-debugger

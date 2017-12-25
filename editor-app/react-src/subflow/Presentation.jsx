@@ -43,19 +43,8 @@ const ApproveNode = ({ currentRepo, put, add, setting, del }) => {
         </div>
     )
 }
-/*
-{!isListEmpty?(
-    <RolesFrame data={data} />
-):null}
-
-{!isListEmpty?(
-    <Button>    
-        <i style={{paddingLeft: '1px'}} className="icon iconfont icon-tianjia"></i>
-    </Button>    
-):null}
 
 
-*/
 import connectPut from 'react-put'
 const options = {mapPropToDictionary: (props)=>window.reactI18n}
 const ConnectedApp = connectPut(options)(ApproveNode)

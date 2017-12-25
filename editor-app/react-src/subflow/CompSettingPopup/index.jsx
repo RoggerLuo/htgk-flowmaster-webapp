@@ -39,17 +39,3 @@ export default function(){ //data是 currentRepo的data //data
     const ConnectedApp = connectPut(options)(SettingPopup)
     return global.connect2redux('subflow',ConnectedApp)
 }
-
-/*
-const mapStateToProps = (state) => {
-    const repo = state.subflow.repo
-    const id = state.subflow.id
-    const currentRepos = repo.filter((el,index)=>el.id == id)
-    if(!currentRepos[0]) return false
-    const currentRepo = currentRepos[0]
-    return {currentRepo} 
-}
-const mapDispatchToProps = (dispatch) => ({dispatch})
-return connect(mapStateToProps,mapDispatchToProps)(ConnectedApp)
-
-*/
