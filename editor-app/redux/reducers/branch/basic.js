@@ -20,7 +20,7 @@ export const newCreate = (state) => {
             ruleMode: 'normal'
         }],
         conditionMode:'normal',
-        radio: 'dropdown'
+        radio: false
     }
 }
 

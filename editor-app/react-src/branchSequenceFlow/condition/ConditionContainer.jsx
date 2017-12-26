@@ -104,22 +104,4 @@ const ConditionContainer = createClass({
     }
 })
 
-// const mapStateToProps = (state) => {
-//     const elementFound = state.branch.dataRepo.filter((el,index)=>{
-//         return el.id == state.branch.id
-//     })
-//     const conditions = elementFound[0] && elementFound[0].conditions || []
-//     const conditionMode = state.branch.conditionMode
-//     return {conditions,conditionMode}
-// }
-// const mapDispatchToProps = (dispatch) => {
-//     return {dispatch}
-// }
-// const ConditionContainer2 = connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(ConditionContainer)
-
-// export default ConditionContainer2
-
 export default global.connect2redux('branch', ConditionContainer)

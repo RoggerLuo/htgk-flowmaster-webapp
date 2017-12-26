@@ -26,9 +26,7 @@ const SectionTitle = ({text,widgetDisplay,cancel,add,del}) => {
 
 function SectionTitleContainer({text,currentRepo,dispatch}){
     const widgetDisplay = (currentRepo.conditionMode =='delete') && (currentRepo.conditions.length != 0)  //got problem
-    function cancel(){
-        dispatch({type:'closeConditionDeleteMode'})
-    }
+    const cancel = () => rdx.put('branch','replace',['conditionMode'],'normal')
     const params = {
         widgetDisplay,
         cancel,
@@ -42,8 +40,7 @@ function SectionTitleContainer({text,currentRepo,dispatch}){
             activeSave()
         },
         del(){
-            dispatch({type:'conditionDeleteMode'})
-            activeSave()
+            rdx.put('branch','replace',['conditionMode'],'delete')
         }
     }
     return (<SectionTitle text={text} {...params}/>)

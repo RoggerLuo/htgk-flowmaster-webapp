@@ -142,11 +142,6 @@ export default reduceWrap('Sequence flow', {}, (state, action, ind) => {
             return data.updateIn(['repo', repoIndexRadio2], 'initial', (el) => {
                 return el.set('text', action.text) //false or true
             }).toJS()
-        case 'radioChange':
-            let repoIndexRadio = data.get('repo').findKey((el, index, iter) => el.get('id') == state.id)
-            return data.updateIn(['repo', repoIndexRadio], 'initial', (el) => {
-                return el.set('radio', action.radio)
-            }).toJS()
 
         case 'switchElement':
             return data.updateIn(['id'], 'initial', (el) => {
@@ -171,25 +166,13 @@ export default reduceWrap('Sequence flow', {}, (state, action, ind) => {
 
         
 
-        case 'switchRadio':
-            return Object.assign({}, state, {
-                radio: action.value
-            })
 
         case 'switchApproveData':
             return data.updateIn(['id'], 'initial', (el) => {
                 return action.nextId
             }).toJS()
 
-        case 'conditionDeleteMode':
-            return Object.assign({}, state, {
-                conditionMode: 'delete'
-            })
-
-        case 'closeConditionDeleteMode':
-            return Object.assign({}, state, {
-                conditionMode: 'normal'
-            })
+    
 
         case 'addCondition':
             let repoIndex = data.get('repo').findKey((el, index, iter) => el.get('id') == state.id)
