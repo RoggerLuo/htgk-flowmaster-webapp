@@ -2,12 +2,9 @@
 import loadServerData from './loadServerData'
 import requestUserData from './requestUserData'
 import requestFormData from './requestFormData'
-import { getModel, getPid, getProList } from './getOtherData'
+import { getModel, getPid, getProList, processStatus } from './getOtherData'
 
 export function fetchModelWrap($http, $rootScope) {
-    // global.getModelByPid = (pid,cb) => {
-    //     getModel(cb, $http,pid)
-    // }
 
     const angularInit = (data) => {
         $rootScope.editor = new ORYX.Editor(data) //initialised   10866 12431 10060
@@ -17,6 +14,7 @@ export function fetchModelWrap($http, $rootScope) {
     const dataInit = modelId => {
         return (data) => {
             // data.model = data //本地断网调试
+
 
 
 
@@ -56,6 +54,7 @@ export function fetchModelWrap($http, $rootScope) {
         getPid($http)
         getModel(dataInit(modelId), $http,window.getQueryString("pid"))
         getProList($http)
+        // processStatus($http)
 
         $http({    
             method: 'GET',

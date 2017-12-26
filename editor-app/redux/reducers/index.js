@@ -15,6 +15,7 @@ import sql from './sql'
 import circulation from './circulation'
 import custom from './custom'
 import subflow from './subflow'
+import sf from './sf'
 
 
 const rootRuducer = combineReducers({
@@ -32,7 +33,8 @@ const rootRuducer = combineReducers({
     sql,custom,
     circulation,
     subflow,
-    popupX
+    popupX,
+    sf
 })
 
 export default rootRuducer

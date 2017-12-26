@@ -20,7 +20,9 @@ global.reduxStore = store
 global.rdx = {
     store,
     put(type, a, b, c, d) {
-        store.dispatch({ type, f(cb) { return cb(a, b, c, d) } })
+        store.dispatch({ type, f(cb) { 
+            return cb(a, b, c, d) } 
+        })
         global.activeSave()
     }
 }

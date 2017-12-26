@@ -2,14 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 const Radios =  ({dispatch,isWaiting}) => {
-    const mode1 = () => {
-        disp('subflow','replace',['isWaiting'],true)
-        // dispatch({type:'subflow',f(cb){return cb('replace',['isWaiting'],true)}})
-        // dispatch({type:'subflow/isWaiting',isWaiting:true})
-    }
-    const mode2 = () => {
-        dispatch({type:'subflow/isWaiting',isWaiting:false})
-    }
+    const mode1 = () => rdx.put('subflow','replace',['isWaiting'],true)
+    const mode2 = () => rdx.put('subflow','replace',['isWaiting'],false)        
+    
     let view = ''
     if(isWaiting){
         view = (

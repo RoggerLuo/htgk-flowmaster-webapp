@@ -39,18 +39,4 @@ import connectPut from 'react-put'
 const options = {mapPropToDictionary: (props)=>window.reactI18n}
 const ConnectedApp = connectPut(options)(AddComp)
 
-const mapStateToProps = (state) => {
-    const repo = state.subflow.repo
-    const id = state.subflow.id
-    const filteredRepo = repo.filter((el,index)=>el.id == id) || false
-    const currentRepo = filteredRepo && filteredRepo[0] || false
-    return {currentRepo} 
-}
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ConnectedApp)
+export default global.connect2redux('subflow',ConnectedApp)
