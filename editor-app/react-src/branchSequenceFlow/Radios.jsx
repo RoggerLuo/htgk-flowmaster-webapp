@@ -1,9 +1,22 @@
 import React,{createClass} from 'react';
 import { connect } from 'react-redux'
 
-const Radios = ({mode1,mode2,element,put}) => {
+const Radios = ({currentRepo,put,dispatch}) => {
+    const mode1 =()=>{
+        dispatch({type:'switchRadio',value:'dropdown'})
+        dispatch({type:'radioChange',radio:false})
+        dispatch({type:'saveActive'})
+
+    }
+    const mode2 =()=>{
+        dispatch({type:'switchRadio',value:'text'})
+        dispatch({type:'radioChange',radio:true})
+        dispatch({type:'saveActive'})
+
+    }
+
     let view = ''
-    if(element.radio){
+    if(currentRepo.radio){
         view = (
             <div className="radio-box">
                 <label className="radio-lable" onClick={mode1}>
@@ -33,31 +46,31 @@ const Radios = ({mode1,mode2,element,put}) => {
 
     return view
 }
-const mapStateToProps = (state) => {
-    const elementFound = state.branch.dataRepo.filter((el,index)=>{
-        return el.id == state.branch.id
-    })
-    // const conditions = elementFound[0] && elementFound[0].conditions || []
-    const element = elementFound[0] && elementFound[0]||{}
-    return {element}
+// const mapStateToProps = (state) => {
+//     const elementFound = state.branch.dataRepo.filter((el,index)=>{
+//         return el.id == state.branch.id
+//     })
+//     // const conditions = elementFound[0] && elementFound[0].conditions || []
+//     const element = elementFound[0] && elementFound[0]||{}
+//     return {element}
 
-    // return {radio:state.branch.radio}
-}
-const mapDispatchToProps = (dispatch) => {
-    const mode1 =()=>{
-        dispatch({type:'switchRadio',value:'dropdown'})
-        dispatch({type:'radioChange',radio:false})
-        dispatch({type:'saveActive'})
+//     // return {radio:state.branch.radio}
+// // }
+// const mapDispatchToProps = (dispatch) => {
+//     const mode1 =()=>{
+//         dispatch({type:'switchRadio',value:'dropdown'})
+//         dispatch({type:'radioChange',radio:false})
+//         dispatch({type:'saveActive'})
 
-    }
-    const mode2 =()=>{
-        dispatch({type:'switchRadio',value:'text'})
-        dispatch({type:'radioChange',radio:true})
-        dispatch({type:'saveActive'})
+//     }
+//     const mode2 =()=>{
+//         dispatch({type:'switchRadio',value:'text'})
+//         dispatch({type:'radioChange',radio:true})
+//         dispatch({type:'saveActive'})
 
-    }
-    return {mode1,mode2}
-}
+//     }
+//     return {mode1,mode2}
+// }
 
 
 import connectPut from 'react-put'
@@ -66,9 +79,11 @@ const ConnectedApp = connectPut(options)(Radios)
 
 
 
-const RadiosContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ConnectedApp)
+// const RadiosContainer = connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(ConnectedApp)
 
-export default RadiosContainer
+// export default RadiosContainer
+
+export default global.connect2redux('branch', ConnectedApp)

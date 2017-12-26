@@ -89,7 +89,7 @@ const Options =   ({conditions,element,put,nextElement}) => {
 //{put('branch.remark.contentTimeDoc')}
 const mapStateToProps = (state) => {
     const nextElement = state.common.nextElOfSF
-    const elementFound = state.branch.dataRepo.filter((el,index)=>{
+    const elementFound = state.branch.repo.filter((el,index)=>{
         return el.id == state.branch.id
     })
     const conditions = elementFound[0] && elementFound[0].conditions || []

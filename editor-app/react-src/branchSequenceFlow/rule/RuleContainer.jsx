@@ -35,7 +35,7 @@ const RuleContainer = ({branch,conditions,dispatch,/*from redux*/key1,key2,ruleM
     return (<Rule {...{dropdownData,ruleMode,del,oninput}} />)
 }
 const mapStateToProps = (state) => {
-    const elementFound = state.branch.dataRepo.filter((el,index)=>{
+    const elementFound = state.branch.repo.filter((el,index)=>{
         return el.id == state.branch.id
     })
     const conditions = elementFound[0] && elementFound[0].conditions || []

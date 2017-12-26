@@ -34,9 +34,9 @@ const ConditionContainer = createClass({
         }
     },
     render(){
-
+        const conditions = this.props.currentRepo.conditions
         const deleteCondition = (index) => { //这是删除条件
-            if(this.props.conditions.length <=1){
+            if(conditions.length <=1){
                 window.showAlert('至少保留一组条件')
                 this.props.dispatch({type:'closeConditionDeleteMode'})
                 return 
@@ -44,14 +44,14 @@ const ConditionContainer = createClass({
             activeSave()
             this.props.dispatch({type:'deleteCondition',conditionIndex:index})        
         }
-        const ruleData = this.props.conditions[this.props.index] && this.props.conditions[this.props.index].data||[]
-        const conditionMode = this.props.conditionMode
+        const ruleData = conditions[this.props.index] && conditions[this.props.index].data||[]
+        const conditionMode = this.props.currentRepo.conditionMode //got problem
 
        
 
         /* 考虑到condition删除状态的影响,每次进行判断 */
 
-        const ruleMode = this.props.conditionMode == 'delete'?'normal': this.props.conditions[this.props.index] && this.props.conditions[this.props.index].ruleMode || 'normal'
+        const ruleMode = this.props.conditionMode == 'delete'?'normal': conditions[this.props.index] && conditions[this.props.index].ruleMode || 'normal'
 
         /* 准备header的数据 */
         const closeMenu = () => {
@@ -104,20 +104,22 @@ const ConditionContainer = createClass({
     }
 })
 
-const mapStateToProps = (state) => {
-    const elementFound = state.branch.dataRepo.filter((el,index)=>{
-        return el.id == state.branch.id
-    })
-    const conditions = elementFound[0] && elementFound[0].conditions || []
-    const conditionMode = state.branch.conditionMode
-    return {conditions,conditionMode}
-}
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
-const ConditionContainer2 = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ConditionContainer)
+// const mapStateToProps = (state) => {
+//     const elementFound = state.branch.dataRepo.filter((el,index)=>{
+//         return el.id == state.branch.id
+//     })
+//     const conditions = elementFound[0] && elementFound[0].conditions || []
+//     const conditionMode = state.branch.conditionMode
+//     return {conditions,conditionMode}
+// }
+// const mapDispatchToProps = (dispatch) => {
+//     return {dispatch}
+// }
+// const ConditionContainer2 = connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(ConditionContainer)
 
-export default ConditionContainer2
+// export default ConditionContainer2
+
+export default global.connect2redux('branch', ConditionContainer)
