@@ -20,8 +20,8 @@ export default function(canvas) {
             returnFlag = false
         }
        
-        const candidateUsers = {candidateOwners:rolesJsonSpeller([],repoObj.data)}
-        if(candidateUsers.candidateOwners.length == 0){
+        const candidateUsers = rolesJsonSpeller([],repoObj.data)
+        if(candidateUsers.length == 0){
             window.showAlert('子流程中审批人范围未选择')
             returnFlag = false
             return returnFlag
