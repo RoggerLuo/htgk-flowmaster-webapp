@@ -61,12 +61,12 @@ export default reduceWrap('Subflow', {}, (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
         case 'subflow':
-            if (ind == 'not exist'){
+            if (ind == 'not exist') {
                 const blankNode = newNode(state.id, [])
                 const add_node_to_repo = (repo) => repo.push(blankNode)
-                return data.updateIn(['repo'], '',add_node_to_repo).toJS() 
-            } 
-            const func = transformer(data)
+                return data.updateIn(['repo'], '', add_node_to_repo).toJS()
+            }
+            const func = transformer(data, ind)
             return action.f(func)
 
 

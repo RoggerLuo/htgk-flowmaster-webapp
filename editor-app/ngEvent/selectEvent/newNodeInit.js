@@ -44,6 +44,10 @@ export default function(selectedShape) {
         reduxStore.dispatch({type: 'subflow/newNodeInit'})
         return
     }
+    if (name == 'Sequence flow') {
+        rdx.put('sf','touch')
+        return
+    }
 
 
 
