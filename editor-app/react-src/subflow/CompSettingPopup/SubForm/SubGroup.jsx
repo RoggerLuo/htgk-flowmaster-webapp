@@ -6,7 +6,7 @@ const SubGroup = ({data,currentRepo,dispatch,isLast}) => {
     const leftFormId = data.name
     const optionsData = window.formPropertiesTotal || [] 
 
-    const newOptions = optionsData.filter(el=>el.cate == 'sub_form').map(el=>({text:el.title,value:el.value}))
+    const newOptions = optionsData.filter(el=>el.subform_type == 'sub_form').map(el=>({text:el.title,value:el.value}))
     newOptions.unshift({text:'请选择',value:false})
     
     let subOptions = [{text:'请选择',value:false}]

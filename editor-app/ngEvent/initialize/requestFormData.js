@@ -1,6 +1,7 @@
 'use strict'
 const formControlAdapter = (arr) => {
     return arr.map((el) => {
+        el.subform_type = el.type
         el.cate = el.type
         el.text = el.title
         el.value = el.name
@@ -51,12 +52,13 @@ export default function($http, pid) {
             return
         }
         global.formPeople = obj.components.filter(el => el.type == "select_employee")
-        const filteredComponents = obj.components.filter((el) => {
-            return !!mapmap[el.type]
-        })
-        window.formPropertiesTotal = formControlAdapter(obj.components)
-        window.formProperties = formControlAdapter(filteredComponents)
         
+        //筛选        
+        const filteredComponents = obj.components.filter((el) => !!mapmap[el.type])
+
+        window.formPropertiesTotal = formControlAdapter(JSON.parse(JSON.parse(JSON.stringify(obj.components))))
+        window.formProperties = formControlAdapter(filteredComponents)
+
         const defaultOption = { text: '请选择', value: false, index: 'initial', type: 'initial' }
         window.formProperties.unshift(defaultOption)
         global.reduxStore.dispatch({ type: 'updateFormProperties', data: window.formProperties })
