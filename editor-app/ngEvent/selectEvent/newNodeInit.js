@@ -10,12 +10,11 @@ export default function(selectedShape) {
         })
         return
     }
+
     if (name == 'User task') {
         window.reduxStore.dispatch({
             type: 'approve/newNodeInit',
             init() {
-                // window.setPropertyAdvance({ key: 'classify', value: 'manual' }, selectedShape)
-                // window.quickAddItem('ExclusiveGateway')
             }
         })
         return
@@ -44,19 +43,24 @@ export default function(selectedShape) {
         reduxStore.dispatch({type: 'subflow/newNodeInit'})
         return
     }
+
+
+    /* 如果是分支节点的sf */
+    if(fm.branch.is(selectedShape)){
+        rdx.put('branch','touch') 
+        return 
+    }
+    // if (selectedShape.incoming[0]) {
+    //     let incomming = selectedShape.incoming[0]._stencil._jsonStencil.title
+    //     if (incomming == 'Exclusive gateway') {
+    //         // global.reduxStore.dispatch({ type: 'initCondition' })
+    //         rdx.put('branch','touch')
+    //     }
+    //     return
+    // }
     if (name == 'Sequence flow') {
         rdx.put('sf','touch')
         return
     }
 
-
-
-    /* 如果是分支节点的sf */
-    if (selectedShape.incoming[0]) {
-        let incomming = selectedShape.incoming[0]._stencil._jsonStencil.title
-        if (incomming == 'Exclusive gateway') {
-            global.reduxStore.dispatch({ type: 'initCondition' })
-        }
-        return
-    }
 }
