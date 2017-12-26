@@ -22,20 +22,20 @@ function handleCanvas($scope, selectedShape) {
     return true
 }
 function handleBranchSequence($scope, selectedShape) {
-    /* 如果是会签分支连线 */
+    
+    /* 如果是会签分支branch */
     if(global.isMultiSequenceflow(selectedShape)){
         $scope.propertyTpl = tplSrc + 'sequenceFlow.html'
         return true   
     }
+    /* 如果是人工分支branch */
     if(global.isManualSequenceflow(selectedShape)){
         $scope.propertyTpl = tplSrc + 'sequenceFlow.html'
         return true   
     }
 
-    /* 如果是分支节点 */
-    const incoming = selectedShape.incoming[0]
-    if (!incoming) return false
-    if (incoming._stencil._jsonStencil.title == 'Exclusive gateway') {
+    /* 如果是普通分支节点的branch */
+    if(fm.branch.is(selectedShape)){
         if (selectedShape.properties['defaultflow'] == 'true') {
             $scope.propertyTpl = tplSrc + 'sequenceFlow.html'
             return true
@@ -44,6 +44,19 @@ function handleBranchSequence($scope, selectedShape) {
             return true
         }
     }
+    
+    // const incoming = selectedShape.incoming[0]
+    // if (!incoming) return false
+    // if (incoming._stencil._jsonStencil.title == 'Exclusive gateway') {
+        
+    //     if (selectedShape.properties['defaultflow'] == 'true') {
+    //         $scope.propertyTpl = tplSrc + 'sequenceFlow.html'
+    //         return true
+    //     } else {
+    //         $scope.propertyTpl = tplSrc + 'branchSequenceFlow.html'
+    //         return true
+    //     }
+    // }
     return false
 }
 
