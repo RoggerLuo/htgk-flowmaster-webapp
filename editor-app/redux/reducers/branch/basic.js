@@ -4,9 +4,9 @@ export const defaultOption = () => {
 export const newRule = () => {
     /* 创建的时候就指定了默认值 */
     return {
-        entry1: { text: 'pleaseChoose', value: 'initial', index: 'initial' },
-        entry2: { text: '请选择', value: 'initial', index: 'initial' },
-        entry3: { text: '请选择', value: 'initial', index: 'initial' },
+        entry1: { text: 'pleaseChoose', value: false, index: 'initial' },
+        entry2: { text: '请选择', value: false, index: 'initial' },
+        entry3: { text: '请选择', value: false, index: 'initial' },
         input: { text: '', value: '' }
     }
 }
@@ -18,7 +18,9 @@ export const newCreate = (state) => {
                 newRule()
             ],
             ruleMode: 'normal'
-        }]
+        }],
+        conditionMode:'normal',
+        radio: 'dropdown'
     }
 }
 
