@@ -1,17 +1,20 @@
-'use strict'
+'use strict' 
 import { tplSrc, tplMap } from './conf'
 import globalRefreshBranchName from '../multiusertask/globalRefreshBranchName'
 function handleExclusive($scope, selectedShape) {
+    
     if(window.isMultiGateway(selectedShape)){
         $scope.propertyTpl = tplSrc + 'commonNode.html' //没有设置项的普通节点
         return true        
     }
+    
     if(window.isManualGateway(selectedShape)){
         $scope.propertyTpl = tplSrc + 'commonNode.html' //没有设置项的普通节点
         return true        
     }
     return false //否则为正常的分支节点
 }
+
 function handleCanvas($scope, selectedShape) {
     if (selectedShape) return false
     $scope.propertyTpl = tplSrc + 'canvas.html'
