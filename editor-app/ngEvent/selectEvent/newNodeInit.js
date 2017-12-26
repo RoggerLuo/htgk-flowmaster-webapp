@@ -14,8 +14,7 @@ export default function(selectedShape) {
     if (name == 'User task') {
         window.reduxStore.dispatch({
             type: 'approve/newNodeInit',
-            init() {
-            }
+            init() {}
         })
         return
     }
@@ -40,27 +39,20 @@ export default function(selectedShape) {
         return
     }
     if (name == 'Subflow') {
-        reduxStore.dispatch({type: 'subflow/newNodeInit'})
+        reduxStore.dispatch({ type: 'subflow/newNodeInit' })
         return
     }
 
 
     /* 如果是分支节点的sf */
-    if(fm.branch.is(selectedShape)){
-        rdx.put('branch','touch') 
-        return 
-    }
-    // if (selectedShape.incoming[0]) {
-    //     let incomming = selectedShape.incoming[0]._stencil._jsonStencil.title
-    //     if (incomming == 'Exclusive gateway') {
-    //         // global.reduxStore.dispatch({ type: 'initCondition' })
-    //         rdx.put('branch','touch')
-    //     }
-    //     return
-    // }
-    if (name == 'Sequence flow') {
-        rdx.put('sf','touch')
+    if (fm.branch.is(selectedShape)) {
+        rdx.put('branch', 'touch')
         return
     }
 
+    /* 如果是普通的sf */
+    if (name == 'Sequence flow') {
+        rdx.put('sf', 'touch')
+        return
+    }
 }
