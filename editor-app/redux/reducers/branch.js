@@ -2,7 +2,7 @@ import { toJS, fromJS, List, Map } from 'immutable';
 import { defaultOption, newRule, newCreate } from './branch/basic'
 import reduceWrap from './tools/reduceWrap'
 import transformer from './tools/transformer'
-
+/*
 let initial = {
     environmentVariable: [{ value: 'date', text: 'date' }],
     formProperties: [],
@@ -11,7 +11,7 @@ let initial = {
     radio: 'dropdown',
     conditionMode: 'normal',
     repo: [
-        /*
+        
         {
             id:'test',
             radio:false,
@@ -25,12 +25,11 @@ let initial = {
                 },
             ]
         }
-        */
+        
     ]
 }
-
+*/
 export default reduceWrap('Sequence flow', {}, (state, action, ind) => {
-// const Reducer = (state = initial, action) => {
     let data = fromJS(state)
 
     switch (action.type) {
@@ -43,17 +42,6 @@ export default reduceWrap('Sequence flow', {}, (state, action, ind) => {
             const func = transformer(data, ind)
             return action.f(func)
 
-
-        // case 'initCondition':
-        //     let initIndex = data.get('repo').findKey((el, index, iter) => el.get('id') == state.id)
-
-        //     if (!initIndex && (initIndex != 0)) { //如果nextRepoIndex不存在
-
-        //         return data.updateIn(['repo'], 'initial', (el) => {
-        //             return el.push(fromJS(newCreate(state)))
-        //         }).toJS()
-        //     }
-        //     return state
 
 
         case 'branchUpdate':
