@@ -17,6 +17,7 @@ import manual from './manual/Container'
 import circulation from './circulation/Container'
 import custom from './custom/Container'
 import subflow from './subflow/Container'
+import sf from './sf'
 
 //reduxStore要在下面这一堆东西执行之前执行
 
@@ -35,6 +36,7 @@ global.manualCompInitializer = manual
 global.circulationCompInitializer = circulation
 global.customCompInitializer = custom
 global.subflowCompInitializer = subflow
+global.sequenceflowCompInitializer = sf
 
 import zh from './i18n/zh'
 import en from './i18n/en'

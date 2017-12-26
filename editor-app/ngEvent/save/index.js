@@ -1,4 +1,5 @@
 'use strict'
+import sf from './sf'
 import subflow from './subflow'
 import custom from './custom'
 import manual from './manual'
@@ -25,6 +26,7 @@ export default function($scope, $http) {
             return
         }
         // custom(canvas)
+        sf(canvas)
         manual(canvas)
         service(canvas)
         saveHandlerApprove(canvas)
