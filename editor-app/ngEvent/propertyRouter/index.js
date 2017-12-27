@@ -44,19 +44,6 @@ function handleBranchSequence($scope, selectedShape) {
             return true
         }
     }
-    
-    // const incoming = selectedShape.incoming[0]
-    // if (!incoming) return false
-    // if (incoming._stencil._jsonStencil.title == 'Exclusive gateway') {
-        
-    //     if (selectedShape.properties['defaultflow'] == 'true') {
-    //         $scope.propertyTpl = tplSrc + 'sequenceFlow.html'
-    //         return true
-    //     } else {
-    //         $scope.propertyTpl = tplSrc + 'branchSequenceFlow.html'
-    //         return true
-    //     }
-    // }
     return false
 }
 
@@ -64,12 +51,13 @@ import autoNaming from './autoNaming'
 
 
 function handleOthers($scope, selectedShape) {
+    // console.log(selectedShape._stencil._jsonStencil.title)
+    // debugger
     autoNaming(selectedShape, $scope)
     const title = selectedShape._stencil._jsonStencil.title
     $scope.propertyTpl = tplSrc + tplMap[title]
     console.log(tplSrc + tplMap[title])
 }
-
 
 export default function($scope, event) {
     const selectedShape = event.elements.first()

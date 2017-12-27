@@ -35,6 +35,7 @@ const ConditionContainer = createClass({
     },
     render(){
         const conditions = this.props.currentRepo.conditions
+        if(!conditions) return null
         const deleteCondition = (index) => { //这是删除条件
             if(conditions.length <=1){
                 window.showAlert('至少保留一组条件')
