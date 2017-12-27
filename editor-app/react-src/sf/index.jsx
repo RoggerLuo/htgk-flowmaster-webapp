@@ -17,8 +17,8 @@ const Sf = ({put,currentRepo}) => {
     })
     const selected = (item) => rdx.put('sf','replace',['businessStatus'],item,'object')
         
-    const selectedOption = currentRepo.businessStatus
-
+    let selectedOption = currentRepo.businessStatus
+    if(options.length == 0) selectedOption = {text:'暂无可选项',value:false}
     return(
         <div className="react-approve" >
             <div style={{height:'15px',width:'100%'}}></div>

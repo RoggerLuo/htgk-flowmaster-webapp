@@ -37,7 +37,7 @@ export default function(el, index, modelData) {
             rdx.store.dispatch({ type: 'sf/init', data: el.properties.reduxData })
         }
         delete modelData.childShapes[index].properties.reduxData
-        delete modelData.childShapes[index].properties.businessStatus
+        delete modelData.childShapes[index].properties.businessStatusId
 
 
     }

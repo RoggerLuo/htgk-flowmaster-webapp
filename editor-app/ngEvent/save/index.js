@@ -26,7 +26,10 @@ export default function($scope, $http) {
             return
         }
         // custom(canvas)
-        sf(canvas)
+        if(!sf(canvas)){
+            activeSave()
+            return 
+        }
         manual(canvas)
         service(canvas)
         saveHandlerApprove(canvas)
