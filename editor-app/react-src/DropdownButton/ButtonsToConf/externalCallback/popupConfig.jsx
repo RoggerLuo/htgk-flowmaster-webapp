@@ -1,10 +1,10 @@
 import Comp from './ReduxCompGenerator'
 import confirmButtonEvent from './confirmButtonEvent'
-export default function(cb,groupInd){
-    // global.reduxStore.dispatch({type:'sql/init'})
+export default function(cb){
     return {
-        content:Comp(),
-        confirm:confirmButtonEvent(cb,groupInd),
+        //external callback
+        content:Comp,
+        confirm:confirmButtonEvent(cb),
         type:'callPopup',
         height:'554px',
         title:'button.option10',

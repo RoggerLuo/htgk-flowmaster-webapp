@@ -3,6 +3,16 @@ export default function(jsonArray, data,currentElement) {
     let dataSourceRef = []
     data.forEach((el, index) => {
         switch (el.cate) {
+            case "callBack":
+                jsonArray = [{
+                    "value": `callBack(${el.value})`,
+                    "cate": "callBack",
+                    "text": "从外部开发获取",
+                    "id": "1",
+                    "value2": el.value
+                }]
+                break
+
             case "form":
             case "customizeRole":
             case "historicTask":
