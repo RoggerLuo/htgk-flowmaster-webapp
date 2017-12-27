@@ -7,40 +7,12 @@ export const getModel = (callback, $http, pid) => {
             url: window.globalHost + '/repository/process-definitions/' + pid + '/design?processType=Normal',
         })
         .success(function(data) {
-
             $http({
                 method: 'GET',
-                url: window.globalHost + `/repository/process-status/businessStatus/list/${data.model.modelProcessType}`
+                url: window.globalHost + `/repository/process-status/businessStatus/list/${data.modelProcessType}`
             }).success(function(data) {
                 window.processStatus = data.data
-                window.processStatus = [{
-                        "id": "440002",
-                        "processTypeId": "437502",
-                        "name": "项目经理",
-                        "createDate": 1512489600000,
-                        "tenantId": "9d194a44-e02b-4cfc-bc4c-dbe26cc04353,atwork",
-                        "disabled": "ENABLE"
-                    },
-                    {
-                        "id": "440003",
-                        "processTypeId": "437502",
-                        "name": "项目经理审批",
-                        "createDate": 1512489600000,
-                        "tenantId": "9d194a44-e02b-4cfc-bc4c-dbe26cc04353,atwork",
-                        "disabled": "DISABLED"
-                    },
-                    {
-                        "id": "445001",
-                        "processTypeId": "437502",
-                        "name": "CEO审批",
-                        "createDate": 1512489600000,
-                        "tenantId": "9d194a44-e02b-4cfc-bc4c-dbe26cc04353,atwork",
-                        "disabled": "DISABLED"
-                    }
-                ]
-            })
-            
-
+            })            
             callback(data)
         })
         .error(function(data, status, headers, config) {
