@@ -24,10 +24,25 @@ function autoNaming(selectedShape, $scope) {
         全局依赖activeSave，好乱，要整理成一个依赖集合
     */
     if (selectedShape.properties["oryx-name"] == '') {
-        if (selectedShape._stencil._jsonStencil.title != "Sequence flow") {
-            $scope.updatePropertyInModel({ key: 'oryx-name', value: giveName(selectedShape._stencil._jsonStencil.title) })
-            window.activeSave()
+        // debugger
+
+        // if (selectedShape._stencil._jsonStencil.title != "Sequence flow") {
+        // debugger
+        $scope.updatePropertyInModel({ key: 'oryx-name', value: giveName(selectedShape._stencil._jsonStencil.title) })
+        window.activeSave()
+        // }
+
+        const prevElement = selectedShape && selectedShape.incoming[0] || false
+        if(prevElement){
+            if(fm.branch.is(prevElement)) return
+            /* 如果是会签分支branch */
+            if(global.isMultiSequenceflow(prevElement)) return
+            /* 如果是人工分支branch */
+            if(global.isManualSequenceflow(prevElement)) return
+            prevElement.setProperty('oryx-name', giveName(prevElement._stencil._jsonStencil.title))
         }
+
+
     }
 }
 
