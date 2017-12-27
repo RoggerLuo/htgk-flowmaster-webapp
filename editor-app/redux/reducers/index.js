@@ -16,6 +16,7 @@ import circulation from './circulation'
 import custom from './custom'
 import subflow from './subflow'
 import sf from './sf'
+import temp from './temp'
 
 
 const rootRuducer = combineReducers({
@@ -34,7 +35,8 @@ const rootRuducer = combineReducers({
     circulation,
     subflow,
     popupX,
-    sf
+    sf,
+    temp
 })
 
 export default rootRuducer
