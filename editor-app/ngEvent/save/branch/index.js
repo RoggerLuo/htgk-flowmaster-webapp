@@ -2,7 +2,7 @@
 import { validationCheck, inputFormatter, collectValuesFromDpdw, ifEmpty, ifEmptyWithoutInit } from './basic.js'
 export default function(canvas) {
     let canBeSaved = true
-    window.reduxStore.getState().branch.dataRepo.forEach((el, index) => {
+    window.reduxStore.getState().branch.repo.forEach((el, index) => {
         let currentElement = canvas.getChildShapeByResourceId(el.id)
         if (el.id && !currentElement) return
         let returnString = '' /* 拼返回字符串 */
