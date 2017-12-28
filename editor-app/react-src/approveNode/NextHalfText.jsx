@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import  './style'
 import Setting from './Setting'
 
-const ApproveNode = ({ put, currentRepo, dispatch }) => {
+const ApproveWithdrawProperty = ({ put, currentRepo, dispatch }) => {
     const previousNodeSpecifiedChange = () => {
         dispatch({type:'approve/previousNodeSpecifiedChange'})
         activeSave() 
@@ -66,8 +66,8 @@ const ApproveNode = ({ put, currentRepo, dispatch }) => {
 <div style={{height:'10px',width:'100%'}}></div>
 <div style={{height:'10px',width:'100%'}}></div>
 
-<div className="property-row-title">{put('approveNode.remark.title')}</div>
-<div className="property-row-content">{put('approveNode.remark.content')}</div>
+<div className="property-row-title">{put('approveWithdrawProperty.remark.title')}</div>
+<div className="property-row-content">{put('approveWithdrawProperty.remark.content')}</div>
 */
 const mapStateToProps = (state) => {
     const repo = state.approve.repo
@@ -81,4 +81,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ApproveNode)
+)(ApproveWithdrawProperty)
