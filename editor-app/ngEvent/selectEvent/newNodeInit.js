@@ -1,6 +1,27 @@
 export default function(selectedShape) {
     let name = selectedShape._stencil._jsonStencil.title
+    
+    switch(name){
+        case 'User task':
+            rdx.put('usertask', 'touch') 
+            break
+        case 'Sequence flow':
+            if (fm.branch.is(selectedShape)){
+                rdx.put('branch', 'touch')  
+                break 
+            } 
+            rdx.put('sf', 'touch')
+            break
+        case 'Subflow':
+            reduxStore.dispatch({ type: 'subflow/newNodeInit' })
+            break
+    }
 
+
+    if (name == 'Circulation task') {
+        window.reduxStore.dispatch({type: 'circulation/newNodeInit',})
+        return
+    }
     if (name == 'Multi user task') {
         window.reduxStore.dispatch({
             type: 'parallel/newNodeInit',
@@ -8,17 +29,7 @@ export default function(selectedShape) {
                 window.quickAddItem('ExclusiveGateway')
             }
         })
-        return
     }
-
-    if (name == 'User task') {
-        window.reduxStore.dispatch({
-            type: 'approve/newNodeInit',
-            init() {}
-        })
-        return
-    }
-
     if (name == 'Manual task') {
         window.reduxStore.dispatch({
             type: 'manual/newNodeInit',
@@ -29,30 +40,6 @@ export default function(selectedShape) {
         })
         return
     }
-    if (name == 'Circulation task') {
-        window.reduxStore.dispatch({
-            type: 'circulation/newNodeInit',
-            init() {
-                // window.setPropertyAdvance({ key: 'classify', value: 'Circulation' }, selectedShape)
-            }
-        })
-        return
-    }
-    if (name == 'Subflow') {
-        reduxStore.dispatch({ type: 'subflow/newNodeInit' })
-        return
-    }
-
-
-    /* 如果是分支节点的sf */
-    if (fm.branch.is(selectedShape)) {
-        rdx.put('branch', 'touch')
-        return
-    }
-
-    /* 如果是普通的sf */
-    if (name == 'Sequence flow') {
-        rdx.put('sf', 'touch')
-        return
-    }
 }
+
+
