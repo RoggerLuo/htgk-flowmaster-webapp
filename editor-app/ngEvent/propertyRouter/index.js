@@ -1,6 +1,8 @@
 'use strict' 
 import { tplSrc, tplMap } from './conf'
 import globalRefreshBranchName from '../multiusertask/globalRefreshBranchName'
+import autoNaming from '../autoNaming'
+
 function handleExclusive($scope, selectedShape) {
     
     if(window.isMultiGateway(selectedShape)){
@@ -47,7 +49,6 @@ function handleBranchSequence($scope, selectedShape) {
     return false
 }
 
-import autoNaming from './autoNaming'
 
 
 function handleOthers($scope, selectedShape) {
