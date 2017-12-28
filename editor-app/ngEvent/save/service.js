@@ -13,7 +13,7 @@ export default function(canvas) {
                 {
                     "name": "circulationUsers",
                     "implementation": "circulationUsers",
-                    "stringValue": `{"candidateOwners" : ${JSON.stringify(jsonArray)}}`,
+                    "stringValue": JSON.stringify(jsonArray),
                     "expression": "",
                     "string": ""
                 }
