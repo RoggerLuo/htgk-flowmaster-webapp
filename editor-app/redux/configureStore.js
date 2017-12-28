@@ -21,13 +21,8 @@ global.reduxStore = store
 global.rdx = global.rdx || {}
 global.rdx.store = store
 global.rdx.getState = store.getState
-global.rdx.put = function(type, a, b, c, d) {
-    store.dispatch({
-        type,
-        f(cb) {
-            return cb(a, b, c, d)
-        }
-    })
+global.rdx.put = function(type, ...args) { //a, b, c, d
+    store.dispatch({type,args})
     global.activeSave()
 }
 

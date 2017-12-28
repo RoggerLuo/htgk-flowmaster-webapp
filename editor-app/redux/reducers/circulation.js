@@ -11,7 +11,6 @@ export default reduceWrap('Circulation task', {}, (state, action, ind) => {
     switch (action.type) {
         case 'circulation/newNodeInit':
             if (ind == 'not exist') {
-                action.init()                
                 const newCreate = fromJS({ id: state.id, data: []})
                 return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate)).toJS()
             }

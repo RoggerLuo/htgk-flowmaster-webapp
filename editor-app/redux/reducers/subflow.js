@@ -66,10 +66,10 @@ export default reduceWrap('Subflow', {}, (state, action, ind) => {
                 const add_node_to_repo = (repo) => repo.push(blankNode)
                 return data.updateIn(['repo'], '', add_node_to_repo).toJS()
             }
-            const func = transformer(data, ind)
-            return action.f(func)
+            // const func = transformer(data, ind)
+            // return action.f(func)
 
-
+            return transformer(data,ind,action.args)
 
         case 'subflow/init':
             return data.updateIn(['repo'], 'initial', (el) => {

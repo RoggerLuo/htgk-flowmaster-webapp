@@ -1,5 +1,7 @@
 import { toJS, fromJS, List, Map } from 'immutable'
 import reduceWrap from './tools/reduceWrap'
+import transformer from './tools/transformer'
+
 const uniqAdd = (data, item) => {
     data = data.slice() //克隆immutable数据
     if (data.some(el => el.value == item.value)) return data
@@ -7,36 +9,20 @@ const uniqAdd = (data, item) => {
     return data
 }
 
-
+const newRepo = (id, data) => fromJS({ id, data })
 export default reduceWrap('User task', {}, (state, action, ind) => {
     let data = fromJS(state)
-
     switch (action.type) {
+        case 'usertask':
+            if (ind == 'not exist') return data.updateIn(['repo'], '', (a) => a.push(newRepo(state.id, []))).toJS()
+            return transformer(data, ind, action.args)
+
         case 'approve/change':
             return data.updateIn(['repo', ind, action.key], false, (el) => action.value).toJS()
 
-        // case 'approve/withdrawChange':
-        //     return data.updateIn(['repo', ind, 'withdraw'], false, (el) => !el).toJS()
-        case 'approve/previousNodeSpecifiedChange':
-            if (ind == 'not exist') {
-                const newCreate = fromJS({ id: state.id, data: [], previousNodeSpecified: true })
-                return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate)).toJS()
-            }
-            return data.updateIn(['repo', ind, 'previousNodeSpecified'], false, (el) => !el).toJS()
-        // case 'approve/enableSingleSelectChange':
-        //     return data.updateIn(['repo', ind, 'enableSingleSelect'], false, (el) => !el).toJS()
 
         case 'approve/init':
-            return data.updateIn(['repo'], 'initial', (el) => el.push(fromJS(action.data)) ).toJS()
-        case 'approve/newNodeInit':
-            if (ind == 'not exist') {
-                const basic2 = { id: state.id, data: [] } // cate: action.item.cate 
-                const newCreate2 = fromJS(basic2)
-
-                return data.updateIn(['repo'], 'initial', (el) => el.push(newCreate2)).toJS()
-            }
-            return state
-
+            return data.updateIn(['repo'], 'initial', (el) => el.push(fromJS(action.data))).toJS()
 
         case 'approve/addRole':
             if (ind == 'not exist') {
@@ -61,3 +47,10 @@ export default reduceWrap('User task', {}, (state, action, ind) => {
             return state
     }
 })
+
+/*
+// case 'approve/newNodeInit':
+//     if (ind == 'not exist') return data.updateIn(['repo'], '', (a) => a.push(newRepo(state.id, []))).toJS()
+//     return state
+
+*/
