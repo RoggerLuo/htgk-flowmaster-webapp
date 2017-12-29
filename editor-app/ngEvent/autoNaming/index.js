@@ -17,24 +17,25 @@ global.giveName = (cate) => {
     return name
 }
 
-function giveNameToShape(shape){
+function giveNameToShape(shape) {
     if (shape.properties["oryx-name"] != '') return //如果没有名字
-    if(fm.branch.is(shape)) return
-    if(global.isMultiSequenceflow(shape)) return
-    if(global.isManualSequenceflow(shape)) return
+    if (shape._stencil._jsonStencil.title == 'Sequence flow') return
+    if (fm.branch.is(shape)) return
+    if (global.isMultiSequenceflow(shape)) return
+    if (global.isManualSequenceflow(shape)) return
+    
     shape.setProperty('oryx-name', giveName(shape._stencil._jsonStencil.title))
 }
 
 function autoNaming(selectedShape, $scope) {
     giveNameToShape(selectedShape)
+    rdx.save()
 
-    const prevElement = selectedShape && selectedShape.incoming[0] || false
-    if(prevElement) giveNameToShape(prevElement)
+    // const prevElement = selectedShape && selectedShape.incoming[0] || false
+    // if (prevElement) giveNameToShape(prevElement)
 
-    const nextElement = selectedShape && selectedShape.outgoing[0] || false
-    if(nextElement) giveNameToShape(nextElement)
-
-    window.activeSave()
+    // const nextElement = selectedShape && selectedShape.outgoing[0] || false
+    // if (nextElement) giveNameToShape(nextElement)
 }
 
 export default autoNaming
