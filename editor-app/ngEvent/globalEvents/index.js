@@ -4,7 +4,6 @@ import './deleteEvent'
 import './updateBranchText'
 import './tool-oryx-identify-nodes'
 
-/* both ng and react */
 global.activeSave = () => {
     global.reduxStore.dispatch({ type: 'saveActive' })
 }

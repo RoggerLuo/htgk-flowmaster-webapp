@@ -36,11 +36,8 @@ export default function(canvas) {
         currentElement.setProperty('usertaskassignment', value)
         currentElement.setProperty('approveItems', getApproveItems(repoObj))
 
-        if (repoObj.previousNodeSpecified) {
-            currentElement.setProperty('previousNodeSpecified', true)
-        } else {
-            currentElement.setProperty('previousNodeSpecified', false)
-        }
+        currentElement.setProperty('previousNodeSpecifiedSingle', !!repoObj.enableSingleSelect)
+        currentElement.setProperty('previousNodeSpecified', !!repoObj.previousNodeSpecified)
         currentElement.setProperty('reduxData', repoObj)
     })
 }
