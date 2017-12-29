@@ -1,52 +1,58 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import  './style'
+import Setting from './Setting'
 
-const ApproveNode = ({ put, currentRepo, dispatch }) => {
-    const withdrawChange = () => {
-        dispatch({type:'approve/withdrawChange'})
-        activeSave() 
-    }
-    const previousNodeSpecified = currentRepo[0] && currentRepo[0].previousNodeSpecified
-    const withdraw = currentRepo[0] && currentRepo[0].withdraw 
-    const enableSingleSelect = currentRepo[0] && currentRepo[0].enableSingleSelect 
+const ManualWithdrawProperty = ({ put, currentRepo, dispatch }) => {
+    const change1 = () => rdx.put('manual','replace',['previousNodeSpecified'],!currentRepo.previousNodeSpecified,'boolean')
+    const change2 = () => rdx.put('manual','replace',['enableSingleSelect'],!currentRepo.enableSingleSelect,'boolean')
+    const previousNodeSpecified = currentRepo.previousNodeSpecified
+    const enableSingleSelect = currentRepo.enableSingleSelect 
     return(
         <div>
-            <div style={{height:'10px',width:'100%'}}></div>
-            <div style={{height:'10px',width:'100%'}}></div>
-            <label htmlFor={"withdraw"} style={{cursor:'pointer'}}>
+            <div style={{height:'30px',width:'100%'}}></div>
+            <label htmlFor={"previousNodeSpecified"} style={{cursor:'pointer'}}> 
                 <div className="property-row-content"> 
-                    允许退回发起人
+                    允许上一节点处理人指定本节点审批人
                 </div>
             </label>
             &nbsp;
             <input 
-                onChange={withdrawChange} 
-                checked={withdraw||false} 
-                value={withdraw||false}
+                onChange={change1} 
+                checked={previousNodeSpecified||false} 
+                value={previousNodeSpecified||false}
                 style={{cursor:'pointer'}} 
-                id="withdraw" 
-                name="withdraw" 
+                id="previousNodeSpecified" 
+                name="previousNodeSpecified" 
                 type="checkbox" 
-            /> 
 
+            />             
+            <div className="property-row-content" style={{color: '#999999'}}> 
+                从【特定节点审批人】【二次开发】获取的审批人类型不在选择范围中。 
+            </div>
+            
+            <div style={{height:'10px',width:'100%'}}></div>
+            (&nbsp; 
+                <input 
+                    onChange={change2} 
+                    value={enableSingleSelect||false}
+                    style={{cursor:'pointer'}} 
+                    id="enableSingleSelect" 
+                    name="enableSingleSelect" 
+                    type="checkbox" 
+                    checked={enableSingleSelect||false} 
+                /> 
+                &nbsp;
+                <label htmlFor={"enableSingleSelect"} style={{cursor:'pointer'}}> 
+                    <div className="property-row-content">指定审批人仅支持单选</div> 
+                </label>
+            &nbsp;)
+
+            <div className="property-row-title"> 
+                审批项设置
+            </div>
+            <Setting />
         </div>
     )
 }
-/*
-<div className="property-row-title">{put('approveNode.remark.title')}</div>
-<div className="property-row-content">{put('approveNode.remark.content')}</div>
-*/
-const mapStateToProps = (state) => {
-    const repo = state.manual.repo
-    const id = state.manual.id
-    const currentRepo = repo.filter((el,index)=>el.id == id) || false
-    return {currentRepo} 
-}
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ApproveNode)
+export default rdx.connect('manual',ManualWithdrawProperty)

@@ -1,6 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
-// import  './style'
 const Pre = ({ 
         index,title,
         oncheck,checked,defaultValue,  //check

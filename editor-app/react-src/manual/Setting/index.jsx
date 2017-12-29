@@ -12,8 +12,7 @@ const ManualSetting = ({ put, currentRepo, dispatch }) => {
             defaultValue:'退回发起人',
             inputValue:currentRepo.backToStarterText,
             onchange(e){
-                dispatch({type:'approve/change',key:'backToStarterText',value:e.target.value||'退回发起人'})
-                activeSave()             
+                rdx.put('manual','replace',['backToStarterText'],e.target.value||'退回发起人')
             }
         },
         {
@@ -23,8 +22,7 @@ const ManualSetting = ({ put, currentRepo, dispatch }) => {
             defaultValue:'退回上一节点审批人',
             inputValue:currentRepo.backToLastText,
             onchange(e){
-                dispatch({type:'approve/change',key:'backToLastText',value:e.target.value||'退回上一节点审批人'})
-                activeSave()             
+                rdx.put('manual','replace',['backToLastText'],e.target.value||'退回上一节点审批人')
             }
         },
         {
@@ -34,8 +32,7 @@ const ManualSetting = ({ put, currentRepo, dispatch }) => {
             defaultValue:'强制结束流程',
             inputValue:currentRepo.allowForceEndText,
             onchange(e){
-                dispatch({type:'approve/change',key:'allowForceEndText',value:e.target.value||'强制结束流程'})
-                activeSave()             
+                rdx.put('manual','replace',['allowForceEndText'],e.target.value||'强制结束流程')
             }
         }
     ]

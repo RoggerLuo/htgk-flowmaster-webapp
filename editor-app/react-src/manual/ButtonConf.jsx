@@ -4,7 +4,8 @@ import {connect} from 'react-redux'
 import Button from '../DropdownButton'
 import confirmGenerator from '../confirmGenerator'
 
-const ButtonContainer = ({reduxCate,dispatch,children}) => { 
+const ButtonContainer = ({currentRepo,dispatch,children}) => { 
+    const reduxCate = currentRepo.data[0] && currentRepo.data[0] .cate
     const add = (item) => dispatch({type:'manual/addRole',item})   
     const clear = () => dispatch({type:'manual/clear'})
     const confirmFunction = confirmGenerator({reduxCate,add,clear})
@@ -15,9 +16,10 @@ const ButtonContainer = ({reduxCate,dispatch,children}) => {
         </Button>
     )
 }
-
+export default rdx.connect('manual',ButtonContainer)
+/*
 const mapStateToProps = (state) => {
-    const currentRepo = state.manual.repo.filter((el,index)=>el.id == state.approve.id)
+    const currentRepo = state.manual.repo.filter((el,index)=>el.id == state.manual.id)
     const reduxCate = currentRepo && currentRepo[0] && currentRepo[0].data && currentRepo[0].data[0] && currentRepo[0].data[0].cate||false
     return {reduxCate}
 }
@@ -27,3 +29,4 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps,mapDispatchToProps)(ButtonContainer)
 
+*/
