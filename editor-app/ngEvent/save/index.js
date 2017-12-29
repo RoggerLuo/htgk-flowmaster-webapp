@@ -2,9 +2,9 @@
 import sf from './sf'
 import subflow from './subflow'
 import custom from './custom'
-import manual from './manual'
+import usertaskPattern from './usertaskPattern'
 import service from './service'
-import saveHandlerApprove from './approve'
+// import saveHandlerApprove from './approve'
 import saveHandlerEndPoint from './endPoint'
 import saveHandlerBranch from './branch'
 import saveHandlerBranchNode from './branchNode'
@@ -30,9 +30,11 @@ export default function($scope, $http) {
             activeSave()
             return 
         }
-        manual(canvas)
+        usertaskPattern(canvas,'usertask')
+        usertaskPattern(canvas,'manual')
+        // manual(canvas)
         service(canvas)
-        saveHandlerApprove(canvas)
+        // saveHandlerApprove(canvas)
         saveHandlerParallel(canvas)
         saveHandlerEndPoint(canvas)
         if (!saveHandlerBranch(canvas)) {

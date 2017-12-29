@@ -1,4 +1,4 @@
-import React,{createClass} from 'react';
+import React,{createClass} from 'react'
 import { render } from 'react-dom'
 import { connect } from 'react-redux'
 import { Provider } from 'react-redux'
