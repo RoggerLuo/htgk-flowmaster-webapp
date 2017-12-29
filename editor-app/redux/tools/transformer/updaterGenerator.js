@@ -11,8 +11,7 @@ export default (op, item) => {
                 return el.push(item)
             }
         case 'delete':
-            Error('delete未实现')
-            return (el) => el.push(item)
+            return (a) => a.delete(item)
         default:
             throw new  Error('你传的是什么鬼operation参数？？')
     }
