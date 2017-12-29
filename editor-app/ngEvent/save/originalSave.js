@@ -69,7 +69,9 @@ export default function($scope, $http, callback) {
     };
     console.log(json)
 
-
+    const version = window.getQueryString("version")
+    let url = window.globalHost + '/repository/process-definitions/' + window.getQueryString("pid") + '/design?processType=Normal'
+    if(version!='undefined') url = window.globalHost + '/repository/process-definitions/' + window.getQueryString("pid") + `/design?processType=Normal&version=${version}`
     $http({
             method: 'PUT',
             data: params,
@@ -82,28 +84,29 @@ export default function($scope, $http, callback) {
                 }
                 return str.join("&");
             },
-            url: window.globalHost + '/repository/process-definitions/' + window.getQueryString("pid") + '/design?processType=Normal'
+            url
         })
 
         .success(function(data, status, headers, config) {
-            window.reduxStore.dispatch({ type: 'closeSpin' })
+            
+            rdx.dispatch({ type: 'closeSpin' })
+            
             window.showAlert('保存成功', 'good')
 
             // Fire event to all who is listening
-            $scope.editor.handleEvents({
-                type: ORYX.CONFIG.EVENT_SAVED
-            });
+            $scope.editor.handleEvents({type: ORYX.CONFIG.EVENT_SAVED})
 
-            KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent);
+            KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent)
+
             callback()
 
-            console.log(json)
-            window.reduxStore.dispatch({ type: 'saveDeactive' })
-            // window.localDesignData.clear(window.getQueryString("pid"))
+            console.log('保存成功')
+
+            rdx.dispatch({ type: 'saveDeactive' })
         })
         .error(function(data, status, headers, config) {
             $scope.error = {};
             console.log('Something went wrong when updating the process model:' + JSON.stringify(data));
-            window.reduxStore.dispatch({ type: 'saveActive' })
+            rdx.dispatch({ type: 'saveActive' })
         })
 }

@@ -1,10 +1,14 @@
 'use strict'
 
 export const getModel = (callback, $http, pid) => {
+    const version = window.getQueryString("version")
+    let url = window.globalHost + '/repository/process-definitions/' + pid + '/design?processType=Normal'
+    if(version!='undefined') url = window.globalHost + '/repository/process-definitions/' + pid + `/design?processType=Normal&version=${version}`
+        
     $http({
             method: 'GET',
             // url: window.globalHost+'/resources/model/test.model.json', //本地调试
-            url: window.globalHost + '/repository/process-definitions/' + pid + '/design?processType=Normal',
+            url,
         })
         .success(function(data) {
             $http({
@@ -19,6 +23,8 @@ export const getModel = (callback, $http, pid) => {
             console.log('Something went wrong when updating the process model:' + JSON.stringify(data));
         })
 }
+
+
 export const getPid = ($http) => {
     $http({
         method: 'GET',
