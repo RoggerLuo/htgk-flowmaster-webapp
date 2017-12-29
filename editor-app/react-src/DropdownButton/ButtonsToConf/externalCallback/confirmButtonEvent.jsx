@@ -1,6 +1,6 @@
 export default function(cb){
     return function(){
-        const state = rdx.store.getState().temp
+        const state = rdx.getState().temp
         const ind = rdx.findCurrentRepoInd(state)
         const currentRepo = state.repo[ind]
 

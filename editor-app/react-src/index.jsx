@@ -1,9 +1,8 @@
 
-import './utils/connect2redux'
 import '../ngEvent'
 import './userGuide/component'
 
-import approveComponent from './approveNode/Container'
+import approveComponent from './usertask/Container'
 import endPointComponent from './endPoint/Container'
 import parallelApproveComponent from './parallelApprove/MainCompContainer'
 import branchSequenceFlowComponent from './branchSequenceFlow/Component'
@@ -19,7 +18,6 @@ import custom from './custom/Container'
 import subflow from './subflow/Container'
 import sf from './sf'
 
-//reduxStore要在下面这一堆东西执行之前执行
 
 popupStart()
 popupXStart()
