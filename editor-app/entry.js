@@ -1,3 +1,4 @@
-import './flowmaster' //init react
-import './redux/configureStore' //init redux 
-import './react-src' //init react
+
+import './redux'
+import './flowmaster' 
+import './react-src' 
