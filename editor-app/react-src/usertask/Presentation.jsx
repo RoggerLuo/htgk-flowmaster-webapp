@@ -4,7 +4,7 @@ import Button from './ButtonConf'
 import RolesFrame from './RolesFrameConf'
 import NextHalfText from './NextHalfText'
 
-const ApproveNode = ({ data, put }) => {
+const UsertaskPre = ({ data, put }) => {
     const isListEmpty = data.length == 0
     return(
         <div className="react-approve">
@@ -36,6 +36,6 @@ const ApproveNode = ({ data, put }) => {
 }
 import connectPut from 'react-put'
 const options = {mapPropToDictionary: (props)=>window.reactI18n}
-const ConnectedApp = connectPut(options)(ApproveNode)
+const ConnectedApp = connectPut(options)(UsertaskPre)
 
 export default ConnectedApp

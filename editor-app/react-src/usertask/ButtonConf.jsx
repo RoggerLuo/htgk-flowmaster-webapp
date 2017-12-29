@@ -4,8 +4,10 @@ import Button from '../DropdownButton'
 import confirmGenerator from '../confirmGenerator'
 
 const ButtonContainer = ({reduxCate,dispatch,children}) => { 
-    const add = (item) => dispatch({type:'approve/addRole',item})   
-    const clear = () => dispatch({type:'approve/clear'})
+    // const reduxCate = currentRepo.data && currentRepo.data[0] && currentRepo.data[0].cate
+
+    const add = (item) => dispatch({type:'usertask/addRole',item})   
+    const clear = () => dispatch({type:'usertask/clear'})
     const confirmFunction = confirmGenerator({reduxCate,add,clear})
     const xClass = {marginTop:'5px',right:'12px'}
     return ( 
@@ -15,8 +17,10 @@ const ButtonContainer = ({reduxCate,dispatch,children}) => {
     )
 }
 
+// export default rdx.connect(ButtonContainer)
+
 const mapStateToProps = (state) => {
-    const currentRepo = state.approve.repo.filter((el,index)=>el.id == state.approve.id)
+    const currentRepo = state.usertask.repo.filter((el,index)=>el.id == state.usertask.id)
     const reduxCate = currentRepo && currentRepo[0] && currentRepo[0].data && currentRepo[0].data[0] && currentRepo[0].data[0].cate||false
     return {reduxCate}
 }

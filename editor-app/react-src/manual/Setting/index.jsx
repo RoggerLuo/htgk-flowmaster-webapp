@@ -1,23 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Pre from './Pre'
-const ApproveNode = ({ put, currentRepo, dispatch }) => {
-    if(!currentRepo[0]) return null
-    const rdx = currentRepo[0]
-    const oncheckFactory = (key) => {
-        return ()=>{
-            dispatch({type:'approve/change',key,value:!!!currentRepo[0][key]})
-            activeSave()             
-        }
-    }
-
+const ManualSetting = ({ put, currentRepo, dispatch }) => {
+    if(!currentRepo) return null
+    const oncheckFactory = key => () => rdx.put('manual','replace',[key],!currentRepo[key])
     const data = [
         {
             title:'允许退回发起人',
             oncheck:oncheckFactory('backToStarter'),
-            checked:rdx.backToStarter||false,
+            checked:currentRepo.backToStarter||false,
             defaultValue:'退回发起人',
-            inputValue:rdx.backToStarterText,
+            inputValue:currentRepo.backToStarterText,
             onchange(e){
                 dispatch({type:'approve/change',key:'backToStarterText',value:e.target.value||'退回发起人'})
                 activeSave()             
@@ -26,9 +19,9 @@ const ApproveNode = ({ put, currentRepo, dispatch }) => {
         {
             title:'允许退回上一节点审批人',
             oncheck:oncheckFactory('backToLast'),
-            checked:rdx.backToLast||false,
+            checked:currentRepo.backToLast||false,
             defaultValue:'退回上一节点审批人',
-            inputValue:rdx.backToLastText,
+            inputValue:currentRepo.backToLastText,
             onchange(e){
                 dispatch({type:'approve/change',key:'backToLastText',value:e.target.value||'退回上一节点审批人'})
                 activeSave()             
@@ -37,9 +30,9 @@ const ApproveNode = ({ put, currentRepo, dispatch }) => {
         {
             title:'允许强制结束流程',
             oncheck:oncheckFactory('allowForceEnd'),
-            checked:rdx.allowForceEnd||false,
+            checked:currentRepo.allowForceEnd||false,
             defaultValue:'强制结束流程',
-            inputValue:rdx.allowForceEndText,
+            inputValue:currentRepo.allowForceEndText,
             onchange(e){
                 dispatch({type:'approve/change',key:'allowForceEndText',value:e.target.value||'强制结束流程'})
                 activeSave()             
@@ -54,16 +47,5 @@ const ApproveNode = ({ put, currentRepo, dispatch }) => {
         </div>)
 }
 
-const mapStateToProps = (state) => {
-    const repo = state.approve.repo
-    const id = state.approve.id
-    const currentRepo = repo.filter((el,index)=>el.id == id) || false
-    return {currentRepo} 
-}
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ApproveNode)
+export default global.connect2redux('manual',ManualSetting)
+

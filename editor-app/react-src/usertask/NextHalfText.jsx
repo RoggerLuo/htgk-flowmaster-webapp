@@ -4,16 +4,10 @@ import  './style'
 import Setting from './Setting'
 
 const ApproveWithdrawProperty = ({ put, currentRepo, dispatch }) => {
-    const previousNodeSpecifiedChange = () => {
-        dispatch({type:'approve/previousNodeSpecifiedChange'})
-        activeSave() 
-    }
-    const enableSingleSelectChange = () => {
-        dispatch({type:'approve/enableSingleSelectChange'})
-        activeSave() 
-    }
-    const previousNodeSpecified = currentRepo[0] && currentRepo[0].previousNodeSpecified
-    const enableSingleSelect = currentRepo[0] && currentRepo[0].enableSingleSelect 
+    const change1 = () => rdx.put('usertask','replace',['previousNodeSpecified'],!currentRepo.previousNodeSpecified,'boolean')
+    const change2 = () => rdx.put('usertask','replace',['enableSingleSelect'],!currentRepo.enableSingleSelect,'boolean')
+    const previousNodeSpecified = currentRepo.previousNodeSpecified
+    const enableSingleSelect = currentRepo.enableSingleSelect 
     return(
         <div>
             <div style={{height:'30px',width:'100%'}}></div>
@@ -24,7 +18,7 @@ const ApproveWithdrawProperty = ({ put, currentRepo, dispatch }) => {
             </label>
             &nbsp;
             <input 
-                onChange={previousNodeSpecifiedChange} 
+                onChange={change1} 
                 checked={previousNodeSpecified||false} 
                 value={previousNodeSpecified||false}
                 style={{cursor:'pointer'}} 
@@ -40,16 +34,16 @@ const ApproveWithdrawProperty = ({ put, currentRepo, dispatch }) => {
             <div style={{height:'10px',width:'100%'}}></div>
             (&nbsp; 
                 <input 
-                    onChange={enableSingleSelectChange} 
+                    onChange={change2} 
                     value={enableSingleSelect||false}
                     style={{cursor:'pointer'}} 
-                    id="previousNodeSpecified" 
-                    name="previousNodeSpecified" 
+                    id="enableSingleSelect" 
+                    name="enableSingleSelect" 
                     type="checkbox" 
                     checked={enableSingleSelect||false} 
                 /> 
                 &nbsp;
-                <label htmlFor={"previousNodeSpecified"} style={{cursor:'pointer'}}> 
+                <label htmlFor={"enableSingleSelect"} style={{cursor:'pointer'}}> 
                     <div className="property-row-content">指定审批人仅支持单选</div> 
                 </label>
             &nbsp;)
@@ -58,27 +52,8 @@ const ApproveWithdrawProperty = ({ put, currentRepo, dispatch }) => {
                 审批项设置
             </div>
             <Setting />
-
         </div>
     )
 }
-/*
-<div style={{height:'10px',width:'100%'}}></div>
-<div style={{height:'10px',width:'100%'}}></div>
+export default global.connect2redux('usertask',ApproveWithdrawProperty)
 
-<div className="property-row-title">{put('approveWithdrawProperty.remark.title')}</div>
-<div className="property-row-content">{put('approveWithdrawProperty.remark.content')}</div>
-*/
-const mapStateToProps = (state) => {
-    const repo = state.approve.repo
-    const id = state.approve.id
-    const currentRepo = repo.filter((el,index)=>el.id == id) || false
-    return {currentRepo} 
-}
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ApproveWithdrawProperty)
