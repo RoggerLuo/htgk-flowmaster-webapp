@@ -1,7 +1,5 @@
 import { toJS, fromJS, List, Map } from 'immutable';
-// import { defaultOption, newRule, newCreate } from './branch/basic'
-
-import reduceWrap from './tools/reduceWrap'
+import { reduceWrap, transformer } from '../tools'
 
 const newRule = () => {
     return {

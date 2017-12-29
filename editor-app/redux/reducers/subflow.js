@@ -1,6 +1,5 @@
 import { toJS, fromJS, List, Map } from 'immutable'
-import reduceWrap from './tools/reduceWrap'
-import transformer from './tools/transformer'
+import { reduceWrap, transformer } from '../tools'
 
 const uniqAdd = (data, item) => {
     data = data.slice() //克隆immutable数据
@@ -57,7 +56,7 @@ const newNode = (id, data) => {
         subProcess: {}
     })
 }
-export default reduceWrap('Subflow', {}, (state, action, ind) => {
+export default reduceWrap('Subflow', (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
         case 'subflow':
@@ -69,7 +68,7 @@ export default reduceWrap('Subflow', {}, (state, action, ind) => {
             // const func = transformer(data, ind)
             // return action.f(func)
 
-            return transformer(data,ind,action.args)
+            return transformer(data, ind, action.args)
 
         case 'subflow/init':
             return data.updateIn(['repo'], 'initial', (el) => {

@@ -1,6 +1,5 @@
 import { toJS, fromJS, List, Map } from 'immutable'
-import reduceWrap from './tools/reduceWrap'
-import transformer from './tools/transformer'
+import { reduceWrap, transformer } from '../tools'
 
 const uniqAdd = (data, item) => {
     data = data.slice() //克隆immutable数据
@@ -45,7 +44,7 @@ const uniqAdd = (data, item) => {
 */
 const newNode = id => fromJS({id,businessStatus: { text: '请选择', value: false }})
 
-export default reduceWrap('Sequence flow', {}, (state, action, ind) => {
+export default reduceWrap('Sequence flow', (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
         case 'sf':

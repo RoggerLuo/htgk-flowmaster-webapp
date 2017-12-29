@@ -1,14 +1,21 @@
 import { toJS, fromJS, List, Map } from 'immutable'
-import reduceWrap from './tools/reduceWrap'
+import { reduceWrap, transformer } from '../tools'
+
 const uniqAdd = (data, item) => {
     data = data.slice() //克隆immutable数据
     if (data.some(el => el.value == item.value)) return data
     data.push(item)
     return data
 }
-export default reduceWrap('Manual task', {}, (state, action, ind) => {
+
+const newRepo = (id, data) => fromJS({ id, data })
+export default reduceWrap('Manual task', (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
+        case 'manual':
+            if (ind == 'not exist') return data.updateIn(['repo'], '', (a) => a.push(newRepo(state.id, []))).toJS()
+            return transformer(data, ind, action.args)
+
         case 'manual/withdrawChange':
             return data.updateIn(['repo', ind, 'withdraw'], false, (el) => !el).toJS()
 

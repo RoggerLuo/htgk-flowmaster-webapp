@@ -1,12 +1,12 @@
 import { toJS, fromJS, List, Map } from 'immutable'
-import reduceWrap from './tools/reduceWrap'
+import { reduceWrap, transformer } from '../tools'
 const uniqAdd = (data, item) => {
     data = data.slice() //克隆immutable数据
     if (data.some(el => el.value == item.value)) return data
     data.push(item)
     return data
 }
-export default reduceWrap('Circulation task', {}, (state, action, ind) => {
+export default reduceWrap('Circulation task', (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
         case 'circulation/newNodeInit':

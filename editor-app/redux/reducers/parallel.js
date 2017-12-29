@@ -1,5 +1,5 @@
 import { fromJS, List, Map } from 'immutable';
-import reduceWrap from './tools/reduceWrap'
+import { reduceWrap, transformer } from '../tools'
 // const initial = {
 //     repo:[
 //         // {
@@ -19,7 +19,7 @@ const uniqAdd = (data, item) => {
     return data
 }
 
-export default reduceWrap('Multi user task',{}, (state, action, ind) => {
+export default reduceWrap('Multi user task', (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
         case 'parallel/init': //very beginning start 

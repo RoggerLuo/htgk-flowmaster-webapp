@@ -1,8 +1,7 @@
 import { toJS, fromJS, List, Map } from 'immutable'
-import reduceWrap from './tools/reduceWrap'
-import transformer from './tools/transformer'
+import { reduceWrap, transformer } from '../tools'
 
-export default reduceWrap('all', {}, (state, action, ind) => {
+export default reduceWrap('all',  (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
         case 'temp':
