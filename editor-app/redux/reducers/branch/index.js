@@ -34,14 +34,8 @@ export default reduceWrap('Sequence flow', (state, action, ind) => {
     switch (action.type) {
         /* 任何下拉框 被选择的时候 */
         case 'branch':
-            if (ind == 'not exist') {
-                const add_node_to_repo = (repo) => repo.push(fromJS(newCreate(state)))
-                return data.updateIn(['repo'], '', add_node_to_repo).toJS()
-            }
-            const func = transformer(data, ind)
-            return action.f(func)
-
-
+            if (ind == 'not exist') return data.updateIn(['repo'], [], (a) => a.push(fromJS(newCreate(state)))).toJS()
+            return transformer(data, ind, action.args)
 
         case 'branchUpdate':
             //获取在dataRepo里的位置

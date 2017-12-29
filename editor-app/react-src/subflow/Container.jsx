@@ -46,7 +46,7 @@ const SubflowContainer = ({ currentRepo, dispatch }) => {
         <Presentation currentRepo={currentRepo} add={add} setting={setting} del={del}/>
     )
 }
-const SubflowContainerConnected = global.connect2redux('subflow',SubflowContainer)
+const SubflowContainerConnected = rdx.connect('subflow',SubflowContainer)
 
 export default function(){
     render(

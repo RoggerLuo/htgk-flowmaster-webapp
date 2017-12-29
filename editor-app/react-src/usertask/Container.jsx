@@ -5,14 +5,9 @@ import Presentation from './Presentation'
 
 const Usertask = ({ currentRepo }) => {
     if(!currentRepo) return null
-    const data = currentRepo.data||[]
-    const cate = currentRepo.cate||false
-    return(
-        <Presentation data={data} cate={cate} />
-    )
+    return(<Presentation data={currentRepo.data||[]} />)
 }
 const UsertaskContainer = rdx.connect('usertask',Usertask)
-
 
 export default function(){
     render(

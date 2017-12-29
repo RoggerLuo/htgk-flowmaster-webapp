@@ -15,13 +15,13 @@ export default reduceWrap('User task', (state, action, ind) => {
         case 'usertask':
             if (ind == 'not exist') return data.updateIn(['repo'], '', (a) => a.push(newRepo(state.id, []))).toJS()
             return transformer(data, ind, action.args)
+        case 'usertask/init':
+            return data.updateIn(['repo'], List(), (a) => a.push(fromJS(action.data))).toJS()
 
         case 'usertask/change':
             return data.updateIn(['repo', ind, action.key], false, (el) => action.value).toJS()
 
 
-        case 'usertask/init':
-            return data.updateIn(['repo'], 'initial', (el) => el.push(fromJS(action.data))).toJS()
 
         case 'usertask/addRole':
             if (ind == 'not exist') {

@@ -52,8 +52,6 @@ function handleBranchSequence($scope, selectedShape) {
 
 
 function handleOthers($scope, selectedShape) {
-    // console.log(selectedShape._stencil._jsonStencil.title)
-    // debugger
     autoNaming(selectedShape, $scope)
     const title = selectedShape._stencil._jsonStencil.title
     $scope.propertyTpl = tplSrc + tplMap[title]

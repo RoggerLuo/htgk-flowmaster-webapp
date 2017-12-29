@@ -11,7 +11,7 @@ const List = ({ value, text, versionId, checked, dispatch, currentRepo }) => {
                 versionId
             }
         })
-        activeSave() 
+        rdx.save() 
         window.requestFormData(value,function(dataObj){
             if(!dataObj) return
             dispatch({type:'subflow/leftFields',leftFields:dataObj.components})
@@ -29,5 +29,4 @@ const List = ({ value, text, versionId, checked, dispatch, currentRepo }) => {
         </div>
     )
 }
-
-export default global.connect2redux('subflow',List)
+export default rdx.connect('subflow',List)

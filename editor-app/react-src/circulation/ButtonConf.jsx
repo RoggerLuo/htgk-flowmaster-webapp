@@ -4,9 +4,10 @@ import {connect} from 'react-redux'
 import Button from '../DropdownButton'
 import confirmGenerator from '../confirmGenerator'
 
-const CircuButtonContainer = ({reduxCate,dispatch,children}) => { 
-    const add = (item) => dispatch({type:'circulation/addRole',item})   
-    const clear = () => dispatch({type:'circulation/clear'})
+const CircuButtonContainer = ({currentRepo, children}) => { 
+    const reduxCate = currentRepo.data && currentRepo.data[0] && currentRepo.data[0] .cate
+    const add = (item) => rdx.dispatch({type:'circulation/addRole',item})   
+    const clear = () => rdx.dispatch({type:'circulation/clear'})
     const confirmFunction = confirmGenerator({reduxCate,add,clear})
     const xClass = {marginTop:'5px',right:'12px'}
     return ( 
@@ -15,7 +16,9 @@ const CircuButtonContainer = ({reduxCate,dispatch,children}) => {
         </Button>
     )
 }
-export default global.connect2redux('circulation',CircuButtonContainer)
+export default rdx.connect('circulation', CircuButtonContainer)
+
+// export default global.connect2redux('circulation',CircuButtonContainer)
 /*
 const mapStateToProps = (state) => {
     const currentRepo = state.service.repo.filter((el,index)=>el.id == state.approve.id)

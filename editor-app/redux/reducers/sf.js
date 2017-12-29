@@ -52,7 +52,7 @@ export default reduceWrap('Sequence flow', (state, action, ind) => {
             return transformer(data, ind, action.args)
 
         case 'sf/init':
-            return data.updateIn(['repo'], List(), (el) => el.push(action.data)).toJS()
+            return data.updateIn(['repo'], List(), (a) => a.push(action.data)).toJS()
 
             // case 'subflow/newNodeInit':
             //     if (ind == 'not exist') return data.updateIn(['repo'], '', (el) => el.push(newNode(state.id, []))).toJS()

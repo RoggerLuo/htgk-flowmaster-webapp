@@ -6,9 +6,11 @@ export default (op, item) => {
         case 'replace':
             return (el) => item
         case 'add':
-            return (el) => {
-                if (!List.isList(el)) throw new  Error('不是数组 不能使用add operation')
-                return el.push(item)
+            return (a) => {
+                if (!List.isList(a)) {
+                    throw new  Error('不是数组 不能使用add operation')
+                }
+                return a.push(item)
             }
         case 'delete':
             return (a) => a.delete(item)

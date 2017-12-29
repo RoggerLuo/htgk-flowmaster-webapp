@@ -1,7 +1,5 @@
 import React from 'react'
 import  './style'
-import Button from './ButtonConf'
-// import RolesFrame from './RolesFrameConf'
 import NextHalfText from './NextHalfText'
 import SolidFrame from '../presentations/SolidFrame/SolidFrame'
 

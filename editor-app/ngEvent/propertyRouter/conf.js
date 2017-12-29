@@ -13,6 +13,4 @@ export const tplMap = {
     "Inclusive gateway":"commonNode.html",
     "Custom task":"custom.html",
     "Subflow":"subflow.html"
-
-
 }

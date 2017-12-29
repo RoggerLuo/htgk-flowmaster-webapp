@@ -11,5 +11,6 @@ rdx.put = (type, ...args) => {
     store.dispatch({ type, args })
     rdx.save()
 }
+rdx.dispatch = store.dispatch
 rdx.findCurrentRepoInd = findCurrentRepoInd
 rdx.connect = connect2redux

@@ -31,18 +31,12 @@ export default function(el, index, modelData) {
             window.reduxStore.dispatch({ type: 'branchNodeInit', data: reduxObj })
         }
     } else {
-
-        // debugger
         if (el.properties.reduxData) {
-            rdx.store.dispatch({ type: 'sf/init', data: el.properties.reduxData })
+            rdx.dispatch({ type: 'sf/init', data: el.properties.reduxData })
         }
         delete modelData.childShapes[index].properties.reduxData
         delete modelData.childShapes[index].properties.businessStatusId
-
-
     }
-
-
 
 
     // delete modelData.childShapes[index].properties.name

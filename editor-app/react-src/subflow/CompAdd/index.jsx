@@ -4,6 +4,7 @@ import Group from './Group'
 import { connect } from 'react-redux'
 
 const AddComp = ({ currentRepo, put, add }) => {
+    if(!currentRepo) return null
     const data = []
     window.processList.forEach((el)=>{
         if(!el.categoryName) el.categoryName = "defaultCategory"

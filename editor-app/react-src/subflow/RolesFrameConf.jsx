@@ -4,12 +4,12 @@ import RolesFrameGenerator from '../RolesFrameGeneratorNotForParallel'
 
 function ConfiguredRoleComp({ data, dispatch}){
     const del = (index) => function(){
-        dispatch({type:'manual/deleteRole',index})
+        rdx.dispatch({type:'manual/deleteRole',index})
         activeSave()
     }
-    const add = (item) => dispatch({type:'manual/addRole',item})
-    const clear = () => dispatch({type:'manual/clear'})
-    const edit = () => dispatch({type:'popup/callPopupEdit'})
+    const add = (item) => rdx.dispatch({type:'manual/addRole',item})
+    const clear = () => rdx.dispatch({type:'manual/clear'})
+    const edit = () => rdx.dispatch({type:'popup/callPopupEdit'})
     
     const { DefaultContainer, DbRoleContainer } = RolesFrameGenerator({edit,del,add,clear})
     
@@ -21,12 +21,16 @@ function ConfiguredRoleComp({ data, dispatch}){
             return (<DefaultContainer data={data}/>)
     }
 }
-const mapStateToProps = (state) => {
-    return {state}
-}
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
+export default ConfiguredRoleComp
 
-export default connect(mapStateToProps,mapDispatchToProps)(ConfiguredRoleComp)    
+// const SubflowContainerConnected = rdx.connect('subflow',ConfiguredRoleComp)
+
+// const mapStateToProps = (state) => {
+//     return {state}
+// }
+// const mapDispatchToProps = (dispatch) => {
+//     return {dispatch}
+// }
+
+//  connect(mapStateToProps,mapDispatchToProps)(ConfiguredRoleComp)    
 

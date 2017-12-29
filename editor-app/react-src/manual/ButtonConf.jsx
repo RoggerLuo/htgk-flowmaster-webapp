@@ -4,10 +4,10 @@ import {connect} from 'react-redux'
 import Button from '../DropdownButton'
 import confirmGenerator from '../confirmGenerator'
 
-const ButtonContainer = ({currentRepo,dispatch,children}) => { 
-    const reduxCate = currentRepo.data[0] && currentRepo.data[0] .cate
-    const add = (item) => dispatch({type:'manual/addRole',item})   
-    const clear = () => dispatch({type:'manual/clear'})
+const ButtonContainer = ({ currentRepo, children}) => { 
+    const reduxCate = currentRepo.data && currentRepo.data[0] && currentRepo.data[0] .cate
+    const add = (item) => rdx.dispatch({type:'manual/addRole',item})   
+    const clear = () => rdx.dispatch({type:'manual/clear'})
     const confirmFunction = confirmGenerator({reduxCate,add,clear})
     const xClass = {marginTop:'5px',right:'12px'}
     return ( 

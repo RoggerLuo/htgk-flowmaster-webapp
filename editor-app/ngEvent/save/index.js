@@ -1,74 +1,41 @@
 'use strict'
-import sf from './sf'
-import subflow from './subflow'
-import custom from './custom'
-import usertaskPattern from './usertaskPattern'
-import service from './service'
-// import saveHandlerApprove from './approve'
-import saveHandlerEndPoint from './endPoint'
-import saveHandlerBranch from './branch'
-import saveHandlerBranchNode from './branchNode'
-import saveHandlerParallel from './parallel'
+import isNodesValid from './isNodesValid'
 import checkEmpty from './checkEmpty'
 import originalSave from './originalSave'
 import checkParallelGate from './checkParallelGate'
-
+import isConnectBroken from './isConnectBroken'
+import isSfsUnnamed from './isSfsUnnamed'
 
 export default function($scope, $http) {
     return function(callback) {
-        window.reduxStore.dispatch({ type: 'saveDeactive' })
+        rdx.dispatch({ type: 'saveDeactive' })
 
+        
+        if(isSfsUnnamed($scope)) return rdx.save()
+        
 
-        /* 把redux转换成oryx数据, 顺序很重要 */
-        const canvas = $scope.editor.getCanvas()
-        if(!subflow(canvas)){
-            activeSave()
-            return
-        }
-        // custom(canvas)
-        if(!sf(canvas)){
-            activeSave()
-            return 
-        }
-        usertaskPattern(canvas,'usertask')
-        usertaskPattern(canvas,'manual')
-        // manual(canvas)
-        service(canvas)
-        // saveHandlerApprove(canvas)
-        saveHandlerParallel(canvas)
-        saveHandlerEndPoint(canvas)
-        if (!saveHandlerBranch(canvas)) {
-            activeSave()
-            return
-        }
-        saveHandlerBranchNode(canvas)
+        //业务流程 校验放在 sf校验之后
+        if (!isNodesValid($scope)) return rdx.save()
+
 
         /* 为空的限制条件 */
-        if (checkEmpty($scope)) {
-            window.reduxStore.dispatch({ type: 'saveActive' })
-            return
-        }
-
-        if (checkParallelGate($scope)) {
-            window.reduxStore.dispatch({ type: 'saveActive' })
-            // alert('empty')
-            return
-        }
-
-
+        if (checkEmpty($scope)) return rdx.save()
+        if (checkParallelGate($scope)) return rdx.save()
+        if (isConnectBroken($scope)) return rdx.save()
 
 
         /*
             给manual节点的 分支，加上classify
         */
-        var json =  window.getRawJson() //$scope.editor.getJSON()        
-        json.childShapes.some((el,index)=>{
-            if(el.stencil.id == "ExclusiveGateway"){
+        const canvas = $scope.editor.getCanvas()
+        var json = window.getRawJson() //$scope.editor.getJSON()        
+        json.childShapes.some((el, index) => {
+            if (el.stencil.id == "ExclusiveGateway") {
 
                 let currentElement = canvas.getChildShapeByResourceId(el.resourceId)
-                if(global.isManualGateway(currentElement)){
+                if (global.isManualGateway(currentElement)) {
                     currentElement.setProperty('classify', 'manual')
-                } 
+                }
             }
         })
 
@@ -77,8 +44,8 @@ export default function($scope, $http) {
 
 
         /* 等待动画 */
-        window.reduxStore.dispatch({ type: 'callSpin' })
-        // orginal save code
-        originalSave($scope, $http,callback)
+        rdx.dispatch({ type: 'callSpin' })
+        /* orginal save */
+        originalSave($scope, $http, callback)
     }
 }

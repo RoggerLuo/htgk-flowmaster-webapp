@@ -4,14 +4,16 @@ import {connect} from 'react-redux'
 import Button from '../../DropdownButton'
 import confirmGenerator from '../../confirmGenerator'
 
-const ButtonContainer = ({reduxCate,dispatch,children}) => { 
+const ButtonContainer = ({ currentRepo, children}) => { 
+    const reduxCate = currentRepo.data && currentRepo.data[0] && currentRepo.data[0].cate
+
     const add = (item) => {
-        dispatch({type:'subflow/addRole',item})
+        rdx.dispatch({type:'subflow/addRole',item})
         activeSave() 
 
     }
     const clear = () => {
-        dispatch({type:'subflow/clear'})
+        rdx.dispatch({type:'subflow/clear'})
         activeSave() 
     }
 
@@ -23,14 +25,16 @@ const ButtonContainer = ({reduxCate,dispatch,children}) => {
         </Button>
     )
 }
-const mapStateToProps = (state) => {
-    const currentRepo = state.subflow.repo.filter((el,index)=>el.id == state.approve.id)
-    const reduxCate = currentRepo && currentRepo[0] && currentRepo[0].data && currentRepo[0].data[0] && currentRepo[0].data[0].cate||false
-    return {reduxCate}
-}
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
+export default rdx.connect('subflow',ButtonContainer)
 
-export default connect(mapStateToProps,mapDispatchToProps)(ButtonContainer)
+// const mapStateToProps = (state) => {
+//     const currentRepo = state.subflow.repo.filter((el,index)=>el.id == state.approve.id)
+//     const reduxCate = currentRepo && currentRepo[0] && currentRepo[0].data && currentRepo[0].data[0] && currentRepo[0].data[0].cate||false
+//     return {reduxCate}
+// }
+// const maprdx.DispatchToProps = (rdx.dispatch) => {
+//     return {dispatch}
+// }
+
+// export default connect(mapStateToProps,mapDispatchToProps)(ButtonContainer)
 

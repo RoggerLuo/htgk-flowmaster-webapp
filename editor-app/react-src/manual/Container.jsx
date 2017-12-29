@@ -1,37 +1,17 @@
 import React,{createClass} from 'react';
 import { render } from 'react-dom'
-import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
-import { connect } from 'react-redux'
 import Presentation from './Presentation'
 
-const Approve = ({ currentRepo }) => {
+const Component = ({ currentRepo }) => {
     if(!currentRepo) return null
-    const data = currentRepo.data||[]
-    return(
-        <Presentation data={data}/>
-    )
+    return(<Presentation data={currentRepo.data||[]} />)
 }
-const mapStateToProps = (state) => {
-    const repo = state.manual.repo
-    const id = state.manual.id
-    const filteredRepo = repo.filter((el,index)=>el.id == id) || false
-    const currentRepo = filteredRepo && filteredRepo[0] || false
-    return {currentRepo} 
-}
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
-
-const ApproveContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Approve)
-
+const ManualContainer = rdx.connect('manual', Component)
 export default function(){
     render(
-        <Provider store={store}>
-                <ApproveContainer />
+        <Provider store={rdx.store}>
+                <ManualContainer />
         </Provider>
         ,
         document.getElementById('manualPropertyCtrl')
