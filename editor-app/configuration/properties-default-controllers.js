@@ -73,11 +73,11 @@ var canvasPropertyCtrl = ['$scope', function($scope) {
 
 var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
     if ($scope.selectedItem.title == '') {
-        if ($scope.selectedItem.jsonStencilTitle == 'Sequence flow') return
-
-        $scope.selectedItem.title = giveName($scope.selectedItem.jsonStencilTitle)
-        $scope.updatePropertyInModel({ key: 'oryx-name', value: $scope.selectedItem.title })
-        rdx.save()
+        if ($scope.selectedItem.jsonStencilTitle != 'Sequence flow') {
+            $scope.selectedItem.title = giveName($scope.selectedItem.jsonStencilTitle)
+            $scope.updatePropertyInModel({ key: 'oryx-name', value: $scope.selectedItem.title })
+            rdx.save()
+        }
     }
 
     const blurImplementation = (enter) => {
