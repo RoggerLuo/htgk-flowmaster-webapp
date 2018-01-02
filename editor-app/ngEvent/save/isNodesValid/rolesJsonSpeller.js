@@ -15,6 +15,14 @@ export default function(jsonArray, data,currentElement) {
 
             case "form":
             case "customizeRole":
+                jsonArray.push({ 
+                    value: `customizeRole(${el.value})`, 
+                    value2:el.value,
+                    cate: el.cate, 
+                    text: el.text, 
+                    id: index //el.value 
+                })
+                break
             case "historicTask":
                 jsonArray.push(generator(el))
                 break

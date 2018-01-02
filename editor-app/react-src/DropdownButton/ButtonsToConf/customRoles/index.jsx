@@ -2,13 +2,13 @@ import Comp from './CompContainer'
 export default function(cb){
     return {
         confirm(){
-            const state = global.reduxStore.getState()
+            const state = rdx.getState()
             const customRoles = state.popup.customRoles
             customRoles.map(el=>{
-                el.cate = 'customRole自定义角色'
+                el.cate = 'customizeRole'
                 return el
             }).forEach(el=>cb(el))
-            global.reduxStore.dispatch({type:'popup/update',data:[]})
+            rdx.dispatch({type:'popup/update',data:[]})
         },
         content:Comp,
         type:'callPopup',
