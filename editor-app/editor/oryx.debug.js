@@ -9481,7 +9481,6 @@ ORYX.Core.UIObject = {
 	},
 	
 	addEventHandlers: function(node) {
-		
 		node.addEventListener(ORYX.CONFIG.EVENT_MOUSEDOWN, this._delegateEvent.bind(this), false);
 		node.addEventListener(ORYX.CONFIG.EVENT_MOUSEMOVE, this._delegateEvent.bind(this), false);	
 		node.addEventListener(ORYX.CONFIG.EVENT_MOUSEUP, this._delegateEvent.bind(this), false);
@@ -9489,7 +9488,6 @@ ORYX.Core.UIObject = {
 		node.addEventListener(ORYX.CONFIG.EVENT_MOUSEOUT, this._delegateEvent.bind(this), false);
 		node.addEventListener('click', this._delegateEvent.bind(this), false);
 		node.addEventListener(ORYX.CONFIG.EVENT_DBLCLICK, this._delegateEvent.bind(this), false);
-			
 	},
 		
 	_delegateEvent: function(event) {
@@ -17885,6 +17883,8 @@ ORYX.Plugins.Edit = Clazz.extend({
      * Performs the delete operation. No more asking.
      */
     editDelete: function(){
+    	if(fm.versionModel) return
+
         var selection = this.facade.getSelection();
 
         /* roger edited delete */

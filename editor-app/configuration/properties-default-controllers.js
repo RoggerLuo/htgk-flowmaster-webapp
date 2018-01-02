@@ -69,8 +69,6 @@ var canvasPropertyCtrl = ['$scope', function($scope) {
 }];
 
 
-
-
 var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
     if ($scope.selectedItem.title == '') {
         if ($scope.selectedItem.jsonStencilTitle != 'Sequence flow') {
@@ -79,11 +77,11 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
             rdx.save()
         }
     }
-
     const blurImplementation = (enter) => {
-        if (!window.namePropertyClicked) { //如果没有初始化,那么切换到时候就不要保存,不然会保存成空白
-            return;
-        }
+        if (!window.namePropertyClicked) return
+        // { //如果没有初始化,那么切换到时候就不要保存,不然会保存成空白
+            // return;
+        // }
         window.namePropertyClicked = false //重新上锁
 
         // $scope.valueFlushed = true;
@@ -94,12 +92,12 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
         // }
 
         const mySelectedItem = window.lastSelectedItem
-        if (!mySelectedItem) { return; }
+        if (!mySelectedItem) return
 
         if (mySelectedItem.title == '') {
             window.showAlert('节点名称不能为空')
             mySelectedItem.title = window.currentSelectedShape.properties['oryx-name']
-            return;
+            return
         }
 
         if (window.currentSelectedShape.properties['oryx-name'] != mySelectedItem.title) {
@@ -107,7 +105,7 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
             if (isRepeated(mySelectedItem.title)) {
                 window.showAlert('节点名称已重复，请重新修改再保存。')
                 mySelectedItem.title = window.currentSelectedShape.properties['oryx-name']
-                return;
+                return
             }
         }
 
@@ -130,7 +128,7 @@ var namePropertyCtrl = ['$scope', '$timeout', function($scope, $timeout) {
 
     $scope.namePropertyClicked = function() {
         window.namePropertyClicked = true
-        $scope.shapeId = $scope.selectedShape.id;
+        $scope.shapeId = $scope.selectedShape.id
         // $scope.valueFlushed = false;
 
         /* 如果是直接切换item 则是每次都是空字符，这时候不能保存，如果保存则会用null string覆盖本来的名字 */
