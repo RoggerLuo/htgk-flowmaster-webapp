@@ -5,7 +5,7 @@ export default function(canvas){
         if (!currentElement) return
 
         if(!el.businessStatus.value){
-            window.showAlert(`"${currentElement.properties["oryx-name"]}"业务状态未设置`)
+            window.showAlert(`连线"${currentElement.properties["oryx-name"]}"业务状态未设置`)
             flag = false 
             return flag
         }
