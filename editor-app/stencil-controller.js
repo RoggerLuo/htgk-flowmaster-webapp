@@ -2,6 +2,8 @@
 angular.module('activitiModeler')
     .controller('StencilController', ['$rootScope', '$scope', '$http', '$modal', '$timeout', function($rootScope, $scope, $http, $modal, $timeout) {
         
+
+
         // Property window toggle state
         $scope.propertyWindowState = { 'collapsed': false }; //哪个toggle?
 
@@ -289,6 +291,11 @@ angular.module('activitiModeler')
                 console.log('Something went wrong when fetching stencil items:' + JSON.stringify(data));
             });
 
+            
+
+
+
+
 
             /*
              * Listen to selection change events: show properties
@@ -302,6 +309,7 @@ angular.module('activitiModeler')
 
             */
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
+
                 var shapes = event.elements;
                 /* elements 是一个数组，里面有classDef对象, classDef对象是什么来的？
                     有isMovable属性
@@ -489,7 +497,8 @@ angular.module('activitiModeler')
             */
 
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
-                
+                if(fm.versionModel) return
+
                 KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_HIDE_SHAPE_BUTTONS); //这个event是干嘛
                 var shapes = event.elements;
 
@@ -1186,6 +1195,7 @@ angular.module('activitiModeler')
         };
 
         $scope.dragCallback = function(event, ui) {
+            if(fm.versionModel) return
 
             if ($scope.dragModeOver != false) {
                 
@@ -1374,6 +1384,7 @@ angular.module('activitiModeler')
         };
 
         $scope.dragCallbackQuickMenu = function(event, ui) {
+            if(fm.versionModel) return
 
             if ($scope.dragModeOver != false) {
                 var coord = $scope.editor.eventCoordinatesXY(event.pageX, event.pageY);
