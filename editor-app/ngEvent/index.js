@@ -5,9 +5,16 @@ import save from './save'
 import selectEvent from './selectEvent'
 import loadedEvent from './loadedEvent'
 
-
 import './multiusertask'
 import './manual'
+
+
+const version = window.getQueryString("version")
+if (version != 'undefined'){
+    fm.versionModel = true
+    fm.version = version  
+} 
+
 
 window.myEvent = function($scope, $http) {
     $scope.lastSelectedUserTaskId = false
@@ -44,4 +51,7 @@ import nameMultiBranch from './multiusertask/nameMultiBranch'
 window.afterShapeUpdate = ($scope, event) => {
     propertyRouter($scope, event)
     nameMultiBranch($scope, event)
+    if(fm.versionModel) fm.undo()
 } 
+
+
