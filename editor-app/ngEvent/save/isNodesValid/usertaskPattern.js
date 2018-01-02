@@ -10,7 +10,6 @@ export default function(canvas,reduceName) {
                 "candidateOwners": rolesJsonSpeller([], repoObj.data)
             }
         }
-
         currentElement.setProperty('usertaskassignment', value)
         currentElement.setProperty('approveItems', getApproveItems(repoObj))
         currentElement.setProperty('previousNodeSpecifiedSingle', !!repoObj.enableSingleSelect)

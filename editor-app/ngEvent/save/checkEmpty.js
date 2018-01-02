@@ -22,16 +22,15 @@ export default ($scope) => { //checkEmpty
                 }
                 break
             case 'UserTask':
-                if (!el.properties.usertaskassignment) {
+                const ta = el.properties.usertaskassignment
+                if (!ta) {
                     window.showAlert('审批节点"' + el.properties.name + '"内容不能为空')
                     return true
                 }
-
-                if (el.properties.usertaskassignment && el.properties.usertaskassignment.assignment && (el.properties.usertaskassignment.assignment.candidateOwners.length == 0)) {
+                if (ta && ta.assignment && (ta.assignment.candidateOwners.length == 0)) {
                     window.showAlert('审批节点"' + el.properties.name + '"内容不能为空')
                     return true
                 }
-
                 break
 
             case 'MultiUserTask':
