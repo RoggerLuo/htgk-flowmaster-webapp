@@ -1,9 +1,13 @@
 'use strict'
 
 export const getModel = (callback, $http, pid) => {
-    const version = window.getQueryString("version")
+    // const version = window.getQueryString("version")
     let url = window.globalHost + '/repository/process-definitions/' + pid + '/design?processType=Normal'
-    if (version != 'undefined') url = window.globalHost + '/repository/process-definitions/' + pid + `/design?processType=Normal&version=${version}`
+    if (fm.versionModel){ //version != 'undefined'
+        url = window.globalHost + '/repository/process-definitions/' + pid + `/design?processType=Normal&version=${fm.version}`
+        // fm.versionModel = true
+    }
+    
     $http({
             method: 'GET',
             // url: window.globalHost+'/resources/model/test.model.json', //本地调试
@@ -47,13 +51,3 @@ export const getProList = ($http) => {
         window.processList = data.data
     })
 }
-
-// export const processStatus = ($http) => {
-//     $http({    
-//         method: 'GET',
-//         url: window.globalHost+'/repository/process-status/processType/list' ///{processTypeId}}
-//     }).success(function (data) {
-//         debugger
-//         window.processStatus = data.data
-//     })
-// }

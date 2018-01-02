@@ -1,6 +1,8 @@
 import {multiCompleteCheck} from './multi'
 import {manualCompleteCheck} from './manual'
+
 global.everyMove = function(){
+
     window.getRawJson().childShapes.some((el, index) => {
         if (global.globalLockForMultiWarning) return
         switch(el.stencil.id){
@@ -12,4 +14,5 @@ global.everyMove = function(){
                 break
         }
     })
+
 }

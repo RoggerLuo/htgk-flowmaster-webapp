@@ -3,9 +3,7 @@ import loadServerData from './loadServerData'
 import requestUserData from './requestUserData'
 import requestFormData from './requestFormData'
 import { getModel, getPid, getProList, processStatus } from './getOtherData'
-
 export function fetchModelWrap($http, $rootScope) {
-
     const angularInit = (data) => {
         $rootScope.editor = new ORYX.Editor(data) //initialised   10866 12431 10060
         $rootScope.modelData = angular.fromJson(data)
@@ -42,8 +40,6 @@ export function fetchModelWrap($http, $rootScope) {
                 // $http({ method: 'GET', url: '/resources/model/test.model.json' }).success(angularInit)
                 $http({ method: 'GET', url: modelUrl }).success(angularInit)
             } else {
-                fm.modelJson = data.model
-                fm.saveObjArr = []
                 loadServerData(data.model)
                 angularInit(data.model)
             }

@@ -24,18 +24,18 @@ export default function(selectedShape){
     
     if(reduxObj.data.length){
         /* 要放在switchElement后面，不然会顺序会出问题，元素id还没更新 */
-        window.reduxStore.dispatch({ type: 'branchNodeOptionDataUpdate',data:reduxObj})
+        rdx.dispatch({ type: 'branchNodeOptionDataUpdate',data:reduxObj})
     }
     
     /* 判断:如果当前选择项的sequenceflow不存在则改成请选择 */
-    let theRepo = window.reduxStore.getState().branchNode.repo.filter((el)=>el.resourceId == selectedShape.resourceId)
+    let theRepo = rdx.getState().branchNode.repo.filter((el)=>el.resourceId == selectedShape.resourceId)
     theRepo = theRepo[0] || false
     if(theRepo){
         if(theRepo.choosed.value){
             let sequenceflow = window.windowCanvas.getChildShapeByResourceId(theRepo.choosed.value)
             if(sequenceflow === undefined){
                 /* 为什么控制台没有输出这个redux action事件，调试了好久...这 */
-                window.reduxStore.dispatch({ type: 'branchNodeDropdownChoose',item:{text:'请选择',value:'请选择'}})
+                rdx.dispatch({ type: 'branchNodeDropdownChoose',item:{text:'请选择',value:'请选择'}})
             }
         }
     }
