@@ -3,20 +3,24 @@
 export const getModel = (callback, $http, pid) => {
     const version = window.getQueryString("version")
     let url = window.globalHost + '/repository/process-definitions/' + pid + '/design?processType=Normal'
-    if(version!='undefined') url = window.globalHost + '/repository/process-definitions/' + pid + `/design?processType=Normal&version=${version}`
-        
+    if (version != 'undefined') url = window.globalHost + '/repository/process-definitions/' + pid + `/design?processType=Normal&version=${version}`
     $http({
             method: 'GET',
             // url: window.globalHost+'/resources/model/test.model.json', //本地调试
             url,
         })
         .success(function(data) {
+            
+
             $http({
                 method: 'GET',
                 url: window.globalHost + `/repository/process-status/businessStatus/list/${data.modelProcessType}`
             }).success(function(data) {
                 window.processStatus = data.data
-            })            
+            })
+
+
+
             callback(data)
         })
         .error(function(data, status, headers, config) {

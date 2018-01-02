@@ -39,10 +39,11 @@ export function fetchModelWrap($http, $rootScope) {
 
             if (!data.model.childShapes) { //第一次使用本地的配置
                 var modelUrl = KISBPM.URL.getModel(modelId)
-                // debugger
                 // $http({ method: 'GET', url: '/resources/model/test.model.json' }).success(angularInit)
                 $http({ method: 'GET', url: modelUrl }).success(angularInit)
             } else {
+                fm.modelJson = data.model
+                fm.saveObjArr = []
                 loadServerData(data.model)
                 angularInit(data.model)
             }

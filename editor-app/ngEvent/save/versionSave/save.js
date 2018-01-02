@@ -5,6 +5,7 @@ function transformRequest(obj) {
     }
     return str.join("&");
 }
+
 export default function($scope, $http, callback) {
     /* 接下来是 activiti ng original的代码 */
     var json = $scope.editor.getJSON();
@@ -74,34 +75,27 @@ export default function($scope, $http, callback) {
         eventType: 'update-model'
     };
     console.log(json)
-    // debugger
     const version = window.getQueryString("version")
     let url = window.globalHost + '/repository/process-definitions/' + window.getQueryString("pid") + '/design?processType=Normal'
     if(version!='undefined') url = window.globalHost + '/repository/process-definitions/' + window.getQueryString("pid") + `/design?processType=Normal&version=${version}`
-    $http({
-            method: 'PUT',
-            data: params,
-            ignoreErrors: true,
-            headers: ACTIVITI.CONFIG.httpSaveHeaders,
-            transformRequest,
-            url
-        })
 
-    .success(function(data, status, headers, config) {
-        
+    $http({
+        method: 'PUT',
+        data: params,
+        ignoreErrors: true,
+        headers: ACTIVITI.CONFIG.httpSaveHeaders,
+        url,
+        transformRequest
+    })
+    .success(function(data, status, headers, config) {            
         rdx.dispatch({ type: 'closeSpin' })
-        
         window.showAlert('保存成功', 'good')
 
         // Fire event to all who is listening
         $scope.editor.handleEvents({type: ORYX.CONFIG.EVENT_SAVED})
-
         KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent)
-
         callback()
-
         console.log('保存成功')
-
         rdx.dispatch({ type: 'saveDeactive' })
     })
     .error(function(data, status, headers, config) {

@@ -1,7 +1,7 @@
 import rolesJsonSpeller from './rolesJsonSpeller'
 import getApproveItems from './getApproveItems'
 
-export default function(canvas,reduceName) {
+export default function(canvas, reduceName) {
     rdx.getState()[reduceName].repo.forEach((repoObj) => {
         let currentElement = canvas.getChildShapeByResourceId(repoObj.id)
         if (repoObj.id && !currentElement) return
@@ -11,12 +11,11 @@ export default function(canvas,reduceName) {
             }
         }
         currentElement.setProperty('usertaskassignment', value)
-        currentElement.setProperty('approveItems', getApproveItems(repoObj))
+        currentElement.setProperty('approveItems', getApproveItems(repoObj, currentElement))
         currentElement.setProperty('previousNodeSpecifiedSingle', !!repoObj.enableSingleSelect)
         currentElement.setProperty('previousNodeSpecified', !!repoObj.previousNodeSpecified)
         currentElement.setProperty('reduxData', repoObj)
     })
 
-    
-}
 
+}
