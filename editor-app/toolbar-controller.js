@@ -3,6 +3,18 @@
 angular.module('activitiModeler')
     .controller('ToolbarController', ['$scope', '$http', '$modal', '$q', '$rootScope', '$translate', '$location','$timeout', function ($scope, $http, $modal, $q, $rootScope, $translate, $location,$timeout) {
 
+        fm.undo = function(){
+            const services = { 
+                $scope, 
+                $rootScope, 
+                $http, 
+                $modal, 
+                $q, 
+                $translate
+            }
+            KISBPM.TOOLBAR.ACTIONS.undo(services)
+        }
+
         /* 这个promise还可以then多次？还是说这个只是这个controller的editorFactory? */
     	$scope.editorFactory.promise.then(function () {
     		$scope.items = KISBPM.TOOLBAR_CONFIG.items;
@@ -130,7 +142,7 @@ angular.module('activitiModeler')
 
                 // If the event has commands
                 if( !evt.commands ){ return; }
-
+                // debugger
                 $scope.undoStack.push( evt.commands );
                 $scope.redoStack = [];
                 
