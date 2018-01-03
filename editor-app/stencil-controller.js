@@ -473,8 +473,10 @@ angular.module('activitiModeler')
 
                         window.beforeShapeUpdate($scope,event) //调用updateProperty会使用到selectedShape
                         $scope.selectedShape = selectedShape; //更新 selectedShape 在使用之后
-                        window.afterShapeUpdate($scope,event) 
-                        
+                        $timeout(function() {
+                            window.afterShapeUpdate($scope,event) 
+                        });
+
                         window.lastSelectedItem = selectedItem;
                         
                     });
