@@ -22,7 +22,6 @@ export default reduceWrap('User task', (state, action, ind) => {
             return data.updateIn(['repo', ind, action.key], false, (el) => action.value).toJS()
 
 
-
         case 'usertask/addRole':
             if (ind == 'not exist') {
                 const basic = { id: state.id, data: [action.item] } // cate: action.item.cate 
