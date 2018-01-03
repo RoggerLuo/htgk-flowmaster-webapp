@@ -17,8 +17,9 @@ export default function(cb){
         },
         content:Component,
         title:'button.option1',
-        height:'300px',
-        width:'500px'
+        height:'400px',
+        width:'600px',
+        outerStyle:{overflow:'auto'}
     }
 }
 

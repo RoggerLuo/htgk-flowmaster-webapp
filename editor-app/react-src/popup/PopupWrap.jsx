@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import './style'
 
-const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,height,width,style}) => {    
+const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,height,width,style,outerStyle}) => {    
     function cancel(){
         dispatch({type:'hidePopup'})
         window.hideShadow()
@@ -31,7 +31,7 @@ const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,h
                     {put(title)}
                 </div>
                 
-                <div className="popupContent" >
+                <div className="popupContent" style={outerStyle||{cursor:'default'}}>
                     <div className="innerContent" style={style||{display:'block'}}>
                         {children}
                     </div>

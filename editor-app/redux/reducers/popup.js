@@ -34,7 +34,9 @@ const Reducer = (state = initial, action) => {
                 height:action.height||'65%',
                 width:action.width||'50%',
                 isSubflow:action.isSubflow || false,
-                style:action.style || false
+                style:action.style || false,
+                outerStyle:action.outerStyle || false
+
             })
         case 'hidePopup':
             return Object.assign({}, state, {
