@@ -36,9 +36,10 @@ window.myEvent = function($scope, $http) {
     })
     /* 每次改变都激活保存 */
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_EXECUTE_COMMANDS, function(event) {
-        window.activeSave()
+        rdx.save()
+        // window.activeSave()
         // window.multiCompleteCheck()
-        window.everyMove()
+        // window.everyMove()
     })
 }
 
@@ -51,8 +52,7 @@ import nameMultiBranch from './multiusertask/nameMultiBranch'
 window.afterShapeUpdate = ($scope, event) => {
     propertyRouter($scope, event)
     nameMultiBranch($scope, event)
-    if(fm.validParallelGate()) fm.undo()
-    if(fm.versionModel) fm.undo()
+    fm.everyMove($scope)
 } 
 
 

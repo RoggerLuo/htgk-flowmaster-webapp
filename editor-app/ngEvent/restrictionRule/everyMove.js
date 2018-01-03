@@ -1,8 +1,9 @@
 import {multiCompleteCheck} from './multi'
 import {manualCompleteCheck} from './manual'
 
-global.everyMove = function(){
-    
+fm.everyMove = function($scope){    
+    if(fm.validParallelGate()) fm.undo()
+    if(fm.versionModel) fm.undo()
     window.getRawJson().childShapes.some((el, index) => {
         if (global.globalLockForMultiWarning) return
         switch(el.stencil.id){

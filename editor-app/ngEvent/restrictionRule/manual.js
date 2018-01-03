@@ -10,6 +10,7 @@ export default function(selectedShape) {
     })
     if (branchCounter >= 1) { //为什么是1呢，因为这一次的还没有添加上去，如果之前就是1了，那么就来不及
         window.showAlert('会签节点不能有分支')
+        // fm.undo()
         return false
     }
     return outgoingIsExclusivegate
@@ -19,17 +20,17 @@ export function manualCompleteCheck(el) {
     const MultiUserTask = window.windowCanvas.getChildShapeByResourceId(el.resourceId)
     if (!MultiUserTask.outgoing[0]) {
         window.showAlert('人工节点不能单独存在，请连接上分支节点')
-        // fm.undo()
+        fm.undo()
         return
     }
     if (!MultiUserTask.outgoing[0].outgoing[0]) {
         window.showAlert('人工节点不能单独存在，请连接上分支节点')
-        // fm.undo()
+        fm.undo()
         return
     }
     if (MultiUserTask.outgoing[0].outgoing[0]._stencil._jsonStencil.title != "Exclusive gateway") {
         window.showAlert('人工节点只能连接分支节点')
-        // fm.undo()
+        fm.undo()
         return
     }
 }
