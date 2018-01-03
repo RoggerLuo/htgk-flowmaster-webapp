@@ -13,7 +13,7 @@
         flex-direction: column;
         height: 65%;
         width: 50%;
-        margin: 5% auto auto auto; //6%
+        margin: 3% auto auto auto; //6%
         .x {
             text-align: right;
             padding: 12px 12px 0px 0px;
@@ -27,8 +27,47 @@
             text-align: center;
             padding-top: 12px;
         }
+
+
+
+        .popupContent::-webkit-scrollbar {
+          width: 4px;
+          background: rgba(0, 177, 251, 0.1);
+        }
+        .popupContent::-moz-scrollbar {
+          width: 4px;
+          background: rgba(0, 177, 251, 0.1);
+        }
+        .popupContent::-ms-scrollbar {
+          width: 4px;
+          background: rgba(0, 177, 251, 0.1);
+        }
+        .popupContent::-o-scrollbar {
+          width: 4px;
+          background: rgba(0, 177, 251, 0.1);
+        }
+        .popupContent::scrollbar {
+          width: 4px;
+          background: rgba(0, 177, 251, 0.1);
+        }
+        .popupContent::-webkit-scrollbar-thumb {
+          background: #00B1FB;
+        }
+        .popupContent::-moz-scrollbar-thumb {
+          background: #00B1FB;
+        }
+        .popupContent::-ms-scrollbar-thumb {
+          background: #00B1FB;
+        }
+        .popupContent::-o-scrollbar-thumb {
+          background: #00B1FB;
+        }
+        .popupContent::scrollbar-thumb {
+          background: #00B1FB;
+        }
+        
         .popupContent {
-            overflow: auto;
+            // overflow: auto;
             flex: 1;
             display: flex;
             width: 100%;
