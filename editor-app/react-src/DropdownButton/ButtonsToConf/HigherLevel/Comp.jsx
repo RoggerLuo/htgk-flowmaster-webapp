@@ -9,7 +9,7 @@ const Component = ({data,dispatch,put,choosedOption}) => {
     return (
         <div>
             {put('popup.higherLevel1')}
-            <Dropdown data={data} choosedOption={choosedOption} choosed={choosed}/>
+            <Dropdown data={data} choosedOption={choosedOption} choosed={choosed} cover={'yes'} position={'absolute'}/>
             {put('popup.higherLevel2')}
         </div>
     )

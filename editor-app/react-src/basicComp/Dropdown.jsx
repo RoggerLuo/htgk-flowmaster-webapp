@@ -21,6 +21,8 @@ const Dropdown = createClass({
         if(this.state.visibleStatus!='none'){
             color={color:'#00b0ff'}
         }
+        let bigcoverstyle = {display:this.state.visibleStatus}
+        if(this.props.position) bigcoverstyle = {display:this.state.visibleStatus,position:this.props.position}
         return(
             <div className="drop-down" style={{flex:'1',margin: this.props.margin||'0 10px'}}>
                 <div style={{width: this.props.width||'152px',display: 'flex',visibility:'hidden'}} className="drop-down-choosed" onClick={this.toggle}>
@@ -64,7 +66,7 @@ const Dropdown = createClass({
                         </tr>    
                     </tbody>
                 </table>
-                <div className="big-cover" style={{display:this.state.visibleStatus}} onClick={this.close}></div>
+                {this.props.cover=='no'?null:(<div className="big-cover" style={bigcoverstyle} onClick={this.close}></div>)}
             </div>
         )
     }
