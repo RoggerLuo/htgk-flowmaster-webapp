@@ -1,6 +1,6 @@
 import store from './configureStore'
 import findCurrentRepoInd from './tools/findCurrentRepoInd'
-import { connect2redux } from './tools'
+import { connect2redux, i18nPut } from './tools'
 global.reduxStore = store
 global.rdx = global.rdx || {}
 
@@ -14,3 +14,4 @@ rdx.put = (type, ...args) => {
 rdx.dispatch = store.dispatch
 rdx.findCurrentRepoInd = findCurrentRepoInd
 rdx.connect = connect2redux
+rdx.i18nPut = i18nPut

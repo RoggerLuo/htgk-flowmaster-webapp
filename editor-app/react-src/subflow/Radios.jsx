@@ -1,7 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-const Radios =  ({dispatch,isWaiting}) => {
+const Radios =  ({currentRepo}) => {
+    if(!currentRepo) return null
+    const isWaiting = currentRepo.isWaiting
     const mode1 = () => {
         if(fm.versionModel) return
         rdx.put('subflow','replace',['isWaiting'],true)
@@ -75,18 +77,5 @@ const Radios =  ({dispatch,isWaiting}) => {
     }
     return view
 }
-const mapStateToProps = (state) => {
-    const repo = state.subflow.repo
-    const id = state.subflow.id
-    const currentRepo = repo.filter((el,index)=>el.id == id) 
-    if(currentRepo.length==0) return {isWaiting:false}
-    const isWaiting = currentRepo[0].isWaiting
-    return {isWaiting} 
-}
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(Radios)    
-
-
+export default rdx.connect('subflow',Radios)
