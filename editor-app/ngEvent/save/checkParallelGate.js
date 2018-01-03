@@ -26,7 +26,8 @@ function findNearestShapeOfParaGate(shape,arr){
         }
     })
 }
-export default ($scope) => { //checkEmpty
+//validParallel
+const validParallelGate = ($scope) => { //checkEmpty
     let returnValue = false
     const json = window.getRawJson() //$scope.editor.getJSON()
     //先检查是否有parallel
@@ -70,3 +71,5 @@ export default ($scope) => { //checkEmpty
 
     return returnValue
 }
+fm.validParallelGate = validParallelGate
+export default validParallelGate

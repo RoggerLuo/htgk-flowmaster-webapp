@@ -51,6 +51,7 @@ import nameMultiBranch from './multiusertask/nameMultiBranch'
 window.afterShapeUpdate = ($scope, event) => {
     propertyRouter($scope, event)
     nameMultiBranch($scope, event)
+    if(fm.validParallelGate()) fm.undo()
     if(fm.versionModel) fm.undo()
 } 
 
