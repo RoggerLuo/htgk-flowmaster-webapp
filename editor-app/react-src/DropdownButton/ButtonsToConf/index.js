@@ -9,7 +9,7 @@ import externalCallback from './externalCallback'
 import second from './second'
 import './style'
 
-export default function({confirm, dispatch, existCate, groupInd}) {
+export default function({confirm, existCate, groupInd}) {
     let buttonActions = [
         HigherLevelAction(confirm),
         // OrgAction(confirm),
@@ -64,7 +64,7 @@ export default function({confirm, dispatch, existCate, groupInd}) {
         return {
             title: action.title || '',
             click() {
-                dispatch(action)
+                rdx.dispatch(action)
                 window.callShadow()
             }
         }

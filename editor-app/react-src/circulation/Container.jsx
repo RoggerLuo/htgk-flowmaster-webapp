@@ -12,7 +12,7 @@ const Circulation = ({ currentRepo }) => {
         <Presentation data={data}/>
     )
 }
-const CirculationContainer = global.connect2redux('circulation',Circulation)
+const CirculationContainer = rdx.connect('circulation',Circulation)
 
 export default function(){
     render(
@@ -24,23 +24,3 @@ export default function(){
     )
 }
 
-
-/*
-
-// const mapStateToProps = (state) => {
-//     const repo = state.service.repo
-//     const id = state.service.id
-//     const filteredRepo = repo.filter((el,index) => el.id == id) || false
-//     const currentRepo = filteredRepo && filteredRepo[0] || false
-//     return {currentRepo} 
-// }
-// const mapDispatchToProps = (dispatch) => {
-//     return {dispatch}
-// }
-
-// const ApproveContainer = connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(Approve)
-
-*/

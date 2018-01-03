@@ -61,7 +61,7 @@ export default function($http, pid) {
 
         const defaultOption = { text: '请选择', value: false, index: 'initial', type: 'initial' }
         window.formProperties.unshift(defaultOption)
-        global.reduxStore.dispatch({ type: 'updateFormProperties', data: window.formProperties })
+        rdx.dispatch({ type: 'updateFormProperties', data: window.formProperties })
     })
     window.requestFormData = (pid,cb) => {
         requestFormData($http,pid,cb)

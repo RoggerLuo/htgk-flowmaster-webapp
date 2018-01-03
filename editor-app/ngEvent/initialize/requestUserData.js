@@ -25,6 +25,6 @@ export default function($http){
         }
         window.userProperties = linkageData.filter(el=>!!limited[el.value])
         window.userProperties.unshift({text:'请选择',value:'initial',index:'initial'})
-        window.reduxStore.dispatch({type:'updateUserProperties',data:window.userProperties})
+        rdx.dispatch({type:'updateUserProperties',data:window.userProperties})
     })
 }

@@ -7,7 +7,7 @@ export default function(canvas, reduceName) {
         if (repoObj.id && !currentElement) return
         let value = {
             "assignment": {
-                "candidateOwners": rolesJsonSpeller([], repoObj.data)
+                "candidateOwners": rolesJsonSpeller([], repoObj.data, currentElement)
             }
         }
         currentElement.setProperty('usertaskassignment', value)

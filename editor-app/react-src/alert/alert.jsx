@@ -50,7 +50,7 @@ const Component = createClass({
         if(type=='bad'){
             iconText = (<div className="content">
                     <i className="icon iconfont icon-gantanhao-xianxingyuankuang"></i>
-                    {this.props.alertContent}
+                    <div style={{display:'inline-block'}} dangerouslySetInnerHTML={{__html: this.props.alertContent}}></div>
                 </div>)            
         }
         

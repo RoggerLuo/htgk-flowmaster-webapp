@@ -1,5 +1,5 @@
 const generator = (el) => ({"value": el.value,"cate": el.cate,"text": el.text,"id": el.value})
-export default function(jsonArray, data,currentElement) {
+export default function( jsonArray, data, currentElement ) {
     let dataSourceRef = []
     data.forEach((el, index) => {
         switch (el.cate) {
