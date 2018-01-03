@@ -25,7 +25,7 @@ const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,h
     }
 
     return(
-        <div className={"popup-coverwrap "} style={{zIndex:'9992',bottom:'auto',display:display,backgroundColor:"#f3f3f3",width: '100%' }}>
+        <div className={"popup-coverwrapX "} style={{zIndex:'9992',bottom:'auto',display:display,backgroundColor:"#f3f3f3",width: '100%' }}>
             <div className={"popup "+compClass1+" "+compClass2} style={{height:height,width:width,margin:'50px auto 100px auto'}} >
                 <div className="x">                
                     <i className="icon iconfont icon-close" onClick={cancel}></i>
