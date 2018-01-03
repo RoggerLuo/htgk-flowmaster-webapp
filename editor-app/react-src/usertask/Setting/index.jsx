@@ -4,7 +4,7 @@ import Pre from './Pre'
 const UsertaskSetting = ({ put, currentRepo, dispatch }) => {
     if(!currentRepo) return null
     const oncheckFactory = key => {
-        () => {
+        return () => {
             if(fm.versionModel) return
             rdx.put('usertask','replace',[key],!currentRepo[key])
         }
