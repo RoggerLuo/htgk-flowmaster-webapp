@@ -4,8 +4,14 @@ import  './style'
 import Setting from './Setting'
 
 const ApproveWithdrawProperty = ({ put, currentRepo, dispatch }) => {
-    const change1 = () => rdx.put('usertask','replace',['previousNodeSpecified'],!currentRepo.previousNodeSpecified,'boolean')
-    const change2 = () => rdx.put('usertask','replace',['enableSingleSelect'],!currentRepo.enableSingleSelect,'boolean')
+    const change1 = () => {
+        if(fm.versionModel) return
+        rdx.put('usertask','replace',['previousNodeSpecified'],!currentRepo.previousNodeSpecified,'boolean')
+    }
+    const change2 = () => {
+        if(fm.versionModel) return
+        rdx.put('usertask','replace',['enableSingleSelect'],!currentRepo.enableSingleSelect,'boolean')
+    }
     const previousNodeSpecified = currentRepo.previousNodeSpecified
     const enableSingleSelect = currentRepo.enableSingleSelect 
     return(
@@ -25,13 +31,14 @@ const ApproveWithdrawProperty = ({ put, currentRepo, dispatch }) => {
                 id="previousNodeSpecified" 
                 name="previousNodeSpecified" 
                 type="checkbox" 
+            />
 
-            />             
             <div className="property-row-content" style={{color: '#999999'}}> 
                 从【特定节点审批人】【二次开发】获取的审批人类型不在选择范围中。 
             </div>
             
             <div style={{height:'10px',width:'100%'}}></div>
+            
             (&nbsp; 
                 <input 
                     onChange={change2} 
@@ -51,9 +58,10 @@ const ApproveWithdrawProperty = ({ put, currentRepo, dispatch }) => {
             <div className="property-row-title"> 
                 审批项设置
             </div>
+            
             <Setting />
         </div>
     )
 }
-export default global.connect2redux('usertask',ApproveWithdrawProperty)
+export default rdx.connect('usertask',ApproveWithdrawProperty)
 

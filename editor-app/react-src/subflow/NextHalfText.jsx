@@ -5,6 +5,7 @@ import Radios from './Radios'
 
 const ApproveNode = ({ put, currentRepo, dispatch }) => {
     const withdrawChange = () => {
+        if(fm.versionModel) return
         dispatch({type:'approve/withdrawChange'})
         activeSave() 
     }

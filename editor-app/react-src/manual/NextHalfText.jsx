@@ -3,9 +3,15 @@ import { connect } from 'react-redux'
 import  './style'
 import Setting from './Setting'
 
-const ManualWithdrawProperty = ({ put, currentRepo, dispatch }) => {
-    const change1 = () => rdx.put('manual','replace',['previousNodeSpecified'],!currentRepo.previousNodeSpecified,'boolean')
-    const change2 = () => rdx.put('manual','replace',['enableSingleSelect'],!currentRepo.enableSingleSelect,'boolean')
+const ManualWithdrawProperty = ({ put, currentRepo }) => {
+    const change1 = () => {
+        if(fm.versionModel) return
+        rdx.put('manual','replace',['previousNodeSpecified'],!currentRepo.previousNodeSpecified,'boolean') 
+    }
+    const change2 = () => {
+        if(fm.versionModel) return
+        rdx.put('manual','replace',['enableSingleSelect'],!currentRepo.enableSingleSelect,'boolean')
+    }
     const previousNodeSpecified = currentRepo.previousNodeSpecified
     const enableSingleSelect = currentRepo.enableSingleSelect 
     return(

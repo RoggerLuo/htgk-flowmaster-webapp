@@ -7,7 +7,9 @@ const Component = ({ currentRepo }) => {
     if(!currentRepo) return null
     return(<Presentation data={currentRepo.data||[]} />)
 }
+
 const ManualContainer = rdx.connect('manual', Component)
+
 export default function(){
     render(
         <Provider store={rdx.store}>

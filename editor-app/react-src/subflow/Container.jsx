@@ -11,6 +11,7 @@ const SubflowContainer = ({ currentRepo, dispatch }) => {
     if(!currentRepo) return null
     const data = currentRepo.data || []
     const add = () => {
+        if(fm.versionModel) return
         dispatch({
             content:CompAdd,
             confirm:()=>{},
@@ -24,6 +25,7 @@ const SubflowContainer = ({ currentRepo, dispatch }) => {
 
     }
     const setting = () => {
+        if(fm.versionModel) return
         window.requestFormData(currentRepo.subProcess.subProcDefKey,function(dataObj){
             if(!dataObj) return
             dispatch({type:'subflow/leftFields',leftFields:dataObj.components})
@@ -40,6 +42,7 @@ const SubflowContainer = ({ currentRepo, dispatch }) => {
         })
     }
     const del = () => {
+        if(fm.versionModel) return
         dispatch({type:'subflow/clear'})
     }
     return(

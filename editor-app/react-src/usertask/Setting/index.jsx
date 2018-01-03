@@ -3,7 +3,12 @@ import { connect } from 'react-redux'
 import Pre from './Pre'
 const UsertaskSetting = ({ put, currentRepo, dispatch }) => {
     if(!currentRepo) return null
-    const oncheckFactory = key => () => rdx.put('usertask','replace',[key],!currentRepo[key])
+    const oncheckFactory = key => {
+        () => {
+            if(fm.versionModel) return
+            rdx.put('usertask','replace',[key],!currentRepo[key])
+        }
+    }
     const data = [
         {
             title:'允许退回发起人',
@@ -12,6 +17,7 @@ const UsertaskSetting = ({ put, currentRepo, dispatch }) => {
             defaultValue:'退回发起人',
             inputValue:currentRepo.backToStarterText,
             onchange(e){
+                if(fm.versionModel) return
                 dispatch({type:'usertask/change',key:'backToStarterText',value:e.target.value||'退回发起人'})
                 activeSave()             
             }
@@ -23,6 +29,7 @@ const UsertaskSetting = ({ put, currentRepo, dispatch }) => {
             defaultValue:'退回上一节点审批人',
             inputValue:currentRepo.backToLastText,
             onchange(e){
+                if(fm.versionModel) return
                 dispatch({type:'usertask/change',key:'backToLastText',value:e.target.value||'退回上一节点审批人'})
                 activeSave()             
             }
@@ -34,6 +41,7 @@ const UsertaskSetting = ({ put, currentRepo, dispatch }) => {
             defaultValue:'强制结束流程',
             inputValue:currentRepo.allowForceEndText,
             onchange(e){
+                if(fm.versionModel) return
                 dispatch({type:'usertask/change',key:'allowForceEndText',value:e.target.value||'强制结束流程'})
                 activeSave()             
             }
