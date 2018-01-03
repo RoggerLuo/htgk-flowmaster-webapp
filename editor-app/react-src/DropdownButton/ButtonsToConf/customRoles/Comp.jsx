@@ -1,5 +1,4 @@
 import React,{createClass} from 'react'
-import Dropdown from '../../../basicComp/Dropdown'
 class SingleBtn extends React.Component { 
     constructor(props) {
         super(props)

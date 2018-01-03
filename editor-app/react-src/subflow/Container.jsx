@@ -1,8 +1,6 @@
 import React,{createClass} from 'react';
 import { render } from 'react-dom'
-import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
-import { connect } from 'react-redux'
 import Presentation from './Presentation'
 import CompAdd from './CompAdd'
 import CompSettingPopup from './CompSettingPopup'
@@ -53,7 +51,7 @@ const SubflowContainerConnected = rdx.connect('subflow',SubflowContainer)
 
 export default function(){
     render(
-        <Provider store={store}>
+        <Provider store={rdx.store}>
                 <SubflowContainerConnected />
         </Provider>
         ,

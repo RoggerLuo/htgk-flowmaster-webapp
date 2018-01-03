@@ -13,7 +13,8 @@ const Component = ({data,dispatch,put,choosedOption2}) => {
         <div style={{textAlign:'center'}}>
             <div style={{height:"25px",width:'1px'}}></div>
 
-            选择特定节点审批人<Dropdown data={approveArr} choosedOption={choosedOption2} choosed={choosed2}/>
+            选择特定节点审批人
+            <Dropdown position={'absolute'} data={approveArr} choosedOption={choosedOption2} choosed={choosed2}/>
             <div style={{color: '#999999',fontSize:'13px',width:'390px',paddingTop:'26px'}}>            
                 {'注：此处获取的是特定节点的实际审批人，如果获取的节点未流转，将因为无法获取审批人导致审批异常，请谨慎操作'}
             </div>

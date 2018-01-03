@@ -15,7 +15,8 @@ const Component = ({data2,dispatch,put,choosedOption2}) => {
     }
     return (
         <div>
-            {"从表单中获取审批人"}<Dropdown width={'auto'} data={global.formPeople||[]} choosedOption={choosedOption} choosed={choosed2}/>
+            {"从表单中获取审批人"}
+            <Dropdown position={'absolute'} width={'auto'} data={global.formPeople||[]} choosedOption={choosedOption} choosed={choosed2}/>
         </div>
     )
 }

@@ -41,12 +41,6 @@ const ApproveNode = ({ currentRepo, put, add, setting, del }) => {
         </div>
     )
 }
-
-
-import connectPut from 'react-put'
-const options = {mapPropToDictionary: (props)=>window.reactI18n}
-const ConnectedApp = connectPut(options)(ApproveNode)
-
-export default ConnectedApp
+export default rdx.i18nPut(ApproveNode) 
 
 
