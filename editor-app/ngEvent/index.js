@@ -7,7 +7,7 @@ import loadedEvent from './loadedEvent'
 
 import './multiusertask'
 import './manual'
-
+import './namePropertyCtrl'
 
 const version = window.getQueryString("version")
 if (version != 'undefined'){
