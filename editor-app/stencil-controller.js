@@ -308,6 +308,7 @@ angular.module('activitiModeler')
                *scope.previousShape
 
             */
+            fm.editor = $scope.editor
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
 
                 var shapes = event.elements;
@@ -473,12 +474,11 @@ angular.module('activitiModeler')
 
                         window.beforeShapeUpdate($scope,event) //调用updateProperty会使用到selectedShape
                         $scope.selectedShape = selectedShape; //更新 selectedShape 在使用之后
+                        fm.afterShapeUpdate($scope,event) 
                         $timeout(function() {
-                            window.afterShapeUpdate($scope,event) 
-                        });
-
-                        window.lastSelectedItem = selectedItem;
-                        
+                            fm.afterShapeUpdateTimeout($scope,event)
+                        })
+                        window.lastSelectedItem = selectedItem;                        
                     });
 
                 } else {

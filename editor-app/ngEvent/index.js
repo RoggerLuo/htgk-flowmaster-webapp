@@ -37,8 +37,6 @@ window.myEvent = function($scope, $http) {
     /* 每次改变都激活保存 */
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_EXECUTE_COMMANDS, function(event) {
         rdx.save()
-        // window.activeSave()
-        // window.multiCompleteCheck()
         // window.everyMove()
     })
 }
@@ -49,10 +47,11 @@ global.fetchModelWrap = fetchModelWrap
 import propertyRouter from './propertyRouter'
 import nameMultiBranch from './multiusertask/nameMultiBranch'
 
-window.afterShapeUpdate = ($scope, event) => {
+fm.afterShapeUpdate = ($scope, event) => {
     propertyRouter($scope, event)
     nameMultiBranch($scope, event)
-    fm.everyMove($scope)
 } 
 
-
+fm.afterShapeUpdateTimeout = ($scope, event) => {
+    fm.everyMove($scope)
+} 
