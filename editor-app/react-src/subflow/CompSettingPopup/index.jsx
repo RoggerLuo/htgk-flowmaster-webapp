@@ -26,6 +26,7 @@ export default function(){ //data是 currentRepo的data //data
         return(
             <div className="setting-subflow" style={{width:'100%'}}>
                 <ApproveRange data={data}/>
+                <div style={{height:'10px',width:'100%'}}></div>
                 <Radios />
                 <div className="property-row-title" style={{fontSize:'14px'}}> 子流程内容设置 </div>
                 <div className="property-row-title" style={{fontSize:'14px',paddingTop:'10px'}}> 主表 </div>

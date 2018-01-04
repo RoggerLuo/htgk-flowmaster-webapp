@@ -17,7 +17,8 @@ const SubflowContainer = ({ currentRepo, dispatch }) => {
             height:'75%',
             title:'button.option9',
             width:'640px',
-            style:{margin:'10px 60px'}
+            style:{margin:'10px 60px'},
+            outerStyle:{overflow:'auto'},
         })
         activeSave() 
 

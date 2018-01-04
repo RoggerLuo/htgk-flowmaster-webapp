@@ -26,15 +26,3 @@ const ButtonContainer = ({ currentRepo, children}) => {
     )
 }
 export default rdx.connect('subflow',ButtonContainer)
-
-// const mapStateToProps = (state) => {
-//     const currentRepo = state.subflow.repo.filter((el,index)=>el.id == state.approve.id)
-//     const reduxCate = currentRepo && currentRepo[0] && currentRepo[0].data && currentRepo[0].data[0] && currentRepo[0].data[0].cate||false
-//     return {reduxCate}
-// }
-// const maprdx.DispatchToProps = (rdx.dispatch) => {
-//     return {dispatch}
-// }
-
-// export default connect(mapStateToProps,mapDispatchToProps)(ButtonContainer)
-

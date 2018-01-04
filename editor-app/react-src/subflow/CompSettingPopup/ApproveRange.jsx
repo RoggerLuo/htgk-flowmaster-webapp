@@ -3,7 +3,7 @@ import RolesFrame from './RolesFrameConf'
 import Button from './ButtonConf'
 
 export default ({ data ,put }) => {//data,
-    const isEmpty = data.length == 0
+    const isEmpty = (data.length == 0)
     return(
         <div>
 
@@ -13,12 +13,16 @@ export default ({ data ,put }) => {//data,
             <div style={{display:'flex',marginTop:'10px'}}>
                 
 
-                <div style={{width:'230px',height:'49px'}}>
-                    {isEmpty?(<div style={{height:'43px', width:'230px',border: '1px solid #c5c5c5'}}></div>):(<RolesFrame data = {data}/>)}
+                <div style={{width:'300px'}}>
+                    {
+                        isEmpty?
+                            (<div style={{height:'43px', width:'300px',border: '1px solid #c5c5c5'}}></div>):
+                            (<RolesFrame data = {data}/>)
+                    }
                 </div>
 
 
-                <div style={{position:'relative',top: '11px',left: '5px'}}>
+                <div style={{position:'relative',top: '6px',left: '5px'}}>
                     <Button >
                         <i style={{paddingLeft: '1px'}} className="icon iconfont icon-tianjia"></i>
                     </Button>
@@ -29,3 +33,4 @@ export default ({ data ,put }) => {//data,
     )
 }
 
+//,height:'49px'

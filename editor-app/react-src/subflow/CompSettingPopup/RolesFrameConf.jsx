@@ -2,16 +2,18 @@ import React from 'react'
 import {connect} from 'react-redux'
 import RolesFrameGenerator from '../../RolesFrameGeneratorNotForParallel'
 
-function ConfiguredRoleComp({ data, dispatch }){
-    
+function ConfiguredRoleComp({ currentRepo }){
+    if(!currentRepo) return null
+    const data = currentRepo.data || []
+
     const del = (index) => function(){
-        dispatch({type:'subflow/deleteRole',index})
+        rdx.dispatch({type:'subflow/deleteRole',index})
         activeSave()
     }
     const add = (item) => {
-        dispatch({type:'subflow/addRole',item})
+        rdx.dispatch({type:'subflow/addRole',item})
     }
-    const clear = () => dispatch({type:'subflow/clear'})
+    const clear = () => rdx.dispatch({type:'subflow/clear'})
     
     const { DefaultContainer, DbRoleContainer } = RolesFrameGenerator({del,add,clear})
     const cate = data[0] && data[0].cate || false
@@ -22,17 +24,5 @@ function ConfiguredRoleComp({ data, dispatch }){
             return (<DefaultContainer data={data}/>)
     }
 }
-const mapStateToProps = (state) => {
-    const repo = state.subflow.repo
-    const id = state.subflow.id
-    const currentRepo = repo.filter((el,index)=>el.id == id) 
-    if(currentRepo.length==0) return {data:[]}
-    const data = currentRepo[0].data
-    return {data} 
-}
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(ConfiguredRoleComp)    
+export default rdx.connect('subflow',ConfiguredRoleComp) //(mapStateToProps,mapDispatchToProps)(ConfiguredRoleComp)    
 
