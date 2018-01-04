@@ -464,6 +464,8 @@
   line-height: 24px;
   margin-right: 5px;
   border-radius: 1px;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 .role-cube .name {
   max-width: 160px;
