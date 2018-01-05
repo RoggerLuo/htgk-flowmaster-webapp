@@ -6,10 +6,6 @@ import isParallelGateOk from './isParallelGateOk'
 import isConnectBroken from './isConnectBroken'
 import isSfsUnnamed from './isSfsUnnamed'
 
-// import getVersionNodes from './versionSave/versionNodes'
-// import versionSave from './versionSave/save'
-
-
 export default function($scope, $http) {
     return function(callback) {
         rdx.dispatch({ type: 'saveDeactive' })
@@ -44,38 +40,8 @@ export default function($scope, $http) {
 
         /* 等待动画 */
         rdx.dispatch({ type: 'callSpin' })
-
-        // const version = window.getQueryString("version")
-        // if (version != 'undefined'){
-        //     //业务流程 校验放在 sf校验之后
-        //     getVersionNodes($scope)
-        //     versionSave($scope, $http, callback)
-        // }else{
-            /* orginal save */
-            originalSave($scope, $http, callback)
-        // }
-
-        /*
-            如果带了version
-
-
-            1.
-            那么就创造一个
-            {
-                resourceId:resourceId, 
-                properties:{
-                    candidateOwner:把审批人设置的json,
-                    ...
-                }
-            }
-            对象
-
-
-            2.
-            然后对原json进行替换，
-            同时进行校验
-        */
-
+        /* orginal save */
+        originalSave($scope, $http, callback)
     }
 }
 
