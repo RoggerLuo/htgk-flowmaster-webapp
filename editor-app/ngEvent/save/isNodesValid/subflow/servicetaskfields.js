@@ -1,8 +1,11 @@
 
-export default function(repoObj) {
+export default function(repo) {
     const subProcessSet = {
-        subProcessSet: [repoObj.subProcess]
+        subProcessSet: [repo.subProcess]
     }
+    
+    let stringValue = "Wait"
+    if(!repo.isWaiting) stringValue = "Wake"
     let value = {
         "fields": [{
                 "name": "subProcessSet",
@@ -14,7 +17,7 @@ export default function(repoObj) {
             {
                 "name": "waitExpression",
                 "implementation": "waitExpression",
-                "stringValue": "Wait",
+                stringValue,
                 "expression": "",
                 "string": ""
             }
