@@ -1,9 +1,10 @@
 import {multiCompleteCheck} from './multi'
 import {manualCompleteCheck} from './manual'
-
-fm.everyMove = function($scope){    
-    if(fm.validParallelGate()) fm.undo()
-    if(fm.versionModel) fm.undo()
+import CirculationTask from './CirculationTask'
+fm.restrictionRule_everyMove = function($scope){    
+    // if(fm.isParallelCorrectlyLinked()) fm.undo()
+    // if(fm.versionModel) fm.undo()
+        
     window.getRawJson().childShapes.some((el, index) => {
         if (global.globalLockForMultiWarning) return
         switch(el.stencil.id){
@@ -12,6 +13,9 @@ fm.everyMove = function($scope){
                 break
             case 'MultiUserTask':
                 multiCompleteCheck(el)
+                break
+            case 'CirculationTask':
+                CirculationTask(el)
                 break
         }
     })

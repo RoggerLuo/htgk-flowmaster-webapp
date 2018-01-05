@@ -4,8 +4,8 @@ import subflow from './subflow'
 import usertaskPattern from './usertaskPattern'
 import service from './service'
 import saveHandlerEndPoint from './endPoint'
-import saveHandlerBranch from './branch'
-import saveHandlerBranchNode from './branchNode'
+import branch from './branch'
+import branchNode from './branchNode'
 import saveHandlerParallel from './parallel'
 
 export default function($scope) {
@@ -14,8 +14,8 @@ export default function($scope) {
 
 
     if (!subflow(canvas)) return false
+    if (!branch(canvas)) return false
     if (!sf(canvas)) return false
-    if (!saveHandlerBranch(canvas)) return false
 
 
     usertaskPattern(canvas, 'usertask')
@@ -23,7 +23,7 @@ export default function($scope) {
     service(canvas)
     saveHandlerParallel(canvas)
     saveHandlerEndPoint(canvas)
-    saveHandlerBranchNode(canvas)
-    
+    branchNode(canvas)
+
     return isThereProblem
 }

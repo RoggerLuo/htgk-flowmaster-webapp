@@ -1,14 +1,14 @@
 import rolesJsonSpeller from './rolesJsonSpeller'
 
-export default function(canvas){
-    window.reduxStore.getState().parallel.repo.forEach((el) => {
+export default function(canvas) {
+    rdx.getState().parallel.repo.forEach((el) => {
         let currentElement = canvas.getChildShapeByResourceId(el.id)
         if (el.id && !currentElement) return
 
         let jsonArray = []
         el.data.forEach((group) => {
             let innerArray = []
-            innerArray = rolesJsonSpeller(innerArray,group,currentElement)
+            innerArray = rolesJsonSpeller(innerArray, group, currentElement)
             jsonArray.push(innerArray)
         })
         currentElement.setProperty('multiinstance_parties', jsonArray)

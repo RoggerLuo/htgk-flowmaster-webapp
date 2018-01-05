@@ -27,26 +27,25 @@ function findNearestShapeOfParaGate(shape,arr){
     })
 }
 //validParallel
-const validParallelGate = ($scope) => { //checkEmpty
-    let returnValue = false
+const isPair = () => {
     const json = window.getRawJson() //$scope.editor.getJSON()
     //先检查是否有parallel
     let parallel = 0
     let inclusive = 0
-    const checkConnect = json.childShapes.forEach((el, index) => {
-        if (el.stencil.id == 'ParallelGateway') {
-            parallel += 1
-        }
-        if (el.stencil.id == 'InclusiveGateway') {
-            inclusive += 1
-        }
+    json.childShapes.forEach((el, index) => {
+        if (el.stencil.id == 'ParallelGateway') parallel += 1
+        if (el.stencil.id == 'InclusiveGateway') inclusive += 1            
     })
     if (parallel != inclusive){
         window.showAlert('并行分支和并行汇聚需要成对出现')
-        return true
+        return false
     } 
-    let collections = [] //在两个并行中 incoming大于两个的元素
-    let sourceShape = [] //最后的'源shape'
+    return true
+}
+const isCorrectlyLinked = () => {
+    const json = window.getRawJson()
+    const collections = [] //在两个并行中 incoming大于两个的元素
+    const sourceShape = [] //最后的'源shape'
     // 先iter一次
     json.childShapes.forEach((el, index) => {
         if (el.stencil.id == 'ParallelGateway') {
@@ -54,22 +53,26 @@ const validParallelGate = ($scope) => { //checkEmpty
             iterChildren(el, collections)
         }
     })
+    
     // 再从选出的shape里求它们的source
-    collections.forEach((el)=>{
-        findNearestShapeOfParaGate(el,sourceShape)
-    })
+    collections.forEach((el)=>findNearestShapeOfParaGate(el,sourceShape))
+
     // 从collections中往上溯源，离最近的parallel的last shape如果不是同一个，那就有问题
     if(sourceShape.length > 1){
         sourceShape.some(el=>{
             if(sourceShape[0].resourceId != el.resourceId){
                 window.showAlert('并行分支不同支流之间不能有连结')
-                returnValue = true
-                return true
+                return false
             }
         })
     }
-
-    return returnValue
+    return true
 }
-fm.validParallelGate = validParallelGate
-export default validParallelGate
+const isParallelGateOk = ($scope) => { //checkEmpty
+    let isOk = true
+    if(!isPair()) isOk = false
+    if(!isCorrectlyLinked()) isOk = false
+    return isOk
+}
+fm.isParallelCorrectlyLinked = isCorrectlyLinked
+export default isParallelGateOk
