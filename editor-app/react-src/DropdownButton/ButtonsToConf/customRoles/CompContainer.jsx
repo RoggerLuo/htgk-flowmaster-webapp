@@ -22,15 +22,15 @@ const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
 
-
-import connectPut from 'react-put'
-const options = {mapPropToDictionary: (props)=>window.reactI18n}
-const ConnectedApp = connectPut(options)(Component)
-
-
 const ComponentContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(ConnectedApp)
+)(rdx.i18nPut(Component))
 
 export default ComponentContainer
+
+
+/*import connectPut from 'react-put'
+const options = {mapPropToDictionary: (props)=>window.reactI18n}
+const ConnectedApp = connectPut(options)(Component)
+*/

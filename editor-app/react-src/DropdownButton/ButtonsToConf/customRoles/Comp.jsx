@@ -1,4 +1,5 @@
 import React,{createClass} from 'react'
+
 class SingleBtn extends React.Component { 
     constructor(props) {
         super(props)
@@ -12,7 +13,24 @@ class SingleBtn extends React.Component {
     render(){
         let className = "customRoleSingleBtn"
         if(this.state.choosed) className = 'customRoleSingleBtnActive'
-        return (<div className={className} onClick={()=>this.toggleView(this.props.id,this.props.name)}>{this.props.name}</div>)
+        return (
+            <div 
+                className={className} 
+                onClick={()=>this.toggleView(this.props.id,this.props.name)}
+
+            >
+                <div style={{
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        maxWidth: '100px',
+                        display:'inline-block'
+                    }}
+                >
+                    {this.props.name}
+                </div>
+            </div>
+        )
     }
 }
 export default ({current,inherit,onclick}) => {   
@@ -20,7 +38,7 @@ export default ({current,inherit,onclick}) => {
         return (
             <div>
                 <div className="customRoleOrgName">{name}</div>
-                <div>    
+                <div style={{paddingLeft: '17px'}}>    
                     {roles.map((el,index)=><SingleBtn {...el} key={index} onclick={onclick}/>)}
                 </div>
             </div>
