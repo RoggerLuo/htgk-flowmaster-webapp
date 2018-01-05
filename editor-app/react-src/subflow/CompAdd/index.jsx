@@ -6,21 +6,24 @@ import { connect } from 'react-redux'
 const AddComp = ({ currentRepo, put, add }) => {
     if(!currentRepo) return null
     const data = []
-    global.processList.forEach((el)=>{
-        if(!el.categoryName){
-            el.categoryName = 'defaultCategory' //"默认分类" //  
-        }else{
-            if(el.categoryName == 'defaultCategory') return
-            const isGroupExist = data.some(ele => ele.groupTitle==el.categoryName)
-            if(!isGroupExist){
-                data.push({groupTitle:el.categoryName})                
-            }            
-        }
-    })
+    const currentPid = window.getQueryString("pid")
+    global.processList.filter(el=>el.id != currentPid) //不显示当前流程（自己）
+        .forEach((el)=>{
+            if(!el.categoryName){
+                el.categoryName = 'defaultCategory' //"默认分类" //  
+            }else{
+                if(el.categoryName == 'defaultCategory') return
+                const isGroupExist = data.some(ele => ele.groupTitle==el.categoryName)
+                if(!isGroupExist){
+                    data.push({groupTitle:el.categoryName})                
+                }            
+            }
+        })
     data.reverse()
     data.unshift({groupTitle:'defaultCategory'})
     data.forEach(el=>{
         el.data = window.processList
+            .filter(el=>el.id != currentPid)
             .filter(ele => ele.categoryName == el.groupTitle)
             .map(ele=>({
                 versionId:ele.versionId,
