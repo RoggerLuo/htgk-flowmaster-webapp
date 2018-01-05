@@ -1,10 +1,7 @@
 import {multiCompleteCheck} from './multi'
 import {manualCompleteCheck} from './manual'
 import CirculationTask from './CirculationTask'
-fm.restrictionRule_everyMove = function($scope){    
-    // if(fm.isParallelCorrectlyLinked()) fm.undo()
-    // if(fm.versionModel) fm.undo()
-        
+fm.restrictionRule_everyMove = function($scope){            
     window.getRawJson().childShapes.some((el, index) => {
         if (global.globalLockForMultiWarning) return
         switch(el.stencil.id){
@@ -19,5 +16,4 @@ fm.restrictionRule_everyMove = function($scope){
                 break
         }
     })
-
 }
