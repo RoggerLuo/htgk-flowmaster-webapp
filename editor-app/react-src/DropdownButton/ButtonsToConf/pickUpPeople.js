@@ -17,7 +17,7 @@ export default function(confirm) {
             type: "openSelectUserPanel",
             value: "",
             params: {
-                pickerType: 'onlyPeople',
+                pickerType: 'both', //'onlyPeople',
                 title: '选择人员',
                 orgId: window.getQueryString("rootOrgId")
             }
