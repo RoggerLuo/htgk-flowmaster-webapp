@@ -1,5 +1,4 @@
 import React from 'react'
-// import {connect} from 'react-redux'
 import SolidFrame from '../presentations/SolidFrame/SolidFrame'
 import popupConfig from '../DropdownButton/ButtonsToConf/SQL/popupConfig'
 
@@ -12,7 +11,7 @@ export default ({ clear, add }) => {
         const edit = () => {
             rdx.dispatch({type:'sql/reload',savedSqlState:data[0].sqlState})
             rdx.dispatch(popupConfig( cb, 0 ))
-            activeSave()
+            rdx.save()
         }
         const text = data && data[0] && data[0].sql|| '' 
         return (<SolidFrame>
@@ -24,13 +23,5 @@ export default ({ clear, add }) => {
             </div>
         </SolidFrame>)   
     }
-    // return RoleComp
-    // const mapStateToProps = (state) => {
-    //     return {state}
-    // }
-    // const mapDispatchToProps = (dispatch) => {
-    //     return {dispatch}
-    // }
-    // return connect(mapStateToProps,mapDispatchToProps)(RoleComp)    
 }
 
