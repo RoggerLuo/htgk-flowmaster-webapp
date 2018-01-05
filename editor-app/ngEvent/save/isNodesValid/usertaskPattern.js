@@ -16,6 +16,4 @@ export default function(canvas, reduceName) {
         currentElement.setProperty('previousNodeSpecified', !!repoObj.previousNodeSpecified)
         currentElement.setProperty('reduxData', repoObj)
     })
-
-
 }

@@ -3,16 +3,10 @@ import Dropdown from '../../../basicComp/Dropdown'
 import EntryGroup from './EntryGroup'
 
 export default function(savedSqlState){
-    let conditions = []
-    // let dataSourcesSelected = window.dataSources && window.dataSources[0] || {}
-    // if(dataSourceRefSTD) {
-    //     conditions = dataSourceRefSTD.conditions
-    //     dataSourcesSelected = dataSourceRefSTD.dataSourceId        
-    // }
     const ReactViewComp =  ({ addEntry, dataSource, chooseSource, textareaOnInput, sql, checked, checkChange, chooseDropdown }) => {
         return (
-            <div style={{width:'701px',height:'411px'}}>
-            <div className="popupButtonScrollLayer" style={{padding:'10px 50px',position:'absolute',width:'701px',height:'405px',overflow:'auto'}}>
+            <div style={{width:'701px',height:'350px'}}>
+            <div className="popupButtonScrollLayer" style={{padding:'10px 50px',position:'absolute',width:'701px',height:'350px',overflow:'auto'}}>
                 <div className="customRoleTitle">
                     获取的最终数值必须为人员ID或ID集合
                 </div>

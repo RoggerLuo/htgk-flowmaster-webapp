@@ -1,6 +1,6 @@
 const generator = (el) => ({"value": el.value,"cate": el.cate,"text": el.text,"id": el.value})
 export default function( jsonArray, data, currentElement ) {
-    let dataSourceRef = []
+    let dataSourceRefs = []
     data.forEach((el, index) => {
         switch (el.cate) {
             case "callBack":
@@ -44,8 +44,8 @@ export default function( jsonArray, data, currentElement ) {
                     sql:el.sql,
                     sqlState:el.sqlState
                 }]
-                dataSourceRef.push(el.currentDataSourceRef)
-                currentElement.setProperty('dataSourceRef', dataSourceRef )
+                dataSourceRefs.push(el.currentDataSourceRef)
+                currentElement.setProperty('dataSourceRefs', dataSourceRefs )
                 // currentElement.setProperty('sqlState', el.sqlState)
                 break
 
