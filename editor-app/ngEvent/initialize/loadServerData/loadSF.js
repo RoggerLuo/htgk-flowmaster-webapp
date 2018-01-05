@@ -3,7 +3,7 @@ export default function(el, index, modelData) {
     if (!el.properties.reduxdata) {
         // return;
     } else {
-        window.reduxStore.dispatch({ type: 'sequenceDataInit', data: el.properties.reduxdata })
+        rdx.dispatch({ type: 'sequenceDataInit', data: el.properties.reduxdata })
     }
     /* exclusive gate的内容 */
     if (el.properties.defaultflow == "true") {
@@ -31,11 +31,14 @@ export default function(el, index, modelData) {
             window.reduxStore.dispatch({ type: 'branchNodeInit', data: reduxObj })
         }
     } else {
+        
+
         if (el.properties.reduxData) {
             rdx.dispatch({ type: 'sf/init', data: el.properties.reduxData })
         }
         delete modelData.childShapes[index].properties.reduxData
         delete modelData.childShapes[index].properties.businessStatusId
+        
     }
 
 

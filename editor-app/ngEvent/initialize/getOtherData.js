@@ -16,12 +16,20 @@ export const getModel = (callback, $http, pid) => {
         .success(function(data) {
             
 
+
+
+
+
             $http({
                 method: 'GET',
                 url: window.globalHost + `/repository/process-status/businessStatus/list/${data.modelProcessType}`
             }).success(function(data) {
                 window.processStatus = data.data
             })
+
+
+
+
 
 
 

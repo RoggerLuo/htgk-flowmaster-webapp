@@ -10,17 +10,17 @@ export default function(canvas) {
     const sub_properties = { versionId, procDefKey, subSettings: [] }
     
     const subflowReducer = window.reduxStore.getState().subflow
-    subflowReducer.repo.forEach((repoObj) => {
+    subflowReducer.repo.forEach((repo) => {
         if(!returnFlag) return 
         
-        let currentElement = canvas.getChildShapeByResourceId(repoObj.id)
+        let currentElement = canvas.getChildShapeByResourceId(repo.id)
         if (!currentElement) return
         
-        if( !checkMainform(repoObj) || !checkSubform(repoObj)){
+        if( !checkMainform(repo) || !checkSubform(repo)){
             returnFlag = false
         }
        
-        const candidateUsers = rolesJsonSpeller([],repoObj.data)
+        const candidateUsers = rolesJsonSpeller([],repo.data)
         if(candidateUsers.length == 0){
             window.showAlert('子流程中审批人范围未选择')
             returnFlag = false
@@ -28,14 +28,14 @@ export default function(canvas) {
         }
 
         const subSetting = {
-            "subVersionId": repoObj.subProcess.versionId||'',
-            "subProcDefKey": repoObj.subProcess.subProcDefKey,
-            "startType": repoObj.isOne ? "One" : "ByApproved",
+            "subVersionId": repo.subProcess.versionId||'',
+            "subProcDefKey": repo.subProcess.subProcDefKey,
+            "startType": repo.isOne ? "One" : "ByApproved",
 
             "actId": currentElement.resourceId,
 
             "candidateUsers": JSON.stringify(candidateUsers), //"{\"candidateOwners\" : [{\"cate\" : \"fromDb\",\"id\" : \"1\",\"text\" : \"从DB中获取\",\"value\" : \"fromDb(1)\"}]}",
-            "formMapping":JSON.stringify(formMapping(repoObj)), // "[{\"left\":\"field_1510555486841\",\"right\":\"field_1510296977961\",\"type\":\"text\",\"subForms\":[]},{\"left\":\"field_1510555506743\",\"right\":\"field_1510297609155\",\"type\":\"sub_form\",\"subForms\":[{\"left\":\"field_1510555521126\",\"right\":\"field_1510297625044\",\"type\":\"text\",\"subForms\":[]},{\"left\":\"field_1510555534868\",\"right\":\"field_1510297639134\",\"type\":\"text\",\"subForms\":[]}]}]",
+            "formMapping":JSON.stringify(formMapping(repo)), // "[{\"left\":\"field_1510555486841\",\"right\":\"field_1510296977961\",\"type\":\"text\",\"subForms\":[]},{\"left\":\"field_1510555506743\",\"right\":\"field_1510297609155\",\"type\":\"sub_form\",\"subForms\":[{\"left\":\"field_1510555521126\",\"right\":\"field_1510297625044\",\"type\":\"text\",\"subForms\":[]},{\"left\":\"field_1510555534868\",\"right\":\"field_1510297639134\",\"type\":\"text\",\"subForms\":[]}]}]",
 
             "startUserSource": "Parent",
             "startUserValue": "",
@@ -49,12 +49,12 @@ export default function(canvas) {
         sub_properties.subSettings.push(subSetting)
         
         currentElement.setProperty('servicetaskexpression', "")
-        currentElement.setProperty('servicetaskfields', servicetaskfields(repoObj))
-        currentElement.setProperty('reduxData', repoObj)
+        currentElement.setProperty('servicetaskfields', servicetaskfields(repo))
+        currentElement.setProperty('reduxData', repo)
         currentElement.setProperty('servicetaskdelegateexpression', "${subProcessServiceTask}")
         currentElement.setProperty('classify', "SubProcess")
 
-        // if(repoObj.previousNodeSpecified){
+        // if(repo.previousNodeSpecified){
         // currentElement.setProperty('previousNodeSpecified', true)
         // }
     })

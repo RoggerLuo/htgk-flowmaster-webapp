@@ -3,11 +3,12 @@ import './globalEvents'
 import './restrictionRule'
 import save from './save'
 import selectEvent from './selectEvent'
-import loadedEvent from './loadedEvent'
+import afterLoad from './afterLoad'
 
 import './multiusertask'
 import './manual'
 import './namePropertyCtrl'
+import './afterShapeUpdate'
 
 const version = window.getQueryString("version")
 if (version != 'undefined'){
@@ -31,9 +32,7 @@ window.myEvent = function($scope, $http) {
         selectEvent(event,$scope)
     })
     /* 画布加载完成以后的事件 */
-    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_LOADED, function(event) {
-        loadedEvent()
-    })
+    afterLoad($scope)
     /* 每次改变都激活保存 */
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_EXECUTE_COMMANDS, function(event) {
         rdx.save()
@@ -44,6 +43,9 @@ window.myEvent = function($scope, $http) {
 import { fetchModelWrap } from './initialize'
 global.fetchModelWrap = fetchModelWrap
 
+
+
+/*
 import propertyRouter from './propertyRouter'
 import nameMultiBranch from './multiusertask/nameMultiBranch'
 
@@ -55,3 +57,4 @@ fm.afterShapeUpdate = ($scope, event) => {
 fm.afterShapeUpdateTimeout = ($scope, event) => {
     fm.everyMove($scope)
 } 
+*/
