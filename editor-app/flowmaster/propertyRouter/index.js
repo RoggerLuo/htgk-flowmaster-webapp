@@ -1,6 +1,5 @@
 'use strict' 
 import { tplSrc, tplMap } from './conf'
-import globalRefreshBranchName from '../multiusertask/globalRefreshBranchName'
 import autoNaming from '../autoNaming'
 
 function handleExclusive($scope, selectedShape) {
@@ -20,7 +19,9 @@ function handleExclusive($scope, selectedShape) {
 function handleCanvas($scope, selectedShape) {
     if (selectedShape) return false
     $scope.propertyTpl = tplSrc + 'canvas.html'
-    globalRefreshBranchName()
+    
+    // import globalRefreshBranchName from '../multi/globalRefreshBranchName'
+    // globalRefreshBranchName() //为什么这里要出现这个？？？
     return true
 }
 function handleBranchSequence($scope, selectedShape) {

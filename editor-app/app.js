@@ -161,7 +161,7 @@ activitiModeler
 	
                     var modelId = 'test'
                     // var modelId = EDITOR.UTIL.getParameterByName('modelId'); //获取url的值
-                    window.fetchModelWrap($http,$rootScope)(modelId)
+                    fm.initialize($http,$rootScope)(modelId)
 	                /*
                         $rootScope.editor = new ORYX.Editor(data); 初始化editor
                         $rootScope.modelData = angular.fromJson(data);储存data

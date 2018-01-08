@@ -1,9 +1,9 @@
-'use strict'
+import './getVersion'
 import loadServerData from './loadServerData'
 import requestUserData from './requestUserData'
 import requestFormData from './requestFormData'
 import { getModel, getPid, getProList, processStatus } from './getOtherData'
-export function fetchModelWrap($http, $rootScope) {
+export default function($http, $rootScope) {
     const angularInit = (data) => {
         $rootScope.editor = new ORYX.Editor(data) //initialised   10866 12431 10060
         $rootScope.modelData = angular.fromJson(data)

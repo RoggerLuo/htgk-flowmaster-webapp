@@ -1,60 +1,25 @@
-'use strict'
 import './globalEvents'
 import './restrictionRule'
-import save from './save'
-import selectEvent from './selectEvent'
-import afterLoad from './afterLoad'
-
 import './multiusertask'
 import './manual'
 import './namePropertyCtrl'
+
+
+//app controller
+import initialize from './initialize'
+fm.initialize = initialize
+
+//stencil controller
+import scopeEvent from './scopeEvent'
+import selectEvent from './selectEvent'
+import afterLoad from './afterLoad'
+fm.stencilController = function($scope, $http) {
+    const { EVENT_SELECTION_CHANGED, EVENT_EXECUTE_COMMANDS, EVENT_LOADED } = ORYX.CONFIG
+    scopeEvent($scope, $http)
+    $scope.editor.registerOnEvent(EVENT_SELECTION_CHANGED, (event) =>  selectEvent(event, $scope))
+    $scope.editor.registerOnEvent(EVENT_LOADED, (event) => afterLoad($scope))
+    $scope.editor.registerOnEvent(EVENT_EXECUTE_COMMANDS, (event) =>  rdx.save())
+}
 import './afterShapeUpdate'
 
-const version = window.getQueryString("version")
-if (version != 'undefined'){
-    fm.versionModel = true
-    fm.version = version  
-} 
 
-
-window.myEvent = function($scope, $http) {
-    $scope.lastSelectedUserTaskId = false
-    $scope.propertyTpl = './editor-app/property-tpl/canvas.html'
-
-    window.windowCanvas = $scope.editor.getCanvas() //拿到canvas
-    window.saveModel = save($scope, $http)
-
-    window.getJson = () => JSON.stringify($scope.editor.getJSON())
-    window.getRawJson = () => $scope.editor.getJSON()
-
-    /* 当selection的时候 */
-    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
-        selectEvent(event,$scope)
-    })
-    /* 画布加载完成以后的事件 */
-    afterLoad($scope)
-    /* 每次改变都激活保存 */
-    $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_EXECUTE_COMMANDS, function(event) {
-        rdx.save()
-        // window.everyMove()
-    })
-}
-
-import { fetchModelWrap } from './initialize'
-global.fetchModelWrap = fetchModelWrap
-
-
-
-/*
-import propertyRouter from './propertyRouter'
-import nameMultiBranch from './multiusertask/nameMultiBranch'
-
-fm.afterShapeUpdate = ($scope, event) => {
-    propertyRouter($scope, event)
-    nameMultiBranch($scope, event)
-} 
-
-fm.afterShapeUpdateTimeout = ($scope, event) => {
-    fm.everyMove($scope)
-} 
-*/

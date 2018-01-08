@@ -3,7 +3,6 @@ angular.module('activitiModeler')
     .controller('StencilController', ['$rootScope', '$scope', '$http', '$modal', '$timeout', function($rootScope, $scope, $http, $modal, $timeout) {
         
 
-
         // Property window toggle state
         $scope.propertyWindowState = { 'collapsed': false }; //哪个toggle?
 
@@ -20,10 +19,9 @@ angular.module('activitiModeler')
         // Code that is dependent on an initialised Editor is wrapped in a promise for the editor
         $scope.editorFactory.promise.then(function() {
 
-            myEvent($scope,$http)
+            fm.stencilController($scope,$http)
             window.userGuide()
 
-            /* Build stencil item list */
             // Build simple json representation of stencil set
             var stencilItemGroups = []; /* stencilItemGroups 是所有左边的menu，只有一层数组，因为只有一层子菜单 */
 

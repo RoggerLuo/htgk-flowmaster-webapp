@@ -2,7 +2,7 @@
 import isNodesValid from './isNodesValid'
 import checkEmpty from './checkEmpty'
 import originalSave from './originalSave'
-import isParallelGateOk from './isParallelGateOk'
+// import isParallelGateOk from './isParallelGateOk'
 import isConnectBroken from './isConnectBroken'
 import isSfsUnnamed from './isSfsUnnamed'
 
@@ -19,7 +19,7 @@ export default function($scope, $http) {
 
         /* 为空的限制条件 */
         if (checkEmpty($scope)) return rdx.save()
-        if (!isParallelGateOk($scope)) return rdx.save()
+        if (!fm.parallelGate.isReadyForSave()) return rdx.save()
         if (isConnectBroken($scope)) return rdx.save()
 
 

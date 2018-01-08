@@ -2,21 +2,15 @@ import React,{createClass} from 'react'
 import { render } from 'react-dom'
 import { connect } from 'react-redux'
 import { Provider } from 'react-redux'
-import store from '../../redux/configureStore.js'
 
-const Component = ({active,saveDeactive,put}) => {
-    let save = function(){
-    }
-
+const Component = ({active,put}) => {
+    const saveDeactive = () => rdx.dispatch({type:'saveDeactive'})
+    let save = function(){}
     let style = {backgroundColor: 'rgb(133, 217, 255)'}
-
     if(active){
-        save = function(){
-            saveModel(saveDeactive)
-        }
+        save = () => fm.saveModel(saveDeactive)            
         style = {backgroundColor: 'rgb(0,176,255)'}
     }
-
     return (
         <div id="bottom-save" className="bottom-text-div" style={style} onClick={save}>
             <div className="save">{put('button.save')}</div>
@@ -27,31 +21,16 @@ const Component = ({active,saveDeactive,put}) => {
 const mapStateToProps = (state) => {
     return {active:state.common.active}
 }
-
 const mapDispatchToProps = (dispatch) => {
-    const saveDeactive = () => {
-        dispatch({type:'saveDeactive'})
-    }
-    return {saveDeactive}
+    return {dispatch}
 }
-
-
-import connectPut from 'react-put'
-import zh from '../i18n/zh'
-import en from '../i18n/en'
-const options = {mapPropToDictionary: (props)=>window.reactI18n}
-const ConnectedApp = connectPut(options)(Component)
-
-
-const ComponentContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ConnectedApp)
+const ConnectedApp = rdx.i18nPut(Component)
+const ComponentContainer = connect(mapStateToProps,mapDispatchToProps)(ConnectedApp)
 
 
 export default function(){
     render(
-        <Provider store={store}>
+        <Provider store={rdx.store}>
             <ComponentContainer />
         </Provider>
         ,

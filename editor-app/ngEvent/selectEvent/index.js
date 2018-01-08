@@ -22,6 +22,11 @@ export default function(event,$scope){
     const selectedShape = event.elements.first()
     if (madnessProof(selectedShape)) return
 
+
+
+    const is = fm.parallelGate.isShapeIn(selectedShape)
+
+
     window.currentSelectedShape = selectedShape
     propMark(selectedShape)
     
