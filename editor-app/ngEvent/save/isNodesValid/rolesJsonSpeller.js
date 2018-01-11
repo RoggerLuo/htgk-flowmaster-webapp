@@ -1,5 +1,5 @@
-const generator = (el) => ({"value": el.value,"cate": el.cate,"text": el.text,"id": el.value})
-export default function( jsonArray, data, currentElement ) {
+const generator = (el) => ({ "value": el.value, "cate": el.cate, "text": el.text, "id": el.value })
+export default function(jsonArray, data, currentElement) {
     let dataSourceRefs = []
     data.forEach((el, index) => {
         switch (el.cate) {
@@ -15,16 +15,23 @@ export default function( jsonArray, data, currentElement ) {
 
             case "form":
             case "customizeRole":
-                jsonArray.push({ 
-                    value: `customizeRole(${el.value})`, 
-                    value2:el.value,
-                    cate: el.cate, 
-                    text: el.text, 
+                jsonArray.push({
+                    value: `customizeRole(${el.value})`,
+                    value2: el.value,
+                    cate: el.cate,
+                    text: el.text,
                     id: index //el.value 
                 })
                 break
             case "historicTask":
-                jsonArray.push(generator(el))
+                jsonArray.push( {
+                    "value": `historicTask(${el.value})`,
+                    "cate": "historicTask",
+                    "text": el.text,
+                    "id": el.value,
+                    "value2": el.value
+                })
+                /*                generator(el))                */
                 break
             case "EXTERNAL":
                 jsonArray = [{
@@ -41,11 +48,11 @@ export default function( jsonArray, data, currentElement ) {
                     "cate": "fromDb",
                     "text": "从DB中获取",
                     "id": el.leave,
-                    sql:el.sql,
-                    sqlState:el.sqlState
+                    sql: el.sql,
+                    sqlState: el.sqlState
                 }]
                 dataSourceRefs.push(el.currentDataSourceRef)
-                currentElement.setProperty('dataSourceRefs', dataSourceRefs )
+                currentElement.setProperty('dataSourceRefs', dataSourceRefs)
                 // currentElement.setProperty('sqlState', el.sqlState)
                 break
 
