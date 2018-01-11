@@ -4,10 +4,10 @@ import { reduceWrap, transformer } from '../tools'
 const newRule = () => {
     return {
         "columnName": '',
-        "columnType": { text: '变量', value: 'VARCHAR' },
+        "columnType": { text: '字符串', value: 'VARCHAR' },
         "expression": { value: '=', text: '=' },
-        "variableType": { text: '人员变量', value: 'userVarible' },
-        "variableName": { value: 'initial', text: '请选择' }
+        "variableType": { text: '人员变量', value: 'userVariable' },
+        "variableName": { value: false, text: '请选择' }
     }
 }
 // 有多个 {id,data}
@@ -16,7 +16,7 @@ let initial = {
     conditions: [newRule()],
     sql: "",
     checked: false,
-    dataSource: { text: '请选择', value: 'initial' },
+    dataSource: { text: '请选择', value: false },
     /*
     {
         "dataSourceId": "75001",
