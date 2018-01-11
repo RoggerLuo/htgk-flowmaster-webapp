@@ -1824,19 +1824,19 @@
     top: 0;
   }
 }
-.approvePropertyCtrl .row-title {
+.manualPropertyCtrl .row-title {
   font-size: 13px;
   padding: 6px 0px;
   margin-top: 18px;
 }
-.approvePropertyCtrl .mybutton {
+.manualPropertyCtrl .mybutton {
   display: flex;
   justify-content: space-between;
 }
-.approvePropertyCtrl .mybutton .icon-tianjia:hover {
+.manualPropertyCtrl .mybutton .icon-tianjia:hover {
   color: white !important;
 }
-.approvePropertyCtrl .icon-tianjia {
+.manualPropertyCtrl .icon-tianjia {
   line-height: 27px;
 }
 .approvePropertyCtrl .row-title {
