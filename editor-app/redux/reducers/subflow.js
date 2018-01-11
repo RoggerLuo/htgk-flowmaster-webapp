@@ -60,14 +60,7 @@ export default reduceWrap('Subflow', (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
         case 'subflow':
-            if (ind == 'not exist') {
-                const blankNode = newNode(state.id, [])
-                const add_node_to_repo = (repo) => repo.push(blankNode)
-                return data.updateIn(['repo'], '', add_node_to_repo).toJS()
-            }
-            // const func = transformer(data, ind)
-            // return action.f(func)
-
+            if (ind == 'not exist') return data.updateIn(['repo'], '', (repo) => repo.push(newNode(state.id, []))).toJS()
             return transformer(data, ind, action.args)
 
         case 'subflow/init':
@@ -79,9 +72,9 @@ export default reduceWrap('Subflow', (state, action, ind) => {
             if (ind == 'not exist') return data.updateIn(['repo'], '', (el) => el.push(newNode(state.id, []))).toJS()
             return state
 
-        case 'subflow/add':
-            if (ind == 'not exist') return data.updateIn(['repo'], 'initial', (el) => el.push(newNode(state.id, [action.item]))).toJS()
-            return data.updateIn(['repo', ind], 'initial', (el) => el.set('subProcess', action.subProcess)).toJS()
+        // case 'subflow/add':
+        //     if (ind == 'not exist') return data.updateIn(['repo'], 'initial', (el) => el.push(newNode(state.id, [action.item]))).toJS()
+        //     return data.updateIn(['repo', ind], fromJS({}), (el) => el.set('subProcess', action.subProcess)).toJS()
 
         case 'subflow/addRole':
             if (ind == 'not exist') return data.updateIn(['repo'], 'initial', (el) => el.push(newNode(state.id, [action.item]))).toJS()
