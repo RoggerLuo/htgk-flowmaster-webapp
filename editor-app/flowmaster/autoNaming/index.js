@@ -2,9 +2,7 @@
 import { titleToCN } from "./conf"
 
 global.isRepeated = (name) => { /* 节点名称是否重复 */
-    return window.getRawJson().childShapes.some((el, index) => {
-        return el.properties.name == name
-    })
+    return fm.getJson().childShapes.some((el, index) => el.properties.name == name)
 }
 global.giveName = (cate) => {
     /* 如果“审批”有3个，那就是“审批3”，如果重复，则加1，加到不重复为止 */
@@ -19,9 +17,9 @@ global.giveName = (cate) => {
 
 function giveNameToShape(shape) {
     if (shape.properties["oryx-name"] != '') return //如果没有名字
-    if (shape._stencil._jsonStencil.title == 'Sequence flow') return
+    if (fm.getTitle(shape) == 'Sequence flow') return
     if (fm.branch.is(shape)) return
-    if (global.isMultiSequenceflow(shape)) return
+    if (fm.multi.is.sf(shape)) return
     if (global.isManualSequenceflow(shape)) return
     
     shape.setProperty('oryx-name', giveName(shape._stencil._jsonStencil.title))
