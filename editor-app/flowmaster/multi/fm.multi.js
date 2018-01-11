@@ -1,7 +1,7 @@
 global.fm = global.fm || {}
 fm.multi = {}
-fm.multi.identify = {}
-fm.multi.identify.isGateway = (shape) => {
+fm.multi.is = {}
+fm.multi.is.gateway = (shape) => {
     if (shape && (fm.getTitle(shape) == "Exclusive gateway")) {
         const prevShape = shape.incoming[0]
         if (prevShape) {
@@ -14,12 +14,11 @@ fm.multi.identify.isGateway = (shape) => {
     return false
 }
 
-fm.multi.identify.sf = (shape) => {
+fm.multi.is.sf = (shape) => {
     if (shape && (fm.getTitle(shape) == "Sequence flow")) {
         if (!shape.incoming[0]) return false
         const prevShape = shape.incoming[0]
-        return fm.multi.identify.isGateway(prevShape)
+        return fm.multi.is.gateway(prevShape)
     }
     return false
 }
-// import './identify'  //dep
