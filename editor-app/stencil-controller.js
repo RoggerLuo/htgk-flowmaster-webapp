@@ -18,8 +18,8 @@ angular.module('activitiModeler')
 
         // Code that is dependent on an initialised Editor is wrapped in a promise for the editor
         $scope.editorFactory.promise.then(function() {
-
-            fm.stencilController($scope,$http)
+            fm.ngEvent($scope,$http)
+            fm.oryxEvent($scope,$http)
             window.userGuide()
 
             // Build simple json representation of stencil set
@@ -469,13 +469,15 @@ angular.module('activitiModeler')
                             如果 只是失焦，不跳转组件，那么slectedShape不变,先后都无所谓
                         */
                         $scope.selectedItem = selectedItem;
+                        // window.beforeShapeUpdate($scope,event) //调用updateProperty会使用到selectedShape                 
 
-                        window.beforeShapeUpdate($scope,event) //调用updateProperty会使用到selectedShape
                         $scope.selectedShape = selectedShape; //更新 selectedShape 在使用之后
                         fm.afterShapeUpdate($scope,event) 
                         $timeout(function() {
                             fm.afterShapeUpdateTimeout($scope,event)
                         })
+                        
+
                         window.lastSelectedItem = selectedItem;                        
                     });
 
@@ -706,7 +708,7 @@ angular.module('activitiModeler')
 
 
                         /* roger: 我的条件限制 用来限制审批节点的分支数量 */
-                        if (!window.restrictionRule(option)) return false
+                        if (!fm.restrict(option)) return false
 
                         var command = new KISBPM.CreateCommand(option, undefined, undefined, $scope.editor);
                         $scope.editor.executeCommands([command])
@@ -1049,7 +1051,7 @@ angular.module('activitiModeler')
                         option.position = pos;
 
                         /* 我的条件限制 用来限制审批节点的分支数量 */
-                        if (!window.restrictionRule(option)) return
+                        if (!fm.restrict(option)) return
 
 
                         if (containedStencil.idWithoutNs() !== 'SequenceFlow' && containedStencil.idWithoutNs() !== 'Association' &&
@@ -1091,7 +1093,7 @@ angular.module('activitiModeler')
 
                     
                     /* 我的条件限制 用来限制审批节点的分支数量 */
-                    if (!window.restrictionRule(option)) return
+                    if (!fm.restrict(option)) return
 
 
 
