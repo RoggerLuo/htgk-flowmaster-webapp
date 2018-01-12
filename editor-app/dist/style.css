@@ -353,7 +353,8 @@
   border: solid 0.5px white;
   line-height: 35px;
   text-align: center;
-  margin: 5px 10px;
+  margin: 5px 5px;
+  display: inline-block;
   cursor: pointer;
   user-select: none;
 }
@@ -1839,19 +1840,19 @@
 .manualPropertyCtrl .icon-tianjia {
   line-height: 27px;
 }
-.approvePropertyCtrl .row-title {
+.circulationPropertyCtrl .row-title {
   font-size: 13px;
   padding: 6px 0px;
   margin-top: 18px;
 }
-.approvePropertyCtrl .mybutton {
+.circulationPropertyCtrl .mybutton {
   display: flex;
   justify-content: space-between;
 }
-.approvePropertyCtrl .mybutton .icon-tianjia:hover {
+.circulationPropertyCtrl .mybutton .icon-tianjia:hover {
   color: white !important;
 }
-.approvePropertyCtrl .icon-tianjia {
+.circulationPropertyCtrl .icon-tianjia {
   line-height: 27px;
 }
 .approvePropertyCtrl .row-title {
