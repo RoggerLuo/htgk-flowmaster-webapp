@@ -9,7 +9,7 @@ const UsertaskSetting = ({ put, currentRepo, dispatch }) => {
             rdx.put('usertask','replace',[key],!currentRepo[key])
         }
     }
-    const data = [
+    let data = [
         {
             title:'允许退回发起人',
             oncheck:oncheckFactory('backToStarter'),
@@ -47,6 +47,12 @@ const UsertaskSetting = ({ put, currentRepo, dispatch }) => {
             }
         }
     ]
+    if(fm.isCurrentShapeInGates){
+        data = [data[1]]
+        if(!fm.isIncomingShapeUsertask){
+            data = []
+        }
+    }
     return(
         <div>
             {data.map((el,index)=>{

@@ -14,6 +14,13 @@ const ApproveWithdrawProperty = ({ put, currentRepo, dispatch }) => {
     }
     const previousNodeSpecified = currentRepo.previousNodeSpecified
     const enableSingleSelect = currentRepo.enableSingleSelect 
+
+    let displayApproveTitle = true
+    if(fm.isCurrentShapeInGates){
+        if(!fm.isIncomingShapeUsertask){
+            displayApproveTitle = false
+        }
+    }
     return(
         <div>
             <div style={{height:'30px',width:'100%'}}></div>
@@ -55,9 +62,10 @@ const ApproveWithdrawProperty = ({ put, currentRepo, dispatch }) => {
                 </label>
             &nbsp;)
 
-            <div className="property-row-title"> 
-                审批项设置
-            </div>
+            {displayApproveTitle?
+                (<div className="property-row-title"> 
+                    审批项设置
+                </div>):null}
             
             <Setting />
         </div>
