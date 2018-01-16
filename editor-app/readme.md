@@ -1,13 +1,5 @@
-22 Sep
-## 重构buttonContainer
-移动button的presentation部分
-
-
-21 Sep
-## 把global配置和事件 集中管理
-把app加载的逻辑放在initialize文件夹里
-
-## approve保存失败，repo的名字没有修改
+# 几百年没有更新readme了...
+just let it go
 
 
 ## reduce 的通用wrap

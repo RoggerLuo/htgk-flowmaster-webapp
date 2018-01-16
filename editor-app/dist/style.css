@@ -1597,7 +1597,9 @@
   user-select: none;
   position: absolute;
   z-index: 999;
-  top: 35%;
+  top: 0;
+  bottom: 0;
+  padding-top: 15%;
   text-align: center;
   width: 100%;
 }
