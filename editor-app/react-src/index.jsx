@@ -1,5 +1,4 @@
-
-import '../ngEvent'
+global.rct = global.rct || {}
 import './userGuide/component'
 
 import approveComponent from './usertask/Container'
@@ -9,7 +8,6 @@ import branchSequenceFlowComponent from './branchSequenceFlow/Component'
 import branchNodeComponent from './branchNode/Container'
 import popupStart from './popup'
 import popupXStart from './popupX'
-import saveButton from './saveButton/saveButton'
 import myAlert from './alert/alert'
 import mySpin from './alert/spin'
 import manual from './manual/Container'
@@ -19,12 +17,18 @@ import subflow from './subflow/Container'
 import sf from './sf'
 
 
+import saveButton from './saveButton/saveButton'
+// global.saveButton = { render: saveButton, flag: true }
+rct.isSaveBtnInit = false
+rct.saveBtnInit = () => {
+    if(!rct.isSaveBtnInit) saveButton()
+}
+
 popupStart()
 popupXStart()
 myAlert()
 mySpin()
 
-global.saveButton = { render: saveButton, flag: true }
 global.branchSequenceFlowComponent = { render: branchSequenceFlowComponent }
 global.parallelApproveComponent = { render: parallelApproveComponent }
 global.approveComponent = { render: approveComponent }

@@ -2,14 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 import './style'
 
-const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,height,width,style,outerStyle}) => {    
+const Comp = ({title,onCancel,confirm, display, put,dispatch, /*后面可选*/ children,height,width,style,outerStyle}) => {    
     function cancel(){
+        onCancel && onCancel()
         dispatch({type:'hidePopup'})
         window.hideShadow()
     }
     const confirmDecorated = ()=>{
         confirm()
-        cancel()
+        dispatch({type:'hidePopup'})
+        window.hideShadow()
     }
     let compClass1=""
     let compClass2=""
@@ -52,10 +54,6 @@ const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,h
     )
 }
 
-import connectPut from 'react-put'
-const putOptions = {mapPropToDictionary: (props)=>window.reactI18n}
-const ConnectedApp = connectPut(putOptions)(Comp)
-
 
 const mapStateToProps = (state) => {
     return {display:state.popup.display}
@@ -67,6 +65,11 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ConnectedApp)
+)(rdx.i18nPut(Comp))
 
+
+
+// import connectPut from 'react-put'
+// const putOptions = {mapPropToDictionary: (props)=>window.reactI18n}
+// const ConnectedApp = connectPut(putOptions)(Comp)
 

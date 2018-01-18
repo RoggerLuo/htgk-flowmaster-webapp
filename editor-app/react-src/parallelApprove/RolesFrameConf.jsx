@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import RolesFrameGenerator from './RolesFrameGenerator'
-import popupConfig from '../DropdownButton/ButtonsToConf/SQL/popupConfig'
+import popupConfig from '../DropdownButton/getButtonList/SQL/popupConfig'
 function ConfiguredRoleComp({ data, cate, index, dispatch }) { //index是groupIndex
     const del = (characterIndex) => {
         return function() {

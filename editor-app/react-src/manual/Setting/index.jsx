@@ -7,7 +7,7 @@ const ManualSetting = ({ put, currentRepo, dispatch }) => {
         if(fm.versionModel) return
         rdx.put('manual','replace',[key],!currentRepo[key])
     }
-    const data = [
+    let data = [
         {
             title:'允许退回发起人',
             oncheck:oncheckFactory('backToStarter'),
@@ -42,6 +42,12 @@ const ManualSetting = ({ put, currentRepo, dispatch }) => {
             }
         }
     ]
+    if(fm.isCurrentShapeInGates){
+        data = [data[1]]
+        if(!fm.isIncomingShapeUsertask){
+            data = []
+        }
+    }
     return(
         <div>
             {data.map((el,index)=>{

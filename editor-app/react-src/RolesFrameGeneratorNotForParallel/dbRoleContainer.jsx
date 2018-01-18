@@ -1,6 +1,6 @@
 import React from 'react'
 import SolidFrame from '../presentations/SolidFrame/SolidFrame'
-import popupConfig from '../DropdownButton/ButtonsToConf/SQL/popupConfig'
+import popupConfig from '../DropdownButton/getButtonList/SQL/popupConfig'
 
 export default ({ clear, add }) => {
     const cb = (item) => {
