@@ -1,6 +1,6 @@
 import './style.less'
-import ReduxComp from './ReduxComp'
-export default ReduxComp
+import ConfigComp from './ConfigComp'
+export default ConfigComp
 
 
 
