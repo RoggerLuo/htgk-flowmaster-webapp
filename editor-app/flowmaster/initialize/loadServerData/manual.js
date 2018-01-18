@@ -24,8 +24,9 @@ export default function(el,index,modelData){
     })
 
     delete modelData.childShapes[index].properties.usertaskassignment
-    delete modelData.childShapes[index].properties.dataSourceRef
+    delete modelData.childShapes[index].properties.dataSourceRefs
     delete modelData.childShapes[index].properties.dataSourceSTDdata
     delete modelData.childShapes[index].properties.previousNodeSpecified
+    delete modelData.childShapes[index].properties.previousNodeSpecifiedSingle
     delete modelData.childShapes[index].properties.isInGates
 }

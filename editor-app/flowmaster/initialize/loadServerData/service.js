@@ -15,9 +15,11 @@ export default function(el,index,modelData){
             }
         })        
     }
-
+    delete modelData.childShapes[index].properties.dataSourceRefs
     delete modelData.childShapes[index].properties.objData
     delete modelData.childShapes[index].properties.servicetaskdelegateexpression
     delete modelData.childShapes[index].properties.servicetaskfields
     delete modelData.childShapes[index].properties.previousNodeSpecified
+    delete modelData.childShapes[index].properties.previousNodeSpecifiedSingle
+
 }
