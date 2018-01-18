@@ -6,8 +6,8 @@ import { columnTypeProto, expressionProto, variableTypeProto } from './dataProto
 const Entry = ({columnName,columnType,expression,variableName,variableType,selectGenerator,index,onchangeGenerator}) => {
     const getDefault = () => ( {value: false,text: '请选择'} )
     let variableOptions = [getDefault()]
-    if(variableType.value == 'userVarible') variableOptions = window.userProperties
-    if(variableType.value == 'formVarible') variableOptions = window.formProperties
+    if(variableType.value == 'userVariable') variableOptions = window.userProperties
+    if(variableType.value == 'formVariable') variableOptions = window.formProperties
     return (
         <div>
             列名&nbsp; <input onChange={onchangeGenerator(index)} value={columnName} className="columnNameInput" type="text" />

@@ -4,7 +4,7 @@ import Dropdown from '../../../basicComp/Dropdown'
 import optionData from './optionData'
 
 const Component = ({data,dispatch,put,choosedOption2}) => {    
-    let choosed2 = (item)=>dispatch({type:'dropdown2Choose',item})
+    let choosed2 = (item) => dispatch({type:'dropdown2Choose',item})
     //获取选项数据
     const approveArr = optionData()    
     //设定默认值

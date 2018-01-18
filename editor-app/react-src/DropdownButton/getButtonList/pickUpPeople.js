@@ -8,6 +8,7 @@ export default function(confirm) {
                     value: el.id,
                     cate: 'EMPLOYEE' //el.type
                 }
+                if(el.pickType == 'org') item.cate = 'ORG'
                 confirm(item)
             })
             window.activeSave()

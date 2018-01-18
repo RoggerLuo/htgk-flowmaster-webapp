@@ -9,7 +9,7 @@ import externalCallback from './externalCallback'
 import second from './second'
 import './style'
 
-export default function({confirm, existCate, groupInd}) {
+export default function({confirm, existCate, groupInd, buttonMode, hidePrevious}) {
     let buttonActions = [
         HigherLevelAction(confirm),
         // OrgAction(confirm),
@@ -21,6 +21,14 @@ export default function({confirm, existCate, groupInd}) {
         second(confirm),
         externalCallback(confirm)
     ]
+    
+    if(buttonMode == 'subflow'){
+        buttonActions = [
+            HigherLevelAction(confirm),
+            pickUpPeople(confirm),
+            customRoles(confirm)
+        ]
+    }
     if(existCate){
         switch(existCate){
             case 'boss':
@@ -40,12 +48,13 @@ export default function({confirm, existCate, groupInd}) {
                 break
             case 'externalCallback':
                 buttonActions = [externalCallback(confirm)]
-
             default:
                 buttonActions = [pickUpPeople(confirm),customRoles(confirm)]
                 break
         }        
     }
+
+    
 
     return buttonActions.map((action, index) => {
         if (action.id == 'second'){
@@ -53,7 +62,6 @@ export default function({confirm, existCate, groupInd}) {
                 title: 'button.option8',
                 click() { action.add() }
             }
-
         }
         if (action.type != 'callPopup') {
             return {

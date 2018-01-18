@@ -12,7 +12,7 @@ export default function(cb){
         },
         content:Comp,
         type:'callPopup',
-        height:'500px',//'300px',
+        height:'400px',//'300px',
         title:'button.option4',
         width:'640px',
         outerStyle:{overflow:'auto'}
