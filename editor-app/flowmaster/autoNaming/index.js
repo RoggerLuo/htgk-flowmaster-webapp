@@ -18,9 +18,9 @@ global.giveName = (cate) => {
 function giveNameToShape(shape) {
     if (shape.properties["oryx-name"] != '') return //如果没有名字
     if (fm.getTitle(shape) == 'Sequence flow') return
-    if (fm.branch.is(shape)) return
+    if (fm.branch.is.normal(shape)) return
     if (fm.multi.is.sf(shape)) return
-    if (global.isManualSequenceflow(shape)) return
+    if (fm.manual.is.sf(shape)) return
     
     shape.setProperty('oryx-name', giveName(shape._stencil._jsonStencil.title))
 }
@@ -28,12 +28,6 @@ function giveNameToShape(shape) {
 function autoNaming(selectedShape, $scope) {
     giveNameToShape(selectedShape)
     rdx.save()
-
-    // const prevElement = selectedShape && selectedShape.incoming[0] || false
-    // if (prevElement) giveNameToShape(prevElement)
-
-    // const nextElement = selectedShape && selectedShape.outgoing[0] || false
-    // if (nextElement) giveNameToShape(nextElement)
 }
 
 export default autoNaming
