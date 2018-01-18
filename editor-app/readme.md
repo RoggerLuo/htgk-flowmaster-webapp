@@ -1,28 +1,43 @@
-# 几百年没有更新readme了...
-just let it go
+
+
+## global.updatePropertyInModel(k,v)
+用(k,v)更新$scope.selectedShape的property  
+不会刷新视图展示
+#### `window.setPropertyAdvance(property, shape)`
+#### `fm.setProperty_and_updateView(property, shape)`
+都是指定shape更新，并且会刷新节点的视图展示  
+Wed 17 Jan 5:40 2018  
+
+
+
+## fm.currentSelectedShape & item  
+**fm.currentSelectedShape**  
+切换selected shape的时候，保存的切换之后的shape, 或者说node  
+**fm.currentSelectedShapeItem**
+同上，但不是node，是一个item，有title属性  
+定义在stencilController
+
+Wed 17 Jan 5:40 2018
+
 
 
 ## reduce 的通用wrap
-固定了id 和 stencilTitle的结构  
-以及当前选中ind
+固定了id 和 stencilTitle的结构,以及当前选中ind
 
 
-20 Sep
-## buttonContainer重构
-选择人员时，删掉了判断是否重复的逻辑，如果有重复直接覆盖
-19 Sep 
-## palette修改
+20 Sep 2017
+
+## stencilController/palette修改
 在scope上增加了flowMasterGroups属性，
 
 在resource的stencilset里删除了My Object Group,  
 把一些components的Group改成了flowMaster
 
 ---
-流程大师一期 
-##更新测试环境
-scp -r design/* root@172.16.1.27:/root/volumes/nginx/bpm/design/
-
-密码 workplus
+---
+#流程大师一期 
+---
+---
 
 ##键盘事件
 键盘事件无法使用，因为iframe的关系  
@@ -31,5 +46,7 @@ scp -r design/* root@172.16.1.27:/root/volumes/nginx/bpm/design/
 
 一旦点击iframe外部html，键盘事件又会失效
 
-## canvas输入框
-`css/style.css`中间把这个textarea设置为display:none
+
+## canvas中输入框样式
+`css/style.css`中间把这个textarea设置为display:none  
+直接取消了在canvas中的输入框， 不允许出现

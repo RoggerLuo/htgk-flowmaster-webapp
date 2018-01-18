@@ -481,7 +481,7 @@ angular.module('activitiModeler')
 
 
                         $timeout(function() {
-                            fm.after_cmd_excecuted($scope,event)
+                            fm.after_cmd_executed($scope,event)
                         })
                     });
 
@@ -712,7 +712,7 @@ angular.module('activitiModeler')
 
 
                         /* roger: 我的条件限制 用来限制审批节点的分支数量 */
-                        if (!fm.restrict(option)) return false
+                        if (!fm.restrict.drop_and_quickAdd(option)) return false
 
                         var command = new KISBPM.CreateCommand(option, undefined, undefined, $scope.editor);
                         $scope.editor.executeCommands([command])
@@ -995,7 +995,7 @@ angular.module('activitiModeler')
                         option.position = pos;
 
                         /* 我的条件限制 用来限制审批节点的分支数量 */
-                        if (!fm.restrict(option)) return
+                        if (!fm.restrict.drop_and_quickAdd(option)) return //dropCallback
 
 
                         if (containedStencil.idWithoutNs() !== 'SequenceFlow' && containedStencil.idWithoutNs() !== 'Association' &&
@@ -1037,7 +1037,7 @@ angular.module('activitiModeler')
 
                     
                     /* 我的条件限制 用来限制审批节点的分支数量 */
-                    if (!fm.restrict(option)) return
+                    if (!fm.restrict.drop_and_quickAdd(option)) return //dropCallback
 
 
 
