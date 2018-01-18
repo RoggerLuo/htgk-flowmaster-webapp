@@ -18,7 +18,7 @@ const UsertaskSetting = ({ put, currentRepo, dispatch }) => {
             inputValue:currentRepo.backToStarterText,
             onchange(e){
                 if(fm.versionModel) return
-                dispatch({type:'usertask/change',key:'backToStarterText',value:e.target.value||'退回发起人'})
+                dispatch({type:'usertask/change',key:'backToStarterText',value:e.target.value||''})
                 activeSave()             
             }
         },
@@ -30,7 +30,7 @@ const UsertaskSetting = ({ put, currentRepo, dispatch }) => {
             inputValue:currentRepo.backToLastText,
             onchange(e){
                 if(fm.versionModel) return
-                dispatch({type:'usertask/change',key:'backToLastText',value:e.target.value||'退回上一节点审批人'})
+                dispatch({type:'usertask/change',key:'backToLastText',value:e.target.value||''})
                 activeSave()             
             }
         },
@@ -42,7 +42,7 @@ const UsertaskSetting = ({ put, currentRepo, dispatch }) => {
             inputValue:currentRepo.allowForceEndText,
             onchange(e){
                 if(fm.versionModel) return
-                dispatch({type:'usertask/change',key:'allowForceEndText',value:e.target.value||'强制结束流程'})
+                dispatch({type:'usertask/change',key:'allowForceEndText',value:e.target.value||''})
                 activeSave()             
             }
         }
@@ -53,12 +53,27 @@ const UsertaskSetting = ({ put, currentRepo, dispatch }) => {
             data = []
         }
     }
+    if(
+        fm.previousShape.is.start()||
+        fm.previousShape.is.suflow()||
+        fm.previousShape.is.parallelGateway()||
+        fm.previousShape.is.inclusiveGateway()||
+        fm.previousShape.is.circulation()
+    ){
+        data = data.filter(el => el.title != '允许退回上一节点审批人')
+    }
+
+    // if(fm.previousShape.is.parallelGateway()){
+    //     data = data.filter(el => el.title != '允许强制结束流程')
+    // }
+    
     return(
         <div>
             {data.map((el,index)=>{
                 return (<Pre {...el} index={index} key={index} />) 
             })}
-        </div>)
+        </div>
+    )
 }
 
 export default global.connect2redux('usertask',UsertaskSetting)

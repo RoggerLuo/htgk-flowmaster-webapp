@@ -12,6 +12,7 @@ const newRepo = (id, data) => fromJS({ id, data })
 export default reduceWrap('User task', (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
+        
         case 'usertask':
             if (ind == 'not exist') return data.updateIn(['repo'], '', (a) => a.push(newRepo(state.id, []))).toJS()
             return transformer(data, ind, action.args)

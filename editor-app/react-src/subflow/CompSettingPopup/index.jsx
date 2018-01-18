@@ -36,7 +36,11 @@ export default function(){ //data是 currentRepo的data //data
             </div>
         )
     }
-    const options = {mapPropToDictionary: (props)=>window.reactI18n}
-    const ConnectedApp = connectPut(options)(SettingPopup)
-    return global.connect2redux('subflow',ConnectedApp)
+    return rdx.connect('subflow',rdx.i18nPut(SettingPopup))
 }
+
+/*
+const options = {mapPropToDictionary: (props)=>window.reactI18n}
+const ConnectedApp = connectPut(options)(SettingPopup)
+
+*/

@@ -10,8 +10,9 @@ const ButtonContainer = ({currentRepo,children}) => {
     const clear = () => rdx.dispatch({type:'usertask/clear'})
     const confirmFunction = confirmGenerator({reduxCate,add,clear})
     const xClass = {marginTop:'5px',right:'12px'}
+    // const hidePrevious = () => rdx.put('usertask','replace',['hidePrevious'],true)
     return ( 
-        <Button xClass={xClass} confirm={confirmFunction} existCate={reduxCate} groupInd={0}>
+        <Button xClass={xClass} confirm={confirmFunction} existCate={reduxCate} groupInd={0} hidePrevious={'usertask'}>
             {children}
         </Button>
     )

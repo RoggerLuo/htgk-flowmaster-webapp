@@ -1,7 +1,6 @@
 import store from './configureStore'
 import findCurrentRepoInd from './tools/findCurrentRepoInd'
 import { connect2redux, i18nPut } from './tools'
-global.reduxStore = store
 global.rdx = global.rdx || {}
 
 rdx.store = store
@@ -15,3 +14,6 @@ rdx.dispatch = store.dispatch
 rdx.findCurrentRepoInd = findCurrentRepoInd
 rdx.connect = connect2redux
 rdx.i18nPut = i18nPut
+
+global.activeSave = () => rdx.dispatch({ type: 'saveActive' })
+global.reduxStore = store

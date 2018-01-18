@@ -8,21 +8,7 @@ import CompSettingPopup from './CompSettingPopup'
 const SubflowContainer = ({ currentRepo, dispatch }) => {
     if(!currentRepo) return null
     const data = currentRepo.data || []
-    const add = () => {
-        if(fm.versionModel) return
-        dispatch({
-            content:CompAdd,
-            confirm:()=>{},
-            type:'callPopup',
-            height:'75%',
-            title:'button.option9',
-            width:'640px',
-            style:{margin:'10px 60px'},
-            outerStyle:{overflow:'auto'},
-        })
-        activeSave() 
-
-    }
+    
     const setting = () => {
         if(fm.versionModel) return
         window.requestFormData(currentRepo.subProcess.subProcDefKey,function(dataObj){
@@ -36,10 +22,30 @@ const SubflowContainer = ({ currentRepo, dispatch }) => {
             height:'auto',
             title:'子流程设置',
             width:'988px',
-            isSubflow:true,
             style:{margin:'10px 40px',width:'100%'}
         })
     }
+
+    const add = () => {
+        if(fm.versionModel) return
+        dispatch({
+            content:CompAdd,
+            confirm:()=>{
+                setting()
+            },
+            type:'callPopup',
+            height:'75%',
+            title:'button.option9',
+            width:'640px',
+            style:{margin:'10px 60px'},
+            outerStyle:{overflow:'auto'},
+            onCancel(){
+                rdx.put('subflow','replace',['subProcess'],{},'object')
+            }
+        })
+        rdx.save() 
+    }
+
     const del = () => {
         if(fm.versionModel) return
         dispatch({type:'subflow/clear'})

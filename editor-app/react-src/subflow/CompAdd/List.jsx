@@ -2,30 +2,33 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 const List = ({ value, text, versionId, checked, dispatch, currentRepo }) => {
+    const isSelected = currentRepo.subProcess.subProcDefKey == value
+
     const onclick = () => {
-        dispatch({
-            type: 'subflow/add',
-            subProcess: {
-                subProcDefKey: value,
-                name: text,
-                versionId
-            }
-        })
-        rdx.save() 
+        if(isSelected) { //cancel then
+            rdx.put('subflow','replace',['subProcess'],{},'object')
+            return
+        }
+        const subProcess = {
+            subProcDefKey: value,
+            name: text,
+            versionId
+        }
+        rdx.put('subflow','replace',['subProcess'],subProcess,'object')
         window.requestFormData(value,function(dataObj){
             if(!dataObj) return
             dispatch({type:'subflow/leftFields',leftFields:dataObj.components})
         })
     }
-    let style = {cursor:'pointer'}
-    if(currentRepo.subProcess.subProcDefKey == value){
-        style = Object.assign({},style,{color:'#00b1fb'})
-    }
+
+    let style = {cursor:'pointer',fontSize:'14px',paddingLeft: '8px'} 
+    if(isSelected) style = {cursor:'pointer',fontSize:'14px',paddingLeft: '8px',color:'#00b1fb'}
     return (
-        <div style={{paddingLeft:'24px',paddingTop:'10px'}}>
-            <div className="property-row-content bluecolor-hover" onClick={onclick} style={style}> 
+        <div style={{paddingLeft:'24px',paddingTop:'10px'}} >
+            <input type='checkbox' checked={isSelected} onClick={onclick} style={{cursor:'pointer'}}/>
+            <span className="property-row-content bluecolor-hover"  style={style} onClick={onclick}> 
                 {text} 
-            </div>
+            </span>
         </div>
     )
 }

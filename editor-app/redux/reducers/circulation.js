@@ -9,6 +9,11 @@ const uniqAdd = (data, item) => {
 export default reduceWrap('Circulation task', (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
+        case 'circulation':
+            const newCreate = fromJS({ id: state.id, data: []})
+            if (ind == 'not exist') return data.updateIn(['repo'], '', (el) => el.push(newCreate)).toJS()
+            return transformer(data, ind, action.args)
+
         case 'circulation/newNodeInit':
             if (ind == 'not exist') {
                 const newCreate = fromJS({ id: state.id, data: []})

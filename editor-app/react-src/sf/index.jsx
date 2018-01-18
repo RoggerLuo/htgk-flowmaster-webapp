@@ -19,11 +19,13 @@ const Sf = ({put,currentRepo}) => {
         
     let selectedOption = currentRepo.businessStatus
     if(options.length == 0) selectedOption = {text:'暂无可选项',value:false}
+
+    if(fm.isCurrentShapeInGates) return null
     return(
         <div className="react-approve" >
             <div style={{height:'15px',width:'100%'}}></div>
-            <div style={{fontWeight:'600'}}>连线状态</div>
-            <div style={{height:'0px',width:'100%'}}></div>
+            <div style={{fontWeight:'600'}}>业务状态</div>
+            <div style={{height:'2px',width:'100%'}}></div>
 
             <Dropdown width={'160px'} margin={'0 0'}data={options||[]} choosedOption={selectedOption} choosed={selected} />
             <div style={{height:'100px',width:'100%'}}></div>

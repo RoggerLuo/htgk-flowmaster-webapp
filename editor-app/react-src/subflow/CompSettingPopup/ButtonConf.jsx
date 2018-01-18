@@ -20,7 +20,7 @@ const ButtonContainer = ({ currentRepo, children}) => {
     const confirmFunction = confirmGenerator({reduxCate,add,clear})
     const xClass = {marginTop:'5px',marginLeft:'-105px'}
     return ( 
-        <Button xClass={xClass} confirm={confirmFunction} existCate={reduxCate}>
+        <Button xClass={xClass} confirm={confirmFunction} existCate={reduxCate} buttonMode={'subflow'}>
             {children}
         </Button>
     )
