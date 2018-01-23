@@ -6,21 +6,22 @@ import {
 
 
 export default {
-    text: Text,
-    textarea: Text,
-    number:NumberInput,
-    money:NumberInput,
-    date:Calendar,
-    time:Time,
-    selection:Dropdown,
-    multi_selection:DropdownMulti,
-    select_employee:Employee,
-    select_org:Org,
-    mobile:Text,
+    text: Text,   //string
+    textarea: Text,  //string
+    number:NumberInput,  //int double
+    money:NumberInput,  //int double
+    date:Calendar, //int
+    time:Time,     //int
+    selection:Dropdown, //string
+    multi_selection:DropdownMulti, //string
+    select_employee:Employee, //string
+    select_org:Org, //string 逗号分隔
+    mobile:Text, 
     email:Text,
     phone:Text,
-    dateDiff:CalculateDate,
-    timeDiff:CalculateTime,
+
+    dateDiff:CalculateDate, //string  xx天
+    timeDiff:CalculateTime, //string  xx天
     sum:NumberInput,
     mean:NumberInput,
     formula:Text,

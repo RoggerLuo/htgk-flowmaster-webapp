@@ -10,8 +10,11 @@ import Options from './Options'
 import './style'
 
 const Component = ({put}) => {
+    const unfold = () => {
+        fm.closeCurrDpdw && fm.closeCurrDpdw()
+    }
     return(
-        <div className="react-approve" >
+        <div className="react-approve" onClick={unfold}>
             <SectionTitleContainer text={put('branch.sectionTitle')}/>   
             <Radios />
             <Options />

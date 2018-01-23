@@ -8,10 +8,10 @@ const Component = ({data2,dispatch,put,choosedOption2}) => {
     }
     let choosedOption = choosedOption2
     if(!choosedOption.text){
-        choosedOption = {text:'请选择',value:'initial'}
+        choosedOption = {text:'请选择',value:false}
     }
     if(global.formPeople && global.formPeople[0]){}else{
-        choosedOption = {text:'未获取到表单角色',value:'initial'}
+        choosedOption = {text:'找不到用户相关组件',value:false}
     }
     return (
         <div>

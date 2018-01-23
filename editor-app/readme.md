@@ -1,4 +1,19 @@
+## 定位 并选中 某个shape
+在isSfsUnnamed里面  
 
+/* 定位的关键代码 */                    
+                    fm.editor.setSelection([fm.getShapeById(el.resourceId)])                   
+fm.editor.updateSelection()
+
+## 分支的dropdown
+放弃使用cover来 折叠dropdown  
+把setState事件 通过fm.closeCurrDpdw传递到全局  
+然后每次 toggle dropdown 的时候，就更新fm.closeCurrDpdw的引用  
+然后点击空白处 就触发这个绑定到全局的事件  
+使用stopPropagation  
+以及每次toggle前 都执行前一个close事件，就不会有多个dpdw同时打开  
+效果更好  
+Thu 18 Jan 5:48
 
 ## global.updatePropertyInModel(k,v)
 用(k,v)更新$scope.selectedShape的property  

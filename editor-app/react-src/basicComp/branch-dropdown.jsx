@@ -68,10 +68,10 @@ const DropdownRaw = ({options,choose,choosedOption,display,toggle,close,put,useP
                     </tr>    
                 </tbody>
             </table>
-            <div className="big-cover" style={{display:display}} onClick={close}></div>
         </div>
     )
 }
+// <div className="big-cover" style={{display:display}} onClick={close}></div>
 
 import connectPut from 'react-put'
 const putOptions = {mapPropToDictionary: (props)=>window.reactI18n}
@@ -83,17 +83,23 @@ const DropdownContainer = createClass({
             display:'none',
         }
     },
-    toggle(){
+    toggle(e){
+        fm.closeCurrDpdw && fm.closeCurrDpdw()
+        fm.closeCurrDpdw = () => this.setState({display:'none'})
+
+
         if(this.state.display == 'none'){
             this.setState({display:''})
         }else{
             this.setState({display:'none'})
         }
+        e.stopPropagation()
     },
     close(){
         this.setState({display:'none'})
     },
-    render(){        
+    render(){ 
+
         return (
             <Dropdown {...{usePut:this.props.usePut,
                 options:this.props.options,

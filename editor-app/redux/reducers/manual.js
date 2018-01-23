@@ -20,9 +20,10 @@ export default reduceWrap('Manual task', (state, action, ind) => {
             return data.updateIn(['repo', ind, 'withdraw'], false, (el) => !el).toJS()
 
         case 'manual/init':
-            return data.updateIn(['repo'], [], (el) => {
+            return data.updateIn(['repo'], List(), (el) => {
                 return el.push(fromJS(action.data))
             }).toJS()
+            
         case 'manual/newNodeInit':
             if (ind == 'not exist') {
                 action.init()                

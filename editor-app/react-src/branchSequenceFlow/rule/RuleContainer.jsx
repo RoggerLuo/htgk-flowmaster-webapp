@@ -32,7 +32,7 @@ const RuleContainer = ({branch,conditions,dispatch,/*from redux*/key1,key2,ruleM
     }
     const dropdownData = makeRuleData(conditions,chooseFactory,branch,key1,key2)
     if(!dropdownData) return null //切换的时候，可能返回null，不显示就好了
-    return (<Rule {...{dropdownData,ruleMode,del,oninput}} />)
+    return (<Rule {...{dropdownData,ruleMode,del,oninput,branch}} />)
 }
 const mapStateToProps = (state) => {
     const elementFound = state.branch.repo.filter((el,index)=>{

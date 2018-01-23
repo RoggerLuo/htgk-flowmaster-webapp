@@ -3,12 +3,10 @@ import { tplSrc, tplMap } from './conf'
 import autoNaming from '../autoNaming'
 
 function handleExclusive($scope, shape) {
-    
     if(fm.multi.is.gateway(shape)){
         $scope.propertyTpl = tplSrc + 'commonNode.html' //没有设置项的普通节点
         return true        
-    }
-    
+    }    
     if(fm.manual.is.gateway(shape)){
         $scope.propertyTpl = tplSrc + 'commonNode.html' //没有设置项的普通节点
         return true        
