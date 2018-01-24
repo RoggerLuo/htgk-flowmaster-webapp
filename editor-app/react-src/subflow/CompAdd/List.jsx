@@ -15,7 +15,8 @@ const List = ({ value, text, versionId, checked, dispatch, currentRepo }) => {
             versionId
         }
         rdx.put('subflow','replace',['subProcess'],subProcess,'object')
-        window.requestFormData(value,function(dataObj){
+        //这里发送请求不太好,
+        fm.fetchFormComponents(value,function(dataObj){
             if(!dataObj) return
             dispatch({type:'subflow/leftFields',leftFields:dataObj.components})
         })

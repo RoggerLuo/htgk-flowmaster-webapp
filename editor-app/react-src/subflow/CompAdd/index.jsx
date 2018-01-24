@@ -1,7 +1,6 @@
 import React from 'react'
 import SolidFrame from '../../presentations/SolidFrame/SolidFrame'
 import Group from './Group'
-import { connect } from 'react-redux'
 
 const dataProducer = (list) => {
     const data = []
@@ -45,7 +44,6 @@ const dataProducer = (list) => {
     return data
 }
 
-
 const AddComp = ({ currentRepo, put, add }) => {
     if(!currentRepo) return null
     const data = dataProducer(global.processList)    
@@ -53,23 +51,9 @@ const AddComp = ({ currentRepo, put, add }) => {
         <div className="add-subflow" style={{width:'520px'}}>
             {data.map((el,ind)=><Group key={ind} index={ind} data={el}/>)}
             <div style={{height:'12px',width:'1px'}}></div>
-
             <div style={{height:'50px'}}></div>
         </div>
     )
 }
 
 export default rdx.connect('subflow',rdx.i18nPut(AddComp))
-
-/*
-<div>已选择</div>
-<SolidFrame>
-    <div style={{height:'50px'}}>{currentRepo.subProcess&&currentRepo.subProcess.name||''}</div>
-</SolidFrame>
-
-
-// import connectPut from 'react-put'
-// const options = {mapPropToDictionary: (props)=>window.reactI18n}
-// const ConnectedApp = connectPut(options)(AddComp)
-
-*/
