@@ -69,6 +69,5 @@ export const requestFormData = ($http, pid, cb) => {
 export default function($http, pid) {
     fm.fetchFormComponents = (_pid, cb) => requestFormData($http, _pid, cb)
     fm.fetchFormComponents(pid, initial_request_formdata)
-    // requestFormData($http, pid, )
 }
 

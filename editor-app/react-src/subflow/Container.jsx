@@ -11,7 +11,8 @@ const SubflowContainer = ({ currentRepo, dispatch }) => {
     
     const setting = () => {
         if(fm.versionModel) return
-        window.requestFormData(currentRepo.subProcess.subProcDefKey,function(dataObj){
+        // if(!currentRepo.subProcess.subProcDefKey) return
+        fm.fetchFormComponents(currentRepo.subProcess.subProcDefKey,function(dataObj){
             if(!dataObj) return
             dispatch({type:'subflow/leftFields',leftFields:dataObj.components})
         })

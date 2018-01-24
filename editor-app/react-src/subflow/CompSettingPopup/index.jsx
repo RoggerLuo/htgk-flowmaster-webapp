@@ -1,7 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import SolidFrame from '../../presentations/SolidFrame/SolidFrame'
-import connectPut from 'react-put'
 import Dropdown from '../../basicComp/Dropdown'
 import './style.less'
 import MainForm from './MainForm'
@@ -9,13 +7,13 @@ import SubForm from './SubForm'
 import ApproveRange from './ApproveRange'
 import Radios from './Radios' 
 
-export default function(){ //data是 currentRepo的data //data
-    const SettingPopup = ({ currentRepo, put, add }) => {//data,
+export default function(){ 
+    const SettingPopup = ({ currentRepo, put, add }) => {
         if(!currentRepo) return null
         const data = currentRepo.data || []
-
         const leftFields = currentRepo.leftFields || []
-        const filtered = leftFields.filter(el=>el.type == 'sub_form')
+        
+        const filtered = leftFields.filter(el => el.type == 'sub_form')
         let SubFormComp = null
         if(filtered.length != 0){
             SubFormComp = (<div>
@@ -38,9 +36,3 @@ export default function(){ //data是 currentRepo的data //data
     }
     return rdx.connect('subflow',rdx.i18nPut(SettingPopup))
 }
-
-/*
-const options = {mapPropToDictionary: (props)=>window.reactI18n}
-const ConnectedApp = connectPut(options)(SettingPopup)
-
-*/

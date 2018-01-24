@@ -8,7 +8,7 @@ export default function(shape) {
         
         case 'Sequence flow':
             if (!fm.multi.is.sf(shape)){                
-                if (fm.branch.is.normal(shape)){
+                if (fm.branch.is(shape)){
                     rdx.put('branch', 'touch')  
                 }else{
                     rdx.put('sf', 'touch')                                    

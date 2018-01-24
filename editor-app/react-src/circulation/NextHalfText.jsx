@@ -3,9 +3,7 @@ import { connect } from 'react-redux'
 import  './style'
 
 const CirculationNextHalf = ({ put, currentRepo, dispatch }) => {
-    
-
-
+    if(fm.approve.hideCheck(currentRepo)) return null     
     if(fm.previousShape.is('multi')) return null 
     if(fm.previousShape.is('Circulation task')) return null 
     if(fm.previousShape.is('Inclusive gateway')) return null 

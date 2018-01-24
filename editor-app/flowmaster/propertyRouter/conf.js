@@ -2,7 +2,9 @@ export const tplSrc = "./editor-app/property-tpl/"
 export const tplMap = {
     'User task':'approve.html',         
     'Multi user task':'parallelApprove.html',         
-    'Sequence flow':'sequenceFlow.html',         
+
+    // 'Sequence flow':'sf/name_and_status.html',         
+
     'End error event':'errorNotify.html',         
     'End event':'notify.html',         
     'Start event':'start.html',         

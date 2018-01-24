@@ -35,8 +35,4 @@ const UsertaskPre = ({ data, put }) => {
         </div>
     )
 }
-import connectPut from 'react-put'
-const options = {mapPropToDictionary: (props)=>window.reactI18n}
-const ConnectedApp = connectPut(options)(UsertaskPre)
-
-export default ConnectedApp
+export default rdx.i18nPut(UsertaskPre)

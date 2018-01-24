@@ -3,9 +3,7 @@ import { render } from 'react-dom'
 import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
-
 import Dropdown from '../basicComp/Dropdown'
-
 
 const Sf = ({put,currentRepo}) => {
     if(!currentRepo) return null
@@ -16,7 +14,6 @@ const Sf = ({put,currentRepo}) => {
         }
     })
     const selected = (item) => rdx.put('sf','replace',['businessStatus'],item,'object')
-        
     let selectedOption = currentRepo.businessStatus
     if(options.length == 0) selectedOption = {text:'暂无可选项',value:false}
 
@@ -32,14 +29,7 @@ const Sf = ({put,currentRepo}) => {
         </div>
     )
 }
-
-
-import connectPut from 'react-put'
-const options = {mapPropToDictionary: (props)=>window.reactI18n}
-const ConnectedApp = connectPut(options)(Sf)
-
-const App = global.connect2redux('sf',ConnectedApp)
-
+const App = rdx.connect('sf',rdx.i18nPut(Sf))
 export default function(){
     render(
         <Provider store={store}>

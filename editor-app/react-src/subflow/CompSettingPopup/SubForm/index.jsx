@@ -7,7 +7,7 @@ import SubGroup from './SubGroup'
 const SubForm = ({ currentRepo, dispatch }) => {
     if(!currentRepo) return null
     const leftFields = currentRepo.leftFields || []
-    const filtered = leftFields.filter(el=>el.subform_type == 'sub_form')
+    const filtered = leftFields.filter(el=>el.type == 'sub_form')
     return(
         <SolidFrame innerStyle={{padding:'0px'}} outerStyle={{width:'620px'}}>
             <Header />

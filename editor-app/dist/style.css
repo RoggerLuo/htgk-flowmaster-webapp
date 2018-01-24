@@ -1287,6 +1287,8 @@
   background: #00B1FB;
 }
 .popup-coverwrap .popup .popupContent {
+  overflow-y: auto;
+  overflow-x: hidden;
   flex: 1;
   display: flex;
   width: 100%;

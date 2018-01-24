@@ -1,4 +1,5 @@
 import React from 'react'
+
 export default function(reduceName){
     const HidePrevious = ({ put, currentRepo, dispatch }) => {
         const change1 = () => {
@@ -12,7 +13,7 @@ export default function(reduceName){
         const previousNodeSpecified = currentRepo.previousNodeSpecified
         const enableSingleSelect = currentRepo.enableSingleSelect 
         
-        if(fm.approve.isHidePreviousSpecified(currentRepo)) return null     
+        if(fm.approve.hideCheck(currentRepo)) return null     
         if(fm.previousShape.is('multi')) return null  //special multi
         if(fm.previousShape.is('Circulation task')) return null 
         if(fm.previousShape.is('Inclusive gateway')) return null 

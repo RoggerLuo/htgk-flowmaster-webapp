@@ -18,7 +18,7 @@ global.giveName = (cate) => {
 function giveNameToShape(shape) {
     if (shape.properties["oryx-name"] != '') return //如果没有名字
     if (fm.getTitle(shape) == 'Sequence flow') return
-    if (fm.branch.is.normal(shape)) return
+    if (fm.branch.is(shape)) return
     if (fm.multi.is.sf(shape)) return
     if (fm.manual.is.sf(shape)) return
     

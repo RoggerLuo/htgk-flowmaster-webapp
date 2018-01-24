@@ -1,3 +1,11 @@
+## sequence flow系列问题
+1.template混乱，  
+2.机制混乱，通过不初始化来不显示业务状态,隐式的方法，不够明显  
+应该通过template来不调用angular controller进而不调用react组件
+
+可以抽象出来的“校验环节”，  
+需不需要检查 1命名 以及 2业务状态
+
 ## subflow	
 在点击要添加子流程的时候，	
 

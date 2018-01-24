@@ -12,9 +12,11 @@ const MainForm = ({ currentRepo, dispatch }) => {
             <Header />
             <div style={{padding:'10px 20px'}}>
                 {
-                    leftFields.filter(el=>el.subform_type != 'sub_form').map((el,ind)=>(
-                        <Group leftData={el} key={ind}/>
-                    ))
+                    leftFields
+                        .filter(el => el.type != 'sub_form')
+                        .filter(el => el.type != "description")
+                        .map((el,ind)=>(<Group leftData={el} key={ind}/>)
+                    )
                 }
             </div>
             <div style={{height:'20px',width:'100%'}}></div>

@@ -18,7 +18,7 @@ export default function({confirm, existCate, groupInd, buttonMode, hidePrevious}
         FormRoles(confirm),
         SpecificNodeRoles(confirm),
         SQL(confirm,groupInd),
-        second(confirm),
+        // second(confirm),
         externalCallback(confirm)
     ]
     
@@ -43,9 +43,9 @@ export default function({confirm, existCate, groupInd, buttonMode, hidePrevious}
             case 'fromDb':
                 buttonActions = [SQL(confirm)]
                 break
-            case 'EXTERNAL':
-                buttonActions = [second(confirm)]
-                break
+            // case 'EXTERNAL':
+            //     buttonActions = [second(confirm)]
+            //     break
             case 'externalCallback':
                 buttonActions = [externalCallback(confirm)]
             default:
