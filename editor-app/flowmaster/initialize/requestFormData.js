@@ -16,6 +16,7 @@ const formControlAdapter = (arr) => {
         return el
     })
 }
+
 const mapmap = {
     "text": true,
     "textarea": true,
@@ -32,6 +33,25 @@ const mapmap = {
     phone: true,
     calculate: true,
 }
+
+function initial_request_formdata(dataObj) {
+    if (!dataObj) {
+        window.formProperties = []
+        return
+    }
+    global.formPeople = dataObj.components.filter(el => el.type == "select_employee")
+
+    //筛选        
+    const filteredComponents = dataObj.components.filter((el) => !!mapmap[el.type])
+
+    window.formPropertiesTotal = formControlAdapter(JSON.parse(JSON.parse(JSON.stringify(dataObj.components))))
+    window.formProperties = formControlAdapter(filteredComponents)
+
+    const defaultOption = { text: '请选择', value: false, index: 'initial', type: 'initial' }
+    window.formProperties.unshift(defaultOption)
+    rdx.dispatch({ type: 'updateFormProperties', data: window.formProperties })
+}
+
 export const requestFormData = ($http, pid, cb) => {
     const url = window.globalHost + '/repository/process-definitions/' + pid + '/forms?processType=Normal'
     $http({
@@ -45,25 +65,10 @@ export const requestFormData = ($http, pid, cb) => {
         cb(dataObj)
     })
 }
+
 export default function($http, pid) {
-    requestFormData($http, pid, function(dataObj) {
-        if (!dataObj) {
-            window.formProperties = []
-            return
-        }
-        global.formPeople = dataObj.components.filter(el => el.type == "select_employee")
-        
-        //筛选        
-        const filteredComponents = dataObj.components.filter((el) => !!mapmap[el.type])
-
-        window.formPropertiesTotal = formControlAdapter(JSON.parse(JSON.parse(JSON.stringify(dataObj.components))))
-        window.formProperties = formControlAdapter(filteredComponents)
-
-        const defaultOption = { text: '请选择', value: false, index: 'initial', type: 'initial' }
-        window.formProperties.unshift(defaultOption)
-        rdx.dispatch({ type: 'updateFormProperties', data: window.formProperties })
-    })
-    window.requestFormData = (pid,cb) => {
-        requestFormData($http,pid,cb)
-    }
+    fm.fetchFormComponents = (_pid, cb) => requestFormData($http, _pid, cb)
+    fm.fetchFormComponents(pid, initial_request_formdata)
+    // requestFormData($http, pid, )
 }
+
