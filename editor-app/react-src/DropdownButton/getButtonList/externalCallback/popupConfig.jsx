@@ -6,7 +6,7 @@ export default function(cb){
         content:Comp,
         confirm:confirmButtonEvent(cb),
         type:'callPopup',
-        height:'554px',
+        height:'75%',//'484px',
         title:'button.option10',
         width:'701px'
     }

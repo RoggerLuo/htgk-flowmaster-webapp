@@ -1,5 +1,5 @@
 import './style.less'
-import ConfigComp from './ConfigComp'
+import ConfigComp from './ConfigComponent'
 export default ConfigComp
 
 

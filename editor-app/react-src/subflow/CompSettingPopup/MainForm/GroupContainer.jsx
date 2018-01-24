@@ -10,7 +10,7 @@ const Group = ({ leftData, currentRepo, dispatch }) => {
 
     const selectedOption = mainRight[leftData.name] || { text: '请选择', value: false }
     
-    let optionsData = window.formProperties || []
+    let optionsData = window.formPropertiesTotal || []
     optionsData = optionsData.filter(el=> (el.subform_type == leftData.type) || (!el.value) )
 
     const select = (item, optionInd) => {

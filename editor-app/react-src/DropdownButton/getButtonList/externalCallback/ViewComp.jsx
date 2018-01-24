@@ -4,7 +4,7 @@ import EntryGroup from './EntryGroup'
 
 export default ({ value, oninput }) => {
     return (
-        <div style={{width:'701px',height:'411px',padding:'0 40px'}}>
+        <div style={{width:'701px',padding:'0 40px'}}>
                 
             <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
                 <div style={{lineHeight: '30px'}} className="property-row-title-only-font">

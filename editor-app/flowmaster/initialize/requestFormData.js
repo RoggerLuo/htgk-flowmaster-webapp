@@ -46,17 +46,17 @@ export const requestFormData = ($http, pid, cb) => {
     })
 }
 export default function($http, pid) {
-    requestFormData($http, pid, function(obj) {
-        if (!obj) {
+    requestFormData($http, pid, function(dataObj) {
+        if (!dataObj) {
             window.formProperties = []
             return
         }
-        global.formPeople = obj.components.filter(el => el.type == "select_employee")
+        global.formPeople = dataObj.components.filter(el => el.type == "select_employee")
         
         //筛选        
-        const filteredComponents = obj.components.filter((el) => !!mapmap[el.type])
+        const filteredComponents = dataObj.components.filter((el) => !!mapmap[el.type])
 
-        window.formPropertiesTotal = formControlAdapter(JSON.parse(JSON.parse(JSON.stringify(obj.components))))
+        window.formPropertiesTotal = formControlAdapter(JSON.parse(JSON.parse(JSON.stringify(dataObj.components))))
         window.formProperties = formControlAdapter(filteredComponents)
 
         const defaultOption = { text: '请选择', value: false, index: 'initial', type: 'initial' }

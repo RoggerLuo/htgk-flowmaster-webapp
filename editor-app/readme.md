@@ -1,3 +1,7 @@
+## popup / popupContent样式
+增加overflow-y:auto  
+而固定住x
+
 ## 定位 并选中 某个shape
 在isSfsUnnamed里面  
 
@@ -5,7 +9,7 @@
                     fm.editor.setSelection([fm.getShapeById(el.resourceId)])                   
 fm.editor.updateSelection()
 
-## 分支的dropdown
+## 点击收起下拉选项 - 分支的dropdown
 放弃使用cover来 折叠dropdown  
 把setState事件 通过fm.closeCurrDpdw传递到全局  
 然后每次 toggle dropdown 的时候，就更新fm.closeCurrDpdw的引用  
