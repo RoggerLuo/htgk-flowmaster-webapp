@@ -8,18 +8,25 @@ import propMark from './propMark'
 
 // window.beforeShapeUpdate($scope,event) //调用updateProperty会使用到selectedShape
 
-function madnessProof(selectedShape) {
-    if (!selectedShape) return true
-    // 防止不知道为什么多次抽搐
-    var svgId = (selectedShape && selectedShape.resourceId || '不存在')
-    if (window.preSvgId === svgId) return true
-    window.preSvgId = svgId
-    return false
-}
+// function madnessProof(selectedShape) {
+//     if (!selectedShape) return true
+//     // 防止不知道为什么多次抽搐
+//     var svgId = (selectedShape && selectedShape.resourceId || '不存在')
+//     if (window.preSvgId === svgId) return true
+//     window.preSvgId = svgId
+//     return false
+// }
 
 fm.isCurrentShapeInGates = false
 fm.isIncomingShapeUsertask = false
 export default function(event,$scope){
+    // const now = Date.parse(new Date())
+    // if((now - fm.lastShapeUpdateTime) < 100) return 
+    // fm.lastShapeUpdateTime = now
+    if(fm.madClick()) return
+
+
+
     rdx.put('usertask','touch')
     rdx.put('circulation','touch')
     rct.saveBtnInit()
@@ -27,10 +34,11 @@ export default function(event,$scope){
     UIcolor(event, $scope)
 
     const selectedShape = event.elements.first()
-    
+    if(!selectedShape) return
+        
     fm.currentSelectedShape = selectedShape
     
-    if (madnessProof(selectedShape)) return
+    // if (madnessProof(selectedShape)) return
 
 
     /*

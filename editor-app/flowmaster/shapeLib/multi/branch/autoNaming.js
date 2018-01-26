@@ -1,6 +1,6 @@
 export default function(sf) {
 
-    if (sf.properties.conditionsequenceflow) return 
+    // if (sf.properties.conditionsequenceflow) return 
 
     const branchNode = sf.incoming && sf.incoming[0] || false
     if (branchNode) {

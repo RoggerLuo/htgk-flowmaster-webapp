@@ -14,7 +14,7 @@ export default function($scope) {
     window.getRawJson = () => fm.getJson()
 }
 
-fm.getTitle = shape => shape._stencil._jsonStencil.title
+fm.getTitle = shape =>  shape && shape._stencil && shape._stencil._jsonStencil.title || ''
 
 fm.getIncoming = (shape) => {
     const incomings = shape.incoming

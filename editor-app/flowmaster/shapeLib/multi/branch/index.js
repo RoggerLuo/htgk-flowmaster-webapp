@@ -5,7 +5,7 @@ branch.refreshName = () => {
         .filter((el) => fm.getTitle(el) == "Multi user task")
         .forEach((el) => {
             const shape = el.outgoing[0] && el.outgoing[0].outgoing[0] || false
-            shape && by_gateway(shape)
+            shape && naming.by_gateway(shape)
         })
 }
 branch.naming = function($scope, event) { //selectedShape不是那条线本身，而是前面和后面的

@@ -28,6 +28,7 @@ export default ($scope) => { //checkEmpty
                     return true
                 }
                 break
+            case 'ManualTask':
             case 'UserTask':
                 const ta = el.properties.usertaskassignment
                 if (!ta) {
