@@ -7,13 +7,17 @@ export default function(shape) {
             break
         
         case 'Sequence flow':
-            if (!fm.multi.is.sf(shape)){                
-                if (fm.branch.is(shape)){
-                    rdx.put('branch', 'touch')  
-                }else{
-                    rdx.put('sf', 'touch')                                    
-                }
+            if (fm.multi.is.sf(shape)){
+                break
+            }                
+            if (fm.manual.is.sf(shape)){
+                break
             }
+            if (fm.branch.is(shape)){
+                rdx.put('branch', 'touch')  
+                break
+            }
+            rdx.put('sf', 'touch')                                    
             break
 
         case 'Subflow':

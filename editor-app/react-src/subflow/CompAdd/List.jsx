@@ -1,7 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import fetch_leftFields from '../fetch_leftFields'
 
 const List = ({ value, text, versionId, checked, dispatch, currentRepo }) => {
+
     const isSelected = currentRepo.subProcess.subProcDefKey == value
 
     const onclick = () => {
@@ -15,11 +16,7 @@ const List = ({ value, text, versionId, checked, dispatch, currentRepo }) => {
             versionId
         }
         rdx.put('subflow','replace',['subProcess'],subProcess,'object')
-        //这里发送请求不太好,
-        fm.fetchFormComponents(value,function(dataObj){
-            if(!dataObj) return
-            dispatch({type:'subflow/leftFields',leftFields:dataObj.components})
-        })
+        fetch_leftFields(subProcess)
     }
 
     let style = {cursor:'pointer',fontSize:'14px',paddingLeft: '8px'} 

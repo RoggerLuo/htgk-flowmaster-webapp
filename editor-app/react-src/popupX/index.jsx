@@ -6,8 +6,8 @@ import PopupWrap from './PopupWrap'
 import ForSubflow from './ForSubflow'
 import store from '../../redux/configureStore'
 
-const Component = ({width,title,confirm,content,height,isSubflow,style}) => {
-    const options = {confirm,title,height,width,style}
+const Component = ({width,title,confirm,content,height,onCancel,style}) => {
+    const options = {confirm,title,height,width,style,onCancel}
     const Content = content
     if(Content == '') return (<div></div>)
     let Wrap = ForSubflow //PopupWrap

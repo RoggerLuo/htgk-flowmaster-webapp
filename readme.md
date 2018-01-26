@@ -1,3 +1,14 @@
+## fm.isCurrentShapeInGates
+`/editor-app/flowmaster/selectEvent/index.js`  
+是每一次select判断当前的shape是否在gate里面	
+其实可以延迟判断的
+这里还没 抽象分离出来
+## shapeInGates
+不是在路由里面判断，是在select的时候判断，然后不显示property的组件  
+保存的时候 再判断一次 如果inGates 则不校验
+因为换模版有危险，如果把线拖来拖去，就会有风险
+
+
 ## sequence flow系列问题
 1.template混乱，  
 2.机制混乱，通过不初始化来不显示业务状态,隐式的方法，不够明显  

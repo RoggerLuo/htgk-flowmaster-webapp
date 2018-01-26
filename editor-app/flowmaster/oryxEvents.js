@@ -1,10 +1,15 @@
 import selectEvent from './selectEvent'
 import afterLoad from './afterLoad'
 import assembleSetProperty from './setProperty'
+import stencilUtils from './stencilUtils'
+
 global.fm = global.fm || {}
 
 /* 三种重要的oryx触发时机 */
 fm.oryxEvent = function($scope, $http) {
+    
+    stencilUtils($scope)
+
     const { EVENT_SELECTION_CHANGED, EVENT_EXECUTE_COMMANDS, EVENT_LOADED } = ORYX.CONFIG
     //一、选择改变之后 触发
     $scope.editor.registerOnEvent(EVENT_SELECTION_CHANGED, (event) =>  selectEvent(event, $scope))
@@ -13,7 +18,6 @@ fm.oryxEvent = function($scope, $http) {
 
     fm.setProperty_and_updateView = assembleSetProperty($scope) //多了自动更新试图的功能,普通的setProperty无法自动更新
     window.setPropertyAdvance = fm.setProperty_and_updateView
-
 }
 
 

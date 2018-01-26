@@ -2,14 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 import './style'
 
-const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,height,width,style}) => {    
+const Comp = ({title,confirm, onCancel,display, put,dispatch, /*后面可选*/ children,height,width,style}) => {    
     function cancel(){
         dispatch({type:'hidePopupX'})
         window.hideShadow()
+        onCancel()
     }
-    const confirmDecorated = ()=>{
-        confirm()
-        cancel()
+    const confirmDecorated = () => {
+        if(!confirm()) return
+        dispatch({type:'hidePopupX'})
+        window.hideShadow()
     }
     let compClass1=""
     let compClass2=""
@@ -21,7 +23,6 @@ const Comp = ({title,confirm, display, put,dispatch, /*后面可选*/ children,h
     }else{
         compClass1="slideInDown "
         compClass2 = "fadeInSpecial"
-
     }
 
     return(

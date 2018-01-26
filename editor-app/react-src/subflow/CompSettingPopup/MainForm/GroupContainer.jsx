@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import PartRight from '../Form/PartRight'
 import PartLeft from '../Form/PartLeft'
 
-const Group = ({ leftData, currentRepo, dispatch }) => {
+// 这个group是一行一行的 
+const Group = ({ leftData, currentRepo }) => {
     
     const mainRight = currentRepo.mainRight || {}
 
@@ -13,18 +14,19 @@ const Group = ({ leftData, currentRepo, dispatch }) => {
     let optionsData = window.formPropertiesTotal || []
     
     optionsData = optionsData
-        .filter(el=> (el.subform_type == leftData.type) || (!el.value) )
+        .filter(el => (el.subform_type == leftData.type) || (!el.value) )
         .filter(el => el.subform_type != "description")
+    optionsData.length==0 && optionsData.push({ text: '请选择', value: false })    
 
     const select = (item, optionInd) => {
-        dispatch({ type: 'subflow/mainRight', fieldId: leftData.name, item })
+        rdx.dispatch({ type: 'subflow/mainRight', fieldId: leftData.name, item })
     }
 
     return (    
         <div style={{display:'flex',justifyContent: 'space-between', height: '41px'}}>
-            <PartLeft title={leftData.title}/>
+            <PartLeft title={leftData.title} required={leftData.required}/>
             <PartRight selectedOption={selectedOption} optionsData={optionsData} select={select}></PartRight>
         </div>
     )
 }
-export default global.connect2redux('subflow', Group)
+export default rdx.connect('subflow', Group)

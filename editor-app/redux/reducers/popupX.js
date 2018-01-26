@@ -33,7 +33,7 @@ const Reducer = (state = initial, action) => {
                 display:'',
                 height:action.height||'65%',
                 width:action.width||'50%',
-                isSubflow:action.isSubflow || false,
+                onCancel:action.onCancel || function(){},
                 style:action.style || false
             })
         case 'hidePopupX':

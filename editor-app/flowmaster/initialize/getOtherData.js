@@ -48,3 +48,18 @@ export const getProList = ($http) => {
         window.processList = data.data
     })
 }
+
+export const formLimits = ($http) => {
+    fm.fetchFormLimits = (pid,versionId,cb) => {
+
+        $http({
+            method: 'GET',
+            url: window.globalHost + `/repository/form-limits/${pid}/${versionId}/settings`
+        }).success(function(data) {
+            cb(data.nodes)
+        })
+
+    }
+}
+
+

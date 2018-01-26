@@ -1,6 +1,5 @@
 global.fm = global.fm || {}
 
-import './stencilUtils'
 import './stencilAdapter'
 
 import './ngEvents'
