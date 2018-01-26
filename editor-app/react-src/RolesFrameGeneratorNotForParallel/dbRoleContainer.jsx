@@ -12,6 +12,7 @@ export default ({ clear, add }) => {
             rdx.dispatch({type:'sql/reload',savedSqlState:data[0].sqlState})
             rdx.dispatch(popupConfig( cb, 0 ))
             rdx.save()
+            window.callShadow()
         }
         const text = data && data[0] && data[0].sql|| '' 
         return (<SolidFrame>

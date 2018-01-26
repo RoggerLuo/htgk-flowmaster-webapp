@@ -13,5 +13,6 @@ export default function(cb){
 
         cb(item)
         rdx.put('temp','replace',['callback_textarea'],'')
+        return true
     }
 }

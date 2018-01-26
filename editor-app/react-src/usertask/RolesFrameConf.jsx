@@ -1,8 +1,8 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import RolesFrameGenerator from '../RolesFrameGeneratorNotForParallel'
 
-function ConfiguredRoleComp({ data }){
+
+function ConfiguredRoleComp({ data }){ 
     const del = index => () => {
         rdx.put('usertask','delete',['data'],index)
         activeSave()

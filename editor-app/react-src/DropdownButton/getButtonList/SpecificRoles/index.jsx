@@ -23,6 +23,7 @@ export default function(cb){
             }
             cb(item)
             rdx.dispatch({type:'getBackToDefaultDp1'})
+            return true
         },
         content:Comp,
         type:'callPopup',

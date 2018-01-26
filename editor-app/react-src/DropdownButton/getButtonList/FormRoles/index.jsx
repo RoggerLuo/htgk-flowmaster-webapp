@@ -18,7 +18,8 @@ export default function(cb){
                 text:state.dropdown.dropdown2.text
             }
             cb(item)
-            global.reduxStore.dispatch({type:'getBackToDefaultDp1'})
+            rdx.dispatch({type:'getBackToDefaultDp1'})
+            return true
         },
         content:Comp,
         type:'callPopup',

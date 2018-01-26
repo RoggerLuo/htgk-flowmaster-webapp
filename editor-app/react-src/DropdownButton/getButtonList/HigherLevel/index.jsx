@@ -13,7 +13,8 @@ export default function(cb){
                 text
             }
             cb(item)
-            global.reduxStore.dispatch({type:'getBackToDefaultDp1'})
+            rdx.dispatch({type:'getBackToDefaultDp1'})
+            return true
         },
         content:Component,
         title:'button.option1',

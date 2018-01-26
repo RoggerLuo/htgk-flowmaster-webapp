@@ -7,8 +7,8 @@ export default function(canvas){
         if(!el.businessStatus.value){ //如果没有设置businessStatusId项的话
             
             if(!!fm.parallelGate.isShapeIn(currShape)) return false
-            if(fm.last.is("Circulation task",currShape)) return false
-            if(fm.last.is("Exclusive gateway",currShape)) return false  //三种分支都不显示
+            if(fm.next.is("Circulation task",currShape)) return false
+            if(fm.next.is("Exclusive gateway",currShape)) return false  //三种分支都不显示
             //     const next = fm.getOutgoing(currShape)
             //     fm.manual.is.gateway(next)
             //     fm.multi.is.gateway(next)
@@ -19,7 +19,7 @@ export default function(canvas){
             fm.editor.setSelection([currShape])
             fm.editor.updateSelection()
             if(!!currShape.properties["oryx-name"]){
-                window.showAlert(`连线<span style="color:orange">"${currShape.properties["oryx-name"]}"业务状态</span>未设置`)
+                window.showAlert(`连线<span style="color:orange">"${currShape.properties["oryx-name"]}"</span>业务状态未设置`)
             }else{
                 window.showAlert(`<span style="color:orange">连线</span>业务状态未设置`)
             }

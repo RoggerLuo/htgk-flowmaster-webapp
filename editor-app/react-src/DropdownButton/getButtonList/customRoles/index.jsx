@@ -9,6 +9,7 @@ export default function(cb){
                 return el
             }).forEach(el=>cb(el))
             rdx.dispatch({type:'popup/update',data:[]})
+            return true
         },
         content:Comp,
         type:'callPopup',

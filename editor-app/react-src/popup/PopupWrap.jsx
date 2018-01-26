@@ -9,9 +9,10 @@ const Comp = ({title,onCancel,confirm, display, put,dispatch, /*后面可选*/ c
         window.hideShadow()
     }
     const confirmDecorated = ()=>{
-        confirm()
-        dispatch({type:'hidePopup'})
-        window.hideShadow()
+        if(confirm()){
+            dispatch({type:'hidePopup'})
+            window.hideShadow()            
+        }
     }
     let compClass1=""
     let compClass2=""
@@ -24,7 +25,7 @@ const Comp = ({title,onCancel,confirm, display, put,dispatch, /*后面可选*/ c
         compClass2 = "fadeInSpecial"
     }
     return(
-        <div className={"popup-coverwrap "} style={{display:display,zIndex:'9999',position:'fixed'}}>
+        <div className={"popup-coverwrap "} style={{display:display,zIndex:'9992',position:'fixed'}}>
             <div className={"popup "+compClass1+" "+compClass2} style={{height:height,width:width}} >
                 <div className="x">                
                     <i className="icon iconfont icon-close" onClick={cancel}></i>

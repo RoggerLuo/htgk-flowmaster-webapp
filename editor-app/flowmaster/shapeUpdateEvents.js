@@ -2,11 +2,12 @@ import propertyRouter from './propertyRouter'
 
 fm.lastShapeUpdateTime = 0 
 fm.madClickCounter = 0
+const threshold = 4
 fm.madClick = () => {
     const now = Date.parse(new Date())
     if((now - fm.lastShapeUpdateTime) < 100){
         fm.madClickCounter += 1
-        if(fm.madClickCounter <= 1) {
+        if(fm.madClickCounter <= threshold) {
             return false
         }else{
             return true
@@ -19,6 +20,8 @@ fm.madClick = () => {
     return true
 
 }
+
+
 fm.before_selection_change = ($scope, event) => {//event在这里转成currShape，不用传来传去了
     if(fm.madClick()) return
 

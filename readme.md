@@ -1,3 +1,19 @@
+## shapeUpdate/fm.madClick
+防抽
+thresholder 会影响使用的点击效果，  
+设置太小了，有些函数会失效，快速切换组件的时候react组件也会加载不过来，   
+设置太大的话，切换点击就会很卡
+
+## rolesFrame and conf组件
+每个审批节点中的 Role frame conf组件的作用是  
+	
+	使用这个节点的 reduce/repo里的data, 
+	用dispatch拼出add、del、clear，
+	传递给公共的role frame generator组件，
+	
+	拼出一个有特殊样式 和 特殊功能的 审批人设置组件
+
+
 ##  save/isSfsUnnamed
 是用来校验 连线是否命名
 ## isNodesValid/sf
@@ -7,7 +23,7 @@
 人工分支	不显示	fm.manual.is.sf  条件分支	不显示	fm.branch.is  会签分支	不显示	fm.multi.is.sf  传阅	不显示	fm.next.is("Circulation    
 **在sf react 组件里面**    并行汇聚内	不显示	fm.isCurrentShapeInGates  
 
-
+Fri 26 Jan 3:00 PM
 ## fm.isCurrentShapeInGates
 `/editor-app/flowmaster/selectEvent/index.js`  
 是每一次select判断当前的shape是否在gate里面	  

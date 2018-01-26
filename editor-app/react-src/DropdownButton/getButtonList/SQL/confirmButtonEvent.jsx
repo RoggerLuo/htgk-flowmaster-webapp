@@ -1,9 +1,45 @@
+const isConditionsCheckOk = (conditions) => {
+    if(
+        conditions.some(el => {
+            if(!el.columnName){
+                window.showAlert(`未设置列名`)
+                return true
+            }
+            if(!el.variableName.value){
+                window.showAlert(`列${el.columnName}的变量未选择`)
+                return true
+            }
+        })
+    ){
+        return false        
+    }
+    return true
+}
+
 export default function(cb,groupInd){
     return function(){
         const sqlState = rdx.getState().sql
+        
+        if(!sqlState.sql){
+            //不通过内容提示
+            window.showAlert(`SQL语句不能为空`)
+            return false
+        }
+        if(!sqlState.dataSource.value){
+            //不通过内容提示
+            window.showAlert(`未选择数据源`)
+            return false            
+        }
+
         let conditions
         if(sqlState.checked){
-            conditions = sqlState.conditions.map(el=>{
+
+            if(!isConditionsCheckOk(sqlState.conditions)){
+                //不通过内容提示
+                return false 
+            } 
+            
+            conditions = sqlState.conditions.map(el => {
                 return {
                     columnName:el.columnName, //不要加value因为这是字符串，这是 input text
                     columnType:el.columnType.value,
@@ -13,7 +49,6 @@ export default function(cb,groupInd){
                 }
             })
         }else{
-
             conditions = []
         }
         const currentDataSourceRef = {
@@ -33,5 +68,6 @@ export default function(cb,groupInd){
         cb(item)
         rdx.dispatch({type:'sql/renew'})
         rdx.save()
+        return true
     }
 }

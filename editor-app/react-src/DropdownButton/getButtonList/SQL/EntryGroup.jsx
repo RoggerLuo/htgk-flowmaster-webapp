@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import Dropdown from '../../../basicComp/Dropdown'
 import { columnTypeProto, expressionProto, variableTypeProto } from './dataProto'
 
-const Entry = ({columnName,columnType,expression,variableName,variableType,selectGenerator,index,onchangeGenerator}) => {
+const Entry = ({columnName,columnType,expression,variableName,variableType,selectGenerator,index,onchangeGenerator,mode}) => {
     const getDefault = () => ( {value: false,text: '请选择'} )
     let variableOptions = [getDefault()]
     if(variableType.value == 'userVariable') variableOptions = window.userProperties
     if(variableType.value == 'formVariable') variableOptions = window.formProperties
+    const del = () => rdx.dispatch({type:'sql/delEntry',index})
     return (
         <div>
             列名&nbsp; <input onChange={onchangeGenerator(index)} value={columnName} className="columnNameInput" type="text" />
@@ -15,11 +16,12 @@ const Entry = ({columnName,columnType,expression,variableName,variableType,selec
             <Dropdown position={'absolute'} choosedOption={columnType} data={columnTypeProto} choosed={selectGenerator(1,index)} width={'130px'} margin={'0 5px'}/>
             <Dropdown position={'absolute'} choosedOption={variableType} data={variableTypeProto} choosed={selectGenerator(2,index)} width={'130px'} margin={'0 5px'}/>
             <Dropdown position={'absolute'} choosedOption={variableName} data={variableOptions} choosed={selectGenerator(3,index)} width={'130px'} margin={'0 5px'}/>
+            {mode?(<i onClick={del} className="icon iconfont icon-guanbi2fill icon-red-close-for-rule" style={{color:'red',cursor:'pointer'}}></i>):null}
         </div>
     )   
 }
 
-const Component = ({conditions,dispatch,put,choosedOption2}) => {    
+const Component = ({conditions,dispatch,put,choosedOption2,mode}) => {    
     const selectGenerator = (number,index)=>{
         switch(number){
             case 0:
@@ -51,7 +53,7 @@ const Component = ({conditions,dispatch,put,choosedOption2}) => {
     }
     return (
         <div>
-            {conditions.map((el,ind)=> <Entry {...el} key={ind} selectGenerator={selectGenerator} onchangeGenerator={onchange} index={ind}/>)}
+            {conditions.map((el,ind)=> <Entry {...el} key={ind} selectGenerator={selectGenerator} onchangeGenerator={onchange} index={ind} mode={mode}/>)}
         </div>
     )
 }

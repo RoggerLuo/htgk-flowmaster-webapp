@@ -16,6 +16,7 @@ let initial = {
     conditions: [newRule()],
     sql: "",
     checked: false,
+    mode:false,
     dataSource: { text: '请选择', value: false },
     /*
     {
@@ -66,7 +67,15 @@ export default (state = initial, action) => {
             return data.updateIn(['conditions',action.index,'variableName'], {}, (el) => {
                 return action.item
             }).toJS()
+        case 'sql/delMode':
+            return data.updateIn(['mode'], {}, (el) => {
+                return action.mode
+            }).toJS()
 
+        case 'sql/delEntry':
+            return data.updateIn(['conditions'], [], (el) => {
+                return el.delete(action.index)
+            }).toJS()
 
         case 'sql/addEntry':
             return data.updateIn(['conditions'], [], (el) => {

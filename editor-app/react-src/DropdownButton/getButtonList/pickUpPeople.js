@@ -24,5 +24,6 @@ export default function(confirm) {
             }
         }
         window.parent.postMessage(message, '*')
+        return true
     }
 }
