@@ -21,5 +21,12 @@ is.sf = (shape) => {
     return false
 }
 
+is.sfInTheMiddle = function(shape){
+    if (shape && (fm.getTitle(shape) == "Sequence flow")) {
+        if(fm.getTitle(shape.incoming[0]) == 'Multi user task') return true
+    }
+    return false
+}
+
 global.isMultiGateway = is.gateway
 export default is

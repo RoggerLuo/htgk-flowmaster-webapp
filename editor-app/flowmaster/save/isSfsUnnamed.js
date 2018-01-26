@@ -1,23 +1,30 @@
 export default ($scope) => {
     var json = fm.getJson()
     return json.childShapes.some((el, index) => {
-        switch (el.stencil.id) {
-            case 'SequenceFlow':
-                if (!el.properties["name"]) {
+        if(el.stencil.id == 'SequenceFlow'){
+            if (el.properties["name"]) return
+            const shape = fm.getShapeById(el.resourceId)
 
-                    const shape = fm.getShapeById(el.resourceId)
-                    if (fm.manual.is.sfInTheMiddle(shape)) break
+            if(fm.last.is("User task",shape)){
+                window.setPropertyAdvance({key:'oryx-name',value:'同意'}, shape)
+            }
 
-                    /* 定位的关键代码 */
-                    fm.editor.setSelection([shape])
-                    fm.editor.updateSelection()
-
-                    const nextResourceId = el.outgoing && el.outgoing[0] && el.outgoing[0].resourceId || false
-                    const nextShape = fm.getShapeById(nextResourceId)
-                    window.showAlert(`连接到“${nextShape.properties["oryx-name"]}”节点的<span style="color:orange">连线</span>未命名`)
-                    return true
+            if(
+                fm.manual.is.sf(shape)
+            ){
+                /* 定位的关键代码 */
+                fm.editor.setSelection([shape])
+                fm.editor.updateSelection()
+                
+                const last = fm.getIncoming(shape)
+                if(last){ //如果存在上一个节点
+                    const name = last.properties["oryx-name"]
+                    window.showAlert(`连接到“${name}”节点的<span style="color:orange">连线</span>未命名`)
+                }else{
+                    window.showAlert(`<span style="color:orange">连线</span>未命名`)
                 }
-                break
+                return true
+            }
         }
     })
 }

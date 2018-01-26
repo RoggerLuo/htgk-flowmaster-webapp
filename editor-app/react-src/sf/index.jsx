@@ -7,6 +7,20 @@ import Dropdown from '../basicComp/Dropdown'
 
 const Sf = ({put,currentRepo}) => {
     if(!currentRepo) return null
+
+    const shape = fm.currentSelectedShape
+
+    if (fm.manual.is.sfInTheMiddle(shape)) return null
+    if (fm.multi.is.sfInTheMiddle(shape)) return null
+    if(fm.next.is("Exclusive gateway")) return null
+    if(fm.next.is("Circulation task")) return null
+    if(fm.isCurrentShapeInGates) return null    
+    
+
+
+
+
+
     const options = window.processStatus.map(el=>{
         return {
             text:el.name,
@@ -16,8 +30,6 @@ const Sf = ({put,currentRepo}) => {
     const selected = (item) => rdx.put('sf','replace',['businessStatus'],item,'object')
     let selectedOption = currentRepo.businessStatus
     if(options.length == 0) selectedOption = {text:'暂无可选项',value:false}
-
-    if(fm.isCurrentShapeInGates) return null
     return(
         <div className="react-approve" >
             <div style={{height:'15px',width:'100%'}}></div>
@@ -37,5 +49,5 @@ export default function(){
         </Provider>
         ,
         document.getElementById('sequencePropertyCtrl')
-    );
+    )
 }

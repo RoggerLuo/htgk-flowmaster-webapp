@@ -1,13 +1,27 @@
+##  save/isSfsUnnamed
+是用来校验 连线是否命名
+## isNodesValid/sf
+用来校验 连线业务状态
+## 这些节点的前面，连线状态是否显示
+**在rout里面**    
+人工分支	不显示	fm.manual.is.sf  条件分支	不显示	fm.branch.is  会签分支	不显示	fm.multi.is.sf  传阅	不显示	fm.next.is("Circulation    
+**在sf react 组件里面**    并行汇聚内	不显示	fm.isCurrentShapeInGates  
+
+
 ## fm.isCurrentShapeInGates
 `/editor-app/flowmaster/selectEvent/index.js`  
-是每一次select判断当前的shape是否在gate里面	
-其实可以延迟判断的
+是每一次select判断当前的shape是否在gate里面	  
+其实可以延迟判断的  
 这里还没 抽象分离出来
 ## shapeInGates
-不是在路由里面判断，是在select的时候判断，然后不显示property的组件  
-保存的时候 再判断一次 如果inGates 则不校验
-因为换模版有危险，如果把线拖来拖去，就会有风险
+不是在路由里面判断，是在select的时候判断，然后不显示property的组件    
+保存的时候 再判断一次 如果inGates 则不校验  
 
+    就算换模版也可以的
+    但是，换了模版，点击了就会init，校验的地方需要修改
+    需要校验所有的sf,  
+    因为不知道这个是不是init过
+    
 
 ## sequence flow系列问题
 1.template混乱，  
