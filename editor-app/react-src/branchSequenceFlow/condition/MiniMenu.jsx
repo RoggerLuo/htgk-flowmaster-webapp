@@ -32,10 +32,11 @@ const Header = ({index,display,addRule,startRuleDeleteStatus,close,cancelRuleDel
             <span className="container-title">{put('branch.condition')}{index+1}</span> 
             {dots}
             <div className="rule-control" style={{display:display}}>
-                <div className="options">
+                <div className="options" style={{    paddingLeft: '7px',paddingRight: '7px'}}>
                     <div className="option" onClick={addRule}>
                         <div className="option-inner">{put('branch.menu.add')}</div>
                     </div>
+                    
                     <div className="option" onClick={startRuleDeleteStatus}>
                         <div className="option-inner">{put('branch.menu.del')}</div>
                     </div>

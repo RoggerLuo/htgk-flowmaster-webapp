@@ -6,18 +6,22 @@ import { connect } from 'react-redux'
 
 import SectionTitleContainer from './SectionTitleContainer'
 import Radios from './Radios'
-import Options from './Options'
+import ContentBody from './ContentBody'
 import './style'
 
 const Component = ({put}) => {
     const unfold = () => {
-        fm.closeCurrDpdw && fm.closeCurrDpdw()
+        try {
+            fm.closeCurrDpdw && fm.closeCurrDpdw()
+        } catch (error) {
+
+        }
     }
     return(
         <div className="react-approve" onClick={unfold}>
             <SectionTitleContainer text={put('branch.sectionTitle')}/>   
             <Radios />
-            <Options />
+            <ContentBody />
             <div style={{height:'100px',width:'100%'}}></div>
         </div>
     )

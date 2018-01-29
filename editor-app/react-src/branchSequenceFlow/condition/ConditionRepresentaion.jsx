@@ -1,6 +1,6 @@
 import React,{createClass} from 'react';
 import RuleContainer from '../rule/RuleContainer'
-import Header from './Header'
+import MiniMenu from './MiniMenu'
 /*
 RuleContainer需要的参数
     key1 条件在 当前组件中 的序数
@@ -41,7 +41,7 @@ const Condition = ({ruleData,conditionMode,headerProps,deleteCondition,index1,ru
     return (
         <div className="solid-container-container">
             <div className="solid-container" style={style}>
-                <Header {...headerProps}/>
+                <MiniMenu {...headerProps}/>
                 {ruleData.map((el2,index2)=>{
                     let and = ''
                     if(index2>=1){

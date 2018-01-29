@@ -37,8 +37,12 @@ const DropdownRaw = ({options,choose,choosedOption,display,toggle,close,put,useP
     if(!usePut){
         put = (value)=>value
     }
+    let wrap_zIndex_style = {flex:'1',zIndex:'999'}
+    if(display != 'none'){
+        wrap_zIndex_style = {flex:'1',zIndex:'1000'}
+    }
     return (
-        <div className="branch-dropdown" style={{flex:'1',zIndex:'999'}}>
+        <div className="branch-dropdown" style={wrap_zIndex_style}>
             <div style={{display: 'flex'}} className="drop-down-choosed" onClick={toggle}>
                 <div style={{overflow: 'hidden'}}>{put(choosedOption.text)}</div> 
                 <div className="inverted-triangle">

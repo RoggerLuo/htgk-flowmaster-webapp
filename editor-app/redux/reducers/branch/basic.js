@@ -1,12 +1,12 @@
 export const defaultOption = () => {
-    return { text: '请选择', value: 'initial', index: 'initial' }
+    return { text: '请选择', value: false, index: 0 }
 }
 export const newRule = () => {
     /* 创建的时候就指定了默认值 */
     return {
-        entry1: { text: 'pleaseChoose', value: false, index: 'initial' },
-        entry2: { text: '请选择', value: false, index: 'initial' },
-        entry3: { text: '请选择', value: false, index: 'initial' },
+        entry1: { text: 'pleaseChoose', value: false, index: 0 },
+        entry2: { text: '请选择', value: false, index: 0 },
+        entry3: { text: '请选择', value: false, index: 0 },
         input: { text: '', value: '' }
     }
 }
@@ -27,7 +27,7 @@ export const newCreate = (state) => {
 export const template = {
     entry1: {
         options: [{
-                value: 'initial',
+                value: false,
                 text: 'pleaseChoose'
             }, {
                 value: 'form.properties',
@@ -46,7 +46,7 @@ export const template = {
     },
     entry2: {
         options: [
-            { text: '请选择', value: 'initial' }
+            { text: '请选择', value: false }
             // {
             //     value:'',
             //     text:'请假天数'
@@ -57,7 +57,7 @@ export const template = {
     },
     entry3: {
         options: [{
-                value: 'initial',
+                value: false,
                 text: '请选择'
             }, {
                 value: '==',

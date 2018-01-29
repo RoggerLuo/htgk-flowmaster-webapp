@@ -2,7 +2,7 @@ import selectEvent from './selectEvent'
 import afterLoad from './afterLoad'
 import assembleSetProperty from './setProperty'
 import stencilUtils from './stencilUtils'
-
+import './madClick'
 global.fm = global.fm || {}
 
 /* 三种重要的oryx触发时机 */

@@ -15,7 +15,7 @@ const RuleContainer = ({branch,conditions,dispatch,/*from redux*/key1,key2,ruleM
     }
     const del = () => {
         if(conditions[key1].data.length<=1){
-            window.showAlert('至少保留一组规则')
+            window.showAlert('每组条件中至少保留一条规则')
             cancelRuleDeleteStatus()
             return 
         }

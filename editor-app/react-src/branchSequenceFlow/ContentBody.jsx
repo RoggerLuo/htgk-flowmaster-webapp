@@ -6,15 +6,15 @@ import { connect } from 'react-redux'
 import ConditionContainer from './condition/ConditionContainer'
 import './style'
 
-const Button=(props)=>{
-    return(
-        <div className="boardbutton">
-            <div className="mybutton" >
-                添加规则
-            </div>
-        </div>
-    )
-}
+// const Button=(props)=>{
+//     return(
+//         <div className="boardbutton">
+//             <div className="mybutton" >
+//                 添加规则
+//             </div>
+//         </div>
+//     )
+// }
 
 const dropdownMode = () => {
     store.dispatch({type:'modeChange',value:'dropdown'})
@@ -79,7 +79,6 @@ const Options =   ({conditions,element,put,nextElement}) => {
                     <div className="property-row-content">
                         {put('branch.remark.content1')}；<br/>
                         {put('branch.remark.content2')}。
-                        
                     </div>
                 </div>
             )
@@ -100,15 +99,15 @@ const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
 
-import connectPut from 'react-put'
-const putOptions = {mapPropToDictionary: (props)=>window.reactI18n}
-const ConnectedApp = connectPut(putOptions)(Options)
+// import connectPut from 'react-put'
+// const putOptions = {mapPropToDictionary: (props)=>window.reactI18n}
+// const ConnectedApp = connectPut(putOptions)(Options)
 
 
 const OptionsContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(ConnectedApp)
+)(rdx.i18nPut(Options))
 
 export default OptionsContainer
 

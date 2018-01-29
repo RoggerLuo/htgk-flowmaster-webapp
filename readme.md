@@ -1,3 +1,7 @@
+## 分支条件 的下拉选项，判断如果是表单组件
+则根据value(field_xxxxx) 循环更新 展示的text  
+二级联动 最后的 输入控件都会更新
+
 ## shapeUpdate/fm.madClick
 防抽
 thresholder 会影响使用的点击效果，  

@@ -7,14 +7,26 @@ export default (conditions, chooseFactory, branch, key1, key2) => {
     if (!ruleEl) return null
     const dropdown2cate = ruleEl.entry2template || '0'
     //inputCtrlInfoData 来自于 reducer的action，是第二个下拉的选中项
-    const inputCtrlInfoData = ruleEl.inputCtrlInfoData || { cate:'text'}
-        //二级联动
+    const rdxData =  ruleEl.inputCtrlInfoData || { cate:'text'}
+    
+
+    // 这个是最后一个输入组件的 模版数据，是下拉选项，还是单行输入 等等
+    let inputCtrlInfoData = Object.assign( {}, rdxData)
+    if(inputCtrlInfoData.subform_type){ //如果是表单组件, 更新
+        window.formProperties.forEach(el=>{
+            if(el.value == inputCtrlInfoData.value){
+                inputCtrlInfoData = el
+            }
+        })
+    }
+    
+    //二级联动
     switch (dropdown2cate) {
         case '0':
             template.entry2.options = [defaultOption()]
             break
         case '1': //表单字段
-            template.entry2.options = branch.formProperties || []
+            template.entry2.options = window.formProperties  || [] //branch.formProperties  
             break
         case '2': //用户字段
             let UsersClone

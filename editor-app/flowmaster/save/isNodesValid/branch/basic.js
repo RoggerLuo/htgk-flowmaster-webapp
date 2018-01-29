@@ -34,12 +34,10 @@ export const ifEmpty = (el, currentElement) => {
         if( gateway && global.isManualGateway(gateway)) return false
 
     if (el.conditions.some((condition, i) => {
-            return condition.data.some((el, index) => {
-                if ((el.entry1.value == 'initial') ||
-                    (el.entry2.value == 'initial') ||
-                    (el.entry3.value == 'initial')) {
-                    return true
-                }
+            return condition.data.some((rule, index) => {
+                if(!
+                    (rule.entry1.value && rule.entry2.value && rule.entry3.value)
+                ) return true
             })
         })) {
         /* 如果有一个为为空值，整个条件都为空 */
