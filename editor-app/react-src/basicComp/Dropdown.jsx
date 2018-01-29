@@ -34,7 +34,7 @@ const Dropdown = createClass({
                     <tbody>
                         <tr className="title-tr" style={{}}>
                             <td className="drop-down-choosed stop-propagation" onClick={this.toggle} style={{width: this.props.width||'152px',color:'black',display:'flex',justifyContent: 'space-between'}}>
-                                <div className="choosed-text">{this.props.choosedOption && this.props.choosedOption.text}</div> <div className="inverted-triangle"></div>
+                                <div className="choosed-text" style={{maxWidth:this.props.width||'130px'}}>{this.props.choosedOption && this.props.choosedOption.text}</div> <div className="inverted-triangle"></div>
                             </td>
                         </tr>
                         <tr className="drop-down-options" style={{display:this.state.visibleStatus}}>
@@ -58,7 +58,7 @@ const Dropdown = createClass({
                                                 }
                                             }
                                         >
-                                            <div className={className}>{el.text}</div>
+                                            <div style={{maxWidth:this.props.width||'130px'}} className={className}>{el.text}</div>
                                         </div>                                                    
                                     )
                                 })||null}

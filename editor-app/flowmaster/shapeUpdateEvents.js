@@ -11,16 +11,9 @@ fm.after_selection_change = ($scope,event) => {}
 
 fm.after_cmd_executed = ($scope, event) => { 
     if(fm.madClick()) return
-
-    // const now = Date.parse(new Date())
-    // if((now - fm.lastShapeUpdateTime) < 100) return 
-    // fm.lastShapeUpdateTime = now
-
+        
     const shape = $scope.selectedShape
     if(!fm.parallelGate.isCorrectlyLinked()) fm.undo()
     if(fm.versionModel) fm.undo()
     fm.restrict.after_executed()
-    
-    console.log(fm.nameManager.repo)
-    debugger
 } 

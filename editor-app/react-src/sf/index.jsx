@@ -36,7 +36,7 @@ const Sf = ({put,currentRepo}) => {
             <div style={{fontWeight:'600'}}>业务状态</div>
             <div style={{height:'2px',width:'100%'}}></div>
 
-            <Dropdown width={'160px'} margin={'0 0'}data={options||[]} choosedOption={selectedOption} choosed={selected} />
+            <Dropdown width={'200px'} margin={'0 0'} data={options||[]} choosedOption={selectedOption} choosed={selected} />
         </div>
     )
 }

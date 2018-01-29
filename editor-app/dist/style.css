@@ -225,6 +225,9 @@
 }
 .drop-down .choosed-text {
   padding: 0px 10px 0px 0px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .drop-down .drop-down-placeholder {
   font-size: 13px;
@@ -304,7 +307,6 @@
   height: 25px;
   line-height: 25px;
   font-size: 13px;
-  max-width: 220px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
