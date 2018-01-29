@@ -1,6 +1,7 @@
 function giveName_ifNotSf_and_ifNoName(shape){
     if (shape.title == '') { 
         if (shape.jsonStencilTitle != 'Sequence flow') {
+
             shape.title = giveName(shape.jsonStencilTitle)
             global.updatePropertyInModel({ key: 'oryx-name', value: shape.title })
             rdx.save()
@@ -11,7 +12,7 @@ function giveName_ifNotSf_and_ifNoName(shape){
 fm.namePropertyCtrl = function($scope, $timeout) {
     //controller 启用的时候，初始化的时候
     const shape = $scope.selectedItem
-    giveName_ifNotSf_and_ifNoName(shape)
+    // giveName_ifNotSf_and_ifNoName(shape)
 
     const blurImplementation = () => {
         //如果没有初始化,那么切换到时候就不要保存,不然会保存成空白
@@ -34,6 +35,12 @@ fm.namePropertyCtrl = function($scope, $timeout) {
         if (item.title) item.title = item.title.replace(/(<([^>]+)>)/ig, "")
 
         fm.setProperty_and_updateView({ key: 'oryx-name', value: item.title },fm.getShapeById(item.resourceId))
+        fm.nameManager.repo.some(el=>{
+            if(el.resourceId == item.resourceId){
+                el.name = item.title
+                return true
+            }
+        })
         rdx.save()
     }
     fm.titleRename = blurImplementation

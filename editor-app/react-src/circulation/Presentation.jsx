@@ -32,6 +32,7 @@ const ApproveNode = ({ data, put }) => {
                 <RolesFrame data={data} />
             ):null}
             <NextHalfText put={put}/>
+            <div style={{height:'270px',width:'1px'}}></div>
         </div>
     )
 }

@@ -6,6 +6,9 @@ import manual from './manual'
 import service from './service'
 import subflow from './subflow'
 export default function(modelData){ /* 对服务器上的数据进行 解析 然后加载进redux */
+    fm.nameManager.repo = modelData.properties.nameData || []
+    delete modelData.properties.nameManager
+
     modelData.childShapes && modelData.childShapes.forEach((el,index)=>{
         if(el.properties.classify == "SubProcess"){
             subflow(el,index,modelData)

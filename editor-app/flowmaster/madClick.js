@@ -1,6 +1,6 @@
 fm.lastShapeUpdateTime = 0 
 fm.madClickCounter = 0
-const threshold = 8
+const threshold = 12
 fm.madClick = () => {
     const now = Date.parse(new Date())
     if((now - fm.lastShapeUpdateTime) < 100){

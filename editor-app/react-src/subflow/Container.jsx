@@ -47,6 +47,7 @@ const SubflowContainer = ({ currentRepo, dispatch }) => {
             content:CompAdd,
             confirm:()=>{
                 setting()
+                return true
             },
             type:'callPopup',
             height:'75%',

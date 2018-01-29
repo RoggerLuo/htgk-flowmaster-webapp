@@ -1,10 +1,16 @@
 'use strict'
 import { titleToCN } from "./conf"
 
+fm.nameManager = {}
+fm.nameManager.repo = []
+
 global.isRepeated = (name) => { /* 节点名称是否重复 */
-    return fm.getJson().childShapes.some((el, index) => el.properties.name == name)
+    // debugger
+    return fm.nameManager.repo.some((el, index) => el.name == name)
+    // return fm.getNodes().some((el, index) => el.properties.name == name)
 }
-global.giveName = (cate) => {
+global.giveName = (shape) => {
+    const cate = fm.getTitle(shape)
     /* 如果“审批”有3个，那就是“审批3”，如果重复，则加1，加到不重复为止 */
     let num = 1
     let name = titleToCN[cate] + num
@@ -12,6 +18,9 @@ global.giveName = (cate) => {
         num += 1
         name = titleToCN[cate] + num
     }
+    fm.nameManager.repo.push({resourceId:shape.resourceId,name})
+    fm.getCanvas().setProperty('nameData',fm.nameManager.repo)
+    // debugger
     return name
 }
 
@@ -21,8 +30,11 @@ function giveNameToShape(shape) {
     if (fm.branch.is(shape)) return
     if (fm.multi.is.sf(shape)) return
     if (fm.manual.is.sf(shape)) return
-    
-    shape.setProperty('oryx-name', giveName(shape._stencil._jsonStencil.title))
+    if(!shape.properties['oryx-name']) {
+        const newName = giveName(shape)
+        // debugger
+        shape.setProperty('oryx-name', newName)
+    }
 }
 
 function autoNaming(selectedShape, $scope) {

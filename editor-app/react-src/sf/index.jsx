@@ -37,7 +37,6 @@ const Sf = ({put,currentRepo}) => {
             <div style={{height:'2px',width:'100%'}}></div>
 
             <Dropdown width={'160px'} margin={'0 0'}data={options||[]} choosedOption={selectedOption} choosed={selected} />
-            <div style={{height:'100px',width:'100%'}}></div>
         </div>
     )
 }

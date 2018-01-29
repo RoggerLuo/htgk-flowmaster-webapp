@@ -20,4 +20,7 @@ fm.after_cmd_executed = ($scope, event) => {
     if(!fm.parallelGate.isCorrectlyLinked()) fm.undo()
     if(fm.versionModel) fm.undo()
     fm.restrict.after_executed()
+    
+    console.log(fm.nameManager.repo)
+    debugger
 } 

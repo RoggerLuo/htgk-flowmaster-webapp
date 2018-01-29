@@ -1,3 +1,5 @@
+
+import assembleSetProperty from './setProperty'
 global.fm = global.fm || {}
 
 export default function($scope) {
@@ -6,6 +8,9 @@ export default function($scope) {
     fm.getJson = () => $scope.editor.getJSON()
     fm.getShapeById = (id) => $scope.editor.getCanvas().getChildShapeByResourceId(id)
     fm.getNodeById = fm.getShapeById
+
+    fm.setProperty_and_updateView = assembleSetProperty($scope) //多了自动更新试图的功能,普通的setProperty无法自动更新
+    window.setPropertyAdvance = fm.setProperty_and_updateView
 
     //deprecate
     fm.canvas = () => fm.getCanvas()
