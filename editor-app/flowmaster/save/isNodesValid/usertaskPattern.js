@@ -17,5 +17,8 @@ export default function(canvas, reduceName) {
         currShape.setProperty('previousNodeSpecifiedSingle', !!repo.enableSingleSelect)
         currShape.setProperty('previousNodeSpecified', !!repo.previousNodeSpecified)
         currShape.setProperty('reduxData', repo)
+
+
+
     })
 }

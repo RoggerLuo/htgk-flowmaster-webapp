@@ -5,7 +5,7 @@ import usertask from './usertask'
 // import circulation from './circulation'
 import inclusive from './inclusive'
 import {multiBranch_ByGateway,select_multi} from './multi'
-import manual from './manual'
+// import manual from './manual'
 
 export default function(option) {
     const shape = option.connectedShape 
@@ -23,8 +23,8 @@ export default function(option) {
             return startevent(shape)
         case 'User task':
             return usertask(shape)
-        case 'Manual task':
-            return manual(shape)
+        // case 'Manual task':
+            // return manual(shape)
         case 'Sequence flow':
             // debugger
             return

@@ -10,6 +10,7 @@ export default function(){ //$scope
         if(!shape) return //有可能被undo了
         switch(el.stencil.id){
             case 'ManualTask':
+                fm.manual.singleConnectCheck(shape)
                 fm.manual.completeCheck(shape)
                 break
             case 'MultiUserTask':
