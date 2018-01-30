@@ -1,8 +1,10 @@
-export default (repo, currentElement) => {
+export default (repo, shape) => {
     const approveItems = []
-    const outgoing = currentElement.outgoing
+    const outgoing = shape.outgoing
     const name = outgoing && outgoing[0] && outgoing[0].properties['oryx-name'] || '通过'
-    approveItems.push({ name, "code": "Pass" })
+    if(fm.getTitle(shape) != 'Manual task'){
+        approveItems.push({ name, "code": "Pass" })        
+    }
 
     if (repo.backToStarter) {
         approveItems.push({

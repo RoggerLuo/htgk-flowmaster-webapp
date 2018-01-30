@@ -1,6 +1,7 @@
 function iterChildren(el, arr) {
+    //取一个节点
     const outgoings = el.outgoing
-    outgoings.forEach(child => {
+    outgoings.forEach(child => { //对这个节点所有的child 也就是连出去的线，比如说连了两根线，进行一些处理
         if (fm.getTitle(child) == 'Inclusive gateway') {
             //do nothing
         } else {
@@ -43,12 +44,14 @@ const isCorrectlyLinked = () => {
 
     // 从collections中往上溯源，离最近的parallel的last shape如果不是同一个，那就有问题
     if(sourceShape.length > 1){
-        sourceShape.some(el=>{
+        if(sourceShape.some(el=>{
             if(sourceShape[0].resourceId != el.resourceId){
                 window.showAlert('并行分支不同支流之间不能有连结')
-                return false
+                return true
             }
-        })
+        })){
+            return false
+        }
     }
     return true
 }

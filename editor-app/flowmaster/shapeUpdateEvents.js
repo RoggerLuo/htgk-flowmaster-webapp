@@ -14,6 +14,7 @@ fm.after_cmd_executed = ($scope, event) => {
         
     const shape = $scope.selectedShape
     if(!fm.parallelGate.isCorrectlyLinked()) fm.undo()
+    
     if(fm.versionModel) fm.undo()
     fm.restrict.after_executed()
 } 

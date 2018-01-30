@@ -1,6 +1,7 @@
 import React,{createClass} from 'react'
 import SingleBtn from './SingleBtn' 
 export default ({current,inherit,onclick}) => {   
+    
     const OrgGroup = ({name,roles}) => {
         return (
             <div>
@@ -11,6 +12,7 @@ export default ({current,inherit,onclick}) => {
             </div>
         )
     }
+
     if(!current) return (<div className="customRoleTitle">暂未获取到数据</div>)
     return (
         <div style={{textAlign:'left',width:'548px'}}>

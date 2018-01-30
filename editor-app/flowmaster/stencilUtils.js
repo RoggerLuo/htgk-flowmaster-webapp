@@ -19,6 +19,12 @@ export default function($scope) {
     window.getRawJson = () => fm.getJson()
 }
 
+fm.spotlight = (shape) => {
+    /* 定位的关键代码 */
+    fm.editor.setSelection([shape])
+    fm.editor.updateSelection()
+}
+
 fm.getTitle = shape =>  shape && shape._stencil && shape._stencil._jsonStencil.title || ''
 
 fm.getIncoming = (shape) => {

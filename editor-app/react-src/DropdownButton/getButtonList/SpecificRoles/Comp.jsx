@@ -12,7 +12,6 @@ const Component = ({data,dispatch,put,choosedOption2}) => {
     return (
         <div style={{textAlign:'center'}}>
             <div style={{height:"25px",width:'1px'}}></div>
-
             选择特定节点审批人
             <Dropdown position={'absolute'} data={approveArr} choosedOption={choosedOption2} choosed={choosed2}/>
             <div style={{color: '#999999',fontSize:'13px',width:'390px',paddingTop:'26px'}}>            
