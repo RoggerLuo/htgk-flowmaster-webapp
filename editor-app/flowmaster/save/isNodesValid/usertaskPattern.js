@@ -12,13 +12,17 @@ export default function(canvas, reduceName) {
                 "candidateOwners": rolesJsonSpeller([], repo.data, currShape)
             }
         }
-        currShape.setProperty('usertaskassignment', value)
-        currShape.setProperty('approveItems', getApproveItems(repo, currShape))
+
         currShape.setProperty('previousNodeSpecifiedSingle', !!repo.enableSingleSelect)
         currShape.setProperty('previousNodeSpecified', !!repo.previousNodeSpecified)
+        currShape.setProperty('usertaskassignment', value)
+        currShape.setProperty('approveItems', getApproveItems(repo, currShape))
         currShape.setProperty('reduxData', repo)
-
-
+        
+        if(!fm.approve.rule_not_display_last_node_specify(currShape,repo)){
+            currShape.setProperty('previousNodeSpecifiedSingle', false)
+            currShape.setProperty('previousNodeSpecified', false)
+        }
 
     })
 }

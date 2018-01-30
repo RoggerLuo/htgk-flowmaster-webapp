@@ -1,14 +1,5 @@
 import React from 'react'
 
-
-const rule_not_display_last_node_specify = (shape,repo) => {
-    if(fm.approve.hideCheck(currentRepo)) return null     
-    if(fm.previousShape.is('multi')) return null  //special multi
-    if(fm.previousShape.is('Circulation task')) return null 
-    if(fm.previousShape.is('Inclusive gateway')) return null 
-    if(fm.previousShape.is('Subflow')) return null 
-
-}
 export default function(reduceName){
     const HidePrevious = ({ put, currentRepo, dispatch }) => {
         const change1 = () => {
@@ -22,11 +13,12 @@ export default function(reduceName){
         const previousNodeSpecified = currentRepo.previousNodeSpecified
         const enableSingleSelect = currentRepo.enableSingleSelect 
         
-        if(fm.approve.hideCheck(currentRepo)) return null     
-        if(fm.previousShape.is('multi')) return null  //special multi
-        if(fm.previousShape.is('Circulation task')) return null 
-        if(fm.previousShape.is('Inclusive gateway')) return null 
-        if(fm.previousShape.is('Subflow')) return null 
+        if(!fm.approve.rule_not_display_last_node_specify(fm.currentSelectedShape,currentRepo)) return null
+        // if(fm.approve.hideCheck(currentRepo)) return null     
+        // if(fm.previousShape.is('multi')) return null  //special multi
+        // if(fm.previousShape.is('Circulation task')) return null 
+        // if(fm.previousShape.is('Inclusive gateway')) return null 
+        // if(fm.previousShape.is('Subflow')) return null 
         
         return(
             <div>

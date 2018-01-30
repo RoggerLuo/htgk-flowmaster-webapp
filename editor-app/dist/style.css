@@ -1599,7 +1599,7 @@
 }
 .alertComponent {
   user-select: none;
-  position: absolute;
+  position: fixed;
   z-index: 9993;
   top: 0;
   bottom: 0;
@@ -1639,7 +1639,7 @@
   }
 }
 .fadeInAlert {
-  animation: fadeIn 1.6s ease-out;
+  animation: fadeIn 1s ease-out;
   animation-fill-mode: forwards;
 }
 @keyframes fadeOut {
@@ -1651,7 +1651,7 @@
   }
 }
 .fadeOutAlert {
-  animation: fadeOut 3.6s ease-in;
+  animation: fadeOut 2s ease-in;
 }
 .myspin {
   position: absolute;
