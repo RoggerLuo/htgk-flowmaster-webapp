@@ -1,4 +1,6 @@
 import naming from './naming'
+import namingOnSave from './namingOnSave'
+
 const branch = {}
 branch.refreshName = () => {
     fm.getNodes()
@@ -22,5 +24,5 @@ branch.naming = function($scope, event) { //selectedShape不是那条线本身�
     naming.by_the_shape_after_sf(shape)
 }
 
-
+branch.namingOnSave = namingOnSave
 export default branch

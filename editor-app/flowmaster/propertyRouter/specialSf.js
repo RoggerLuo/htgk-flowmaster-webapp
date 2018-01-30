@@ -19,16 +19,16 @@ export default function($scope, shape) {
     // }
 
     // /* 如果是会签分支branch */
-    // if (fm.multi.is.sf(shape)) {
-    //     $scope.propertyTpl = tplSrc + 'sf/blank.html'
-    //     return
-    // }
+    if (fm.multi.is.sf(shape)) {
+        $scope.propertyTpl = tplSrc + 'sf/only-status.html'
+        return
+    }
 
     // /* 如果是人工分支branch */
-    // if (fm.manual.is.sf(shape)) {
-    //     $scope.propertyTpl = tplSrc + 'sf/only-name.html'
-    //     return
-    // }
+    if (fm.manual.is.sf(shape)) {
+        $scope.propertyTpl = tplSrc + 'sf/only-status.html'
+        return
+    }
 
     // /* 如果是传阅 */
     // if(fm.next.is("Circulation task",shape)){

@@ -1,17 +1,18 @@
+
 export default ($scope) => {
     var json = fm.getJson()
     return json.childShapes.some((el, index) => {
+        
         if(el.stencil.id == 'SequenceFlow'){
+
+
             if (el.properties["name"]) return
             const shape = fm.getShapeById(el.resourceId)
 
-            if(fm.last.is("User task",shape)){
-                window.setPropertyAdvance({key:'oryx-name',value:'同意'}, shape)
-            }
+            /* 设定默认值 */
+            if(fm.last.is("User task",shape)) window.setPropertyAdvance({key:'oryx-name',value:'同意'}, shape)
 
-            if(
-                fm.manual.is.sf(shape)
-            ){
+            if(fm.manual.is.sf(shape)){
                 /* 定位的关键代码 */
                 fm.editor.setSelection([shape])
                 fm.editor.updateSelection()
@@ -26,5 +27,7 @@ export default ($scope) => {
                 return true
             }
         }
+
+
     })
 }
