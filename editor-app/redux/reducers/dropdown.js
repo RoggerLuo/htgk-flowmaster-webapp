@@ -25,6 +25,9 @@ const initial = {
 const Reducer = (state = initial, action) => {
     let data = fromJS(state)
     switch (action.type) {
+        // case 'dropdown/touch':
+        //     return Object.assign({},state)
+            
         case 'getBackToDefaultDp1':
             if(state.dropdown2Data.length!=0){
                 return Object.assign({}, state, {

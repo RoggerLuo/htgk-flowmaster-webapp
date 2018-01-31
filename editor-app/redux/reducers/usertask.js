@@ -31,9 +31,9 @@ export default reduceWrap('User task', (state, action, ind) => {
             }
             const poolData = state.repo[ind].data
             return data
-                //deprecated .updateIn(['repo', ind, 'cate'], false, (el) => action.item.cate)
                 .updateIn(['repo', ind], 'initial', (el) => {
-                    return el.set('data', fromJS(uniqAdd(poolData, action.item)))
+                    const returnData = fromJS(uniqAdd(poolData, action.item))
+                    return el.set('data',returnData )
                 }).toJS()
         
         case 'usertask/deleteRole':

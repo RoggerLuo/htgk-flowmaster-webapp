@@ -8,6 +8,7 @@ import SQL from './SQL'
 import externalCallback from './externalCallback'
 import second from './second'
 import './style'
+import getSpecificData from './SpecificRoles/optionData'
 
 export default function({confirm, existCate, groupInd, buttonMode, hidePrevious}) {
     let buttonActions = [
@@ -69,12 +70,21 @@ export default function({confirm, existCate, groupInd, buttonMode, hidePrevious}
                 click() { action() }
             }
         }
+
         return {
             title: action.title || '',
             click() {
+                // rdx.dispatch({type:'dropdown/touch'})
+                // debugger
+                rdx.put('temp','replace',['specificRolesData'],getSpecificData())
+                
+                // debugger
+                // rdx.dispatch({type:'dropdown/touch'})
                 rdx.dispatch(action)
                 window.callShadow()
             }
         }
     })
 }
+
+

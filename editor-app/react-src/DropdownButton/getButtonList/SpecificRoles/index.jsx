@@ -2,6 +2,7 @@ import Comp from './Comp'
 import optionData from './optionData'
 
 export default function(cb){
+    
     return {
         confirm(){
             const state = rdx.getState()
@@ -12,7 +13,7 @@ export default function(cb){
                 cb(item)
                 //把选项、默认值回归初始值
                 rdx.dispatch({type:'getBackToDefaultDp1'})
-                return
+                return true
             }
 
             const text = state.dropdown.dropdown2.text

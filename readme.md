@@ -1,3 +1,14 @@
+## 特定审批人 同步节点名称的修改
+	1.在 RolesFrameGeneratorNotForParallel/defaultContainer/index 里
+	加载的时候根据 resourceId 来取值
+	
+	
+	
+## 同步表单的修改 - 分支条件下拉选项值若修改了
+判断如果是表单组件  
+则根据value(field_xxxxx) 循环更新 展示的text  
+二级联动 最后的 输入控件都会更新
+
 ## 判断并行分支的边界算法
 	
 先算出 collections, 
@@ -31,9 +42,7 @@ Wed 31 Jan
 
 Mon 29 Jan 
 
-## 分支条件 的下拉选项，判断如果是表单组件
-则根据value(field_xxxxx) 循环更新 展示的text  
-二级联动 最后的 输入控件都会更新
+
 
 ## shapeUpdate/fm.madClick
 防抽
@@ -53,14 +62,13 @@ thresholder 会影响使用的点击效果，
 
 ##  save/isSfsUnnamed
 是用来校验 连线是否命名
-## isNodesValid/sf
+### nodesValid/sf
 用来校验 连线业务状态
 ## 这些节点的前面，连线状态是否显示
-**在rout里面**    
-人工分支	不显示	fm.manual.is.sf  条件分支	不显示	fm.branch.is  会签分支	不显示	fm.multi.is.sf  传阅	不显示	fm.next.is("Circulation    
-**在sf react 组件里面**    并行汇聚内	不显示	fm.isCurrentShapeInGates  
-
-Fri 26 Jan 3:00 PM
+**在route里面**    
+只管是否显示 名称， 状态默认都显示  
+**在sf react 组件里面**    只控制 状态
+Fri 26 Jan 3:00 PM
 ## fm.isCurrentShapeInGates
 `/editor-app/flowmaster/selectEvent/index.js`  
 是每一次select判断当前的shape是否在gate里面	  

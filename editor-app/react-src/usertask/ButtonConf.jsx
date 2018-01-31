@@ -6,7 +6,9 @@ import confirmGenerator from '../confirmGenerator'
 const ButtonContainer = ({currentRepo,children}) => { 
     if(!currentRepo) return null
     const reduxCate = currentRepo.data && currentRepo.data[0] && currentRepo.data[0].cate || ''
-    const add = (item) => rdx.dispatch({type:'usertask/addRole',item})   
+    const add = (item) => {
+        rdx.dispatch({type:'usertask/addRole',item})   
+    }
     const clear = () => rdx.dispatch({type:'usertask/clear'})
     const confirmFunction = confirmGenerator({reduxCate,add,clear})
     const xClass = {marginTop:'5px',right:'12px'}
