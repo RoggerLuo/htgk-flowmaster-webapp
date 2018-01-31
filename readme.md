@@ -2,7 +2,11 @@
 	1.在 RolesFrameGeneratorNotForParallel/defaultContainer/index 里
 	加载的时候根据 resourceId 来取值
 	
-	
+	2.下拉框的同步修改
+		在每次 click button 的时候 重新计算当前画布上的节点，
+		把数据保存到temp reduce里面
+		直接从reduce.temp中读取dpdw的数据
+		就可以保持同步更新了
 	
 ## 同步表单的修改 - 分支条件下拉选项值若修改了
 判断如果是表单组件  
