@@ -1,3 +1,4 @@
+import './updateBranchText'
 global.fm = global.fm || {}
 fm.branch = {}
 // fm.branch.is = {}

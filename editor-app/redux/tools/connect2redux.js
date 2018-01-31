@@ -2,7 +2,8 @@ import {connect} from 'react-redux'
 const connect2redux = (reduceName,reactComp) => {
     const mapStateToProps = (state) => {
         if(!state[reduceName]){
-            debugger
+            // debugger
+            throw "reduce name 不存在"
         }
         const repo = state[reduceName].repo
         const id = state[reduceName].id

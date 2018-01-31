@@ -7,17 +7,6 @@ import Group from './GroupContainer'
 const MainForm = ({ currentRepo, dispatch }) => {
     if(!currentRepo) return null
     const leftFields = currentRepo.leftFields || []
-
-
-    // let formLimits = false
-    // if(fm.formLimits){
-    //     const start = fm.formLimits.filter(el => el.nodeName ==' 开始')   
-    //     if(start){
-    //         formLimits = start[0]
-    //     }
-    // }
-
-
     return(
         <SolidFrame innerStyle={{padding:'0px'}} outerStyle={{width:'620px'}}>
             <Header />
@@ -27,14 +16,6 @@ const MainForm = ({ currentRepo, dispatch }) => {
                         .filter(el => el.type != 'sub_form')
                         .filter(el => el.type != "description")
                         .map((el,ind)=>{
-                            // let required = false
-                            // if(formLimits){
-                            //     formLimits.fields.filter(form=>{
-                            //         if(form.fieldId == el._id){
-                            //             required = form.required
-                            //         }
-                            //     })
-                            // }
                             return (<Group leftData={el} key={ind} />)
                         }
                     )

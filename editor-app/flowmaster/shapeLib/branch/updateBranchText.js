@@ -1,16 +1,16 @@
 'use strict'
 global.updateBranchText = () => {
-    let canvas = window.windowCanvas
     rdx.getState().branch.repo.forEach((el, index) => {
-        let currentElement = canvas.getChildShapeByResourceId(el.id)
-        if (el.id && !currentElement) return
+        
+        let shape = fm.getShapeById(el.id)
+        if (el.id && !shape) return
         let displayText = ''
         if (el.radio) {
-            window.setPropertyAdvance({ key: 'oryx-name', value: el.text }, currentElement)
+            window.setPropertyAdvance({ key: 'oryx-name', value: el.text }, shape)
         } else {
-            el.conditions.forEach((condition, i) => {
+            el.conditions.some((condition, i) => {
                 /* 循环不同的条件组 */
-                condition.data.forEach((el, index) => {
+                condition.data.some((el, index) => {
                     /* 循环条件组里的规则 */
                     if (el.entry2.value != 'initial') {
                         displayText += el.entry2.text || ''
@@ -25,17 +25,20 @@ global.updateBranchText = () => {
                     } else {
                         displayText += '"' + el.input.text + '"'
                     }
-                    if (index < (condition.data.length - 1)) {
-                        displayText += ' && '
-                    }
+                    return true
+                    // if (index < (condition.data.length - 1)) {
+                    //     displayText += ' && '
+                    // }
                 })
-                if (i < (el.conditions.length - 1)) {
-                    displayText += ' || '
-                }
+                displayText += ' ... '
+                return true
+                // if (i < (el.conditions.length - 1)) {
+                //     displayText += ' || '
+                // }
             })
         }
-        if (currentElement.properties.defaultflow != 'true') {
-            window.setPropertyAdvance({ key: 'oryx-name', value: displayText }, currentElement)
+        if (shape.properties.defaultflow != 'true') {
+            window.setPropertyAdvance({ key: 'oryx-name', value: displayText }, shape)
         }
     })
 }

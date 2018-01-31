@@ -44,6 +44,7 @@ const ConditionContainer = createClass({
             }
             activeSave()
             this.props.dispatch({type:'deleteCondition',conditionIndex:index})        
+            window.updateBranchText()
         }
         const ruleData = conditions[this.props.index] && conditions[this.props.index].data||[]
         const conditionMode = this.props.currentRepo.conditionMode //got problem
