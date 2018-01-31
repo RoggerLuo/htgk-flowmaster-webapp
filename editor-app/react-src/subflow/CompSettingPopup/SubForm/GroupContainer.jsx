@@ -6,6 +6,7 @@ import PartLeft from '../Form/PartLeft'
 
 const Group = ({ leftData, currentRepo, dispatch, leftFormId, subOptions }) => {
     
+    // 对应的组件类型 校验 在这里
     subOptions = subOptions.filter(el=>{
         return (el.cate == leftData.type) || (!el.value)
     })

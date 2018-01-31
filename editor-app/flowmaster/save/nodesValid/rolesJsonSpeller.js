@@ -31,6 +31,7 @@ export default function(jsonArray, data, currentElement) {
                     text: el.text,
                     id: index //el.value 
                 })
+
                 break
                 
             case "historicTask":

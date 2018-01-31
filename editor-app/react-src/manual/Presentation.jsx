@@ -32,7 +32,7 @@ const ManualNode = ({ data, put }) => {
                 <RolesFrame data={data} />
             ):null}
             <NextHalfText put={put}/>
-            <div style={{height:'100px',width:'1px'}}></div>
+            <div style={{height:'200px',width:'1px'}}></div>
 
         </div>
     )

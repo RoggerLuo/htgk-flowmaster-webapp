@@ -3,6 +3,10 @@ import servicetaskfields from './servicetaskfields'
 import checkSubform from './checkSubform'
 import checkMainform from './checkMainform'
 import formMapping from './formMapping'
+fm.subflow = {}
+fm.subflow.checkSubform = checkSubform
+fm.subflow.checkMainform = checkMainform
+
 export default function(canvas) {
     let returnFlag = true
     const procDefKey = window.getQueryString("pid")

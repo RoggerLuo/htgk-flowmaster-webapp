@@ -1,5 +1,5 @@
 'use strict'
-import isNodesValid from './isNodesValid'
+import nodesValid from './nodesValid'
 import checkEmpty from './checkEmpty'
 import originalSave from './originalSave'
 import isConnectBroken from './isConnectBroken'
@@ -14,7 +14,7 @@ export default function($scope, $http) {
         if(isSfsUnnamed($scope)) return rdx.save()
     
         //业务流程 校验放在 sf校验之后
-        if (!isNodesValid($scope)) return rdx.save() //这个的顺序很重要! 很重要
+        if (!nodesValid($scope)) return rdx.save() //这个的顺序很重要! 很重要
 
         //要放在 sf校验之后, 因为涉及连线命名
         forSfsInGates()

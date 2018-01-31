@@ -1,8 +1,8 @@
 import rolesJsonSpeller from './rolesJsonSpeller'
 export default function(canvas) {
     rdx.getState().circulation.repo.forEach((repo) => {
-        let currShape = fm.getNodeById(repo.id)
-        if (!currShape) return
+        let shape = fm.getNodeById(repo.id)
+        if (!shape) return
         const rolesjson = rolesJsonSpeller([], repo.data)
         // debugger
         let value = {
@@ -14,14 +14,14 @@ export default function(canvas) {
                 "string": ""
             }]
         }
-
-        currShape.setProperty('objData', rolesjson)
-        currShape.setProperty('servicetaskexpression', "")
-        currShape.setProperty('servicetaskfields', value)
-        currShape.setProperty('servicetaskdelegateexpression', "${circulationServiceTask}")
-        currShape.setProperty('classify', "Circulation")
+        shape.setProperty('reduxData', repo)
+        shape.setProperty('objData', rolesjson)
+        shape.setProperty('servicetaskexpression', "")
+        shape.setProperty('servicetaskfields', value)
+        shape.setProperty('servicetaskdelegateexpression', "${circulationServiceTask}")
+        shape.setProperty('classify', "Circulation")
         if (repo.previousNodeSpecified) {
-            currShape.setProperty('previousNodeSpecified', true)
+            shape.setProperty('previousNodeSpecified', true)
         }
     })
 }

@@ -23,9 +23,10 @@ export default reduceWrap('Multi user task', (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
         case 'parallel/init': //very beginning start 
-            return data.updateIn(['repo'], 'initial',
-                (el) => el.push(fromJS(action.data))
-            ).updateIn(['mode'], 'normal', (el) => 'normal').toJS()
+            return data
+                .updateIn(['repo'], List(),(a) => a.push( fromJS(action.data) ))
+                .updateIn(['mode'], 'normal', (el) => 'normal').toJS()
+
 
         case 'parallel/newNodeInit': //
             if (ind == 'not exist') { 
