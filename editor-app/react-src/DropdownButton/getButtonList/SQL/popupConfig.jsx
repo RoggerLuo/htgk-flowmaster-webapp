@@ -9,7 +9,7 @@ export default function(cb){ //groupInd
             rdx.dispatch({type:'sql/renew'})
         },
         type:'callPopup',
-        height:'78%',
+        height:'87%',
         title:'button.option7',
         width:'701px'
     }
