@@ -18,7 +18,7 @@ function Comp({ inputData, oninput }){
             text:event.target.value+'天'+event.target.parentNode.children[1].value+'小时',
             value: '"' + event.target.value+'天'+event.target.parentNode.children[1].value+'小时' +'"'//event.target.value*60*60*24+event.target.parentNode.children[1].value*60*60
         }
-        console.log(newInputData.value)
+        // console.log(newInputData.value)
         oninput(newInputData)
     }
     const whenChange2 = (event) => {
@@ -32,9 +32,9 @@ function Comp({ inputData, oninput }){
         }
         const newInputData = {
             text: event.target.parentNode.children[0].value + '天' + event.target.value + '小时',
-            value: '"' + event.target.parentNode.children[0].value + '天' + event.target.value + '小时' +'"'// event.target.value*60*60 + event.target.parentNode.children[0].value*60*60*24
+            value: (event.target.value*60*60 + event.target.parentNode.children[0].value*60*60*24)*1000 //'"' + event.target.parentNode.children[0].value + '天' + event.target.value + '小时' +'"'
         }
-        console.log(newInputData.value)
+        // console.log(newInputData.value)
         oninput(newInputData)
     }
 

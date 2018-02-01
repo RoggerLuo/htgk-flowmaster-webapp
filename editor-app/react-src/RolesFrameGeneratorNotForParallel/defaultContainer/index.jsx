@@ -5,17 +5,17 @@ import RoleCube from './RoleCube'
 export default function(del){
     return function({ data }){
 
-
-
         const clonedData = data.slice(0)
         clonedData.forEach(el=>{
             if(el.cate == 'historicTask'){
                 const shape = fm.getShapeById(el.value)
-                el.text = shape.properties['oryx-name'] + `(${shape.resourceId.substring(4,9)})`
+                if(!shape) {
+                    // el.text = '所选节点已删除'
+                }else{
+                    el.text = shape.properties['oryx-name'] + `(${shape.resourceId.substring(4,9)})`                    
+                }
             }
         })
-
-
         
         return (
             <SolidFrame innerStyle={{padding:'4px 7px'}}>

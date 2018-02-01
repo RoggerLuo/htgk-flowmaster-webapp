@@ -23,7 +23,7 @@ export default function(savedSqlState){
                 <div className="customRoleTitle">添加外部系统数据源</div>
                 <div className="customRoleTitle">
                     数据源名称：
-                    <Dropdown choosedOption={dataSource} data={window.dataSources} choosed={chooseSource}/>
+                    <Dropdown width={'160px'} choosedOption={dataSource} data={window.dataSources} choosed={chooseSource}/>
                 </div>
                 <div style={{height:"15px",width:'1px'}}></div>
 

@@ -1,6 +1,6 @@
 import './style.less'
-import ConfigComp from './ConfigComponent'
-export default ConfigComp
+import config_container from './config_container'
+export default config_container
 
 
 

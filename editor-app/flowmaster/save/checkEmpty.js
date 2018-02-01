@@ -24,7 +24,8 @@ export default ($scope) => { //checkEmpty
                 break
             case 'CirculationTask':
                 const rolesjson = el.properties.objData
-                if(rolesjson.length == 0){
+                const zero = rolesjson && rolesjson.length == 0
+                if(!rolesjson || zero){
                     window.showAlert('"' + el.properties.name + '"的审批人员设置不能为空') //传阅节点
                     fm.spotlight(fm.getShapeById(el.resourceId))
                     return true

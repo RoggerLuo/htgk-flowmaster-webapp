@@ -2,7 +2,6 @@ import Comp from './Comp'
 import optionData from './optionData'
 
 export default function(cb){
-    
     return {
         confirm(){
             const state = rdx.getState()

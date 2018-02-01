@@ -3,33 +3,33 @@ import {connect} from 'react-redux'
 import Button from '../DropdownButton'
 import confirmGenerator from '../confirmGenerator'
 
-const ButtonContainer = ({currentRepo,children}) => { 
+const UserTaskButtonConf = ({currentRepo,children,isEmpty}) => { 
     if(!currentRepo) return null
-    const reduxCate = currentRepo.data && currentRepo.data[0] && currentRepo.data[0].cate || ''
+    const cate = currentRepo.data && currentRepo.data[0] && currentRepo.data[0].cate || ''
+
     const add = (item) => {
-        rdx.dispatch({type:'usertask/addRole',item})   
+        rdx.dispatch({type:'usertask/addRole',item})
+        rdx.save()
     }
-    const clear = () => rdx.dispatch({type:'usertask/clear'})
-    const confirmFunction = confirmGenerator({reduxCate,add,clear})
-    const xClass = {marginTop:'5px',right:'12px'}
-    // const hidePrevious = () => rdx.put('usertask','replace',['hidePrevious'],true)
+    const clear = () => {
+        rdx.dispatch({type:'usertask/clear'})
+        rdx.save()
+    }
+        
+    const params = {
+        xClass:{marginTop:'5px',right:'12px'},
+        confirm:confirmGenerator({cate,add,clear}),
+        existCate:cate,
+        groupInd:0,
+        isEmpty
+    }
     return ( 
-        <Button xClass={xClass} confirm={confirmFunction} existCate={reduxCate} groupInd={0} hidePrevious={'usertask'}>
+        <Button {...params}> 
             {children}
         </Button>
     )
 }
 
-// export default rdx.connect(ButtonContainer)
+export default rdx.connect('usertask',UserTaskButtonConf)
 
-// const mapStateToProps = (state) => {
-//     const currentRepo = state.usertask.repo.filter((el,index)=>el.id == state.usertask.id)
-//     const reduxCate = currentRepo && currentRepo[0] && currentRepo[0].data && currentRepo[0].data[0] && currentRepo[0].data[0].cate||false
-//     return {reduxCate}
-// }
-// const mapDispatchToProps = (dispatch) => {
-//     return {dispatch}
-// }
-
-export default rdx.connect('usertask',ButtonContainer) //(mapStateToProps,mapDispatchToProps)(ButtonContainer)
-
+//hidePrevious={'usertask'}

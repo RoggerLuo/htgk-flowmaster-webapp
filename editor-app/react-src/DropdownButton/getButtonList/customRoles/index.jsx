@@ -1,21 +1,24 @@
 import Comp from './CompContainer'
-export default function(cb){
+export default function(cb) {
     return {
-        confirm(){
+        confirm() {
             const state = rdx.getState()
             const customRoles = state.popup.customRoles
-            customRoles.map(el=>{
+            customRoles.forEach(el =>{
                 el.cate = 'customizeRole'
-                return el
-            }).forEach(el=>cb(el))
-            rdx.dispatch({type:'popup/update',data:[]})
+                cb(el)
+            })
+            rdx.dispatch({ type: 'popup/update', data: [] })
             return true
         },
-        content:Comp,
-        type:'callPopup',
-        height:'400px',//'300px',
-        title:'button.option4',
-        width:'640px',
-        outerStyle:{overflow:'auto'}
+        onCancel() {
+            rdx.dispatch({ type: 'popup/update', data: [] })
+        },
+        content: Comp,
+        type: 'callPopup',
+        height: '400px', //'300px',
+        title: 'button.option4',
+        width: '640px',
+        outerStyle: { overflow: 'auto' }
     }
 }

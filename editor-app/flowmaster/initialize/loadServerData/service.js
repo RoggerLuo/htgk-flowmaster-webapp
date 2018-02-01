@@ -15,7 +15,9 @@ export default function(el,index,modelData){
     //         }
     //     })        
     // }
-    rdx.dispatch({type:'circulation/init',data: el.properties.reduxData})
+    if(el.properties.reduxData){
+        rdx.dispatch({type:'circulation/init',data: el.properties.reduxData})        
+    }
     delete modelData.childShapes[index].properties.reduxData
     delete modelData.childShapes[index].properties.dataSourceRefs
     delete modelData.childShapes[index].properties.objData

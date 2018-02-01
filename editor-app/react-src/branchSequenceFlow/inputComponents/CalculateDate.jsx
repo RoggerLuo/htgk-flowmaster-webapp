@@ -10,7 +10,7 @@ function Comp({ inputData, oninput }){
         }
         const newInputData = {
             text:event.target.value+'天',
-            value:  '"' + event.target.value+'天' +'"' //event.target.value*60*60*24
+            value: event.target.value*60*60*24*1000 //'"' + event.target.value+'天' +'"'
         }
         console.log(newInputData.value)
         oninput(newInputData)

@@ -14,8 +14,9 @@ export default function(el,index,modelData){
     //     })
     // })  
     // window.reduxStore.dispatch({type:'parallel/init',data:{data:theData,id:el.resourceId}})
-
-    rdx.dispatch({type:'parallel/init',data: modelData.childShapes[index].properties.reduxData })
+    if(modelData.childShapes[index].properties.reduxData){
+        rdx.dispatch({type:'parallel/init',data: modelData.childShapes[index].properties.reduxData })        
+    }
     
     delete modelData.childShapes[index].properties.reduxData
     delete modelData.childShapes[index].properties.multiinstance_parties

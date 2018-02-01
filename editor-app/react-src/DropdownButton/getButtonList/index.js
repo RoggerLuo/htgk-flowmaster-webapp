@@ -1,90 +1,50 @@
-import HigherLevelAction from './HigherLevel'
-// import OrgAction from './Org'
-import pickUpPeople from './pickUpPeople'
-import customRoles from './customRoles'
-import FormRoles from './FormRoles'
-import SpecificNodeRoles from './SpecificRoles'
-import SQL from './SQL'
-import externalCallback from './externalCallback'
-import second from './second'
 import './style'
 import getSpecificData from './SpecificRoles/optionData'
+import buttonFactory from './buttonFactory'
 
-export default function({confirm, existCate, groupInd, buttonMode, hidePrevious}) {
-    let buttonActions = [
-        HigherLevelAction(confirm),
-        // OrgAction(confirm),
-        pickUpPeople(confirm),
-        customRoles(confirm),//添加角色
-        FormRoles(confirm),
-        SpecificNodeRoles(confirm),
-        SQL(confirm,groupInd),
-        // second(confirm),
-        externalCallback(confirm)
-    ]
-    
-    if(buttonMode == 'subflow'){
-        buttonActions = [
-            HigherLevelAction(confirm),
-            pickUpPeople(confirm),
-            customRoles(confirm)
-        ]
-    }
-    if(existCate){
-        switch(existCate){
-            case 'boss':
-                buttonActions = [HigherLevelAction(confirm)]
-                break
-            case 'form':
-                buttonActions = [FormRoles(confirm)]
-                break
-            case 'historicTask':
-                buttonActions = [SpecificNodeRoles(confirm)]
-                break
-            case 'fromDb':
-                buttonActions = [SQL(confirm)]
-                break
-            // case 'EXTERNAL':
-            //     buttonActions = [second(confirm)]
-            //     break
-            case 'externalCallback':
-                buttonActions = [externalCallback(confirm)]
-            default:
-                buttonActions = [pickUpPeople(confirm),customRoles(confirm)]
-                break
-        }        
-    }
-
-    
-
-    return buttonActions.map((action, index) => {
-        if (action.id == 'second'){
-            return {
-                title: 'button.option8',
-                click() { action.add() }
-            }
-        }
-        if (action.type != 'callPopup') {
+export default function({confirm, existCate, buttonMode, groupInd}) { //hidePrevious 
+    const buttons = buttonFactory(existCate,buttonMode)
+    const actions = buttons.map(el=>el(confirm)) //统一装配
+    return actions.map((action, index) => {
+        
+        if (action.type != 'callPopup') { //特殊情况 ‘选择特定人员’ 选择窗口
             return {
                 title: 'button.option3',
                 click() { action() }
             }
         }
-
+        
         return {
             title: action.title || '',
             click() {
-                // rdx.dispatch({type:'dropdown/touch'})
-                // debugger
-                rdx.put('temp','replace',['specificRolesData'],getSpecificData())
                 
-                // debugger
-                // rdx.dispatch({type:'dropdown/touch'})
+                if(action.title == 'button.option6'){ // 更新特定节点审批人的数据，每次click button
+                    rdx.put('temp','replace',['specificRolesData'],getSpecificData())                    
+                }
+                if(action.title == 'button.option7'){ //db的话
+                    action.confirm = action.confirm(groupInd)
+                }
+
                 rdx.dispatch(action)
                 window.callShadow()
             }
         }
     })
 }
+
+
+// if (action.id == 'second'){
+//     return {
+//         title: 'button.option8',
+//         click() { action.add() }
+//     }
+// }
+
+
+
+
+// const onConfirm = confirm
+// const cate = existCate
+// const options = {groupInd, buttonMode}
 
 

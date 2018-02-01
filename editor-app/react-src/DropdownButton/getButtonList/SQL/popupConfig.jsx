@@ -1,10 +1,10 @@
 import Comp from './ReduxCompGenerator'
 import confirmButtonEvent from './confirmButtonEvent'
-export default function(cb,groupInd){
+export default function(cb){ //groupInd
     // global.reduxStore.dispatch({type:'sql/init'})
     return {
         content:Comp(),
-        confirm:confirmButtonEvent(cb,groupInd),
+        confirm:confirmButtonEvent(cb), //groupInd
         onCancel(){
             rdx.dispatch({type:'sql/renew'})
         },

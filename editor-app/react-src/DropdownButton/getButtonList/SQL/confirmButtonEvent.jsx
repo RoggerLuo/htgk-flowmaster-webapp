@@ -16,8 +16,8 @@ const isConditionsCheckOk = (conditions) => {
     return true
 }
 
-export default function(cb,groupInd){
-    return function(){
+export default function(cb){//groupInd
+    return (groupInd) => () => {
         const sqlState = rdx.getState().sql
         
         if(!sqlState.sql){
