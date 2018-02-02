@@ -1,3 +1,8 @@
+## SQL审批人 需要index 参数
+call popup  
+在action.confirm这一层的时候  
+需要多传一个参数  index group
+
 ## 特定审批人 同步节点名称的修改
 	1.在 RolesFrameGeneratorNotForParallel/defaultContainer/index 里
 	加载的时候根据 resourceId 来取值

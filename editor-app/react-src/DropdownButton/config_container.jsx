@@ -3,7 +3,7 @@ import getButtonList from './getButtonList'
 import ViewComp from './ViewComp'
 
 function ConfigComp({ xClass, confirm, children, put, existCate, groupInd, buttonMode, isEmpty}){ //hidePrevious
-    if(['form','historicTask','fromDb'].indexOf(existCate) != -1){
+    if(['form','historicTask','fromDb','callBack'].indexOf(existCate) != -1){
         if(!isEmpty){
             return null
         }

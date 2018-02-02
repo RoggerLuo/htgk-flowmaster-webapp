@@ -34,8 +34,7 @@ export default function(cb){//groupInd
         let conditions
         if(sqlState.checked){
 
-            if(!isConditionsCheckOk(sqlState.conditions)){
-                //不通过内容提示
+            if(!isConditionsCheckOk(sqlState.conditions)){ //不通过内容提示
                 return false 
             } 
             
@@ -48,6 +47,7 @@ export default function(cb){//groupInd
                     variableType:el.variableType.value
                 }
             })
+            
         }else{
             conditions = []
         }

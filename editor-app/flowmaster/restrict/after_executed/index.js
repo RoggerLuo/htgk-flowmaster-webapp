@@ -1,5 +1,6 @@
 import './CirculationTask'
 import subflow from './subflow'
+import start from './start'
 
 export default function(){ //$scope            
     fm.getJson().childShapes.some((el, index) => {
@@ -8,7 +9,11 @@ export default function(){ //$scope
 
         const shape = fm.getNodeById(el.resourceId)
         if(!shape) return //有可能被undo了
+
         switch(el.stencil.id){
+            case 'StartNoneEvent':
+                start(shape)
+                break
             case 'ManualTask':
                 fm.manual.singleConnectCheck(shape)
                 fm.manual.completeCheck(shape)

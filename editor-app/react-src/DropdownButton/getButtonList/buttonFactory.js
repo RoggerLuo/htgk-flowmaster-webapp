@@ -36,7 +36,7 @@ function normal(cate) {
             return [SpecificNodeRoles]
         case 'fromDb':
             return [SQL]
-        case 'externalCallback':
+        case 'callBack':
             return [externalCallback]
             // case 'EXTERNAL':
             //     buttonActions = [second]

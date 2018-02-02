@@ -7,10 +7,13 @@ export default ({ clear, add }) => {
         clear()
         add(item)
     }
-    return ({ data }) => { //const RoleComp =
+    return ({ data, index }) => { //const RoleComp =
         const edit = () => {
             rdx.dispatch({type:'sql/reload',savedSqlState:data[0].sqlState})
-            rdx.dispatch(popupConfig( cb, 0 ))
+            
+            const action = popupConfig( cb )
+            action.confirm = action.confirm(index)
+            rdx.dispatch(action)
             rdx.save()
             window.callShadow()
         }

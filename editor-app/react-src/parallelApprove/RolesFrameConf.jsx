@@ -23,13 +23,13 @@ function ConfiguredRoleComp({ data, cate, index, dispatch }) { //index是groupIn
             add(item)
         }
         dispatch({type:'sql/reload',savedSqlState:data[0].sqlState})
-        dispatch(popupConfig(cb,index))
+        dispatch(popupConfig(cb)(index))
         activeSave()
     }
     const { DefaultContainer, DbRoleContainer } = RolesFrameGenerator({ edit, del, add, clear })
     switch(cate){
         case 'fromDb':
-            return (<DbRoleContainer data={data}/>)
+            return (<DbRoleContainer data={data} index={index}/>)
         default:
             return (<DefaultContainer data={data}/>)
     }
