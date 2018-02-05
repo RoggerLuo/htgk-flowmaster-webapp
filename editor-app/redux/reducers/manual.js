@@ -16,6 +16,9 @@ export default reduceWrap('Manual task', (state, action, ind) => {
             if (ind == 'not exist') return data.updateIn(['repo'], '', (a) => a.push(newRepo(state.id, []))).toJS()
             return transformer(data, ind, action.args)
 
+        case 'all/onShapeDelete':
+            return fm.approve.del_by_id(data,action.id)
+
         case 'manual/withdrawChange':
             return data.updateIn(['repo', ind, 'withdraw'], false, (el) => !el).toJS()
 

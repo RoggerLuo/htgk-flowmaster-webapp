@@ -1,5 +1,6 @@
 export default function(shape) {
     let name = fm.getTitle(shape)
+    rdx.put('temp', 'touch') 
     
     switch(name){
         case 'User task':

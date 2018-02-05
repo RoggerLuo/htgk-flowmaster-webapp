@@ -7,17 +7,11 @@ import deleteSideLines from './deleteSideLines'
 global.globalLockForMultiWarning = false
 
 global.deleteNode = (selection, that) => {
-    const name = selection[0].properties['oryx-name']
-    let index = -1
-    fm.nameManager.repo.some((el,ind)=>{
-        if(el.name == name){
-            index = ind
-            return true
-        }
-    })
-
-    if (index > -1) {
-        fm.nameManager.repo.splice(index, 1)
+    if(selection && selection[0]){
+        // 删除特定节点审批人 如果删除了节点
+        rdx.dispatch({type:'all/onShapeDelete',id:selection[0].resourceId})    
+        // 删除的时候  维护nameManager
+        fm.nameManager.onDelete(selection[0])
     }
 
     global.globalLockForMultiWarning = true

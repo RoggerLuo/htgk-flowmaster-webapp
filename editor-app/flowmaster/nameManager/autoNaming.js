@@ -1,8 +1,4 @@
-'use strict'
 import { titleToCN } from "./conf"
-
-fm.nameManager = {}
-fm.nameManager.repo = []
 
 global.isRepeated = (name) => { /* 节点名称是否重复 */
     // debugger
@@ -37,9 +33,7 @@ function giveNameToShape(shape) {
     }
 }
 
-function autoNaming(selectedShape, $scope) {
+export default function autoNaming(selectedShape, $scope) {
     giveNameToShape(selectedShape)
     rdx.save()
 }
-
-export default autoNaming

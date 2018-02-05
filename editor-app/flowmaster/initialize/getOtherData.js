@@ -43,9 +43,17 @@ export const getPid = ($http) => {
 export const getProList = ($http) => {
     $http({
         method: 'GET',
-        url: window.globalHost + '/repository/process-definitions?size=999999'
+        url: window.globalHost + `/repository/process-definitions?orgId=${window.getQueryString("orgId")}&start=0&size=9999`
     }).success(function(data) {
+        // debugger
         window.processList = data.data
+    })
+    $http({
+        method: 'GET',
+        url: window.globalHost + `/repository/process-categories`
+    }).success(function(data) {
+        // debugger
+        window.processCategory = data.children
     })
 }
 

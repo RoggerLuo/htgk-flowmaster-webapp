@@ -27,7 +27,7 @@ export default function(cb){
         },
         content:Comp,
         type:'callPopup',
-        height:'326px',
+        height:'63%',
         title:'button.option6',
         width:'500px'
     }

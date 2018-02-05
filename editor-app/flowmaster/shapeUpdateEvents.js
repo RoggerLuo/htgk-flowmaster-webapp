@@ -11,7 +11,6 @@ fm.after_selection_change = ($scope,event) => {}
 
 fm.after_cmd_executed = ($scope, event) => { 
     if(fm.madClick()) return
-        
     const shape = $scope.selectedShape
     if(!fm.parallelGate.isCorrectlyLinked()) fm.undo()
     

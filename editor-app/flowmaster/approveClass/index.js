@@ -2,6 +2,7 @@ import hidePrevCheck from './hidePrevCheck'
 import getPreviousComp from './getPreviousComp'
 import getSetting from './Setting'
 import rule_not_display_last_node_specify from './rule_not_display_last_node_specify'
+import del_by_id from './del_by_id'
 global.fm = global.fm || {}
 fm.approve = {}
 fm.approve.hideCheck = hidePrevCheck
@@ -21,3 +22,4 @@ fm.approve.hideCheck = hidePrevCheck
 fm.approve.getPreviousComp = getPreviousComp
 fm.approve.getSetting = getSetting
 fm.approve.rule_not_display_last_node_specify = rule_not_display_last_node_specify
+fm.approve.del_by_id = del_by_id

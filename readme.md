@@ -1,3 +1,19 @@
+## reduce 的通用wrap
+`selectEvent/informRedux_the_ElementSwitchEvent`  
+放在了一起
+
+reducerName 和 stencilTitle 概念搞混了  
+reducerName是自己取的，有很多自定义的用途，比如all  
+stencilTitle来自于oryx
+
+
+
+#### 为什么一定要单独初始化，而不是在执行的时候顺便初始化
+考虑的到通用性原因，第一次拿不到repo的index  
+所以需要把初始化和普通的dispatch分开  
+
+5 Feb 2018  
+20 Sep 2017
 ## SQL审批人 需要index 参数
 call popup  
 在action.confirm这一层的时候  
@@ -156,11 +172,6 @@ Wed 17 Jan 5:40 2018
 
 
 
-## reduce 的通用wrap
-固定了id 和 stencilTitle的结构,以及当前选中ind
-
-
-20 Sep 2017
 
 ## stencilController/palette修改
 在scope上增加了flowMasterGroups属性，

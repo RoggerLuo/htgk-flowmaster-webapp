@@ -16,7 +16,7 @@ export default class Group extends React.Component {
         if(this.state.isOpen) style = basicStyle            
         const index = this.props.index
         return (
-            <div style={{margin:'5px 0'}}>                
+            <div style={{margin:'15px 0 5px 0'}}>                
                 <div style={{lineHeight:'20px'}} onClick={this.click} >
                     <i style={style} className="icon iconfont icon-sanjiao1"></i> &nbsp;
                     <span style={{fontSize:'14px',cursor:'pointer'}}>{this.props.data.groupTitle}</span>

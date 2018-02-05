@@ -1,6 +1,5 @@
 'use strict'
 import { tplSrc, tplMap } from './conf'
-import autoNaming from '../autoNaming'
 import specialSf from './specialSf'
 
 function handleExclusive($scope, shape) {
@@ -16,7 +15,7 @@ function handleExclusive($scope, shape) {
 }
 
 function handleOthers($scope, shape) {
-    autoNaming(shape, $scope)
+    fm.nameManager.autoNaming(shape, $scope)
     const title = fm.getTitle(shape)
     $scope.propertyTpl = tplSrc + tplMap[title]
     // console.log(tplSrc + tplMap[title])

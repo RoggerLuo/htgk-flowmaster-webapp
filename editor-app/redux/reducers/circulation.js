@@ -14,6 +14,9 @@ export default reduceWrap('Circulation task', (state, action, ind) => {
             if (ind == 'not exist') return data.updateIn(['repo'], '', (el) => el.push(newCreate)).toJS()
             return transformer(data, ind, action.args)
 
+        case 'all/onShapeDelete':
+            return fm.approve.del_by_id(data,action.id)
+
         case 'circulation/newNodeInit':
             if (ind == 'not exist') {
                 const newCreate = fromJS({ id: state.id, data: []})

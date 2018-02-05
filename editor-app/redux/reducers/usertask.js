@@ -9,10 +9,13 @@ const uniqAdd = (data, item) => {
 }
 
 const newRepo = (id, data) => fromJS({ id, data })
+
 export default reduceWrap('User task', (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
-        
+        case 'all/onShapeDelete':
+            return fm.approve.del_by_id(data,action.id)
+
         case 'usertask':
             if (ind == 'not exist') return data.updateIn(['repo'], '', (a) => a.push(newRepo(state.id, []))).toJS()
             return transformer(data, ind, action.args)
@@ -36,6 +39,7 @@ export default reduceWrap('User task', (state, action, ind) => {
                     return el.set('data',returnData )
                 }).toJS()
         
+
         case 'usertask/deleteRole':
             return data.updateIn(['repo', ind], 'initial', (el) => {
                 return el.set('data', el.get('data').delete(action.index))

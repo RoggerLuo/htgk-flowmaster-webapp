@@ -5,6 +5,7 @@ import RolesFrame from './RolesFrameConf'
 import NextHalfText from './NextHalfText'
 
 const UsertaskPre = ({ data, put }) => {
+    
     const isEmpty = data.length == 0
     return(
         <div className="react-approve">
