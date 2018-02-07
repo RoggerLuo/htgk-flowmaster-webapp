@@ -6,10 +6,8 @@ export default function(reducerName, cb) { //这个是reduce里 手写 写死的
     return function(state = initialState, action) {
         //if切换组件
         if (action.type == 'switchElement') {
-            return Object.assign({}, state, { id: action.nextId, stencilTitle: action.nextStencilTitle }) //来自
+            return Object.assign({}, state, { id: action.nextId, stencilTitle: action.nextStencilTitle }) 
         }
-
-        //state.stencilTitle 是点击的时候，下一个组件的title， 来自 _stencil._jsonStencil.title
 
         // reduce直接以 all 命名的，比如temp，要直接穿透
         const isTitleAll = (reducerName.indexOf('all') != -1) || (reducerName.indexOf('All') != -1)
@@ -18,8 +16,6 @@ export default function(reducerName, cb) { //这个是reduce里 手写 写死的
             return cb(state, action, ind)   
         }            
 
-        
-
         // action.type里面有all的要穿透所有的reduce
         const isTypeAll = (action.type.indexOf('all') != -1) || (action.type.indexOf('All') != -1)
         if(isTypeAll){
@@ -27,16 +23,12 @@ export default function(reducerName, cb) { //这个是reduce里 手写 写死的
             return cb(state, action, ind)   
         }
 
-        
-
         // action.type里面有init的 也要穿透所有的reduce
         const isInit = (action.type.indexOf('init') != -1) || (action.type.indexOf('Init') != -1)
         if(isInit){
             const ind = findCurrentRepoInd(state)
             return cb(state, action, ind)   
         }
-
-        
 
         // 最后 title类型一致的才能继续走下去
         if (state.stencilTitle) {
@@ -46,19 +38,7 @@ export default function(reducerName, cb) { //这个是reduce里 手写 写死的
             }
         }
         
-
-
-        //if not this reduce
-        // const ifNotInit = action.type.indexOf('init') == -1
-        // if (state.stencilTitle) {
-        //     const titleIsWrong = (state.stencilTitle != reducerName) && (reducerName != 'all')
-        //     if (titleIsWrong && ifNotInit) return state
-        // }
-
         //否则
         return state
-        //currentInd
-        // const ind = findCurrentRepoInd(state)
-        // return cb(state, action, ind)
     }
 }

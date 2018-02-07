@@ -13,13 +13,8 @@ export default function(reduceName){
         const previousNodeSpecified = currentRepo.previousNodeSpecified
         const enableSingleSelect = currentRepo.enableSingleSelect 
         
-        if(!fm.approve.rule_not_display_last_node_specify(fm.currentSelectedShape,currentRepo)) return null
-        // if(fm.approve.hideCheck(currentRepo)) return null     
-        // if(fm.previousShape.is('multi')) return null  //special multi
-        // if(fm.previousShape.is('Circulation task')) return null 
-        // if(fm.previousShape.is('Inclusive gateway')) return null 
-        // if(fm.previousShape.is('Subflow')) return null 
-        
+        // is display，如果为true，则display
+        if(!fm.approve.is_display_prevShapeSpecify(fm.currentSelectedShape,currentRepo)) return null
         return(
             <div>
                 <div style={{height:'15px',width:'100%'}}></div>

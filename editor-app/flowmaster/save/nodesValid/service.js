@@ -23,5 +23,9 @@ export default function(canvas) {
         if (repo.previousNodeSpecified) {
             shape.setProperty('previousNodeSpecified', true)
         }
+        
+        if(!fm.approve.is_display_prevShapeSpecify_for_circulation(shape,repo)){
+            shape.setProperty('previousNodeSpecified', false)
+        }
     })
 }

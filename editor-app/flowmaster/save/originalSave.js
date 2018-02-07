@@ -75,6 +75,10 @@ export default function($scope, $http, callback) {
     .success(function(data, status, headers, config) {
         rdx.dispatch({ type: 'closeSpin' })
         window.showAlert('保存成功', 'good')
+        
+        //替换versionId
+        fm.versionId = data
+
 
         // Fire event to all who is listening
         $scope.editor.handleEvents({type: ORYX.CONFIG.EVENT_SAVED})

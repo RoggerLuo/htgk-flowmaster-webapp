@@ -7,7 +7,8 @@ export default (currentRepo) => {
         !(
             (cate=='boss') ||
             (cate=="EMPLOYEE") ||
-            (cate=='customizeRole')
+            (cate=='customizeRole') ||
+            (cate=='ORG')
         )
     ){
         return true

@@ -6,7 +6,6 @@ import NextHalfText from './NextHalfText'
 
 const ApproveNode = ({ data, put }) => {
     const isListEmpty = data.length == 0
-    
     return(
         <div className="react-approve">
             <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>

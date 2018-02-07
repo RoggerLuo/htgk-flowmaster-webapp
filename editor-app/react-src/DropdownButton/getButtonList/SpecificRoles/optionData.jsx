@@ -1,6 +1,11 @@
+
 const getText = (el) => {
-    return el.properties.name + `(${el.resourceId.substring(4,9)})`
+    if(el.properties.name.length>6){
+        return el.properties.name.substr(0,6) + '...' + `(ID: ${el.resourceId.substring(4,9)})`
+    }
+    return el.properties.name + `(ID: ${el.resourceId.substring(4,9)})`
 }
+
 export default function(){
     const list = []
     const json = fm.getJson()

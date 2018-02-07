@@ -19,7 +19,7 @@ export default function(canvas, reduceName) {
         currShape.setProperty('approveItems', getApproveItems(repo, currShape))
         currShape.setProperty('reduxData', repo)
         
-        if(!fm.approve.rule_not_display_last_node_specify(currShape,repo)){
+        if(!fm.approve.is_display_prevShapeSpecify(currShape,repo)){
             currShape.setProperty('previousNodeSpecifiedSingle', false)
             currShape.setProperty('previousNodeSpecified', false)
         }
