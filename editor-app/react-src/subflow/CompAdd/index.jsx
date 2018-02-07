@@ -21,6 +21,31 @@ const dataProducer = (list) => {
             ))
         data.push({groupTitle:el.name,data:dataFromList})
     })
+    data.forEach(el=>{
+        if(el.groupTitle == 'defaultCategory') el.groupTitle = "默认分类"
+    })
+
+    //暂时兼容null
+    data.forEach(el=>{
+        if(el.groupTitle == "默认分类"){
+            const nullList = list
+                .filter(el2=>el2.categoryName === null)
+                .filter(el2 => el2.status == 'Normal')
+                .filter(el2 => el2.id != currentPid)
+                .map(el2 => (
+                    {
+                        versionId:el2.versionId,
+                        text:el2.name,
+                        value:el2.id,
+                        checked:false
+                    }
+                ))            
+            el.data = [...el.data,...nullList]
+        }
+    })
+    
+    return data
+
     /* 把data里面推进一堆{groupTitle} */
     // list.filter(el=>el.status == 'Normal')
     //     .filter(el=>el.id != currentPid) //不显示当前流程（自己）
@@ -52,10 +77,6 @@ const dataProducer = (list) => {
     //             }
     //         ))
     // })
-    data.forEach(el=>{
-        if(el.groupTitle == 'defaultCategory') el.groupTitle = "默认分类"
-    })
-    return data
 }
 
 const AddComp = ({ currentRepo, put, add }) => {
