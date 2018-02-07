@@ -3,6 +3,8 @@ import Dropdown from '../../../basicComp/Dropdown'
 import Group from './GroupContainer'
 
 const SubGroup = ({data,currentRepo,dispatch,isLast}) => {
+    // data就是leftField里面的el
+
     const leftFormId = data.name
     const optionsData = window.formPropertiesTotal || [] 
 
@@ -40,7 +42,10 @@ const SubGroup = ({data,currentRepo,dispatch,isLast}) => {
     return (
         <div>
             <div style={{display:'flex',justifyContent:'space-between',width:'400px',height:'16px'}}>
-                <div style={{color: '#999999', fontSize: '13px'}}>{data.title} {required?(<span style={{color:'red'}}> * </span>):null} </div>
+                <div style={{color: '#999999', fontSize: '13px'}}>
+                    {data.title}  
+                    {required?(<span style={{color:'red'}}> * </span>):null}
+                </div>
                 <div style={{width:'210px',position:'relative',top:'16px'}}>
                     <Dropdown data={newOptions} width={'185px'} choosedOption={selectedOption} choosed={select} />
                 </div>
