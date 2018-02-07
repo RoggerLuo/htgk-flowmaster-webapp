@@ -1,6 +1,5 @@
 import React from 'react'
 import SolidFrame from '../../../presentations/SolidFrame/SolidFrame'
-import {connect} from 'react-redux'
 import Header from '../Form/Header'
 import SubGroup from './SubGroup'
 
@@ -22,5 +21,5 @@ const SubForm = ({ currentRepo, dispatch }) => {
         </SolidFrame>
     )
 }
-export default global.connect2redux('subflow',SubForm)
+export default rdx.connect('subflow',SubForm)
 

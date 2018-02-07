@@ -35,12 +35,12 @@ const SubGroup = ({data,currentRepo,dispatch,isLast}) => {
         dispatch({type:'subflow/subRights/rightFormId',leftFormId,rightFormId:item.value})
         activeSave()
     }
-
+    const required = data.required
 
     return (
         <div>
             <div style={{display:'flex',justifyContent:'space-between',width:'400px',height:'16px'}}>
-                <div style={{color: '#999999', fontSize: '13px'}}>{data.title}</div>
+                <div style={{color: '#999999', fontSize: '13px'}}>{data.title} {required?(<span style={{color:'red'}}> * </span>):null} </div>
                 <div style={{width:'210px',position:'relative',top:'16px'}}>
                     <Dropdown data={newOptions} width={'185px'} choosedOption={selectedOption} choosed={select} />
                 </div>

@@ -6,21 +6,29 @@ export default function(repo) {
 
     if (isExistSubform) {
 
-        if (!repo.subRights) {
-            window.showAlert('子表单尚未选择')
-            returnFlag = false
-            return returnFlag
+        if(repo.leftFields.filter(el => el.type == 'sub_form').some(el=>el.required)){
+            if (!repo.subRights) {
+                window.showAlert('必填子表单尚未匹配')
+                returnFlag = false
+                return returnFlag
+            }            
         }
 
-        const formMatchCheckNotPass = repo.leftFields.some((el, ind) => {
+        const formMatchCheckNotPass = repo.leftFields.filter(el => el.type == 'sub_form').some((el, ind) => {
             
-            if (el.type != 'sub_form') return false // 如果不是子表单项就跳过, 要取el的children
+            // if (el.type != 'sub_form') return false // 如果不是子表单项就跳过, 要取el的children
+
             const subItem = repo.subRights[el.name]
             
             if (!subItem) { //如果选项尚未选择过
-                window.showAlert('子表单"' + el.title + '"尚未匹配')
-                returnFlag = false
-                return true
+
+                if(el.required){
+                    window.showAlert('子表单"' + el.title + '"尚未匹配')
+                    returnFlag = false
+                    return true
+                }else{
+                    return false
+                }
 
             } else {
                 
@@ -35,12 +43,12 @@ export default function(repo) {
             const subForm = el.children
             subForm.forEach(el2=>{
                 if(!subItem.map[el2.name]){
-                    window.showAlert('子表单中，字段"' + el2.title + '"尚未匹配')
+                    window.showAlert('子表单'+el.title+'中，字段"' + el2.title + '"尚未匹配')
                     returnFlag = false
                     return true
                 }
                 if(!subItem.map[el2.name].value){
-                    window.showAlert('子表单中，字段"' + el2.title + '"尚未匹配')
+                    window.showAlert('子表单'+el.title+'中，字段"' + el2.title + '"尚未匹配')
                     returnFlag = false
                     return true
                 }
