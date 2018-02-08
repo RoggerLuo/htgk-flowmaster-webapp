@@ -19,8 +19,6 @@ const Sf = ({put,currentRepo}) => {
 
 
 
-
-
     const options = window.processStatus.map(el=>{
         return {
             text:el.name,

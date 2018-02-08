@@ -12,7 +12,7 @@ export default function($scope) {
     const canvas = $scope.editor.getCanvas() /* 把redux转换成oryx数据, 顺序很重要 */
     const isThereProblem = true
 
-
+    branchNode(canvas) //branchNode要在sf之前，因为要先设置defaultflow
     if (!subflow(canvas)) return false
     if (!branch(canvas)) return false
     if (!sf(canvas)) return false
@@ -23,7 +23,6 @@ export default function($scope) {
     service(canvas)
     saveHandlerParallel(canvas)
     saveHandlerEndPoint(canvas)
-    branchNode(canvas)
 
     return isThereProblem
 }

@@ -52,8 +52,13 @@ function initial_request_formdata(dataObj) {
     rdx.dispatch({ type: 'updateFormProperties', data: window.formProperties })
 }
 
-export const requestFormData = ($http, pid, cb) => {
-    const url = window.globalHost + '/repository/process-definitions/' + pid + '/forms?processType=Normal'
+export const requestFormData = ($http, pid, cb, versionId) => {
+    let url
+    if(versionId){
+        url = window.globalHost + `/repository/process-definitions/${pid}/forms?processType=Normal&versionId=${versionId}`
+    }else{
+        url = window.globalHost + '/repository/process-definitions/' + pid + '/forms?processType=Normal'
+    }
     $http({
         method: 'GET',
         url
@@ -67,7 +72,7 @@ export const requestFormData = ($http, pid, cb) => {
 }
 
 export default function($http, pid) {
-    fm.fetchFormComponents = (_pid, cb) => requestFormData($http, _pid, cb)
-    fm.fetchFormComponents(pid, initial_request_formdata)
+    fm.fetchFormComponents = (_pid, versionId, cb) => requestFormData($http, _pid, cb, versionId)
+    fm.fetchFormComponents(pid, undefined, initial_request_formdata)
 }
 

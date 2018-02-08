@@ -39,7 +39,10 @@ export default function(canvas){
     rdx.store.getState().sf.repo.forEach((el) => {
         let currShape = fm.getNodeById(el.id)
         if (!currShape) return
+
+
         if(!el.businessStatus.value){ //如果没有设置businessStatusId项的话
+
             if(fm.next.is("Exclusive gateway",currShape)) return false  //三种分支都不显示
             if(fm.next.is("Circulation task",currShape)) return false
             if(fm.parallelGate.isShapeIn(currShape)) return false
@@ -56,12 +59,19 @@ export default function(canvas){
             return 
         }else{ //如果设置了
 
-            if(fm.multi.is.sf(currShape)){
+            if(fm.multi.is.sf(currShape)){ //分支保存的时候再命名一次，为了加上${CBpass}
                 fm.multi.branch.namingOnSave(currShape)
             }
             currShape.setProperty('businessStatusId', el.businessStatus.value)
-            // currShape.setProperty('conditionsequenceflow', '')
-            currShape.setProperty('reduxData', el)            
+            // 一个组件有两个 redux data包
+            currShape.setProperty('reduxData', el)
+
+            // if(fm.last.is("Exclusive gateway", currShape)){
+            //     if(currShape.properties['defaultflow'] == "true") {
+            //         debugger
+            //     }
+            // }
+
         }
 
     })

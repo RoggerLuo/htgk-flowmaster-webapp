@@ -46,7 +46,7 @@ export default function(canvas) {
         })
         el.conditions = conditionsNew
         currShape.setProperty('conditionsequenceflow', returnString)
-        currShape.setProperty('reduxdata', el)
+        currShape.setProperty('reduxData_branch', el)
     })
 
     canBeSaved = ifEmptyWithoutInit(canBeSaved)

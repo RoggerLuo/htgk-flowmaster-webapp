@@ -32,7 +32,7 @@
      )
  }
  const fetch_leftFields = (subProcess) => {
-     fm.fetchFormComponents(subProcess.subProcDefKey, function(data) {
+     fm.fetchFormComponents(subProcess.subProcDefKey, subProcess.versionId, function(data) {
          if (!data) return
          cb_fetch_leftFields(data.components,subProcess)
          // dispatch({type:'subflow/leftFields',leftFields:data.components})

@@ -14,8 +14,13 @@ const Group = ({ leftData, currentRepo }) => {
     let optionsData = window.formPropertiesTotal || []
     
     optionsData = optionsData
-        .filter(el => (el.subform_type == leftData.type) || (!el.value) )
+        .filter(el => {
+            // debugger
+            if(el.subform_type == 'database_view') return true
+            return (el.subform_type == leftData.type) || (!el.value) 
+        })
         .filter(el => el.subform_type != "description")
+
     optionsData.length==0 && optionsData.push({ text: '请选择', value: false })    
 
     const select = (item, optionInd) => {

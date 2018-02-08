@@ -15,6 +15,7 @@ const SubflowContainer = ({ currentRepo, dispatch }) => {
     const setting = () => {
         if(fm.versionModel) return
         if(currentRepo.subProcess.subProcDefKey){
+            // 拉去最新的数据 and required
             fetch_leftFields(currentRepo.subProcess)
         }
         dispatch({

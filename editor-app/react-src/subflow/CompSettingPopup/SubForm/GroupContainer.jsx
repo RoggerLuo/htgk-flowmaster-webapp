@@ -1,6 +1,5 @@
 import React from 'react'
 import Dropdown from '../../../basicComp/Dropdown'
-import { connect } from 'react-redux'
 import PartRight from '../Form/PartRight'
 import PartLeft from '../Form/PartLeft'
 
@@ -8,6 +7,8 @@ const Group = ({ leftData, currentRepo, dispatch, leftFormId, subOptions }) => {
     
     // 对应的组件类型 校验 在这里
     subOptions = subOptions.filter(el=>{
+        // debugger
+        if(el.cate == 'database_view') return true
         return (el.cate == leftData.type) || (!el.value)
     })
 
@@ -34,4 +35,4 @@ const Group = ({ leftData, currentRepo, dispatch, leftFormId, subOptions }) => {
         </div>
     )
 }
-export default global.connect2redux('subflow', Group)
+export default rdx.connect('subflow', Group)

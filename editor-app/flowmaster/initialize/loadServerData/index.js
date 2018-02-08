@@ -1,7 +1,7 @@
 import loadUserTask from './UserTask'
 import loadEndEvent from './loadEndEvent'
 import loadMultiUserTask from './loadMultiUserTask'
-import loadSF from './loadSF'
+import sf from './sf'
 import manual from './manual'
 import service from './service'
 import subflow from './subflow'
@@ -22,7 +22,7 @@ export default function(modelData){ /* 对服务器上的数据进行 解析 然
                 manual(el,index,modelData)
                 break
             case 'SequenceFlow':
-                loadSF(el,index,modelData)
+                sf(el,index,modelData)
                 break
             case 'EndNoneEvent':
                 loadEndEvent(el,index,modelData)

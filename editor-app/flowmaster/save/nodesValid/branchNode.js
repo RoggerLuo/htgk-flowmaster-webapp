@@ -4,13 +4,13 @@ export default function(canvas){
             el.setProperty('defaultflow', "false")
         }
     })
-    window.reduxStore.getState().branchNode.repo.forEach((el) => {
+    rdx.getState().branchNode.repo.forEach((el) => {
         let currentElement = canvas.getChildShapeByResourceId(el.choosed.value)
         if (el.resourceId && !currentElement) {
             return;
         }
         currentElement.setProperty('defaultflow', "true")
         currentElement.setProperty('conditionsequenceflow', '')
-        currentElement.setProperty('reduxdata', '')
+        currentElement.setProperty('reduxData', '')
     })
 }

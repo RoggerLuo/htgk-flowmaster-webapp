@@ -1,3 +1,21 @@
+## 初始化
+### load event
+初始化 分支节点的时候 是在sf中，  
+如果有某个sf的`defaultflow`设置为true，说明 使用了分支节点，  
+不然就不需要初始化
+
+### 为什么一定要单独初始化，而不是在执行的时候顺便初始化
+考虑的到通用性原因，  
+用reduceWrap方法会自动去拿index,   
+第一次dispatch 拿不到repo的index,`"not exist"`，  
+所以需要把 初始化 和 dispatch 分开  
+
+5 Feb 2018  
+20 Sep 2017
+
+
+
+
 ## reduce 的通用wrap
 `selectEvent/informRedux_the_ElementSwitchEvent`  
 放在了一起
@@ -8,18 +26,15 @@ stencilTitle来自于oryx
 
 
 
-#### 为什么一定要单独初始化，而不是在执行的时候顺便初始化
-考虑的到通用性原因，第一次拿不到repo的index  
-所以需要把初始化和普通的dispatch分开  
-
-5 Feb 2018  
-20 Sep 2017
-## SQL审批人 需要index 参数
+## 审批人设置
+### SQL审批人 需要index 参数
 call popup  
 在action.confirm这一层的时候  
 需要多传一个参数  index group
 
-## 特定审批人 同步节点名称的修改
+
+## 节点、表单数据同步
+### 特定审批人 同步节点名称的修改
 	1.在 RolesFrameGeneratorNotForParallel/defaultContainer/index 里
 	加载的时候根据 resourceId 来取值
 	
@@ -29,12 +44,13 @@ call popup
 		直接从reduce.temp中读取dpdw的数据
 		就可以保持同步更新了
 	
-## 同步表单的修改 - 分支条件下拉选项值若修改了
+### 同步表单修改 - 分支条件下拉选项值若修改了
 判断如果是表单组件  
 则根据value(field_xxxxx) 循环更新 展示的text  
 二级联动 最后的 输入控件都会更新
 
-## 判断并行分支的边界算法
+## 并行汇聚
+### 判断并行分支的边界算法
 	
 先算出 collections, 
 
@@ -52,11 +68,12 @@ call popup
 
 Wed 31 Jan 
 
-## 每次都touch
+## 更新右侧栏视图
+### 每次afterupdate 都touch
 每次移动之后，就可以实时更新右边属性栏的视图  
 比如 显示或者不显示 “退回上一节点”
 
-## 命名问题的解决
+## 节点自动命名 
 原生的oryx在删除以后，不能马上在getNodes里实时更新节点结构，  
 导致命名的时候，会有跳过某个序号的情况
 
@@ -75,7 +92,7 @@ thresholder 会影响使用的点击效果，
 设置太小了，有些函数会失效，快速切换组件的时候react组件也会加载不过来，   
 设置太大的话，切换点击就会很卡
 
-## rolesFrame and conf组件
+## rolesFrame and conf组件 //命名有问题的感觉 不切题
 每个审批节点中的 Role frame conf组件的作用是  
 	
 	使用这个节点的 reduce/repo里的data, 
@@ -89,10 +106,11 @@ thresholder 会影响使用的点击效果，
 是用来校验 连线是否命名
 ### nodesValid/sf
 用来校验 连线业务状态
-## 这些节点的前面，连线状态是否显示
-**在route里面**    
-只管是否显示 名称， 状态默认都显示  
-**在sf react 组件里面**    只控制 状态
+
+## 连线命名、连线状态、分支连线
+**连线命名在route里面通过template控制**    
+只管名称的显示，状态默认都显示  
+**在 react 组件 sf 里面**    控制 状态
 Fri 26 Jan 3:00 PM
 ## fm.isCurrentShapeInGates
 `/editor-app/flowmaster/selectEvent/index.js`  
@@ -109,13 +127,6 @@ thresholder 会影响使用的点击效果，
     因为不知道这个是不是init过
     
 
-## sequence flow系列问题
-1.template混乱，  
-2.机制混乱，通过不初始化来不显示业务状态,隐式的方法，不够明显  
-应该通过template来不调用angular controller进而不调用react组件
-
-可以抽象出来的“校验环节”，  
-需不需要检查 1命名 以及 2业务状态
 
 ## subflow	
 在点击要添加子流程的时候，	

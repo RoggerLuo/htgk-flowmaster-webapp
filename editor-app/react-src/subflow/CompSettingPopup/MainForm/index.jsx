@@ -1,6 +1,5 @@
 import React from 'react'
 import SolidFrame from '../../../presentations/SolidFrame/SolidFrame'
-import {connect} from 'react-redux'
 import Header from '../Form/Header'
 import Group from './GroupContainer'
 
@@ -15,6 +14,7 @@ const MainForm = ({ currentRepo, dispatch }) => {
                     leftFields
                         .filter(el => el.type != 'sub_form')
                         .filter(el => el.type != "description")
+                        .filter(el => el.type != "database_view")
                         .map((el,ind)=>{
                             return (<Group leftData={el} key={ind} />)
                         }
@@ -25,7 +25,7 @@ const MainForm = ({ currentRepo, dispatch }) => {
         </SolidFrame>
     )
 }
-export default global.connect2redux('subflow',MainForm)
+export default rdx.connect('subflow',MainForm)
 
 
 
