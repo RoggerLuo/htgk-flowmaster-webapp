@@ -4,7 +4,7 @@ import Dropdown from '../../basicComp/Dropdown'
 import './style.less'
 import MainForm from './MainForm'
 import SubForm from './SubForm' 
-import ApproveRange from './ApproveRange'
+import ApproveRange from './Approve'
 import Radios from './Radios' 
 
 export default function(){ 

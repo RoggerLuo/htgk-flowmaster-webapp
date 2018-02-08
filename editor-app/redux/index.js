@@ -10,7 +10,10 @@ rdx.put = (type, ...args) => {
     store.dispatch({ type, args })
     rdx.save()
 }
-rdx.dispatch = store.dispatch
+rdx.dispatch = (action) => {
+    store.dispatch(action)
+    store.dispatch({ type: 'saveActive' })
+}
 rdx.findCurrentRepoInd = findCurrentRepoInd
 rdx.connect = connect2redux
 rdx.i18nPut = i18nPut

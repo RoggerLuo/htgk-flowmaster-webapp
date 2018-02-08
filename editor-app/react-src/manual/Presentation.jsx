@@ -1,7 +1,7 @@
 import React from 'react'
 import  './style'
 import Button from './ButtonConf'
-import RolesFrame from './RolesFrameConf'
+import ApprovePool from './approvePool'
 import NextHalfText from './NextHalfText'
 
 const ManualNode = ({ data, put }) => {
@@ -29,7 +29,7 @@ const ManualNode = ({ data, put }) => {
                 </Button>    
             ):null}
             {!isListEmpty?(
-                <RolesFrame data={data} />
+                <ApprovePool data={data} />
             ):null}
             <NextHalfText put={put}/>
             <div style={{height:'200px',width:'1px'}}></div>

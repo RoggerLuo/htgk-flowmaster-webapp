@@ -1,5 +1,5 @@
 import React from 'react'
-import RolesFrame from './RolesFrameConf'
+import ApprovePool from './approvePool'
 import Button from './ButtonConf'
 
 export default ({ data ,put }) => {//data,
@@ -17,7 +17,7 @@ export default ({ data ,put }) => {//data,
                     {
                         isEmpty?
                             (<div style={{height:'43px', width:'300px',border: '1px solid #c5c5c5'}}></div>):
-                            (<RolesFrame data = {data}/>)
+                            (<ApprovePool data = {data}/>)
                     }
                 </div>
 

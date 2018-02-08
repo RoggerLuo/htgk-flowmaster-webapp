@@ -1,11 +1,10 @@
 import React from 'react'
 import  './style'
 import Button from './ButtonConf'
-import RolesFrame from './RolesFrameConf'
+import ApprovePool from './approvePool'
 import NextHalfText from './NextHalfText'
 
 const UsertaskPre = ({ data, put }) => {
-    
     const isEmpty = data.length == 0
     return(
         <div className="react-approve">
@@ -30,7 +29,7 @@ const UsertaskPre = ({ data, put }) => {
             ):null}
 
             {!isEmpty?(
-                <RolesFrame data={data}/>
+                <ApprovePool data={data}/>
             ):null}
             <NextHalfText put={put}/>
             <div style={{height:'200px',width:'1px'}}></div>
