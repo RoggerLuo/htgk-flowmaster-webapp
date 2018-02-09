@@ -43,7 +43,11 @@ const SubflowContainer = ({ currentRepo, dispatch }) => {
     }
 
     const add = () => {
-        if(fm.versionModel) return
+        if(fm.versionModel) {
+            alert('versionId获取失败，请重试')
+            return
+        }
+        window.callShadow()
         dispatch({
             content:CompAdd,
             confirm:()=>{
