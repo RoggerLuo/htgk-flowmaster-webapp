@@ -4,11 +4,11 @@ import branch from './branch'
 import popup from './popup'
 import popupX from './popupX'
 import certainPerson from './certainPerson'
-import superPopup from './superPopup'
+// import superPopup from './superPopup'
 import dropdown from './dropdown'
-import parallel from './parallel'
+import multi from './multi'
 import common from './common'
-import endpoint from './endpoint'
+// import endpoint from './endpoint'
 import branchNode from './branchNode'
 import manual from './manual'
 import sql from './sql'
@@ -20,23 +20,24 @@ import temp from './temp'
 
 
 const rootRuducer = combineReducers({
-    usertask,
-    superPopup,
+    usertask, multi, manual, circulation,
+    // superPopup,
     branch,
     popup,
     certainPerson,
     dropdown,
-    parallel,
-    common,
-    endpoint,
+
+
+    // endpoint,
     branchNode,
-    manual,
+
     sql,
     // custom,
-    circulation,
+
     subflow,
     popupX,
     sf,
+    common,
     temp
 })
 

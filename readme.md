@@ -1,3 +1,6 @@
+
+# deprecated here
+
 ## 初始化
 ### load event
 初始化 分支节点的时候 是在sf中，  
