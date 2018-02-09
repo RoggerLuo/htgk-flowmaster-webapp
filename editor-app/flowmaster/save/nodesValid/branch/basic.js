@@ -1,11 +1,7 @@
-'use strict'
 import Trim from './trim.js'
 
 export const ifEmptyWithoutInit = (canBeSaved) => {
-    /* 在分支条件没有初始化的情况下，
-        检查分支节点是否为空，
-        没有初始化，就没有加入到dataRepo,上面的方法就检查不出
-     */
+    /* 在分支条件没有初始化的情况下，检查分支节点是否为空， */
     /* 遍历所有exclusiveGate 然后再遍历他们的sequenceflow */
     window.windowCanvas.getChildNodes().filter((el) => {
         return el._stencil._jsonStencil.title == "Exclusive gateway"
@@ -20,7 +16,12 @@ export const ifEmptyWithoutInit = (canBeSaved) => {
             if (!el2.properties.defaultflow) { //不存在,说明不是默认流向的分支
                 if (!el2.properties.conditionsequenceflow) { //也不存在
                     let nodeName = el2.incoming && el2.incoming[0] && el2.incoming[0].properties["oryx-name"]
+                    
                     window.showAlert('保存失败，节点"' + nodeName + '"的分支条件和规则不能为空')
+                    /* 定位的关键代码 */
+                    fm.editor.setSelection([el2])
+                    fm.editor.updateSelection()
+
                     canBeSaved = false
                 }
             }
@@ -45,6 +46,9 @@ export const ifEmpty = (el, currentElement) => {
             let nodeName = currentElement.incoming && currentElement.incoming[0] && currentElement.incoming[0].properties["oryx-name"]
             window.showAlert('保存失败，节点"' + nodeName + '"的分支条件和规则不能为空')
             window.setPropertyAdvance({ key: 'oryx-name', value: '' }, currentElement)
+            fm.editor.setSelection([currentElement])
+            fm.editor.updateSelection()
+
             return true
         }
     }
@@ -57,6 +61,9 @@ export const validationCheck = (el) => {
         if (isNaN(el.input)) {
             window.showAlert('保存失败，分支条件中填写数据类型不正确')
             window.setPropertyAdvance({ key: 'oryx-name', value: '' }, currentElement)
+            fm.editor.setSelection([currentElement])
+            fm.editor.updateSelection()
+
             canSave = false
             return
         }

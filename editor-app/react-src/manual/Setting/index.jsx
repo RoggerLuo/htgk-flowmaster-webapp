@@ -4,7 +4,7 @@ import Pre from './Pre'
 const ManualSetting = ({ put, currentRepo, dispatch }) => {
     if(!currentRepo) return null
     const oncheckFactory = key => () => {
-        if(fm.versionModel) return
+        if(fm.isSpecificVersionEditMode) return
         rdx.put('manual','replace',[key],!currentRepo[key])
     }
     let data = [
@@ -15,7 +15,7 @@ const ManualSetting = ({ put, currentRepo, dispatch }) => {
             defaultValue:'退回发起人',
             inputValue:currentRepo.backToStarterText,
             onchange(e){
-                if(fm.versionModel) return
+                if(fm.isSpecificVersionEditMode) return
                 rdx.put('manual','replace',['backToStarterText'],e.target.value||'退回发起人')
             }
         },
@@ -26,7 +26,7 @@ const ManualSetting = ({ put, currentRepo, dispatch }) => {
             defaultValue:'退回上一节点审批人',
             inputValue:currentRepo.backToLastText,
             onchange(e){
-                if(fm.versionModel) return
+                if(fm.isSpecificVersionEditMode) return
                 rdx.put('manual','replace',['backToLastText'],e.target.value||'退回上一节点审批人')
             }
         },
@@ -37,7 +37,7 @@ const ManualSetting = ({ put, currentRepo, dispatch }) => {
             defaultValue:'强制结束流程',
             inputValue:currentRepo.allowForceEndText,
             onchange(e){
-                if(fm.versionModel) return
+                if(fm.isSpecificVersionEditMode) return
                 rdx.put('manual','replace',['allowForceEndText'],e.target.value||'强制结束流程')
             }
         }

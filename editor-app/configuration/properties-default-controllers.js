@@ -21,7 +21,7 @@ var sequencePropertyCtrl = ['$scope', function($scope) {
     window.sequenceflowCompInitializer()
 }]
 var subflowPropertyCtrl = ['$scope', function($scope) {
-    window.subflowCompInitializer()
+    fm.subflow.render()
 }]
 var customPropertyCtrl = ['$scope', function($scope) {
     window.customCompInitializer()

@@ -503,7 +503,7 @@ angular.module('activitiModeler')
             */
 
             $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, function(event) {
-                if(fm.versionModel) return
+                if(fm.isSpecificVersionEditMode) return
 
                 KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_HIDE_SHAPE_BUTTONS); //这个event是干嘛
                 var shapes = event.elements;
@@ -1141,7 +1141,7 @@ angular.module('activitiModeler')
         };
 
         $scope.dragCallback = function(event, ui) {
-            if(fm.versionModel) return
+            if(fm.isSpecificVersionEditMode) return
 
             if ($scope.dragModeOver != false) {
                 
@@ -1330,7 +1330,7 @@ angular.module('activitiModeler')
         };
 
         $scope.dragCallbackQuickMenu = function(event, ui) {
-            if(fm.versionModel) return
+            if(fm.isSpecificVersionEditMode) return
 
             if ($scope.dragModeOver != false) {
                 var coord = $scope.editor.eventCoordinatesXY(event.pageX, event.pageY);

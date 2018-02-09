@@ -28,7 +28,7 @@ export default function(reduceName){
         if(!currentRepo) return null
         const oncheckFactory = key => {
             return () => {
-                if(fm.versionModel) return
+                if(fm.isSpecificVersionEditMode) return
                 rdx.put(reduceName,'replace',[key],!currentRepo[key])
             }
         }
@@ -40,7 +40,7 @@ export default function(reduceName){
                 defaultValue:'退回发起人',
                 inputValue:currentRepo.backToStarterText,
                 onchange(e){
-                    if(fm.versionModel) return
+                    if(fm.isSpecificVersionEditMode) return
                     rdx.put(reduceName,'replace',['backToStarterText'],e.target.value||'')
                 }
             },
@@ -51,7 +51,7 @@ export default function(reduceName){
                 defaultValue:'退回上一节点审批人',
                 inputValue:currentRepo.backToLastText,
                 onchange(e){
-                    if(fm.versionModel) return
+                    if(fm.isSpecificVersionEditMode) return
                     rdx.put(reduceName,'replace',['backToLastText'],e.target.value||'')
                 }
             },
@@ -62,7 +62,7 @@ export default function(reduceName){
                 defaultValue:'强制结束流程',
                 inputValue:currentRepo.allowForceEndText,
                 onchange(e){
-                    if(fm.versionModel) return
+                    if(fm.isSpecificVersionEditMode) return
                     rdx.put(reduceName,'replace',['allowForceEndText'],e.target.value||'')
                 }
             }

@@ -1876,28 +1876,6 @@
 .approvePropertyCtrl .icon-tianjia {
   line-height: 27px;
 }
-.subflowPropertyCtrl .radio-text {
-  padding-left: 10px;
-}
-.subflowPropertyCtrl .radio-detail-text {
-  color: #999999;
-  padding-left: 30px;
-}
-.subflowPropertyCtrl .row-title {
-  font-size: 13px;
-  padding: 6px 0px;
-  margin-top: 18px;
-}
-.subflowPropertyCtrl .mybutton {
-  display: flex;
-  justify-content: space-between;
-}
-.subflowPropertyCtrl .mybutton .icon-tianjia:hover {
-  color: white !important;
-}
-.subflowPropertyCtrl .icon-tianjia {
-  line-height: 27px;
-}
 
 @font-face {font-family: "iconfont";
   src: url(a0167e60391e7e87cb5c262115bc624c.eot); /* IE9*/

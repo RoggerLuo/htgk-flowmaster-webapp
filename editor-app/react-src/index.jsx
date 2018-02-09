@@ -1,6 +1,7 @@
 global.rct = global.rct || {}
 import './userGuide/component'
 
+import './subflow'
 import approveComponent from './usertask/Container'
 import endPointComponent from './endPoint/Container'
 import parallelApproveComponent from './parallelApprove/MainCompContainer'
@@ -13,7 +14,6 @@ import mySpin from './alert/spin'
 import manual from './manual/Container'
 import circulation from './circulation/Container'
 import custom from './custom/Container'
-import subflow from './subflow/Container'
 import sf from './sf'
 
 
@@ -37,7 +37,6 @@ global.endPointComponent = endPointComponent
 global.manualCompInitializer = manual
 global.circulationCompInitializer = circulation
 global.customCompInitializer = custom
-global.subflowCompInitializer = subflow
 global.sequenceflowCompInitializer = sf
 
 import zh from './i18n/zh'
@@ -49,3 +48,5 @@ import '../qingfont/iconfont.css'
 import './global.less'
 import './icon.less'
 import './basic.less'
+
+import './common'

@@ -10,9 +10,9 @@ const getBusinessStatus = (modelProcessType, $http) => {
 export const getModel = (callback, $http, pid) => {
     // const version = window.getQueryString("version")
     let url = window.globalHost + '/repository/process-definitions/' + pid + '/design?processType=Normal'
-    if (fm.versionModel) { //version != 'undefined'
+    if (fm.isSpecificVersionEditMode) { //version != 'undefined'
         url = window.globalHost + '/repository/process-definitions/' + pid + `/design?processType=Normal&version=${fm.version}`
-        // fm.versionModel = true
+        // fm.isSpecificVersionEditMode = true
     }
     $http({
             method: 'GET',

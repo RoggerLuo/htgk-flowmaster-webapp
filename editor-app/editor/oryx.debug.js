@@ -17883,7 +17883,7 @@ ORYX.Plugins.Edit = Clazz.extend({
      * Performs the delete operation. No more asking.
      */
     editDelete: function(){
-    	if(fm.versionModel) return
+    	if(fm.isSpecificVersionEditMode) return
 
         var selection = this.facade.getSelection();
 

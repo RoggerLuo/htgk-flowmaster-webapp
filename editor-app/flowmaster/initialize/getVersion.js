@@ -1,6 +1,6 @@
 // const version = fm.getUrlQueryParam("version")
 // if (version != 'undefined') {
-//     fm.versionModel = true
+//     fm.isSpecificVersionEditMode = true
 //     fm.version = version
 // }
 

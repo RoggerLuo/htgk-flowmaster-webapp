@@ -8,7 +8,7 @@ const CirculationNextHalf = ({ put, currentRepo, dispatch }) => {
     }
 
     const previousNodeSpecifiedChange = () => {
-        if(fm.versionModel) return
+        if(fm.isSpecificVersionEditMode) return
         dispatch({type:'circulation/previousNodeSpecifiedChange'})
         activeSave() 
     }

@@ -1,11 +1,6 @@
 import rolesJsonSpeller from '../rolesJsonSpeller'
 import servicetaskfields from './servicetaskfields'
-import checkSubform from './checkSubform'
-import checkMainform from './checkMainform'
 import formMapping from './formMapping'
-fm.subflow = {}
-fm.subflow.checkSubform = checkSubform
-fm.subflow.checkMainform = checkMainform
 
 export default function(canvas) {
     let returnFlag = true
@@ -28,7 +23,7 @@ export default function(canvas) {
         }
 
 
-        if( !checkMainform(repo) || !checkSubform(repo)){
+        if( !fm.subflow.checkMainform(repo) || !fm.subflow.checkSubform(repo)){
             returnFlag = false
         }
        

@@ -3,11 +3,11 @@ import React from 'react'
 export default function(reduceName){
     const HidePrevious = ({ put, currentRepo, dispatch }) => {
         const change1 = () => {
-            if(fm.versionModel) return
+            if(fm.isSpecificVersionEditMode) return
             rdx.put(reduceName,'replace',['previousNodeSpecified'],!currentRepo.previousNodeSpecified,'boolean')
         }
         const change2 = () => {
-            if(fm.versionModel) return
+            if(fm.isSpecificVersionEditMode) return
             rdx.put(reduceName,'replace',['enableSingleSelect'],!currentRepo.enableSingleSelect,'boolean')
         }
         const previousNodeSpecified = currentRepo.previousNodeSpecified
