@@ -1,7 +1,7 @@
 import React from 'react'
 import  './style'
 import Button from './ButtonConf'
-import ApprovePool from './approvePool'
+import ApprovePool from './ApprovePool'
 import NextHalfText from './NextHalfText'
 
 const UsertaskPre = ({ data, put }) => {

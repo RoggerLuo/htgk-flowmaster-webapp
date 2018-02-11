@@ -1,4 +1,4 @@
-import React,{createClass} from 'react';
+import React from 'react'
 import './style'
 
 const Character = ({text,click}) => {

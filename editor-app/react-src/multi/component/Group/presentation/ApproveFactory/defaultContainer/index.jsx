@@ -1,5 +1,4 @@
 import React from 'react'
-import SolidFrame from '../../../presentations/SolidFrame/SolidFrame'
 import RoleCube from './RoleCube'
 
 export default function(del){

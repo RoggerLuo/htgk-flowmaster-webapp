@@ -7,7 +7,7 @@ const MenuContainer = ({ currentRepo, children }) => {
     const clear = () => rdx.dispatch({ type: 'subflow/clear' })
 
     const xClass = { marginTop: '5px', marginLeft: '-105px' }
-    const Menu = fm.common.DropdownMenu
+    const Menu = fm.common.dropdownMenu.component
     return (
         <Menu xClass={xClass} onConfirm={add} existCate={reduxCate} buttonMode={'subflow'}>
             {children}

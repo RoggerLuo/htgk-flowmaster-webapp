@@ -1,6 +1,6 @@
 import loadUserTask from './UserTask'
 import loadEndEvent from './loadEndEvent'
-import loadMultiUserTask from './loadMultiUserTask'
+import multi from './multi'
 import sf from './sf'
 import manual from './manual'
 import service from './service'
@@ -34,7 +34,7 @@ export default function(modelData){ /* 对服务器上的数据进行 解析 然
                 loadUserTask(el,index,modelData)
                 break
             case 'MultiUserTask':
-                loadMultiUserTask(el,index,modelData)
+                multi(el,index,modelData)
             break
         }
     })

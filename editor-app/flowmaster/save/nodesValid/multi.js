@@ -1,7 +1,7 @@
 import rolesJsonSpeller from './rolesJsonSpeller'
 
 export default function() {
-    rdx.getState().parallel.repo.forEach((repo) => {
+    rdx.getState().multi.repo.forEach((repo) => {
         let shape = fm.getShapeById(repo.id)
         if (!shape) return
 

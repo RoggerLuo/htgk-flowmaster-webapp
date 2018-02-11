@@ -9,7 +9,7 @@ export default ({ clear, add }) => {
         const edit = () => {
             rdx.dispatch({type:'sql/reload',savedSqlState:data[0].sqlState})
             
-            const action = fm.dropdownMenu.sql( cb )
+            const action = fm.common.dropdownMenu.menuList.sql( cb )
             action.confirm = action.confirm(index)
             rdx.dispatch(action)
             window.callShadow()

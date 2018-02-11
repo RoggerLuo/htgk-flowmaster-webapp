@@ -1,5 +1,4 @@
 import React from 'react'
-import SolidFrame from '../../presentations/SolidFrame/SolidFrame'
 export default ({ clear, edit }) => {
     return ({ data }) => {
         const text = data && data[0] && data[0].sql|| '' // && data[0].currentDataSourceRef.sql||''

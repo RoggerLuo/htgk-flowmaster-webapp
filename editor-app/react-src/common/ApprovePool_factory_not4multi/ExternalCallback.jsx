@@ -8,7 +8,7 @@ export default ({ clear, add }) => {
     const RoleSolidComp = ({ data }) => {
         const edit = () => {
             rdx.dispatch({type:'sql/reload',savedSqlState:data[0].sqlState})
-            rdx.dispatch(fm.dropdownMenu.externalCallback(cb))
+            rdx.dispatch(fm.common.dropdownMenu.menuList.externalCallback(cb))
         }
         const text = data && data[0] && data[0].sql|| '' 
         const SolidFrame = fm.common.SolidFrame

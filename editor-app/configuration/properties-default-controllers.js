@@ -49,8 +49,8 @@ var branchSequenceFlowPropertyCtrl = ['$scope', function($scope) {
     branchSequenceFlowComponent.render()
 }];
 
-var parallelApprovePropertyCtrl = ['$scope', function($scope) {
-    parallelApproveComponent.render()
+var multiPropertyCtrl = ['$scope', function($scope) {
+    fm.multi.render()
 }];
 
 var approvePropertyCtrl = ['$scope', function($scope) {

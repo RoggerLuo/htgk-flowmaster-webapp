@@ -22,13 +22,21 @@ const uniqAdd = (data, item) => {
 export default reduceWrap('Multi user task', (state, action, ind) => {
     let data = fromJS(state)
     switch (action.type) {
-        case 'parallel/init': //very beginning start 
+        case 'multi':
+            if (ind == 'not exist') {
+                return data
+                    .updateIn(['repo'], List(),(a) => a.push( fromJS(action.data) ))
+                    .updateIn(['mode'], 'normal', (el) => 'normal').toJS()
+            }
+            return transformer(data, ind, action.args)
+
+        case 'multi/init': //very beginning start 
             return data
                 .updateIn(['repo'], List(),(a) => a.push( fromJS(action.data) ))
                 .updateIn(['mode'], 'normal', (el) => 'normal').toJS()
 
 
-        case 'parallel/newNodeInit': //
+        case 'multi/newNodeInit': //
             if (ind == 'not exist') { 
                 action.init()
                 const newCreate = fromJS({ id: state.id, data: [[]], sqlData:[]}) 
@@ -63,10 +71,10 @@ export default reduceWrap('Multi user task', (state, action, ind) => {
                 return el.delete(action.groupIndex)
             }).toJS()
 
-        case 'parallel/clear':
+        case 'multi/clear':
             return data.updateIn(['repo', ind, 'data', action.index], [], (el) =>[]).toJS()
 
-        case 'parallel/addChar':
+        case 'multi/addChar':
             const poolData = state.repo[ind].data[action.index]
             return data
                 // deprecated .updateIn(['repo', ind, 'cate'], '', (el) => action.item.cate)
@@ -74,7 +82,7 @@ export default reduceWrap('Multi user task', (state, action, ind) => {
                     return fromJS(uniqAdd(poolData, action.item))
                 }).toJS()
 
-        case 'parallel/delelteRole':
+        case 'multi/delelteRole':
             return data.updateIn(['repo', ind, 'data', action.groupIndex], 'initial', (el) => {
                 return el.delete(action.characterIndex)
             }).toJS()

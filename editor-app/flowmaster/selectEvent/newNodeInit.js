@@ -34,7 +34,7 @@ export default function(shape) {
 
     if (name == 'Multi user task') {
         rdx.dispatch({
-            type: 'parallel/newNodeInit',
+            type: 'multi/newNodeInit',
             init() {
                 window.quickAddItem('ExclusiveGateway')
             }

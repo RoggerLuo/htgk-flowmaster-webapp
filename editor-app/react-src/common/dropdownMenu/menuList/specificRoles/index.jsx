@@ -1,5 +1,4 @@
 import Comp from './Comp'
-import optionData from './optionData'
 
 export default function(cb){
     return {
@@ -7,7 +6,8 @@ export default function(cb){
             const state = rdx.getState()
             
             if(!state.dropdown.dropdown2.value || (state.dropdown.dropdown2.value=='initial')){
-                const item = optionData()[0]
+                const optionData = fm.common.dropdownMenu.getSpecificRolesOptions()
+                const item = optionData[0]
                 item.cate = "historicTask"
                 cb(item)
                 //把选项、默认值回归初始值
