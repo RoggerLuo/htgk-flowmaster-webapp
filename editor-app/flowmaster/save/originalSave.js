@@ -87,7 +87,7 @@ export default function($scope, $http, callback) {
 
         callback()
         console.log('保存成功')
-        rdx.dispatch({ type: 'saveDeactive' })
+        rdx.store.dispatch({ type: 'saveDeactive' })
     })
     .error(function(data, status, headers, config) {
         $scope.error = {};

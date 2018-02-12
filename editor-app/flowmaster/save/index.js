@@ -9,8 +9,8 @@ import forSfsInGates from './forSfsInGates'
 
 export default function($scope, $http) {
     return function(callback) {
-        rdx.dispatch({ type: 'saveDeactive' })
-
+        rdx.store.dispatch({ type: 'saveDeactive' })
+        
         if(isSfsUnnamed($scope)) return rdx.save()
     
         //业务流程 校验放在 sf校验之后

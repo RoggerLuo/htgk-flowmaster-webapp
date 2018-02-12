@@ -4,6 +4,7 @@ import Group from './GroupContainer'
 
 const MainForm = ({ currentRepo }) => {
     if(!currentRepo) return null
+
     const leftFields = currentRepo.leftFields || []
     const SolidFrame = fm.common.SolidFrame
     return(
@@ -25,7 +26,4 @@ const MainForm = ({ currentRepo }) => {
     )
 }
 export default rdx.connect('subflow',MainForm)
-
-
-
 // .filter(el => el.type != "database_view")

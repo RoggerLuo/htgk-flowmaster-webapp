@@ -1,5 +1,5 @@
 // import React from 'React'
-import CompSettingPopup from './CompSettingPopup'
+import SettingComponent from './SettingComponent'
 import isMainformOk from './isMainformOk'
 
 export default (currentRepo) => {    
@@ -7,14 +7,16 @@ export default (currentRepo) => {
     const subProcess = currentRepo.subProcess
     
     fm.subflowCurrentRepo = currentRepo // 为了保持动态更新 ，如果不是全局变量， 函数作用域 就只会保存当时的值
+    
     return () => {
         if(fm.isSpecificVersionEditMode) return
         if(subProcess.subProcDefKey){
             fm.subflow.fetch_leftFields(subProcess) // 拉取最新的数据 and required
         }
         fm.subflowTempData = JSON.parse( JSON.stringify(currentRepo) ) //为了点击取消还原数据
+        
         rdx.dispatch({
-            content:CompSettingPopup(data), //(<div>abc</div>),//
+            content:SettingComponent, //(<div>abc</div>), // data
             confirm(){
                 if(isMainformOk(fm.subflowCurrentRepo)){
                     return true                    

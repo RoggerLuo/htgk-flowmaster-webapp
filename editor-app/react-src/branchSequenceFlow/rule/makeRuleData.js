@@ -2,6 +2,7 @@ import { template, defaultOption } from '../../../redux/reducers/branch/basic'
 import judgeList from '../judge.conf.js'
 import { addUserFieldOptions } from '../userField.conf.js'
 import i18n from '../../i18n'
+
 export default (conditions, chooseFactory, branch, key1, key2) => {
     const ruleEl = conditions && conditions[key1] && conditions[key1].data[key2] && conditions[key1].data[key2] || undefined
     if (!ruleEl) return null
@@ -11,7 +12,7 @@ export default (conditions, chooseFactory, branch, key1, key2) => {
     
 
     // 这个是最后一个输入组件的 模版数据，是下拉选项，还是单行输入 等等
-    let inputCtrlInfoData = Object.assign( {}, rdxData)
+    let inputCtrlInfoData = Object.assign( {}, rdxData )
     if(inputCtrlInfoData.subform_type){ //如果是表单组件, 更新
         window.formProperties.forEach(el=>{
             if(el.value == inputCtrlInfoData.value){
@@ -30,11 +31,12 @@ export default (conditions, chooseFactory, branch, key1, key2) => {
             break
         case '2': //用户字段
             let UsersClone
-            if(branch.userProperties){
-                UsersClone = branch.userProperties.map(el=>JSON.parse(JSON.stringify(el))) //克隆子对象，断开引用
-            }else{
-                UsersClone = []
-            }
+            UsersClone = window.userProperties.map(el=>JSON.parse(JSON.stringify(el)))
+            // if(branch.userProperties){
+            //     UsersClone = branch.userProperties.map(el=>JSON.parse(JSON.stringify(el))) //克隆子对象，断开引用
+            // }else{
+            //     UsersClone = []
+            // }
             template.entry2.options = UsersClone.map(el=>{
                 el.text = i18n[el.text]
                 return el
@@ -45,6 +47,7 @@ export default (conditions, chooseFactory, branch, key1, key2) => {
         //     template.entry2.options = branch.environmentVariable || []
         //     break
     }
+    
     //三级联动 //第三个下拉，判断符号，> = 
     template.entry3.options = judgeList[inputCtrlInfoData.cate] || judgeList.text
     if(inputCtrlInfoData.cate =='calculate'){

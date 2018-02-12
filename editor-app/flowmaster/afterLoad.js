@@ -17,10 +17,6 @@ export default function($scope) {
         eventType: 'update-model'
     }
     KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent)
-    rdx.dispatch({ type: 'saveDeactive' })
-
-
-
-
+    rdx.store.dispatch({ type: 'saveDeactive' })
 
 }

@@ -6,26 +6,36 @@
              formLimits = start[0]
          }
      }
-     return leftFields.map((el, ind) => {
-         el.required = false
-         if (formLimits) {
+     const rs = leftFields
+         .map((el, ind) => {
+             el.required = false
+             
+             if (formLimits) {
 
-             formLimits.fields.forEach(form => {
-                 if (form.fieldId == el._id) {
-                     el.required = form.required
-                 }
-             })
-         }
-         return el
-     }).filter(el => el.type != "description")
+                formLimits.fields.forEach(form => {
+                     if (form.fieldId == el.name) {
+                        el.required = form.required
+                        el.editable = form.editable
+                     }
+                 })
+             }
+             return el
+         })
+         .filter(el => el.type != "calculate")
+         .filter(el => el.type != "description")
+         .filter(el => el.type != "database_view")
+         .filter(el => el.editable)
+    return rs
  }
 
  const cb_fetch_leftFields = (leftFields,subProcess) => {
+     // 添加required属性 和 edit属性
      fm.fetchFormLimits(
          subProcess.subProcDefKey,
          subProcess.versionId,
          (nodes) => {
              leftFields = markRequired_to_fields(leftFields, nodes)
+
              rdx.dispatch({ type: 'subflow/leftFields', leftFields })
          }
      )
@@ -34,7 +44,6 @@
      fm.fetchFormComponents(subProcess.subProcDefKey, subProcess.versionId, function(data) {
          if (!data) return
          cb_fetch_leftFields(data.components,subProcess)
-         // dispatch({type:'subflow/leftFields',leftFields:data.components})
      })
  }
 
