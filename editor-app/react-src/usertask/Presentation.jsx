@@ -1,8 +1,8 @@
 import React from 'react'
 import  './style'
-import Button from './ButtonConf'
+import Menu from './Menu'
 import ApprovePool from './ApprovePool'
-import NextHalfText from './NextHalfText'
+import ApproveSetting from './ApproveSetting'
 
 const UsertaskPre = ({ data, put }) => {
     const isEmpty = data.length == 0
@@ -13,25 +13,25 @@ const UsertaskPre = ({ data, put }) => {
                     {put('approveNode.title.staff')}
                 </div>
                 {!isEmpty?(
-                    <Button isEmpty={false}>    
+                    <Menu isEmpty={false}>    
                         <i style={{paddingLeft: '1px'}} className="icon iconfont icon-tianjia"></i>
-                    </Button>    
+                    </Menu>    
                 ):null}
             </div>    
 
             {isEmpty?(
-                <Button isEmpty={true}>    
+                <Menu isEmpty={true}>    
                     <div className="mybutton" >
                         {put('approveNode.button.add')}
                             <i className="icon iconfont icon-tianjia"></i>
                     </div>
-                </Button>    
+                </Menu>    
             ):null}
 
             {!isEmpty?(
                 <ApprovePool data={data}/>
             ):null}
-            <NextHalfText put={put}/>
+            <ApproveSetting/>
             <div style={{height:'200px',width:'1px'}}></div>
         </div>
     )

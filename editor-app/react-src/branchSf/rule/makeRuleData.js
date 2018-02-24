@@ -4,11 +4,13 @@ import { addUserFieldOptions } from '../userField.conf.js'
 import i18n from '../../i18n'
 
 export default (conditions, chooseFactory, branch, key1, key2) => {
-    const ruleEl = conditions && conditions[key1] && conditions[key1].data[key2] && conditions[key1].data[key2] || undefined
-    if (!ruleEl) return null
-    const dropdown2cate = ruleEl.entry2template || '0'
+    const currentRuleData = conditions && conditions[key1] && conditions[key1].data[key2] && conditions[key1].data[key2] || undefined
+    if (!currentRuleData) return null
+
+
+    const dropdown2cate = currentRuleData.entry2template || '0'
     //inputCtrlInfoData 来自于 reducer的action，是第二个下拉的选中项
-    const rdxData =  ruleEl.inputCtrlInfoData || { cate:'text'}
+    const rdxData =  currentRuleData.inputCtrlInfoData || { cate:'text'}
     
 
     // 这个是最后一个输入组件的 模版数据，是下拉选项，还是单行输入 等等
@@ -20,34 +22,7 @@ export default (conditions, chooseFactory, branch, key1, key2) => {
             }
         })
     }
-    
-    //二级联动
-    switch (dropdown2cate) {
-        case '0':
-            template.entry2.options = [defaultOption()]
-            break
-        case '1': //表单字段
-            template.entry2.options = window.formProperties  || [] //branch.formProperties  
-            break
-        case '2': //用户字段
-            let UsersClone
-            UsersClone = window.userProperties.map(el=>JSON.parse(JSON.stringify(el)))
-            // if(branch.userProperties){
-            //     UsersClone = branch.userProperties.map(el=>JSON.parse(JSON.stringify(el))) //克隆子对象，断开引用
-            // }else{
-            //     UsersClone = []
-            // }
-            template.entry2.options = UsersClone.map(el=>{
-                el.text = i18n[el.text]
-                return el
-            })
-            template.entry2.options = addUserFieldOptions(template.entry2.options)
-            break
-        // case '3':
-        //     template.entry2.options = branch.environmentVariable || []
-        //     break
-    }
-    
+  
     //三级联动 //第三个下拉，判断符号，> = 
     template.entry3.options = judgeList[inputCtrlInfoData.cate] || judgeList.text
     if(inputCtrlInfoData.cate =='calculate'){
@@ -56,10 +31,10 @@ export default (conditions, chooseFactory, branch, key1, key2) => {
     }
 
     //设置选中项
-    template.entry1.choosedOption = ruleEl.entry1
-    template.entry2.choosedOption = ruleEl.entry2
-    template.entry3.choosedOption = ruleEl.entry3
-    template.input = ruleEl.input
+    template.entry1.choosedOption = currentRuleData.entry1
+    template.entry2.choosedOption = currentRuleData.entry2
+    template.entry3.choosedOption = currentRuleData.entry3
+    template.input = currentRuleData.input
     template.inputCtrlInfoData = inputCtrlInfoData
         //方法
     template.entry1.choose = optionItem => chooseFactory('entry1')(optionItem)

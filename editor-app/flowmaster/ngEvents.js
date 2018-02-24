@@ -15,5 +15,5 @@ fm.ngEvent = ($scope,$http) => {
    $scope.propertyTpl = './editor-app/property-tpl/canvas.html'
    
    // will be deprecated
-   $scope.lastSelectedUserTaskId = false //?????
+   $scope.lastSelectedUserTaskId = false //???
 }

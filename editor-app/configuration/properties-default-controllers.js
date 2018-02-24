@@ -46,7 +46,8 @@ var sequenceFlowPropertyCtrl = ['$scope', function($scope) {
 }];
 
 var branchSequenceFlowPropertyCtrl = ['$scope', function($scope) {
-    branchSequenceFlowComponent.render()
+    // branchSequenceFlowComponent.render()
+    fm.branchSf.render()
 }];
 
 var multiPropertyCtrl = ['$scope', function($scope) {

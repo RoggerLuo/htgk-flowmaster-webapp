@@ -2,10 +2,11 @@ global.rct = global.rct || {}
 import './userGuide/component'
 
 import './subflow'
+import './multi'
+import './branchSf'
+
 import approveComponent from './usertask/Container'
 import endPointComponent from './endPoint/Container'
-import './multi'
-import branchSequenceFlowComponent from './branchSequenceFlow/Component'
 import branchNodeComponent from './branchNode/Container'
 import popupStart from './popup'
 import popupXStart from './popupX'
@@ -29,7 +30,6 @@ popupXStart()
 myAlert()
 mySpin()
 
-global.branchSequenceFlowComponent = { render: branchSequenceFlowComponent }
 global.approveComponent = { render: approveComponent }
 global.branchComponent = { render: branchNodeComponent }
 global.endPointComponent = endPointComponent

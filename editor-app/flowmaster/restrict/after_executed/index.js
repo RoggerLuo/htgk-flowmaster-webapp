@@ -19,8 +19,9 @@ export default function(){ //$scope
                 fm.manual.completeCheck(shape)
                 break
             case 'MultiUserTask':
-                fm.multi.completeCheck(shape)
-                if(!fm.multi.selectCheck.multi(shape)) fm.undo()
+                fm.multi.connectRules(shape)
+                // fm.multi.completeCheck(shape)
+                // if(!fm.multi.selectCheck.multi(shape)) fm.undo()
                 break
             case 'CirculationTask':
                 fm.circulation.isSuccessive(shape)

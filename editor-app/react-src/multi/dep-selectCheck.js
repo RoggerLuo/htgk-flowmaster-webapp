@@ -5,7 +5,7 @@ export function multiSelectCheck(selectedShape) {
         branchCounter += 1
     })
     if (branchCounter >= 2) { //为什么是1呢，因为这一次的还没有添加上去，如果之前就是1了，那么就来不及
-        window.showAlert('会签节点不能有分支')
+        window.showAlert('会签节点不能有其他分支')
         return false
     }
     return outgoingIsExclusivegate
