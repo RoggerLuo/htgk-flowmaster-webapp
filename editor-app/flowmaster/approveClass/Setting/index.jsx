@@ -1,28 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import Pre from './Pre'
+import back2lastCtrlRule from './back2lastCtrlRule'
+import ifInGates from './ifInGates'
 
-const back2lastCtrlRule = (data) => {
-    if(
-        fm.previousShape.is('Start event')||
-        fm.previousShape.is('Subflow')||
-        fm.previousShape.is('Parallel gateway')||
-        fm.previousShape.is('Inclusive gateway')||
-        fm.previousShape.is('Circulation task')
-    ){
-        data = data.filter(el => el.title != '允许退回上一节点审批人')
-    }
-    return data
-}
-const ifInGates = (data) => {
-    if(fm.isCurrentShapeInGates){
-        data = [data[1]] //只留下"允许退回上一节点审批人"
-        if(!fm.isIncomingShapeUsertask){
-            data = []
-        }
-    }          
-    return data  
-}
 export default function(reduceName){
     const UsertaskSetting = ({ currentRepo, dispatch }) => {
         if(!currentRepo) return null

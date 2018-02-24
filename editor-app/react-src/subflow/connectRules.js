@@ -8,7 +8,7 @@ export default function(el) {
             return
         }
     }
-
+    // ----------
     const previousShape = fm.getIncomingX2(shape)
     if(previousShape){
         switch (fm.getTitle(previousShape)) {
@@ -30,4 +30,14 @@ export default function(el) {
             fm.undo()
         }
     }
+    // ----------
+    let branchCounter = 0
+    shape.outgoing.forEach(function(el) {
+        branchCounter += 1
+    })
+    if (branchCounter >= 2) {
+        window.showAlert('子流程节点不能有分支连线')
+        fm.undo()
+    }
+
 }

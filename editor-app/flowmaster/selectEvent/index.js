@@ -1,22 +1,19 @@
 import newNodeInit from './newNodeInit'
 import UIcolor from './UIcolor'
 import onExclusiveGateAndBranchSF from './onExclusiveGateAndBranchSF'
-// import informRedux_the_ElementSwitchEvent from './informRedux_the_ElementSwitchEvent'
 import updateNextShapeOfSF from './updateNextShapeOfSF'
 import propMark from './propMark'
 
 fm.isCurrentShapeInGates = false
 fm.isIncomingShapeUsertask = false
 export default function(event,$scope){
-    // const now = Date.parse(new Date())
-    // if((now - fm.lastShapeUpdateTime) < 100) return 
-    // fm.lastShapeUpdateTime = now
+    
     if(fm.madClick()) return
-
 
     rdx.put('manual','touch')
     rdx.put('usertask','touch')
     rdx.put('circulation','touch')
+    
     rct.saveBtnInit()
 
     UIcolor(event, $scope)
@@ -26,7 +23,6 @@ export default function(event,$scope){
         
     fm.currentSelectedShape = selectedShape
     
-    // if (madnessProof(selectedShape)) return
 
 
     /*
@@ -57,10 +53,8 @@ export default function(event,$scope){
 
 
 
-    // window.currentSelectedShape = selectedShape
     propMark(selectedShape)
     rdx.tools.switchShape(selectedShape)
-    // informRedux_the_ElementSwitchEvent(selectedShape)    
     newNodeInit(selectedShape) //其实就是一堆select事件的杂烩
     onExclusiveGateAndBranchSF(selectedShape)
     updateNextShapeOfSF(selectedShape)
