@@ -22,7 +22,34 @@ export default (conditions, chooseFactory, branch, key1, key2) => {
             }
         })
     }
-  
+    
+    //二级联动
+    switch (dropdown2cate) {
+        case '0':
+            template.entry2.options = [defaultOption()]
+            break
+        case '1': //表单字段
+            template.entry2.options = window.formProperties  || [] //branch.formProperties  
+            break
+        case '2': //用户字段
+            let UsersClone
+            UsersClone = window.userProperties.map(el=>JSON.parse(JSON.stringify(el)))
+            // if(branch.userProperties){
+            //     UsersClone = branch.userProperties.map(el=>JSON.parse(JSON.stringify(el))) //克隆子对象，断开引用
+            // }else{
+            //     UsersClone = []
+            // }
+            template.entry2.options = UsersClone.map(el=>{
+                el.text = i18n[el.text]
+                return el
+            })
+            template.entry2.options = addUserFieldOptions(template.entry2.options)
+            break
+        // case '3':
+        //     template.entry2.options = branch.environmentVariable || []
+        //     break
+    }
+    
     //三级联动 //第三个下拉，判断符号，> = 
     template.entry3.options = judgeList[inputCtrlInfoData.cate] || judgeList.text
     if(inputCtrlInfoData.cate =='calculate'){
