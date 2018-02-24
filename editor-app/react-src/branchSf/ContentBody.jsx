@@ -1,40 +1,11 @@
-import React,{createClass} from 'react';
-import { render } from 'react-dom'
-import store from '../../redux/configureStore.js'
-import { Provider } from 'react-redux'
+import React from 'react';
 import { connect } from 'react-redux'
 import ConditionContainer from './condition/ConditionContainer'
-import './style'
 
-// const Button=(props)=>{
-//     return(
-//         <div className="boardbutton">
-//             <div className="mybutton" >
-//                 添加规则
-//             </div>
-//         </div>
-//     )
-// }
-
-const dropdownMode = () => {
-    store.dispatch({type:'modeChange',value:'dropdown'})
-    activeSave()
-}
-const textMode = () => {
-    store.dispatch({type:'modeChange',value:'text'})
-    activeSave()
-
-}
-
-const addRule = (index) => {
-    store.dispatch({type:'addRule',index})
-    activeSave()
-}
-const onchange = (event) => {
-    store.dispatch({type:'radioTextChange',text:event.target.value})
-    activeSave()
-}
-
+const dropdownMode = () => rdx.dispatch({type:'modeChange',value:'dropdown'})
+const textMode = () => rdx.dispatch({type:'modeChange',value:'text'})
+const addRule = (index) => rdx.dispatch({type:'addRule',index})    
+const onchange = (event) => rdx.dispatch({type:'radioTextChange',text:event.target.value})
 const Options =   ({conditions,element,put,nextElement}) => {
     if(element.radio){
         /*
@@ -85,12 +56,9 @@ const Options =   ({conditions,element,put,nextElement}) => {
         }
     }
 }
-//{put('branch.remark.contentTimeDoc')}
 const mapStateToProps = (state) => {
     const nextElement = state.common.nextElOfSF
-    const elementFound = state.branch.repo.filter((el,index)=>{
-        return el.id == state.branch.id
-    })
+    const elementFound = state.branch.repo.filter((el,index)=>el.id == state.branch.id)
     const conditions = elementFound[0] && elementFound[0].conditions || []
     const element = elementFound[0] && elementFound[0]||{}
     return {conditions,element,nextElement}
@@ -98,11 +66,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}
 }
-
-// import connectPut from 'react-put'
-// const putOptions = {mapPropToDictionary: (props)=>window.reactI18n}
-// const ConnectedApp = connectPut(putOptions)(Options)
-
 
 const OptionsContainer = connect(
     mapStateToProps,

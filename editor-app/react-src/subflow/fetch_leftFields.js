@@ -1,3 +1,5 @@
+const filterList = ['description','database_view','calculate']
+
  const markRequired_to_fields = (leftFields, nodes) => {
      let formLimits = false
      if (nodes) {
@@ -21,9 +23,7 @@
              }
              return el
          })
-         .filter(el => el.type != "calculate")
-         .filter(el => el.type != "description")
-         .filter(el => el.type != "database_view")
+         .filter(el => filterList.indexOf(el.type) == -1)
          .filter(el => el.editable)
     return rs
  }
@@ -35,7 +35,6 @@
          subProcess.versionId,
          (nodes) => {
              leftFields = markRequired_to_fields(leftFields, nodes)
-
              rdx.dispatch({ type: 'subflow/leftFields', leftFields })
          }
      )

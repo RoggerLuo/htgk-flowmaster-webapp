@@ -13,11 +13,11 @@ export default function(el) {
     if(previousShape){
         switch (fm.getTitle(previousShape)) {
             case 'Circulation task':
-                window.showAlert('子流程前不能连接传阅节点')
+                window.showAlert('子流程节点前不能连接传阅节点')
                 fm.undo()
                 break
             case 'Inclusive gateway':
-                window.showAlert('子流程前不能连接并行汇聚节点')
+                window.showAlert('子流程节点前不能连接并行汇聚节点')
                 fm.undo()
                 break
             case 'Subflow':
@@ -26,7 +26,7 @@ export default function(el) {
                 break
         }
         if(fm.multi.is.gateway(previousShape)){
-            window.showAlert('子流程前不能连接会签节点')
+            window.showAlert('子流程节点前不能连接会签节点')
             fm.undo()
         }
     }

@@ -1,5 +1,4 @@
 import './CirculationTask'
-import subflow from './subflow'
 import start from './start'
 
 export default function(){ //$scope            
@@ -28,7 +27,8 @@ export default function(){ //$scope
                 if(!fm.circulation.isSingleBranch(shape)) fm.undo()
                 break
             case 'ServiceTask':
-                subflow(el)
+                fm.subflow.connectRules(el)
+                // subflow(el)
                 break
         }
     })

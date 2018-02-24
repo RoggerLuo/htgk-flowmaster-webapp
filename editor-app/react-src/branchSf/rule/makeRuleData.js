@@ -1,75 +1,48 @@
 import { template, defaultOption } from '../../../redux/reducers/branch/basic'
 import judgeList from '../judge.conf.js'
-import { addUserFieldOptions } from '../userField.conf.js'
 import i18n from '../../i18n'
+import cascader2 from './cascader2'
 
 export default (conditions, chooseFactory, branch, key1, key2) => {
     const currentRuleData = conditions && conditions[key1] && conditions[key1].data[key2] && conditions[key1].data[key2] || undefined
     if (!currentRuleData) return null
 
-
-    const dropdown2cate = currentRuleData.entry2template || '0'
-    //inputCtrlInfoData 来自于 reducer的action，是第二个下拉的选中项
-    const rdxData =  currentRuleData.inputCtrlInfoData || { cate:'text'}
+    let templateCloned = JSON.parse(JSON.stringify(template))
+    templateCloned = cascader2(currentRuleData, templateCloned)
     
-
+    //inputCtrlInfoData 来自于 reducer的action，是第二个下拉的选中项
     // 这个是最后一个输入组件的 模版数据，是下拉选项，还是单行输入 等等
-    let inputCtrlInfoData = Object.assign( {}, rdxData )
-    if(inputCtrlInfoData.subform_type){ //如果是表单组件, 更新
-        window.formProperties.forEach(el=>{
-            if(el.value == inputCtrlInfoData.value){
+    const tempVar = currentRuleData.inputCtrlInfoData || { cate: 'text' }
+    let inputCtrlInfoData = Object.assign({}, tempVar)
+    if (inputCtrlInfoData.subform_type) { //如果是表单组件, 更新
+        window.formProperties.forEach(el => {
+            if (el.value == inputCtrlInfoData.value) {
                 inputCtrlInfoData = el
             }
         })
     }
-    
-    //二级联动
-    switch (dropdown2cate) {
-        case '0':
-            template.entry2.options = [defaultOption()]
-            break
-        case '1': //表单字段
-            template.entry2.options = window.formProperties  || [] //branch.formProperties  
-            break
-        case '2': //用户字段
-            let UsersClone
-            UsersClone = window.userProperties.map(el=>JSON.parse(JSON.stringify(el)))
-            // if(branch.userProperties){
-            //     UsersClone = branch.userProperties.map(el=>JSON.parse(JSON.stringify(el))) //克隆子对象，断开引用
-            // }else{
-            //     UsersClone = []
-            // }
-            template.entry2.options = UsersClone.map(el=>{
-                el.text = i18n[el.text]
-                return el
-            })
-            template.entry2.options = addUserFieldOptions(template.entry2.options)
-            break
-        // case '3':
-        //     template.entry2.options = branch.environmentVariable || []
-        //     break
-    }
-    
+
+
     //三级联动 //第三个下拉，判断符号，> = 
-    template.entry3.options = judgeList[inputCtrlInfoData.cate] || judgeList.text
-    if(inputCtrlInfoData.cate =='calculate'){
-        template.entry3.options = judgeList[inputCtrlInfoData.rule.type] 
+    templateCloned.entry3.options = judgeList[inputCtrlInfoData.cate] || judgeList.text
+    if (inputCtrlInfoData.cate == 'calculate') {
+        templateCloned.entry3.options = judgeList[inputCtrlInfoData.rule.type]
         //dateDiff //timeDiff //sum  //mean  //formula
     }
 
     //设置选中项
-    template.entry1.choosedOption = currentRuleData.entry1
-    template.entry2.choosedOption = currentRuleData.entry2
-    template.entry3.choosedOption = currentRuleData.entry3
-    template.input = currentRuleData.input
-    template.inputCtrlInfoData = inputCtrlInfoData
-        //方法
-    template.entry1.choose = optionItem => chooseFactory('entry1')(optionItem)
-    template.entry2.choose = optionItem => chooseFactory('entry2')(optionItem)
-    template.entry3.choose = optionItem => chooseFactory('entry3')(optionItem)
-        //是否翻译
-    template.entry1.usePut = true
-    template.entry2.usePut = false
-    template.entry3.usePut = false
-    return template
+    templateCloned.entry1.choosedOption = currentRuleData.entry1
+    templateCloned.entry2.choosedOption = currentRuleData.entry2
+    templateCloned.entry3.choosedOption = currentRuleData.entry3
+    templateCloned.input = currentRuleData.input
+    templateCloned.inputCtrlInfoData = inputCtrlInfoData
+    //方法
+    templateCloned.entry1.choose = optionItem => chooseFactory('entry1')(optionItem)
+    templateCloned.entry2.choose = optionItem => chooseFactory('entry2')(optionItem)
+    templateCloned.entry3.choose = optionItem => chooseFactory('entry3')(optionItem)
+    //是否翻译
+    templateCloned.entry1.usePut = true
+    templateCloned.entry2.usePut = false
+    templateCloned.entry3.usePut = false
+    return templateCloned
 }

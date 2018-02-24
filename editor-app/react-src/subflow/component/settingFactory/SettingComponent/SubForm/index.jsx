@@ -7,8 +7,7 @@ const SubForm = ({ currentRepo, dispatch }) => {
     const leftFields = currentRepo.leftFields || []
     const filtered = leftFields
         .filter(el => el.type == 'sub_form')
-        .filter(el => el.type != "description")
-
+        
     const SolidFrame = fm.common.SolidFrame
     return(
         <SolidFrame innerStyle={{padding:'0px'}} outerStyle={{width:'620px'}}>

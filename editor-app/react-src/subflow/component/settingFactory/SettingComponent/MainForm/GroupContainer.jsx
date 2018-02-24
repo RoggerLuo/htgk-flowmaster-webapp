@@ -7,9 +7,10 @@ const Group = ({ leftData, currentRepo }) => { // 这个group是一行一行的
     const selectedOption = mainRight[leftData.name] || { text: '请选择', value: false }
     
     let optionsData = window.formPropertiesTotal || []
+    
+    // 这是下拉选项
     optionsData = optionsData
         .filter(el => {
-            // debugger
             if(el.subform_type == 'database_view') return true
             return (el.subform_type == leftData.type) || (!el.value) 
         })
@@ -17,9 +18,7 @@ const Group = ({ leftData, currentRepo }) => { // 这个group是一行一行的
 
     optionsData.length==0 && optionsData.push({ text: '请选择', value: false })    
 
-    const select = (item, optionInd) => {
-        rdx.dispatch({ type: 'subflow/mainRight', fieldId: leftData.name, item })
-    }
+    const select = (item, optionInd) => rdx.dispatch({ type: 'subflow/mainRight', fieldId: leftData.name, item })
 
     return (    
         <div style={{display:'flex',justifyContent: 'space-between', height: '41px'}}>

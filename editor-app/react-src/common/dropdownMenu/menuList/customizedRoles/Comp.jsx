@@ -3,9 +3,10 @@ import SingleBtn from './SingleBtn'
 export default ({current,inherit,onclick}) => {   
     
     const OrgGroup = ({name,roles}) => {
+        
         return (
             <div>
-                <div className="customRoleOrgName">{name}</div>
+                {roles.length != 0?(<div className="customRoleOrgName">{name}</div>):null}
                 <div style={{paddingLeft: '17px'}}>    
                     {roles.map((el,index)=><SingleBtn {...el} key={index} onclick={onclick}/>)}
                 </div>
@@ -14,11 +15,12 @@ export default ({current,inherit,onclick}) => {
     }
 
     if(!current) return (<div className="customRoleTitle">暂未获取到数据</div>)
+    
     return (
         <div style={{textAlign:'left',width:'548px'}}>
 
             <div style={{height:"25px",width:'1px'}}></div>
-            <div className="customRoleTitle">本级管理员创建的角色</div>
+            {current[0].roles.length != 0?(<div className="customRoleTitle">本级管理员创建的角色</div>):null}
             <OrgGroup {...current[0]} name={''}/>
 
             <div style={{height:"25px",width:'1px'}}></div>

@@ -14,7 +14,7 @@ export default function(event,$scope){
     if(fm.madClick()) return
 
 
-
+    rdx.put('manual','touch')
     rdx.put('usertask','touch')
     rdx.put('circulation','touch')
     rct.saveBtnInit()

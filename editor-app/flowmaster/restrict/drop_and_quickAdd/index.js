@@ -1,6 +1,6 @@
 'use strict'
 // import './everyMove'
-import startevent from './startevent'
+// import startevent from './startevent'
 import usertask from './usertask'
 // import circulation from './circulation'
 import inclusive from './inclusive'
@@ -19,8 +19,8 @@ export default function(option) {
         // case 'Multi user task':
         //     return select_multi(shape)
 
-        case 'Start event':
-            return startevent(shape)
+        // case 'Start event':
+        //     return startevent(shape)
         case 'User task':
             return usertask(shape)
         // case 'Manual task':
