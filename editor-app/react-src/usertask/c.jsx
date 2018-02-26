@@ -1,11 +1,11 @@
-import React,{createClass} from 'react'
+import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import Presentation from './Presentation'
+import P from './p'
 
 const Usertask = ({ currentRepo }) => {
     if(!currentRepo) return null
-    return(<Presentation data={currentRepo.data||[]} />)
+    return(<P data={currentRepo.data||[]} />)
 }
 const UsertaskContainer = rdx.connect('usertask',Usertask)
 

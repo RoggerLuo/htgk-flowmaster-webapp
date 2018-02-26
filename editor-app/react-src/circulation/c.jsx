@@ -1,23 +1,21 @@
-import React,{createClass} from 'react';
+import React from 'react'
 import { render } from 'react-dom'
-import store from '../../redux/configureStore.js'
 import { Provider } from 'react-redux'
-import { connect } from 'react-redux'
-import Presentation from './Presentation'
+import P from './p'
 
 const Circulation = ({ currentRepo }) => {
     if(!currentRepo) return null
     const data = currentRepo.data||[]
     return(
-        <Presentation data={data}/>
+        <P data={data}/>
     )
 }
-const CirculationContainer = rdx.connect('circulation',Circulation)
+const CirculationConnected = rdx.connect('circulation', Circulation)
 
 export default function(){
     render(
-        <Provider store={store}>
-            <CirculationContainer />
+        <Provider store={rdx.store}>
+            <CirculationConnected />
         </Provider>
         ,
         document.getElementById('circulationPropertyCtrl')

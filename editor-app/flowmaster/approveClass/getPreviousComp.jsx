@@ -21,37 +21,42 @@ export default function(reduceName){
                 <label htmlFor={"previousNodeSpecified"} style={{cursor:'pointer'}}> 
                     <div className="property-row-content"> 
                         允许上一节点处理人指定本节点审批人
+                        &nbsp;
+                        <input 
+                            onChange={change1} 
+                            checked={previousNodeSpecified||false} 
+                            value={previousNodeSpecified||false}
+                            style={{cursor:'pointer'}} 
+                            id="previousNodeSpecified" 
+                            name="previousNodeSpecified" 
+                            type="checkbox" 
+                        />
                     </div>
                 </label>
-                &nbsp;
-                <input 
-                    onChange={change1} 
-                    checked={previousNodeSpecified||false} 
-                    value={previousNodeSpecified||false}
-                    style={{cursor:'pointer'}} 
-                    id="previousNodeSpecified" 
-                    name="previousNodeSpecified" 
-                    type="checkbox" 
-                />
+               
                 
 
                 <div style={{height:'1px',width:'100%'}}></div>
                 
-                {previousNodeSpecified?(<div>&nbsp; 
+                {previousNodeSpecified?(<div> 
                     
                     <label htmlFor={"enableSingleSelect"} style={{cursor:'pointer'}}> 
-                        <div className="property-row-content">指定审批人仅支持单选</div> 
+                        <div className="property-row-content">
+                            指定审批人仅支持单选
+                            &nbsp;
+                            <input 
+                                onChange={change2} 
+                                value={enableSingleSelect||false}
+                                style={{cursor:'pointer'}} 
+                                id="enableSingleSelect" 
+                                name="enableSingleSelect" 
+                                type="checkbox" 
+                                checked={enableSingleSelect||false} 
+                            /> 
+                        </div> 
+                        
                     </label>
-                    &nbsp;
-                    <input 
-                        onChange={change2} 
-                        value={enableSingleSelect||false}
-                        style={{cursor:'pointer'}} 
-                        id="enableSingleSelect" 
-                        name="enableSingleSelect" 
-                        type="checkbox" 
-                        checked={enableSingleSelect||false} 
-                    /> 
+                    
                 &nbsp;</div>):null}
             </div>
         )
@@ -66,3 +71,7 @@ export default function(reduceName){
 </div>
 
 */
+
+function a(){
+    //blah blah
+}

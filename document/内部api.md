@@ -1,6 +1,4 @@
 
-#function / api / variable
-
 ## fm.currentSelectedShape & item  
 **fm.currentSelectedShape**  
 切换selected shape的时候，保存的切换之后的shape, 或者说node  

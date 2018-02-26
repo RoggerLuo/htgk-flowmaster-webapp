@@ -15,5 +15,3 @@ const UserTaskMenu = ({ currentRepo, children, isEmpty }) => {
     return (<Menu {...params}> {children} </Menu>)
 }
 export default rdx.connect('usertask', UserTaskMenu)
-
-// const clear = () => rdx.dispatch({type:'usertask/clear'})
