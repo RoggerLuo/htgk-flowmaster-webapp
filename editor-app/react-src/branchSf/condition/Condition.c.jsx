@@ -1,6 +1,5 @@
-import React,{createClass} from 'react';
-import Condition from './ConditionRepresentaion'
-import { connect } from 'react-redux'
+import React,{createClass} from 'react'
+import Condition from './Condition.p'
 
 /*
 ConditionRepresentation需要的参数
@@ -87,7 +86,6 @@ const ConditionContainer = createClass({
             activeSave()
         }
 
-
         const headerProps = {
             close:closeMenu,
             toggleMenu:toggleMenu,
@@ -106,4 +104,4 @@ const ConditionContainer = createClass({
     }
 })
 
-export default global.connect2redux('branch', ConditionContainer)
+export default rdx.connect('branch', ConditionContainer)

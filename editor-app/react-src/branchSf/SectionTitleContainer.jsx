@@ -10,7 +10,6 @@ const SectionTitle = ({text,widgetDisplay,cancel,add,del}) => {
     }else{
         widget = (
             <span>
-
                 <i className="icon iconfont icon-tianjia" onClick={add}></i>
                 <i className="icon iconfont icon-shanchu" onClick={del} style={{position:'relative',top:'3px'}}></i>
             </span>

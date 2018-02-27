@@ -14,8 +14,8 @@ import React,{createClass} from 'react';
 
     ------------
     put 从插件中来
-
 */
+
 const Header = ({index,display,addRule,startRuleDeleteStatus,close,cancelRuleDeleteStatus,isDots,toggleMenu,put}) => {
     let dots = ''
     if(isDots){
@@ -26,7 +26,6 @@ const Header = ({index,display,addRule,startRuleDeleteStatus,close,cancelRuleDel
             {put('global.cancel')}
         </span>)
     }
-
     return (
         <div className="container-header">
             <span className="container-title">{put('branch.condition')}{index+1}</span> 
@@ -47,8 +46,4 @@ const Header = ({index,display,addRule,startRuleDeleteStatus,close,cancelRuleDel
     )
 }
 
-import connectPut from 'react-put'
-const options = {mapPropToDictionary: (props)=>window.reactI18n}
-const ConnectedApp = connectPut(options)(Header)
-
-export default ConnectedApp
+export default rdx.i18nPut(Header)

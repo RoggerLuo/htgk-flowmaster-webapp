@@ -1,3 +1,4 @@
+import i18n from '../../i18n'
 import { addUserFieldOptions } from '../userField.conf.js'
 export default (currentRuleData, template) => {
     const dropdown2cate = currentRuleData.entry2template || '0'

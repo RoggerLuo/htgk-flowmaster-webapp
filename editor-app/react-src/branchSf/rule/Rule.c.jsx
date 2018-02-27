@@ -1,6 +1,6 @@
 import React,{createClass} from 'react'
 import { connect } from 'react-redux'
-import Rule from './RuleRepresentation'
+import Rule from './Rule.p'
 import makeRuleData from './makeRuleData.js'
 /*  
     cancelDeleteRuleStatus 取消当前规则的删除状态    
@@ -39,7 +39,7 @@ const mapStateToProps = (state) => {
         return el.id == state.branch.id
     })
     const conditions = elementFound[0] && elementFound[0].conditions || []
-    return {conditions,branch:state.branch}
+    return {conditions, branch:state.branch}
 }
 const mapDispatchToProps = (dispatch) => {
     return {dispatch}

@@ -1,5 +1,5 @@
-import React,{createClass} from 'react';
-import RuleContainer from '../rule/RuleContainer'
+import React,{createClass} from 'react'
+import RuleContainer from '../rule/Rule.c'
 import MiniMenu from './MiniMenu'
 /*
 RuleContainer需要的参数

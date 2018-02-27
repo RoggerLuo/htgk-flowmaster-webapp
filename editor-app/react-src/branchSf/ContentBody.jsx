@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 import { connect } from 'react-redux'
-import ConditionContainer from './condition/ConditionContainer'
+import ConditionContainer from './condition/Condition.c'
 
 const dropdownMode = () => rdx.dispatch({type:'modeChange',value:'dropdown'})
 const textMode = () => rdx.dispatch({type:'modeChange',value:'text'})

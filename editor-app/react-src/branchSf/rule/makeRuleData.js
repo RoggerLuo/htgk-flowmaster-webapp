@@ -1,6 +1,5 @@
 import { template, defaultOption } from '../../../redux/reducers/branch/basic'
 import judgeList from '../judge.conf.js'
-import i18n from '../../i18n'
 import cascader2 from './cascader2'
 
 export default (conditions, chooseFactory, branch, key1, key2) => {
