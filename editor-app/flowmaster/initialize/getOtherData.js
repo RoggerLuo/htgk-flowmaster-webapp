@@ -62,7 +62,7 @@ export const formLimits = ($http) => {
 
         $http({
             method: 'GET',
-            url: window.globalHost + `/repository/form-limits/${pid}/${versionId}/settings`
+            url: window.globalHost + `/repository/form-limits/${pid}/settings?versionId=${versionId}`
         }).success(function(data) {
             cb(data.nodes)
         })

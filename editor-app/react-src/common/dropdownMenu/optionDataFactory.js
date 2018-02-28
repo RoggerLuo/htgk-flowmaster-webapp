@@ -1,19 +1,18 @@
-// import './style'
-// import getSpecificData from './SpecificRoles/optionData'
-// import buttonFactory from './buttonFactory'
-import rule from './rule'
-export default function({onConfirm, existCate, buttonMode, groupInd}) { //hidePrevious 
-    const menus = rule(fm.common.dropdownMenu.menuList)(existCate,buttonMode)//buttonFactory(existCate,buttonMode)
-
-    const actions = menus.map(el=>el(onConfirm)) //统一装配
-    
-    return actions.map((action, index) => {
+import listCtrl from './listCtrl'
+import menuList from './menuList'
+export default function({ onConfirm, cate, buttonMode, groupInd }) { 
+    const menuActions = listCtrl(menuList,cate,buttonMode)
+    return menuActions
+        .map(actionWrap => actionWrap(onConfirm)) //统一装配callback
+        .map((action, index) => {
+        
         if (action.type != 'callPopup') { //特殊情况 ‘选择特定人员’ 选择窗口
             return {
                 title: 'button.option3',
                 click() { action() }
             }
         }
+        
         return {
             title: action.title || '',
             click() {
@@ -23,7 +22,7 @@ export default function({onConfirm, existCate, buttonMode, groupInd}) { //hidePr
                 }
 
                 if(action.title == 'button.option7'){ //db的话
-                    action.onConfirm = action.onConfirm(groupInd)
+                    action.confirm = action.confirm(groupInd)
                 }
 
                 rdx.dispatch(action)

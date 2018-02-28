@@ -1,5 +1,5 @@
 import React from 'react'
-import Menu from './MenuContainer'
+import Menu from './Menu'
 import ApprovePool from './ApprovePool'
 import './style'
 

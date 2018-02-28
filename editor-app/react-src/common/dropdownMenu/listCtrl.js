@@ -1,5 +1,6 @@
-export default ({sql,externalCallback,specificNodeRoles,formRoles,customizedRoles,pickUpPeople,higherLevel}) => {
-    
+export default (menuList, cate, buttonMode) => {
+    const { sql, externalCallback, specificNodeRoles, formRoles, customizedRoles, pickUpPeople, higherLevel } = menuList
+
     function subflow() {
         return [
             higherLevel,
@@ -40,11 +41,9 @@ export default ({sql,externalCallback,specificNodeRoles,formRoles,customizedRole
         }
     }
 
-    return function(cate, buttonMode) {
-        if (buttonMode == 'subflow') { // 在子流程中选择审批人的时候， 只显示3项
-            return subflow()
-        } else {
-            return normal(cate)
-        }
+    if (buttonMode == 'subflow') { // 在子流程中选择审批人的时候， 只显示3项
+        return subflow()
+    } else {
+        return normal(cate)
     }
 }

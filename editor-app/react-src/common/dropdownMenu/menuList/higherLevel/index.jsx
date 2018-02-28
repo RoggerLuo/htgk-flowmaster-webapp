@@ -3,7 +3,7 @@ import Component from './Comp'
 export default function(cb){
     return {
         type:'callPopup',
-        confirm:()=>{
+        confirm(){
             const state = reduxStore.getState()
             const text = '上'+state.dropdown.dropdown1.text+'级领导'
             const item = {

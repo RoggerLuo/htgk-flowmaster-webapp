@@ -6,5 +6,5 @@ import specificNodeRoles from './specificRoles'
 import sql from './sql'
 import externalCallback from './externalCallback'
 
-const menuList = {sql,externalCallback,specificNodeRoles,formRoles,customizedRoles,pickUpPeople,higherLevel}
+const menuList = { sql, externalCallback, specificNodeRoles, formRoles, customizedRoles, pickUpPeople, higherLevel }
 export default menuList

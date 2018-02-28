@@ -6,15 +6,15 @@ import './multi'
 import './branchSf'
 
 import approveComponent from './usertask/c'
-import endPointComponent from './endPoint/Container'
+// import endPointComponent from './endPoint/Container'
 import branchNodeComponent from './branchNode/Container'
 import popupStart from './popup'
 import popupXStart from './popupX'
 import myAlert from './alert/alert'
 import mySpin from './alert/spin'
-import manual from './manual/Container'
+import manual from './manual/c'
 import circulation from './circulation/c'
-import custom from './custom/Container'
+// import custom from './custom/Container'
 import sf from './sf'
 
 
@@ -32,10 +32,10 @@ mySpin()
 
 global.approveComponent = { render: approveComponent }
 global.branchComponent = { render: branchNodeComponent }
-global.endPointComponent = endPointComponent
+// global.endPointComponent = endPointComponent
 global.manualCompInitializer = manual
 global.circulationCompInitializer = circulation
-global.customCompInitializer = custom
+// global.customCompInitializer = custom
 global.sequenceflowCompInitializer = sf
 
 import zh from './i18n/zh'

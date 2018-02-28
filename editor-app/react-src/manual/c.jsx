@@ -1,11 +1,11 @@
-import React,{createClass} from 'react';
+import React,{createClass} from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import Presentation from './Presentation'
+import Representation from './p'
 
 const Component = ({ currentRepo }) => {
     if(!currentRepo) return null
-    return(<Presentation data={currentRepo.data||[]} />)
+    return(<Representation data={currentRepo.data||[]} />)
 }
 
 const ManualContainer = rdx.connect('manual', Component)

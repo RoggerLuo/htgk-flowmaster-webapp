@@ -1,5 +1,5 @@
 import './style.less'
-import component from './component'
+import component from './component/Menu.c'
 import menuList from './menuList'
 import getSpecificRolesOptions from './getSpecificRolesOptions'
 const dropdownMenu = {}

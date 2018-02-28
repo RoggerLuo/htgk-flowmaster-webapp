@@ -1,5 +1,5 @@
 import React,{createClass} from 'react'
-import OptionsComp from './OptionsComp'
+import Options from './Options.p'
 export default createClass({ 
     getInitialState(){
         return {display:'none'}
@@ -14,13 +14,17 @@ export default createClass({
             }
         }
         const display = this.state.display
-        const param = this.props.param
-        const menuClass = Object.assign({}, param.xClass||{}, {display})
-        const OptionsParam = { menuClass, data:param.config(), close, put:param.put }
+        const menuClass = Object.assign({}, this.props.xClass||{}, {display})
         return (
             <div className="boardbutton">
-                <div onClick={toggle}>{this.props.children}</div>
-                <OptionsComp {...OptionsParam}/>
+                <div onClick={toggle}>
+                    {this.props.children}
+                </div>
+                
+                <div className="myoption" style={menuClass} >
+                    <Options data={this.props.optionData} close={close} />
+                </div>
+
                 <div className="big-cover" style={{display}} onClick={close}></div>
             </div>  
         )
