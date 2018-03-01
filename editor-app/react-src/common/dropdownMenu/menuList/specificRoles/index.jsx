@@ -29,6 +29,6 @@ export default function(cb){
         type:'callPopup',
         height:'63%',
         title:'button.option6',
-        width:'500px'
+        width:'550px'
     }
 }

@@ -1,4 +1,4 @@
-import Comp from './CompContainer'
+import Comp from './c'
 export default function(cb) {
     return {
         confirm() {

@@ -1,19 +1,25 @@
 import propertyRouter from './propertyRouter'
 
-fm.before_selection_change = ($scope, event) => {//event在这里转成currShape，不用传来传去了
+fm.before_selection_change = ($scope, event) => { 
+    
     if(fm.madClick()) return
+    
     fm.titleRename && fm.titleRename()
     propertyRouter($scope, event)
-    fm.multi.branch.naming($scope, event)
-    fm.multi.branch.refreshName()
+
+    // fm.multi.branch.naming($scope, event)
+    // fm.multi.branch.refreshName()
 } 
 fm.after_selection_change = ($scope,event) => {}
 
-fm.after_cmd_executed = ($scope, event) => { 
-    if(fm.madClick()) return
-    const shape = $scope.selectedShape
-    if(!fm.parallelGate.isCorrectlyLinked()) fm.undo()
+fm.after_cmd_executed = () => {     
     
+    if(fm.madClick()) return
     if(fm.isSpecificVersionEditMode) fm.undo()
+
+        
+    if(!fm.parallelGate.isCorrectlyLinked()) fm.undo()    
     fm.restrict.after_executed()
+    fm.multi.branch.naming_after_excecuted()
+
 } 

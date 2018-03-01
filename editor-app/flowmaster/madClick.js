@@ -1,7 +1,7 @@
 fm.lastShapeUpdateTime = 0 
 fm.madClickCounter = 0
 
-const threshold = 20
+const threshold = 15
 
 fm.madClick = () => {
     const now = Date.parse(new Date())

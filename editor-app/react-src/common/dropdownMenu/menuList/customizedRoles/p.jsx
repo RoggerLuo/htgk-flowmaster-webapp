@@ -1,9 +1,8 @@
 import React,{createClass} from 'react'
 import SingleBtn from './SingleBtn' 
-export default ({current,inherit,onclick}) => {   
-    
-    const OrgGroup = ({name,roles}) => {
-        
+
+export default ({ current,inherit,onclick }) => {   
+    const OrgGroup = ({name,roles}) => {        
         return (
             <div>
                 {roles.length != 0?(<div className="customRoleOrgName">{name}</div>):null}

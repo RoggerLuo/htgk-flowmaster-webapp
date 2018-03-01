@@ -1,7 +1,6 @@
 import React, { createClass } from 'react'
 import { connect } from 'react-redux'
-import Comp from './Comp'
-
+import Comp from './p'
 
 const Component = ({ dispatch, put, customRoles }) => {
     const onclick = (id, name, selectedStatus) => {
@@ -39,8 +38,3 @@ const ComponentContainer = connect(
 
 export default ComponentContainer
 
-
-/*import connectPut from 'react-put'
-const options = {mapPropToDictionary: (props)=>window.reactI18n}
-const ConnectedApp = connectPut(options)(Component)
-*/
