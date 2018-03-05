@@ -1,6 +1,6 @@
 import React from 'react'
 import Pre from './Pre'
-import back2lastCtrlRule from './back2lastCtrlRule'
+import backToLastControl from './backToLastControl'
 import ifInGates from './ifInGates'
 
 export default function(reduceName){
@@ -48,7 +48,7 @@ export default function(reduceName){
             }
         ]
         data = ifInGates(data)
-        data = back2lastCtrlRule(data)
+        data = backToLastControl(data)
         return(
             <div>
                 {data.map((el,index)=>{

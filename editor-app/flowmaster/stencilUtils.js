@@ -19,6 +19,24 @@ export default function($scope) {
     window.getRawJson = () => fm.getJson()
 }
 
+// 从上而下 写回调
+fm.incomingLooper = function(title,cb){
+    return (shape)=>{
+        if(fm.getTitle(fm.getIncoming(shape)) == title){
+            cb(fm.getIncoming(shape)) // 注意要再往前一个，前一个shape是sf
+        }
+    }
+}
+fm.outgoingLooper = function(title,cb){
+    return (shape)=>{
+        if(fm.getTitle(fm.getOutgoing(shape)) == title){
+            cb(fm.getOutgoing(shape)) // 注意要再往前一个，前一个shape是sf
+        }
+    }
+}
+
+
+
 fm.spotlight = (shape) => {
     /* 定位的关键代码 */
     fm.editor.setSelection([shape])
