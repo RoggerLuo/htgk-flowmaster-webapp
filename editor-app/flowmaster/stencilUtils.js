@@ -46,6 +46,7 @@ fm.spotlight = (shape) => {
 fm.getTitle = shape =>  shape && shape._stencil && shape._stencil._jsonStencil.title || ''
 
 fm.getIncoming = (shape) => {
+    if(!shape) return false
     const incomings = shape.incoming
     if (incomings) {
         const incoming = incomings[0]
@@ -56,6 +57,7 @@ fm.getIncoming = (shape) => {
 fm.getIncomingX2 = (shape) => fm.getIncoming(fm.getIncoming(shape))
 fm.getIncomingX3 = (shape) => fm.getIncomingX2(fm.getIncoming(shape))
 fm.getOutgoing = (shape) => {
+    if(!shape) return false
     const outgoings = shape.outgoing
     if (outgoings) {
         const outgoing = outgoings[0]

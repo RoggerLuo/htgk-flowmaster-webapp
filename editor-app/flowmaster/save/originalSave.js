@@ -60,9 +60,9 @@ export default function($scope, $http, callback) {
     };
     console.log(json)
 
-    const version = window.getQueryString("version")
+    // const version = window.getQueryString("version")
     let url = window.globalHost + '/repository/process-definitions/' + window.getQueryString("pid") + '/design?processType=Normal'
-    if(version!='undefined') url = window.globalHost + '/repository/process-definitions/' + window.getQueryString("pid") + `/design?processType=Normal&version=${version}`
+    if(fm.versionId!='undefined') url = window.globalHost + '/repository/process-definitions/' + window.getQueryString("pid") + `/design?processType=Normal&versionId=${fm.versionId}`
     $http({
             method: 'PUT',
             data: params,

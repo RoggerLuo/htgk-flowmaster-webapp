@@ -51,16 +51,17 @@ angular.module('activitiModeler')
                 var quickMenuDefinition = [ //就是那个点出来的菜单,手动确定的
                     'SequenceFlow',
                     'UserTask',
-                    'ExclusiveGateway',
                     'MultiUserTask',
                     'ManualTask',
                     'CirculationTask',
-                    'ServiceTask',
+                    // 'ServiceTask', //子流程
+                    'ExclusiveGateway',
+                    'ParallelGateway',
+                    'InclusiveGateway',
+
                     // 'ServiceTask',
                     // 'CustomTask',
                     // 'Subflow',
-                    'ParallelGateway',
-                    'InclusiveGateway',
                     // 'MuleTask',
                     // 'EndErrorEvent',
                     // 'EndNoneEvent', 

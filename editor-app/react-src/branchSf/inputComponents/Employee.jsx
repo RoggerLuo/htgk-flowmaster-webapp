@@ -8,7 +8,7 @@ function Comp({ inputData, oninput }){
                 console.log(e.data.value)
                 const returnData = {
                     text:e.data.value[0].name,
-                    value: "'"+JSON.stringify([e.data.value[0].id])+"'" //'"'+[e.data.value[0].id]+'"'
+                    value: [e.data.value[0].id] //"'"+JSON.stringify()+"'" //'"'+[e.data.value[0].id]+'"'
                 }
                 oninput(returnData)
             }
