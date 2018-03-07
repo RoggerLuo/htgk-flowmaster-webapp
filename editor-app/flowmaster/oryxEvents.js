@@ -1,6 +1,5 @@
 import selectEvent from './selectEvent'
 import afterLoad from './afterLoad'
-// import assembleSetProperty from './setProperty'
 import stencilUtils from './stencilUtils'
 import './madClick'
 global.fm = global.fm || {}
@@ -16,8 +15,6 @@ fm.oryxEvent = function($scope, $http) {
     $scope.editor.registerOnEvent(EVENT_LOADED, (event) => afterLoad($scope))
     $scope.editor.registerOnEvent(EVENT_EXECUTE_COMMANDS, (event) =>  rdx.save())
 
-    // fm.setProperty_and_updateView = assembleSetProperty($scope) //多了自动更新试图的功能,普通的setProperty无法自动更新
-    // window.setPropertyAdvance = fm.setProperty_and_updateView
 }
 
 

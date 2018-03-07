@@ -6,8 +6,15 @@ import ApproveSetting from './ApproveSetting'
 
 const UsertaskPre = ({ data, put }) => {
     const isEmpty = data.length == 0
+    const unfold = () => {
+        try {
+            fm.closeCurrDpdw && fm.closeCurrDpdw()
+        } catch (error) {
+
+        }
+    }
     return(
-        <div className="react-approve">
+        <div className="react-approve" onClick={unfold}  >
             <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
                 <div style={{lineHeight: '30px'}} className="property-row-title-only-font">
                     {put('approveNode.title.staff')}

@@ -30,9 +30,8 @@ export default function($scope, event) {
         return
     }
 
-
     if (handleExclusive($scope, shape)) return
-    
+
     const title = fm.getTitle(shape)
     if (title == 'Sequence flow') {
         specialSf($scope, shape)

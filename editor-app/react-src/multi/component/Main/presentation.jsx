@@ -4,8 +4,16 @@ import './style'
 
 const Component = ({sectionTitleData, data, put}) => {
     const SectionTitle = fm.common.SectionTitle
+    const unfold = () => {
+        try {
+            fm.closeCurrDpdw && fm.closeCurrDpdw()
+        } catch (error) {
+
+        }
+    }
+
     return(
-        <div className="react-approve" >
+        <div className="react-approve" onClick={unfold}>
             <SectionTitle {...sectionTitleData} text={put('parallel.contentTitle')} /> 
             {data.map((el,index)=>{ //data是state.parallel.data， el是会签组group
                 return (<Group el={el} index={index} key={index}/>)

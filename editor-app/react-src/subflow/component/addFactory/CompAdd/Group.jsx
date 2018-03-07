@@ -1,6 +1,5 @@
 import React from 'react'
 import List from './List'
-import SubGroup from './SubGroup'
 export default class Group extends React.Component { 
     constructor(props) {
         super(props)

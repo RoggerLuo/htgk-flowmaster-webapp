@@ -5,10 +5,17 @@ import ApprovePool from './approvePool'
 import ApproveSetting from './ApproveSetting'
 
 const ManualNode = ({ data, put }) => {
-    
+    const unfold = () => {
+        try {
+            fm.closeCurrDpdw && fm.closeCurrDpdw()
+        } catch (error) {
+
+        }
+    }
+
     const isListEmpty = data.length == 0
     return(
-        <div className="react-approve">
+        <div className="react-approve" onClick={unfold}>
             <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
                 <div style={{lineHeight: '30px'}} className="property-row-title-only-font">
                     {put('approveNode.title.staff')}

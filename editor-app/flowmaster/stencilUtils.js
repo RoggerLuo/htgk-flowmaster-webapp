@@ -1,6 +1,17 @@
-
 import assembleSetProperty from './setProperty'
 global.fm = global.fm || {}
+
+
+fm.getUrlQueryParam = (name) => { 
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+}
+
+//dep
+window.getQueryString = fm.getUrlQueryParam
+
 
 export default function($scope) {
     fm.getCanvas = () => $scope.editor.getCanvas()

@@ -2,7 +2,6 @@ import save from './save'
 import initialize from './initialize'
 import './deleteEvent'
 import './namePropertyCtrl'
-import './ngUtils'
 import './nameManager'
 
 global.fm = global.fm || {}
