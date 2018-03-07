@@ -24,10 +24,11 @@ function Comp({ inputData, oninput }) {
                         if (ind == sortedArr.length - 1) return name
                         return name + ','
                     }), //e.data.value[0].name,
-                    value: `"`+sortedArr.map(({ id }) => id).join('')+`"` //'"'+e.data.value[0].id+'"'
+                    value: `"`+sortedArr.map(({ id }) => id).join(',')+`"` //'"'+e.data.value[0].id+'"'
                 }
                 oninput(returnData)
             }
+            
             window.removeEventListener("message", chooseCallback, false)
             window.activeSave()
         }

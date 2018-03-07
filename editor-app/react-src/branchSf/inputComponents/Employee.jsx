@@ -5,13 +5,38 @@ function Comp({ inputData, oninput }){
     const click = (event) => {
         const chooseCallback = (e) => {
             if(e.data.type=="selectedData"){
+                // console.log(e.data.value)
+                // const returnData = {
+                //     text:e.data.value[0].name,
+                //     value: "'"+e.data.value[0].id+"'" //"'"+JSON.stringify()+"'" //'"'+[e.data.value[0].id]+'"'
+                // }
+                // oninput(returnData)
+
+
                 console.log(e.data.value)
+                const fetchData = e.data.value
+                const sortedArr = fetchData.map(({ id, name }) => {
+                    let sortOrder = 0
+                    for (let i = 0; i < id.length; i++) {
+                        sortOrder += id[i].charCodeAt()
+                    }
+                    for (let i = 0; i < name.length; i++) {
+                        sortOrder += name[i].charCodeAt()
+                    }
+                    return { id, name, sortOrder }
+                })
+                .sort((a, b) => a.sortOrder - b.sortOrder)
+                // const value = `"`+sortedArr.map(({ id }) => id)+`"`
                 const returnData = {
-                    text:e.data.value[0].name,
-                    value: [e.data.value[0].id] //"'"+JSON.stringify()+"'" //'"'+[e.data.value[0].id]+'"'
+                    text: sortedArr.map(({ name }, ind) => {
+                        if (ind == sortedArr.length - 1) return name
+                        return name + ','
+                    }), //e.data.value[0].name,
+                    value: `"`+sortedArr.map(({ id }) => id).join(',')+`"` //'"'+e.data.value[0].id+'"'
                 }
                 oninput(returnData)
             }
+
             window.removeEventListener("message",chooseCallback, false)
             window.activeSave() 
         }

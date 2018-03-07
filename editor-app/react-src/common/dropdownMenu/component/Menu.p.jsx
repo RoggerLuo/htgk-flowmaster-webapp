@@ -28,11 +28,9 @@ export default createClass({
                 <div onClick={toggle}>
                     {this.props.children}
                 </div>
-                
                 <div className="myoption" style={menuClass} >
                     <Options data={this.props.optionData} close={close} />
                 </div>
-
             </div>  
         )
     }
@@ -40,7 +38,6 @@ export default createClass({
 
 /*
 <div className="big-cover" style={{display}} onClick={close}></div>
-
 */
 
 
