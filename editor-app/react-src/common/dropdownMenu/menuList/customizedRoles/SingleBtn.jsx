@@ -6,17 +6,22 @@ export default class SingleBtn extends React.Component {
         this.toggleView = this.toggleView.bind(this)
         this.state = {choosed:false}
     }
-    toggleView(id,name){
-        this.setState({choosed:!this.state.choosed})
-        this.props.onclick(id,name,this.state.choosed)            
+    toggleView(id,name,selected){
+        // this.setState({choosed:!this.state.choosed})
+        this.props.onclick(id,name,!selected) //this.state.choosed
     }
     render(){
         let className = "customRoleSingleBtn"
-        if(this.state.choosed) className = 'customRoleSingleBtnActive'
+        const selected = this.props.selectedRoles.some(role=>{
+            return role.value == this.props.id
+        })
+
+        if(selected) className = 'customRoleSingleBtnActive' //this.state.choosed
+
         return (
             <div 
                 className={className} 
-                onClick={()=>this.toggleView(this.props.id,this.props.name)}
+                onClick={()=>this.toggleView(this.props.id,this.props.name,selected)}
             >
                 <div style={{
                         textOverflow: 'ellipsis',

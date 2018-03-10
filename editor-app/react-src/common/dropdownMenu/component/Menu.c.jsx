@@ -8,7 +8,7 @@ function ConfigComp({ xClass, optionsCtrl, children, isEmpty }){
     }
     const optionData = optionDataFactory(optionsCtrl) 
     return (
-        <MenuView xClass={xClass} optionData={optionData}>
+        <MenuView xClass={xClass} optionData={optionData} roles>
             {children}
         </MenuView>
     )

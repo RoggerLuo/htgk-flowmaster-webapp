@@ -1,6 +1,6 @@
 import listCtrl from './listCtrl'
 import menuList from './menuList'
-export default function({ onConfirm, cate, buttonMode, groupInd }) { 
+export default function({ onConfirm, cate, buttonMode, groupInd, roles }) { 
     const menuActions = listCtrl(menuList,cate,buttonMode)
     return menuActions
         .map(actionWrap => actionWrap(onConfirm)) //统一装配callback
@@ -23,6 +23,9 @@ export default function({ onConfirm, cate, buttonMode, groupInd }) {
 
                 if(action.title == 'button.option7'){ //db的话
                     action.confirm = action.confirm(groupInd)
+                }
+                if(action.title == 'button.option4'){ //自定义角色的话
+                    action.content = action.contentGenerator(roles)
                 }
 
                 rdx.dispatch(action)

@@ -1,13 +1,13 @@
 import React,{createClass} from 'react'
 import SingleBtn from './SingleBtn' 
 
-export default ({ current,inherit,onclick }) => {   
-    const OrgGroup = ({name,roles}) => {        
+export default ({ current, inherit, onclick }) => {   
+    const OrgGroup = ({ name, roles }) => {     
         return (
             <div>
                 {roles.length != 0?(<div className="customRoleOrgName">{name}</div>):null}
                 <div style={{paddingLeft: '17px'}}>    
-                    {roles.map((el,index)=><SingleBtn {...el} key={index} onclick={onclick}/>)}
+                    {roles.map((el,index)=><SingleBtn {...el} key={index} onclick={onclick} />)}
                 </div>
             </div>
         )

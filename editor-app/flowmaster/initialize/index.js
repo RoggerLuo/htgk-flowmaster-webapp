@@ -33,12 +33,18 @@ export default function($http, $rootScope) {
         formLimits($http)
         // processStatus($http)
 
+        
+
         $http({    
             method: 'GET',
             url: window.globalHost + '/identity/organizations/customrole-assignments'
         }).success(function (data) {
             window.customRoles = data.data
         })
+
+
+
+        
 
         $http({    
             method: 'GET',
@@ -50,6 +56,12 @@ export default function($http, $rootScope) {
                 return el
             })
         })
+
+
+
+
+
+
 
     }
 }
