@@ -13,7 +13,6 @@ export default function($scope, $http) {
         if (!integrityChecking()) return rdx.save()
 
         if(isSfsUnnamed($scope)) return rdx.save()
-    
         //业务流程 校验放在 sf校验之后
         if (!validate_by_shapes($scope)) return rdx.save() //这个的顺序很重要! 很重要
 
@@ -29,6 +28,7 @@ export default function($scope, $http) {
 
         rdx.dispatch({ type: 'callSpin' }) /* 等待动画 */
         originalSave($scope, $http, callback) /* orginal save */
+
     }
 }
 

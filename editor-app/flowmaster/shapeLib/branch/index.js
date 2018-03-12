@@ -1,4 +1,4 @@
-import './updateBranchText'
+import update from './updateBranchText'
 global.fm = global.fm || {}
 fm.branch = {}
 // fm.branch.is = {}
@@ -9,6 +9,7 @@ fm.branch.is = (shape) => {
     }
     return false
 }
+fm.branch.update = update
 // fm.branch.is.mulit = () => {}
 // fm.branch.is.manual = () => {}
 // fm.branch.is.not = () => {}

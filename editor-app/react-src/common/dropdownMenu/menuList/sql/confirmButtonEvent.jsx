@@ -17,7 +17,9 @@ const isConditionsCheckOk = (conditions) => {
 }
 
 export default function(cb){//groupInd
+    
     return (groupInd) => () => {
+
         const sqlState = rdx.getState().sql
         
         if(!sqlState.sql){
@@ -61,13 +63,11 @@ export default function(cb){//groupInd
             cate:'fromDb',
             sql:sqlState.sql,
             currentDataSourceRef,
-            // dataSourceRef:[currentDataSourceRef],
             sqlState,
             leave:groupInd
         }
         cb(item)
         rdx.dispatch({type:'sql/renew'})
-        rdx.save()
         return true
     }
 }

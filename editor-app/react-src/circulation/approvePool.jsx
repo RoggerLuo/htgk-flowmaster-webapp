@@ -7,7 +7,7 @@ export default ({ data }) => {
     const clear = () => rdx.dispatch({type:'circulation/clear'})
 
     const cate = data[0] && data[0].cate || false
-    return approvePool_factory(cate, data, { del, add, clear })
+    return approvePool_factory(cate, data, { del, add, clear }, 0)
 }
 
 

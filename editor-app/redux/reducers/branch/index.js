@@ -1,4 +1,4 @@
-import { toJS, fromJS, List, Map } from 'immutable';
+import { toJS, fromJS, List, Map } from 'immutable'
 import { defaultOption, newRule, newCreate } from './basic'
 import { reduceWrap, transformer } from '../../tools'
 /*
@@ -71,18 +71,18 @@ export default reduceWrap('Sequence flow', (state, action, ind) => {
                 return el
             }
             /* 执行逻辑 */
-            data = data.updateIn(ruleDataPath, 'initial', updateOption)
+            data = data.updateIn(ruleDataPath, '', updateOption)
             if (action.entryIndex == 'entry1') { //二级联动
-                data = data.updateIn(ruleDataPath, 'initial', cascade2)
+                data = data.updateIn(ruleDataPath, '', cascade2)
             }
             if (action.entryIndex == 'entry2') { //三级联动
-                data = data.updateIn(ruleDataPath, 'initial', cascade3)
+                data = data.updateIn(ruleDataPath, '', cascade3)
             }
             return data.toJS()
 
         case 'clearSFData': /* 清空某个sequenceflow */
             let clearIndex = data.get('repo').findKey((el, index, iter) => el.get('id') == action.id)
-            return data.updateIn(['repo', clearIndex, 'conditions'], 'initial', (el) => {
+            return data.updateIn(['repo', clearIndex, 'conditions'], '', (el) => {
                 return fromJS([{
                     data: [
                         newRule()
@@ -93,12 +93,12 @@ export default reduceWrap('Sequence flow', (state, action, ind) => {
 
             /* 加载 表单字段 和 用户字段 时 */
         case 'updateFormProperties':
-            return data.updateIn(['formProperties'], 'initial', (el) => {
+            return data.updateIn(['formProperties'], '', (el) => {
                 return action.data
             }).toJS()
 
         case 'updateUserProperties':
-            return data.updateIn(['userProperties'], 'initial', (el) => {
+            return data.updateIn(['userProperties'], '', (el) => {
                     return action.data
                 }).toJS()
                 /* 加载 表单字段 和 用户字段 时 */
@@ -106,12 +106,12 @@ export default reduceWrap('Sequence flow', (state, action, ind) => {
             /* 改变每个condition的rule删除模式 */
         case 'allRuleModeEQdelete':
             let allRuleModeEQdeleteIndex = data.get('repo').findKey((el, index, iter) => el.get('id') == state.id)
-            return data.updateIn(['repo', allRuleModeEQdeleteIndex, 'conditions', action.index], 'initial', (el) => {
+            return data.updateIn(['repo', allRuleModeEQdeleteIndex, 'conditions', action.index], '', (el) => {
                 return el.set('ruleMode', 'delete')
             }).toJS()
         case 'allRuleModeEQnormal':
             let allRuleModeEQdeleteIndex2 = data.get('repo').findKey((el, index, iter) => el.get('id') == state.id)
-            return data.updateIn(['repo', allRuleModeEQdeleteIndex2, 'conditions', action.index], 'initial', (el) => {
+            return data.updateIn(['repo', allRuleModeEQdeleteIndex2, 'conditions', action.index], '', (el) => {
                     return el.set('ruleMode', 'normal')
                 }).toJS()
                 /* 改变每个condition的rule删除模式 */
@@ -120,28 +120,28 @@ export default reduceWrap('Sequence flow', (state, action, ind) => {
         case 'radioTextChange':
             let repoIndexRadio2 = data.get('repo').findKey((el, index, iter) => el.get('id') == state.id)
 
-            return data.updateIn(['repo', repoIndexRadio2], 'initial', (el) => {
+            return data.updateIn(['repo', repoIndexRadio2], '', (el) => {
                 return el.set('text', action.text) //false or true
             }).toJS()
 
         case 'switchElement':
-            return data.updateIn(['id'], 'initial', (el) => {
+            return data.updateIn(['id'], '', (el) => {
                 return action.nextId
             }).toJS()
 
         case 'sequenceDataInit':
-            return data.updateIn(['repo'], 'initial', (el) => {
+            return data.updateIn(['repo'], '', (el) => {
                 return el.push(fromJS(action.data))
             }).toJS()
 
         case 'ruleOnInput':
             let repoIndex4 = data.get('repo').findKey((el, index, iter) => el.get('id') == state.id)
-            return data.updateIn(['repo', repoIndex4, 'conditions', action.key1, 'data', action.key2], 'initial', (el) => {
+            return data.updateIn(['repo', repoIndex4, 'conditions', action.key1, 'data', action.key2], '', (el) => {
                 return el.set('input', action.inputData)
             }).toJS()
 
         case 'linkage':
-            return data.updateIn(['template', 'entry2', 'options'], 'initial', (el) => {
+            return data.updateIn(['template', 'entry2', 'options'], '', (el) => {
                 return action.options
             }).toJS()
 
@@ -149,7 +149,7 @@ export default reduceWrap('Sequence flow', (state, action, ind) => {
 
 
         case 'switchApproveData':
-            return data.updateIn(['id'], 'initial', (el) => {
+            return data.updateIn(['id'], '', (el) => {
                 return action.nextId
             }).toJS()
 
@@ -158,15 +158,15 @@ export default reduceWrap('Sequence flow', (state, action, ind) => {
         case 'addCondition':
             let repoIndex = data.get('repo').findKey((el, index, iter) => el.get('id') == state.id)
             if (!repoIndex && (repoIndex != 0)) { //如果nextRepoIndex不存在
-                return data.updateIn(['repo'], 'initial', (el) => {
+                return data.updateIn(['repo'], '', (el) => {
                     return el.push(fromJS(newCreate(state)))
                 }).toJS()
             }
-            return data.updateIn(['repo', repoIndex], 'initial', (el) => {
+            return data.updateIn(['repo', repoIndex], '', (el) => {
                 return el.set('conditions', el.get('conditions').push(fromJS({
                     data: [
                         newRule()
-                        // {entry1:defaultOption(),entry2:defaultOption(),entry3:{index:'initial',value:"=="},input:''}
+                        // {entry1:defaultOption(),entry2:defaultOption(),entry3:{index:'',value:"=="},input:''}
                     ],
                     ruleMode: 'normal'
                 })))
@@ -174,19 +174,19 @@ export default reduceWrap('Sequence flow', (state, action, ind) => {
 
         case 'addRule':
             let repoIndex2 = data.get('repo').findKey((el, index, iter) => el.get('id') == state.id)
-            return data.updateIn(['repo', repoIndex2, 'conditions', action.index, 'data'], 'initial', (el) => {
+            return data.updateIn(['repo', repoIndex2, 'conditions', action.index, 'data'], '', (el) => {
                 return el.push(fromJS(newRule()))
             }).toJS()
 
         case 'deleteCondition':
             let repoIndexDelete = data.get('repo').findKey((el, index, iter) => el.get('id') == state.id)
-            return data.updateIn(['repo', repoIndexDelete, 'conditions'], 'initial', (el) => {
+            return data.updateIn(['repo', repoIndexDelete, 'conditions'], '', (el) => {
                 return el.delete(action.conditionIndex)
             }).toJS()
 
         case 'deleteRule':
             let repoIndexDelete2 = data.get('repo').findKey((el, index, iter) => el.get('id') == state.id)
-            return data.updateIn(['repo', repoIndexDelete2, 'conditions', action.groupIndex, 'data'], 'initial', (el) => {
+            return data.updateIn(['repo', repoIndexDelete2, 'conditions', action.groupIndex, 'data'], '', (el) => {
                 return el.delete(action.ruleIndex)
             }).toJS()
 

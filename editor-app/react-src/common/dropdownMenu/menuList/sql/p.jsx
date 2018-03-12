@@ -1,8 +1,9 @@
 import React,{createClass} from 'react';
 import EntryGroup from './EntryGroup'
 
-export default function(savedSqlState){
-    const ReactViewComp =  ({ mode,addEntry, dataSource, chooseSource, textareaOnInput, sql, checked, checkChange, chooseDropdown }) => {
+// export default function(){
+    // const ReactViewComp =  
+    export default ({ mode,addEntry, dataSource, chooseSource, textareaOnInput, sql, checked, checkChange, chooseDropdown }) => {
         
         const delModeOpen = () => {
             rdx.dispatch({type:'sql/delMode',mode:true})
@@ -50,5 +51,5 @@ export default function(savedSqlState){
             </div>
         )
     } 
-    return ReactViewComp
-}
+//     return ReactViewComp
+// }

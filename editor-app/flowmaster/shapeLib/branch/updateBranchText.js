@@ -1,5 +1,4 @@
-'use strict'
-global.updateBranchText = () => {
+const updateBranchText = () => {
     rdx.getState().branch.repo.forEach((el, index) => {
         
         let shape = fm.getShapeById(el.id)
@@ -42,3 +41,7 @@ global.updateBranchText = () => {
         }
     })
 }
+
+
+global.updateBranchText = updateBranchText
+export default updateBranchText

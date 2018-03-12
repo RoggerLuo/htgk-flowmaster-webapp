@@ -2,16 +2,17 @@ import Comp from './c'
 export default function(cb) {
     return {
         confirm() {
-            return () => {
+            // return () => {
                 const state = rdx.getState()
                 const customRoles = state.popup.customRoles
+                debugger
                 customRoles.forEach(el =>{
                     el.cate = 'customizeRole'
                     cb(el)
                 })
                 rdx.dispatch({ type: 'popup/update', data: [] })
                 return true
-            }
+            // }
         },
         onCancel() {
             rdx.dispatch({ type: 'popup/update', data: [] })

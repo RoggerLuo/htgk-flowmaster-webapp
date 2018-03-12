@@ -1,39 +1,34 @@
-import React,{createClass} from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
 
-export default class SingleBtn extends React.Component { 
-    constructor(props) {
-        super(props)
-        this.toggleView = this.toggleView.bind(this)
-        this.state = {choosed:false}
-    }
-    toggleView(id,name,selected){
-        // this.setState({choosed:!this.state.choosed})
-        this.props.onclick(id,name,!selected) //this.state.choosed
-    }
-    render(){
-        let className = "customRoleSingleBtn"
-        const selected = this.props.selectedRoles.some(role=>{
-            return role.value == this.props.id
-        })
-
-        if(selected) className = 'customRoleSingleBtnActive' //this.state.choosed
-
-        return (
-            <div 
-                className={className} 
-                onClick={()=>this.toggleView(this.props.id,this.props.name,selected)}
+const SingleButton = ({ customRoles, id, name, onclick }) => {
+    let className = "customRoleSingleBtn"
+    const selected = customRoles.some(role=>{
+        return role.value == id
+    })
+    if(selected) className = 'customRoleSingleBtnActive' 
+    const toggleView = (id,name,selected) => onclick(id,name,!selected) 
+    return (
+        <div 
+            className={className}  
+            onClick={()=>toggleView(id,name,selected)}
+        >
+            <div style={{
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    maxWidth: '100px',
+                    display:'inline-block'
+                }}
             >
-                <div style={{
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        maxWidth: '100px',
-                        display:'inline-block'
-                    }}
-                >
-                    {this.props.name}
-                </div>
+                { name }
             </div>
-        )
-    }
+        </div>
+    )
 }
+
+const mapStateToProps = (state) => {
+    return { customRoles: state.popup.customRoles }
+}
+
+export default connect(mapStateToProps)(SingleButton)

@@ -9,7 +9,7 @@ const MenuContainer = ({ currentRepo, children, index, xClass }) => {
         && currentRepo.data[index]
         && currentRepo.data[index][0]
         && currentRepo.data[index][0].cate || false)
-    const optionsCtrl = { onConfirm: add, cate, groupInd: index }
+    const optionsCtrl = { onConfirm: add, cate, groupInd: index, roles: currentRepo.data }
     const Menu = fm.common.dropdownMenu.component
     return ( 
         <Menu xClass={xClass} optionsCtrl={optionsCtrl}>

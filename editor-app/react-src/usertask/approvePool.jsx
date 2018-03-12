@@ -6,5 +6,5 @@ export default ({ data }) => {
     const clear = () => rdx.dispatch({ type: 'usertask/clear' })
     const cate = data[0] && data[0].cate || false
     const approvePool_factory = fm.common.ApprovePool_factory_not4multi
-    return approvePool_factory(cate, data, { del, add, clear })
+    return approvePool_factory(cate, data, { del, add, clear }, 0)
 }

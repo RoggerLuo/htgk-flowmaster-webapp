@@ -1,8 +1,8 @@
-import Comp from './ReduxCompGenerator'
+import C from './c'
 import confirmButtonEvent from './confirmButtonEvent'
 export default function(cb){ 
     return {
-        content:Comp(),
+        content:C,
         confirm:confirmButtonEvent(cb), 
         onCancel(){
             rdx.dispatch({type:'sql/renew'})

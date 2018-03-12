@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import Comp from './p'
 
 export default (roles) => {
-    const customizedRoles = roles.filter(role=>role.cate == "customizeRole")
-    // rdx.dispatch({ type: 'popup/update', data: customizedRoles })
+    const seletedCustomizedRoles = roles.filter(role => role.cate == "customizeRole")
+    rdx.dispatch({ type: 'popup/update', data: seletedCustomizedRoles }) 
+
     const Component = ({ dispatch, put, customRoles }) => {
         
         const onclick = (id, name, selectedStatus) => {
@@ -20,15 +21,15 @@ export default (roles) => {
                 })
 
             }else{
-                newCustomRoles.push({ value: id, text: name })
+                newCustomRoles.push({ value: id, text: name, cate: 'customizeRole' })
             }
+            dispatch({ type: 'popup/update', data: [] }) 
             dispatch({ type: 'popup/update', data: newCustomRoles }) 
         }
 
-        
         const current = window.customRoles && window.customRoles.filter(el => el.orgType == 'CURRENT') || false
         const inherit = window.customRoles && window.customRoles.filter(el => el.orgType == 'INHERIT') || []
-        return (<Comp current={current} inherit={inherit} onclick={onclick} />)
+        return (<Comp current={current} inherit={inherit} onclick={onclick} seletedCustomizedRoles={seletedCustomizedRoles}/>)
     }
 
     const mapStateToProps = (state) => {

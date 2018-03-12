@@ -31,7 +31,6 @@ export default function(jsonArray, data, currentElement) {
                     text: el.text,
                     id: index //el.value 
                 })
-
                 break
                 
             case "historicTask":
@@ -44,6 +43,7 @@ export default function(jsonArray, data, currentElement) {
                 })
                 /*generator(el))*/
                 break
+
             case "EXTERNAL":
                 jsonArray = [{
                     "value": "external()",
@@ -53,6 +53,7 @@ export default function(jsonArray, data, currentElement) {
                     "value2": "external"
                 }]
                 break
+                
             case "fromDb":
                 jsonArray = [{
                     "value": `fromDb(${el.leave})`,

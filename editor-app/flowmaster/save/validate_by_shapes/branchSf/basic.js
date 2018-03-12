@@ -16,7 +16,6 @@ export const ifEmptyWithoutInit = (canBeSaved) => {
             if (!el2.properties.defaultflow) { //不存在,说明不是默认流向的分支
                 if (!el2.properties.conditionsequenceflow) { //也不存在
                     let nodeName = el2.incoming && el2.incoming[0] && el2.incoming[0].properties["oryx-name"]
-                    
                     window.showAlert('保存失败，节点"' + nodeName + '"的分支条件和规则不能为空')
                     /* 定位的关键代码 */
                     fm.editor.setSelection([el2])
@@ -29,6 +28,7 @@ export const ifEmptyWithoutInit = (canBeSaved) => {
     })
     return canBeSaved
 }
+
 export const ifEmpty = (el, currentElement) => {
     const gateway = currentElement.incoming[0]
     if( gateway && global.isMultiGateway(gateway)) return false
@@ -39,6 +39,19 @@ export const ifEmpty = (el, currentElement) => {
                 if(!
                     (rule.entry1.value && rule.entry2.value && rule.entry3.value)
                 ) return true
+
+                if(typeof(rule.input) == 'object'){
+                    if(!rule.input.value){
+                        return true                            
+                    }
+                    if(rule.input.value == '""'){
+                        return true
+                    }
+                }
+                if(rule.input == '""'){
+                    return true
+                }
+                return false
             })
         })) {
         /* 如果有一个为为空值，整个条件都为空 */
@@ -48,16 +61,16 @@ export const ifEmpty = (el, currentElement) => {
             window.setPropertyAdvance({ key: 'oryx-name', value: '' }, currentElement)
             fm.editor.setSelection([currentElement])
             fm.editor.updateSelection()
-
             return true
         }
     }
 }
+
 export const validationCheck = (el) => {
     return el
         //这一块不应该出现在这里
         //限制输入数字的 应该在input组件中就实现
-    if ((el.entry2.type == 'double') || (el.entry2.type == 'int')) {
+    /*if ((el.entry2.type == 'double') || (el.entry2.type == 'int')) {
         if (isNaN(el.input)) {
             window.showAlert('保存失败，分支条件中填写数据类型不正确')
             window.setPropertyAdvance({ key: 'oryx-name', value: '' }, currentElement)
@@ -67,7 +80,7 @@ export const validationCheck = (el) => {
             canSave = false
             return
         }
-    }
+    }*/
 }
 export const inputFormatter = (el) => {
     el.input.value = Trim(el.input.value)

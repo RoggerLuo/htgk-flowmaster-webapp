@@ -22,6 +22,7 @@ export default function({ onConfirm, cate, buttonMode, groupInd, roles }) {
                 }
 
                 if(action.title == 'button.option7'){ //db的话
+                    debugger
                     action.confirm = action.confirm(groupInd)
                 }
                 if(action.title == 'button.option4'){ //自定义角色的话

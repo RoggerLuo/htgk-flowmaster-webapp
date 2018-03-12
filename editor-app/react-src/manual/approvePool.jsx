@@ -7,5 +7,5 @@ export default function({ data }) {
     const clear = () => rdx.dispatch({ type: 'manual/clear' })
     const edit = () => rdx.dispatch({ type: 'popup/callPopupEdit' })
     const cate = data[0] && data[0].cate || false
-    return approvePool_factory(cate, data, { edit, del, add, clear })
+    return approvePool_factory(cate, data, { edit, del, add, clear }, 0)
 }
