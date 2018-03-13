@@ -6,6 +6,8 @@ function transformRequest(obj) {
     return str.join("&");
 }
 export default function($scope, $http, callback) {
+    fm.branch.update() //要在获取json之前才行
+
     /* 接下来是 activiti ng original的代码 */
     const jsonObj = fm.getJson()
     jsonObj.properties.process_id = window.getQueryString("pid")    
