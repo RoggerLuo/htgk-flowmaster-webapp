@@ -1,7 +1,6 @@
 // import selectEvent from './selectEvent'
 // import afterLoad from './afterLoad'
 // import utils from './utils'
-import './madClick'
 
 
 //二、在 任何操作 完成之后触发 after事件
