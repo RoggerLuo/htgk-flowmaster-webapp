@@ -19,7 +19,9 @@ angular.module('activitiModeler')
         // Code that is dependent on an initialised Editor is wrapped in a promise for the editor
         $scope.editorFactory.promise.then(function() {
             fm.ngEvent($scope,$http)
-            fm.oryxEvent($scope,$http)
+            // fm.oryxEvent($scope,$http)
+            fm.scopeEvent($scope,$http)
+
             window.userGuide()
 
             // Build simple json representation of stencil set
