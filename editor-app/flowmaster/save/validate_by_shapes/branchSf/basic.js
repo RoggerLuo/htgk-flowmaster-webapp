@@ -29,43 +29,6 @@ export const ifEmptyWithoutInit = (canBeSaved) => {
     return canBeSaved
 }
 
-export const ifEmpty = (el, currentElement) => {
-    const gateway = currentElement.incoming[0]
-    if( gateway && global.isMultiGateway(gateway)) return false
-        if( gateway && global.isManualGateway(gateway)) return false
-
-    if (el.conditions.some((condition, i) => {
-            return condition.data.some((rule, index) => {
-                if(!
-                    (rule.entry1.value && rule.entry2.value && rule.entry3.value)
-                ) return true
-
-                if(typeof(rule.input) == 'object'){
-                    if(!rule.input.value){
-                        return true                            
-                    }
-                    if(rule.input.value == '""'){
-                        return true
-                    }
-                }
-                if(rule.input == '""'){
-                    return true
-                }
-                return false
-            })
-        })) {
-        /* 如果有一个为为空值，整个条件都为空 */
-        if (currentElement.properties.defaultflow != 'true') {
-            let nodeName = currentElement.incoming && currentElement.incoming[0] && currentElement.incoming[0].properties["oryx-name"]
-            window.showAlert('保存失败，节点"' + nodeName + '"的分支条件和规则不能为空')
-            window.setPropertyAdvance({ key: 'oryx-name', value: '' }, currentElement)
-            fm.editor.setSelection([currentElement])
-            fm.editor.updateSelection()
-            return true
-        }
-    }
-}
-
 export const validationCheck = (el) => {
     return el
         //这一块不应该出现在这里
@@ -115,3 +78,44 @@ export const collectValuesFromDpdw = ({ returnString, el }) => {
     returnString += ' '
     return returnString
 }
+
+
+/*
+
+export const ifEmpty = (el, currentElement) => {
+    const gateway = currentElement.incoming[0]
+    if( gateway && global.isMultiGateway(gateway)) return false
+        if( gateway && global.isManualGateway(gateway)) return false
+
+    if (el.conditions.some((condition, i) => {
+            return condition.data.some((rule, index) => {
+                if(!
+                    (rule.entry1.value && rule.entry2.value && rule.entry3.value)
+                ) return true
+
+                if(typeof(rule.input) == 'object'){
+                    if(!rule.input.value){
+                        return true                            
+                    }
+                    if(rule.input.value == '""'){
+                        return true
+                    }
+                }
+                if(rule.input == '""'){
+                    return true
+                }
+                return false
+            })
+        })) {
+        if (currentElement.properties.defaultflow != 'true') {
+            let nodeName = currentElement.incoming && currentElement.incoming[0] && currentElement.incoming[0].properties["oryx-name"]
+            window.showAlert('保存失败，节点"' + nodeName + '"的分支条件和规则不能为空')
+            window.setPropertyAdvance({ key: 'oryx-name', value: '' }, currentElement)
+            fm.editor.setSelection([currentElement])
+            fm.editor.updateSelection()
+            return true
+        }
+    }
+}
+
+*/

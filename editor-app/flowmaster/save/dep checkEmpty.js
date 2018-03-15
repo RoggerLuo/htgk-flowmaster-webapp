@@ -1,17 +1,12 @@
 'use strict'
-export default ($scope) => { //checkEmpty
-    let returnValue = false
-    var json = fm.getJson() //$scope.editor.getJSON()
+export default ($scope) => { 
+    var json = fm.getJson() 
     return json.childShapes.some((el, index) => {
         switch (el.stencil.id) {
-            case 'EndNoneEvent':
-                // el.incoming.length
-                break
             case 'StartNoneEvent':
                 if (el.outgoing.length == 0) {
                     window.showAlert('请连接上开始节点')
                     fm.spotlight(fm.getShapeById(el.resourceId))
-                    returnValue = true
                     return true
                 }
                 break
@@ -26,7 +21,7 @@ export default ($scope) => { //checkEmpty
                 const rolesjson = el.properties.objData
                 const zero = rolesjson && rolesjson.length == 0
                 if(!rolesjson || zero){
-                    window.showAlert('"' + el.properties.name + '"的审批人员设置不能为空') //传阅节点
+                    window.showAlert('"' + el.properties.name + '"的传阅人员设置不能为空') //传阅节点
                     fm.spotlight(fm.getShapeById(el.resourceId))
                     return true
                 }
@@ -42,9 +37,7 @@ export default ($scope) => { //checkEmpty
                 if (ta && ta.assignment && (ta.assignment.candidateOwners.length == 0)) {
                     window.showAlert('"' + el.properties.name + '"的审批人员设置不能为空') //审批节点
                     fm.spotlight(fm.getShapeById(el.resourceId))
-
                     return true
-
                 }
                 break
 

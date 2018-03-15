@@ -1,7 +1,39 @@
-'use strict'
-import { validationCheck, inputFormatter, collectValuesFromDpdw, ifEmpty, ifEmptyWithoutInit } from './basic.js'
+import { validationCheck, inputFormatter, collectValuesFromDpdw, ifEmptyWithoutInit } from './basic.js'
+import validate from './validate'
 
-const traverseGroup = (el) => {
+export default function(canvas) {
+    // let canBeSaved = true    
+    
+    return !rdx.getState().branch.repo.some((repo, index) => {
+        const shape = fm.getNodeById(repo.id)
+        if (!shape) return
+        if(!validate(repo,shape)){
+            return true
+        }
+
+        /* 取消删除状态，以免下次加载的时候，一打开就是删除状态 */
+        repo.conditions.forEach((condi) => {
+            condi.ruleMode = 'normal'
+        })
+        shape.setProperty('conditionsequenceflow', assembleStr(repo))
+        shape.setProperty('reduxData_branch', repo)
+    })
+
+    // canBeSaved = ifEmptyWithoutInit(canBeSaved)
+    // return canBeSaved
+}
+function assembleStr(repo){
+    let str = '' 
+    if (repo.radio) {            
+        str = '${' + repo.text + '}'
+        window.setPropertyAdvance({ key: 'oryx-name', value: repo.text }, shape)
+    } else {
+        // if (empty(el, shape)) canBeSaved = false
+        str = '${' + traverseGroup(repo) + '}'
+    }
+    return str
+}
+function traverseGroup(el){
     let str = ''
     el.conditions.forEach((condition, i) => { //每个group
         str = traverseRule(condition,str)
@@ -10,7 +42,8 @@ const traverseGroup = (el) => {
     })
     return str
 }
-const traverseRule = (condition,returnString) => {
+
+function traverseRule(condition,returnString){
     condition.data.forEach((el, index, wholeArr) => { //每个rule
         /* 下拉框的值 */
         returnString = collectValuesFromDpdw({ returnString, el })
@@ -24,33 +57,3 @@ const traverseRule = (condition,returnString) => {
     })
     return returnString
 }
-export default function(canvas) {
-    let canBeSaved = true    
-    rdx.getState().branch.repo.forEach((el, index) => {
-        const currShape = fm.getNodeById(el.id)
-        if (!currShape) return
-
-        let returnString = '' 
-        if (el.radio) {            
-            returnString = '${' + el.text + '}'
-            window.setPropertyAdvance({ key: 'oryx-name', value: el.text }, currShape)
-        } else {
-            if (ifEmpty(el, currShape)) canBeSaved = false
-            returnString = '${' + traverseGroup(el) + '}'
-        }
-
-        /* 取消删除状态，以免下次加载的时候，一打开就是删除状态 */
-        const conditionsNew = el.conditions.map((originEl) => {
-            originEl.ruleMode = 'normal'
-            return originEl
-        })
-        el.conditions = conditionsNew
-        currShape.setProperty('conditionsequenceflow', returnString)
-        currShape.setProperty('reduxData_branch', el)
-    })
-
-    canBeSaved = ifEmptyWithoutInit(canBeSaved)
-    return canBeSaved
-}
-
-

@@ -1,4 +1,5 @@
 global.fm = global.fm || {}
+
 export default function($scope) {
     /* 画布加载以后，把sequenceflow设置为true */
     rdx.getState().branchNode.repo.forEach((el) => {
@@ -17,15 +18,4 @@ export default function($scope) {
     }
     KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent)
     rdx.store.dispatch({ type: 'saveDeactive' })
-
-
-
-    // 启动mode    
-    const version = fm.getUrlQueryParam("version")
-    if (version != 'undefined') {
-        fm.isSpecificVersionEditMode = true
-        fm.version = version
-    }
-    fm.versionId = fm.getUrlQueryParam("versionId")        
-
 }
