@@ -1,38 +1,31 @@
 import Trim from './trim.js'
 
-export const ifEmptyWithoutInit = (canBeSaved) => {
-    /* 在分支条件没有初始化的情况下，检查分支节点是否为空， */
-    /* 遍历所有exclusiveGate 然后再遍历他们的sequenceflow */
-    window.windowCanvas.getChildNodes().filter((el) => {
-        return el._stencil._jsonStencil.title == "Exclusive gateway"
-    }).forEach((el) => {
-        /* 如果是 会签分支 */
-        if(global.isMultiGateway(el)) return 
-        /* 如果是 人工分支 */
-        if(global.isManualGateway(el)) return 
+// export const ifEmptyWithoutInit = (canBeSaved) => {
+//     /* 在分支条件没有初始化的情况下，检查分支节点是否为空， */
+//     /* 遍历所有exclusiveGate 然后再遍历他们的sequenceflow */
+//     fm.getNodes()
+//         .filter((shape) => fm.getTitle(shape) == "Exclusive gateway")
+//         .forEach((shape) => {
+//             /* 如果是 会签分支 */
+//             if (fm.multi.is.gateway(shape)) return
+//             /* 如果是 人工分支 */
+//             if (fm.manual.is.gateway(shape)) return
 
-        /*  update 空值不能提交 */
-        el.outgoing.forEach((el2) => {
-            if (!el2.properties.defaultflow) { //不存在,说明不是默认流向的分支
-                if (!el2.properties.conditionsequenceflow) { //也不存在
-                    let nodeName = el2.incoming && el2.incoming[0] && el2.incoming[0].properties["oryx-name"]
-                    window.showAlert('保存失败，节点"' + nodeName + '"的分支条件和规则不能为空')
-                    /* 定位的关键代码 */
-                    fm.editor.setSelection([el2])
-                    fm.editor.updateSelection()
-
-                    canBeSaved = false
-                }
-            }
-        })
-    })
-    return canBeSaved
-}
+//             /*  update 空值不能提交 */
+//             shape.outgoing.forEach((shape2) => {
+//                 if (!shape2.properties.defaultflow && !shape2.properties.conditionsequenceflow) {
+//                     window.showAlert('保存失败，节点"' + fm.getTitle(fm.getIncoming(shape2)) + '"的分支条件和规则不能为空')
+//                     fm.spotlight(shape2)
+//                 }
+//             })
+//         })
+//     return canBeSaved
+// }
 
 export const validationCheck = (el) => {
     return el
-        //这一块不应该出现在这里
-        //限制输入数字的 应该在input组件中就实现
+    //这一块不应该出现在这里
+    //限制输入数字的 应该在input组件中就实现
     /*if ((el.entry2.type == 'double') || (el.entry2.type == 'int')) {
         if (isNaN(el.input)) {
             window.showAlert('保存失败，分支条件中填写数据类型不正确')
@@ -52,7 +45,7 @@ export const inputFormatter = (el) => {
     // if (re.test(el.input)) {
     //     return Date.parse(new Date(el.input.value)) //+ new Date().getTimezoneOffset()*60*1000
     // }
-    
+
     /* 如果是普通的字符或数字 */
     // if (isNaN(el.input)) { //如果 not a number则加双引号，否则不修改
     //     return '"' + el.input.value + '"'

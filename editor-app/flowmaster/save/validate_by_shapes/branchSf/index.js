@@ -2,25 +2,22 @@ import { validationCheck, inputFormatter, collectValuesFromDpdw, ifEmptyWithoutI
 import validate from './validate'
 
 export default function(canvas) {
-    // let canBeSaved = true    
-    
     return !rdx.getState().branch.repo.some((repo, index) => {
         const shape = fm.getNodeById(repo.id)
         if (!shape) return
+
         if(!validate(repo,shape)){
             return true
         }
 
-        /* 取消删除状态，以免下次加载的时候，一打开就是删除状态 */
         repo.conditions.forEach((condi) => {
+            /* 取消删除状态，以免下次加载的时候，一打开就是删除状态 */
             condi.ruleMode = 'normal'
         })
+
         shape.setProperty('conditionsequenceflow', assembleStr(repo))
         shape.setProperty('reduxData_branch', repo)
     })
-
-    // canBeSaved = ifEmptyWithoutInit(canBeSaved)
-    // return canBeSaved
 }
 function assembleStr(repo){
     let str = '' 

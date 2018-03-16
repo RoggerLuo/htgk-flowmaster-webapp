@@ -1,6 +1,8 @@
 import sf_name from './sf_name'
 import sf_in_parallel from './sf_in_parallel'
 import exclusive from './exclusive'
+import branch from './branch'
+
 export default () => {
     return !fm.getNodes().some(shape => {
 
@@ -12,7 +14,7 @@ export default () => {
                 return sf_name(shape)
 
             case 'Exclusive gateway':
-                return exclusive(shape)
+                return exclusive(shape) && branch(shape)
 
             case 'Manual task':
             case 'User task':
