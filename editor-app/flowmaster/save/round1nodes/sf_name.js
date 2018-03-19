@@ -1,3 +1,5 @@
+
+
 export default (shape) => { 
     /* 
         用来校验sf名字的 
@@ -12,6 +14,8 @@ export default (shape) => {
     } 
 
 }
+
+
 
 function belong_to_usertask(shape){
     /* 如果sf连的节点是user task，自动命名为同意 */

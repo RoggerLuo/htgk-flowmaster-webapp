@@ -1,7 +1,7 @@
-import { validationCheck, inputFormatter, collectValuesFromDpdw, ifEmptyWithoutInit } from './basic.js'
 import validate from './validate'
+import Trim from './trim.js'
 
-export default function(canvas) {
+export default function() {
     return !rdx.getState().branch.repo.some((repo, index) => {
         const shape = fm.getNodeById(repo.id)
         if (!shape) return
@@ -15,17 +15,17 @@ export default function(canvas) {
             condi.ruleMode = 'normal'
         })
 
-        shape.setProperty('conditionsequenceflow', assembleStr(repo))
+        shape.setProperty('conditionsequenceflow', assembleStr(shape,repo))
         shape.setProperty('reduxData_branch', repo)
     })
 }
-function assembleStr(repo){
+
+function assembleStr(shape,repo){
     let str = '' 
     if (repo.radio) {            
         str = '${' + repo.text + '}'
-        window.setPropertyAdvance({ key: 'oryx-name', value: repo.text }, shape)
+        fm.setProperty_and_updateView({ key: 'oryx-name', value: repo.text }, shape)
     } else {
-        // if (empty(el, shape)) canBeSaved = false
         str = '${' + traverseGroup(repo) + '}'
     }
     return str
@@ -39,18 +39,37 @@ function traverseGroup(el){
     })
     return str
 }
-
 function traverseRule(condition,returnString){
     condition.data.forEach((el, index, wholeArr) => { //每个rule
         /* 下拉框的值 */
         returnString = collectValuesFromDpdw({ returnString, el })
         
         /* input框的值 */
-        el = validationCheck(el) /* 根据entry2的type来确定 input的值是否合规 */
-        returnString += inputFormatter(el)
+        returnString += Trim(el.input.value)
         
         /* 是否是最后的rule */
         if (index < (condition.data.length - 1)) returnString += ' && '
     })
     return returnString
 }
+
+function collectValuesFromDpdw({ returnString, el }){
+    const dropdown1Ind = el.entry1.index
+    switch (dropdown1Ind) {
+        case 1:
+            returnString += ' f.'
+            break
+        case 2:
+            returnString += ' u.'
+            break
+        case 3:
+            returnString += ' e.'
+            break
+    }
+    returnString += el.entry2.value
+    returnString += ' '
+    returnString += el.entry3.value
+    returnString += ' '
+    return returnString
+}
+

@@ -7,6 +7,7 @@ import branchNode from './branchNode'
 import multi from './multi'
 
 export default function($scope) {
+
     /* 顺序很重要 */
     const canvas = $scope.editor.getCanvas() 
 
@@ -14,9 +15,10 @@ export default function($scope) {
     branchNode(canvas) //branchNode要在sf之前，因为要先设置defaultflow
     if (!subflow(canvas)) return false
     if (!sf(canvas)) return false
-
-    usertaskPattern(canvas, 'usertask')
-    usertaskPattern(canvas, 'manual')
+    
+    usertaskPattern('usertask')
+    usertaskPattern('manual')
+    
     service(canvas)
     multi()
 

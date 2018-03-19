@@ -1,3 +1,5 @@
+
+
 export default function(shape) {
     const gate = fm.parallelGate.isShapeIn(shape)
     if(gate){

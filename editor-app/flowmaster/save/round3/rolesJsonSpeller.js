@@ -1,4 +1,6 @@
+
 const generator = (el) => ({ "value": el.value, "cate": el.cate, "text": el.text, "id": el.value })
+
 export default function(jsonArray, data, currentElement) {
     let dataSourceRefs = []
     data.forEach((el, index) => {
