@@ -3,7 +3,8 @@ import router from './router'
 fm.before_selection_change = ($scope, event) => { 
     if(fm.madClick()) return    
     fm.titleRename && fm.titleRename()
-    router($scope, event)
+    const shape = event.elements.first()
+    router($scope, shape)
 } 
 
 fm.after_selection_change = ($scope,event) => {}

@@ -17,7 +17,6 @@ import sf from './sf'
 
 
 import saveButton from './saveButton/saveButton'
-// global.saveButton = { render: saveButton, flag: true }
 rct.isSaveBtnInit = false
 rct.saveBtnInit = () => {
     if(!rct.isSaveBtnInit) saveButton()

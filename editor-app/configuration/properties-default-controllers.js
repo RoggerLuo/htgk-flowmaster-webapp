@@ -20,41 +20,21 @@
 var sequencePropertyCtrl = ['$scope', function($scope) {
     window.sequenceflowCompInitializer()
 }]
-var subflowPropertyCtrl = ['$scope', function($scope) {
-    fm.subflow.render()
-}]
 
 var branchNodePropertyCtrl = ['$scope', function($scope) {
     branchComponent.render()
-}];
+}]
 
-var sequenceFlowPropertyCtrl = ['$scope', function($scope) {
-
-}];
+var sequenceFlowPropertyCtrl = ['$scope', ()=>{}]
 
 var branchSequenceFlowPropertyCtrl = ['$scope', function($scope) {
     fm.branchSf.render()
-}];
-
-// var multiPropertyCtrl = ['$scope', function($scope) {
-//     fm.multi.render()
-// }];
-
-// var approvePropertyCtrl = ['$scope', function($scope) {
-//     // approveComponent.render()
-// }];
+}]
 
 var canvasPropertyCtrl = ['$scope', function($scope) {
     $scope.pidName = window.pidName
     $scope.pidDescription = window.pidDescription
-    // if(!!window.localDesignData.read(window.getQueryString("pid"))){
-    //     $scope.draft = '(草稿)'    
-    // }else{
-    //     $scope.draft = ''    
-    // }
-    $scope.draft = ''
 }];
-
 
 var namePropertyCtrl = ['$scope', '$timeout', fm.namePropertyCtrl];
 
