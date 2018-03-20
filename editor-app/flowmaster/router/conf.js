@@ -8,7 +8,6 @@ export const routeMap = {
     'Multi user task': ()=>fm.multi.component,
     "Circulation task": ()=>fm.circulation.component,
     "Manual task": ()=>fm.manual.component,
-    'Exclusive gateway': ()=>Blank,
     "Parallel gateway": ()=>Blank,
     "Inclusive gateway": ()=>Blank,
     "Subflow": ()=>fm.subflow.component

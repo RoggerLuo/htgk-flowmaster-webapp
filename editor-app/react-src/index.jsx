@@ -7,8 +7,8 @@ import './branchSf'
 import './usertask'
 import './manual'
 import './circulation'
+import './branchNode'
 
-import branchNodeComponent from './branchNode/Container'
 import popupStart from './popup'
 import popupXStart from './popupX'
 import myAlert from './alert/alert'
@@ -27,7 +27,6 @@ popupXStart()
 myAlert()
 mySpin()
 
-global.branchComponent = { render: branchNodeComponent }
 global.sequenceflowCompInitializer = sf
 
 import zh from './i18n/zh'

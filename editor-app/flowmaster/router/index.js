@@ -19,8 +19,11 @@ export default function($scope, shape) {
         specialSf($scope, shape)
     }
 
-    handleGateway(shape)
+    handleGateway(shape,$scope)
     handleCommon(title,$scope)
+    // 待优化 这个为什么出现在这里
+    fm.nameManager.autoNaming(shape, $scope)
+
 }
 
 function handleCommon(title,$scope) {
@@ -28,16 +31,14 @@ function handleCommon(title,$scope) {
         $scope.propertyTpl = tplSrc + 'node-name.html'
         render(routeMap[title]())        
 
-        // 待优化 这个为什么出现在这里
-        fm.nameManager.autoNaming(shape, $scope)
     }
 }
 
-function handleGateway(shape){
-    if (fm.multi.is.gateway(shape)) {
-        $scope.propertyTpl = tplSrc + 'node-name.html' //没有设置项的普通节点
+function handleGateway(shape,$scope){
+    if(fm.getTitle(shape) === 'Exclusive gateway'){
+        $scope.propertyTpl = tplSrc + 'node-name.html'
+        if (!fm.multi.is.gateway(shape) && !fm.manual.is.gateway(shape)) {
+            render(fm.branchNode)
+        }
     }
-    if (fm.manual.is.gateway(shape)) {
-        $scope.propertyTpl = tplSrc + 'node-name.html' //没有设置项的普通节点
-    }    
 }

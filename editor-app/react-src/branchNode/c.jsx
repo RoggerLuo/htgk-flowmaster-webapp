@@ -1,11 +1,8 @@
-import React,{createClass} from 'react';
-import { render } from 'react-dom'
-import store from '../../redux/configureStore.js'
-import { Provider } from 'react-redux'
+import React from 'react'
 import { connect } from 'react-redux'
-import Presentation from './Presentation.jsx'
+import P from './p.jsx'
 
-const BranchNode = ({repo,id,dispatch}) => {
+const BranchNode = ({ repo,id }) => {
     const currentRepo = repo.filter((el,index)=>{
         return el.resourceId == id
     })
@@ -22,8 +19,7 @@ const BranchNode = ({repo,id,dispatch}) => {
     /* 后期选择就不需要映射了 */
 
     const choosed = (item)=>{
-        activeSave()
-        dispatch({type:'branchNodeDropdownChoose',item})
+        rdx.dispatch({type:'branchNodeDropdownChoose',item})
         
         /*
              黑魔法：如果name==请选择，那么item.value是exclusive的
@@ -54,20 +50,20 @@ const BranchNode = ({repo,id,dispatch}) => {
         /* 
             把选择的分支defaultflow设成true
          */
-        let currentElement = window.windowCanvas.getChildShapeByResourceId(item.value)
-        currentElement.setProperty('defaultflow','true') // 直接调用setProperty,少了很多EventUpdate 
+        let shape = fm.getShapeById(item.value)
+        shape.setProperty('defaultflow','true') // 直接调用setProperty,少了很多EventUpdate 
         
         /*
             清空这个branch之前的设置信息
             在设置的时候就清空，而不是取消的时候
         */
-        dispatch({type:"clearSFData",id:item.value})
-        currentElement.setProperty('conditionsequenceflow','')
-        currentElement.setProperty('reduxdata','')
-        window.setPropertyAdvance({key:'oryx-name',value:''},currentElement) //使用setPropertyAdvance可以马上更新到canvas视图上，但是会触发不必要的事件，尽量少用
+        rdx.dispatch({type:"clearSFData",id:item.value})
+        shape.setProperty('conditionsequenceflow','')
+        shape.setProperty('reduxdata','')
+        window.setPropertyAdvance({key:'oryx-name',value:''},shape) //使用setPropertyAdvance可以马上更新到canvas视图上，但是会触发不必要的事件，尽量少用
     }
     return(
-        <Presentation data={data} choosedOption={choosedOption} choosed={choosed} />
+        <P data={data} choosedOption={choosedOption} choosed={choosed} />
     )
 }
 
@@ -75,21 +71,6 @@ const mapStateToProps = (state) => {
     return {repo:state.branchNode.repo,id:state.branchNode.id}
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-}
+const branchNodeContainer = connect(mapStateToProps)(BranchNode)
 
-const ApproveContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(BranchNode)
-
-export default function(){
-    render(
-        <Provider store={store}>
-                <ApproveContainer />
-        </Provider>
-        ,
-        document.getElementById('branchNodePropertyCtrl')
-    );
-}
+export default branchNodeContainer
