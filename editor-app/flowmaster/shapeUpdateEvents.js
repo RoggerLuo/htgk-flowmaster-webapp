@@ -1,11 +1,11 @@
-import propertyRouter from './propertyRouter'
+import router from './router'
 
 fm.before_selection_change = ($scope, event) => { 
     
     if(fm.madClick()) return
     
     fm.titleRename && fm.titleRename()
-    propertyRouter($scope, event)
+    router($scope, event)
 } 
 fm.after_selection_change = ($scope,event) => {}
 

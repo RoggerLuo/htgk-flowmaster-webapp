@@ -25,8 +25,6 @@ export default function($scope, event) {
     const shape = event.elements.first()
     if (!shape) {
         $scope.propertyTpl = tplSrc + 'canvas.html'
-        // import globalRefreshBranchName from '../multi/globalRefreshBranchName'
-        // globalRefreshBranchName() //为什么这里要出现这个？？？
         return
     }
 
