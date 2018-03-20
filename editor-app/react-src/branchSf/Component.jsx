@@ -12,7 +12,7 @@ import './style'
         }
     }
     return(
-        <div className="react-approve" onClick={unfold}>
+        <div className="react-approve branch-sf" onClick={unfold}>
             <SectionTitleContainer text={put('branch.sectionTitle')}/>   
             <ContentBody />
             <div style={{height:'100px',width:'100%'}}></div>

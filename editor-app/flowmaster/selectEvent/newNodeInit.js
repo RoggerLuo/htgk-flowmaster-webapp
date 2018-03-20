@@ -18,14 +18,12 @@ export default function(shape) {
             }
             if (fm.branch.is(shape)){
                 rdx.put('branch', 'touch')  
-                // rdx.put('sf', 'touch')                                    
                 break
             }
-            // rdx.put('sf', 'touch')                                    
             break
 
         case 'Subflow':
-            reduxStore.dispatch({ type: 'subflow/newNodeInit' })
+            rdx.dispatch({ type: 'subflow/newNodeInit' })
             break
     }
 
@@ -45,7 +43,6 @@ export default function(shape) {
         rdx.dispatch({
             type: 'manual/newNodeInit',
             init() {
-                // window.setPropertyAdvance({ key: 'classify', value: 'manual' }, shape)
                 window.quickAddItem('ExclusiveGateway')
             }
         })

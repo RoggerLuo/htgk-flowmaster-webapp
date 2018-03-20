@@ -17,19 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-var sequencePropertyCtrl = ['$scope', function($scope) {
-    window.sequenceflowCompInitializer()
-}]
-
-var branchNodePropertyCtrl = ['$scope', function($scope) {
-    branchComponent.render()
-}]
-
-var sequenceFlowPropertyCtrl = ['$scope', ()=>{}]
-
-var branchSequenceFlowPropertyCtrl = ['$scope', function($scope) {
-    fm.branchSf.render()
-}]
+// var sequenceFlowPropertyCtrl = ['$scope', ()=>{}]
 
 var canvasPropertyCtrl = ['$scope', function($scope) {
     $scope.pidName = window.pidName

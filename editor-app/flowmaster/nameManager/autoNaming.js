@@ -21,19 +21,20 @@ global.giveName = (shape) => {
 }
 
 function giveNameToShape(shape) {
-    if (shape.properties["oryx-name"] != '') return //如果没有名字
+    if(!shape) return
     if (fm.getTitle(shape) == 'Sequence flow') return
     if (fm.branch.is(shape)) return
     if (fm.multi.is.sf(shape)) return
     if (fm.manual.is.sf(shape)) return
-    if(!shape.properties['oryx-name']) {
+    if(!shape.properties['oryx-name']) { //如果没有名字
         const newName = giveName(shape)
-        // debugger
         shape.setProperty('oryx-name', newName)
+        rdx.save()
     }
 }
 
-export default function autoNaming(selectedShape, $scope) {
-    giveNameToShape(selectedShape)
-    rdx.save()
+export default function autoNaming(shape) {
+    giveNameToShape(shape)
 }
+
+

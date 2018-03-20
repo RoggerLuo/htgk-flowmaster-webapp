@@ -1,9 +1,10 @@
-import { Blank, tplSrc, routeMap } from './conf'
-import specialSf from './specialSf'
+import { handleCommon, Blank, tplSrc } from './common'
+import handleSf from './sf'
 import render from './render'
+import handleGateway from './gateway'
 
 export default function($scope, shape) {
-    render(Blank)
+    render(Blank) //先还原
     if (!shape) {
         $scope.propertyTpl = tplSrc + 'canvas.html'
         return 
@@ -16,29 +17,10 @@ export default function($scope, shape) {
         $scope.propertyTpl = tplSrc + 'startnode.html'
     }
     if (title == 'Sequence flow') {
-        specialSf($scope, shape)
+        handleSf($scope, shape)
     }
 
     handleGateway(shape,$scope)
+
     handleCommon(title,$scope)
-    // 待优化 这个为什么出现在这里
-    fm.nameManager.autoNaming(shape, $scope)
-
-}
-
-function handleCommon(title,$scope) {
-    if(routeMap[title]){
-        $scope.propertyTpl = tplSrc + 'node-name.html'
-        render(routeMap[title]())        
-
-    }
-}
-
-function handleGateway(shape,$scope){
-    if(fm.getTitle(shape) === 'Exclusive gateway'){
-        $scope.propertyTpl = tplSrc + 'node-name.html'
-        if (!fm.multi.is.gateway(shape) && !fm.manual.is.gateway(shape)) {
-            render(fm.branchNode)
-        }
-    }
 }

@@ -1,11 +1,7 @@
-import React,{createClass} from 'react';
-import { render } from 'react-dom'
-import store from '../../redux/configureStore.js'
-import { Provider } from 'react-redux'
-import { connect } from 'react-redux'
+import React from 'react'
 import Dropdown from '../basicComp/Dropdown'
 
-const Sf = ({put,currentRepo}) => {
+const Sf = ({ put,currentRepo }) => {
     if(!currentRepo) return null
 
     const shape = fm.currentSelectedShape
@@ -15,8 +11,6 @@ const Sf = ({put,currentRepo}) => {
     if(fm.next.is("Exclusive gateway")) return null
     if(fm.next.is("Circulation task")) return null
     if(fm.isCurrentShapeInGates) return null    
-    
-
 
 
     const options = window.processStatus.map(el=>{
@@ -38,13 +32,5 @@ const Sf = ({put,currentRepo}) => {
         </div>
     )
 }
-const App = rdx.connect('sf',rdx.i18nPut(Sf))
-export default function(){
-    render(
-        <Provider store={store}>
-            <App />
-        </Provider>
-        ,
-        document.getElementById('sequencePropertyCtrl')
-    )
-}
+const SfContainer = rdx.connect('sf',rdx.i18nPut(Sf))
+fm.statusSf = SfContainer

@@ -8,12 +8,13 @@ import './usertask'
 import './manual'
 import './circulation'
 import './branchNode'
+import './sf'
 
 import popupStart from './popup'
 import popupXStart from './popupX'
 import myAlert from './alert/alert'
 import mySpin from './alert/spin'
-import sf from './sf'
+
 
 
 import saveButton from './saveButton/saveButton'
@@ -27,7 +28,6 @@ popupXStart()
 myAlert()
 mySpin()
 
-global.sequenceflowCompInitializer = sf
 
 import zh from './i18n/zh'
 import en from './i18n/en'
