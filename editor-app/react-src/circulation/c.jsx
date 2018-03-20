@@ -1,6 +1,4 @@
 import React from 'react'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
 import P from './p'
 
 const Circulation = ({ currentRepo }) => {
@@ -10,15 +8,4 @@ const Circulation = ({ currentRepo }) => {
         <P data={data}/>
     )
 }
-const CirculationConnected = rdx.connect('circulation', Circulation)
-
-export default function(){
-    render(
-        <Provider store={rdx.store}>
-            <CirculationConnected />
-        </Provider>
-        ,
-        document.getElementById('circulationPropertyCtrl')
-    )
-}
-
+export default rdx.connect('circulation', Circulation)

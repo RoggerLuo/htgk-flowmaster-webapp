@@ -1,5 +1,5 @@
 import React from 'react'
-import approvePool_factory from '../approvePoolFactory_not4Parallel'
+import approvePool_factory from '../../approvePoolFactory_not4Parallel'
 
 export default function({ data }) {
     const del = (index) => rdx.dispatch({ type: 'manual/deleteRole', index })

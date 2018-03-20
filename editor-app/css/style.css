@@ -306,7 +306,7 @@ div.propertySection {
     user-select: none;
 }
 .selected-item-body > div {
-    margin-top: 51px;
+    /*margin-top: 51px;*/
 }
 
 

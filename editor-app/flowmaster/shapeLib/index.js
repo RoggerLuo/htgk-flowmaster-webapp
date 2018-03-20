@@ -1,5 +1,5 @@
 global.fm = global.fm || {}
-import './manual'
+// import './manual'
 // import './multi'
 import './parallelGate'
 import './branch'

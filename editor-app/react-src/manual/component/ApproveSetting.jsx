@@ -1,7 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import  './style'
-// import Setting from './Setting'
 
 const PreviousApprove = fm.approve.getPreviousComp('manual')
 const Setting = fm.approve.getSetting('manual')

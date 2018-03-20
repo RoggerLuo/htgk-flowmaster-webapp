@@ -1,5 +1,9 @@
+import component from './c'
 global.fm = global.fm || {}
 fm.circulation = {}
+
+fm.circulation.component = component
+
 fm.circulation.isSuccessive = function (shape) {
     const nextShape = fm.getOutgoingX2(shape)
     if(nextShape){

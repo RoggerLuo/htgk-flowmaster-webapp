@@ -1,4 +1,4 @@
-import './CirculationTask'
+// import './CirculationTask'
 import start from './start'
 
 export default function(){ //$scope            
@@ -19,8 +19,6 @@ export default function(){ //$scope
                 break
             case 'MultiUserTask':
                 fm.multi.connectRules(shape)
-                // fm.multi.completeCheck(shape)
-                // if(!fm.multi.selectCheck.multi(shape)) fm.undo()
                 break
             case 'CirculationTask':
                 fm.circulation.isSuccessive(shape)
@@ -28,7 +26,6 @@ export default function(){ //$scope
                 break
             case 'ServiceTask':
                 fm.subflow.connectRules(el)
-                // subflow(el)
                 break
         }
     })

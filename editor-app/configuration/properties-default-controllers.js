@@ -23,22 +23,9 @@ var sequencePropertyCtrl = ['$scope', function($scope) {
 var subflowPropertyCtrl = ['$scope', function($scope) {
     fm.subflow.render()
 }]
-var customPropertyCtrl = ['$scope', function($scope) {
-    window.customCompInitializer()
-}]
-var circulationPropertyCtrl = ['$scope', function($scope) {
-    window.circulationCompInitializer()
-}]
-var manualPropertyCtrl = ['$scope', function($scope) {
-    window.manualCompInitializer()
-}]
 
 var branchNodePropertyCtrl = ['$scope', function($scope) {
     branchComponent.render()
-}];
-
-var endPointPropertyCtrl = ['$scope', function($scope) {
-    endPointComponent()
 }];
 
 var sequenceFlowPropertyCtrl = ['$scope', function($scope) {
@@ -46,17 +33,16 @@ var sequenceFlowPropertyCtrl = ['$scope', function($scope) {
 }];
 
 var branchSequenceFlowPropertyCtrl = ['$scope', function($scope) {
-    // branchSequenceFlowComponent.render()
     fm.branchSf.render()
 }];
 
-var multiPropertyCtrl = ['$scope', function($scope) {
-    fm.multi.render()
-}];
+// var multiPropertyCtrl = ['$scope', function($scope) {
+//     fm.multi.render()
+// }];
 
-var approvePropertyCtrl = ['$scope', function($scope) {
-    approveComponent.render()
-}];
+// var approvePropertyCtrl = ['$scope', function($scope) {
+//     // approveComponent.render()
+// }];
 
 var canvasPropertyCtrl = ['$scope', function($scope) {
     $scope.pidName = window.pidName
