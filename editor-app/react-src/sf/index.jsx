@@ -5,6 +5,8 @@ const Sf = ({ put,currentRepo }) => {
     if(!currentRepo) return null
 
     const shape = fm.currentSelectedShape
+    
+    if (fm.multi.is.sf(shape)) return null
 
     if (fm.manual.is.sfInTheMiddle(shape)) return null
     if (fm.multi.is.sfInTheMiddle(shape)) return null

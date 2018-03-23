@@ -17,20 +17,6 @@ const factory = {
     'Manual task'(shape){
         return false  
     },
-    'Multi user task'(shape){
-        const multi_parties = shape.properties.multiinstance_parties
-        if (
-            (!multi_parties) ||
-            (multi_parties.length == 0) ||
-            ((multi_parties.length == 1) && (multi_parties[0] == 0))
-        ) {
-            window.showAlert('"' + shape.properties['oryx-name'] + '"内容不能为空')
-            fm.spotlight(shape)
-            return true
-        }else{
-            return false    
-        }
-    },
     'Circulation task'(shape){
         // const rolesjson = shape.properties.objData
         // const zero = rolesjson && rolesjson.length == 0

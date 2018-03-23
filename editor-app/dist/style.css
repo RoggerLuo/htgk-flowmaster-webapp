@@ -442,17 +442,17 @@
 .branch-dropdown-input .drop-down-table .drop-down-options .inner-option:hover {
   background-color: #e4f5fb;
 }
-.branchSequenceFlowPropertyCtrl .input-text-container-calculate {
+.branch-sf .input-text-container-calculate {
   display: flex;
   flex-direction: row;
   line-height: 29px;
   justify-content: space-between;
   padding-right: 8px;
 }
-.branchSequenceFlowPropertyCtrl .input-text-container {
+.branch-sf .input-text-container {
   margin: 1px;
 }
-.branchSequenceFlowPropertyCtrl .input-text-container .input-text {
+.branch-sf .input-text-container .input-text {
   height: 29px;
   line-height: 29px;
   font-size: 13px;
@@ -460,29 +460,29 @@
   width: 100%;
   padding: 0px 5px;
 }
-.branchSequenceFlowPropertyCtrl .input-text-container .input-text:hover {
+.branch-sf .input-text-container .input-text:hover {
   border: 1px solid #00b0ff !important;
 }
-.branchSequenceFlowPropertyCtrl .input-text-container .input-text:focus {
+.branch-sf .input-text-container .input-text:focus {
   outline: 0px !important;
 }
-.branchSequenceFlowPropertyCtrl .input-text-container .pointer {
+.branch-sf .input-text-container .pointer {
   cursor: pointer;
 }
-.branchSequenceFlowPropertyCtrl .input-text-container .pointer:active {
+.branch-sf .input-text-container .pointer:active {
   color: #00b0ff;
 }
-.branchSequenceFlowPropertyCtrl .input-text-container .center {
+.branch-sf .input-text-container .center {
   text-align: center;
 }
-.branchSequenceFlowPropertyCtrl .input-text-container .icon-riqi {
+.branch-sf .input-text-container .icon-riqi {
   padding: 0 12px 0 0;
 }
-.branchSequenceFlowPropertyCtrl .input-text-container .icon-orgicon {
+.branch-sf .input-text-container .icon-orgicon {
   padding: 0 12px 0 0;
   font-size: 18px;
 }
-.branchSequenceFlowPropertyCtrl .input-text-container .icon-xuanzerenyuan {
+.branch-sf .input-text-container .icon-xuanzerenyuan {
   padding: 0 12px 0 0;
 }
 .branch-sf .icon-shanchu {

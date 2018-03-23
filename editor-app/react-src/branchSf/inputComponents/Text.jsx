@@ -1,4 +1,4 @@
-import React,{createClass} from 'react'
+import React from 'react'
 function Comp({ inputData, oninput }){
     const text = inputData.text || '' //不加这一句就会报错，因为没有初始值，所以就变成了uncontrolled组件
     const whenChange = (event) => {

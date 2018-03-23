@@ -1,11 +1,13 @@
-import sf_never_touched from './sf_never_touched'
+// import sf_never_touched from './sf_never_touched'
 
 export default function(){
-    let flag = sf_never_touched()
+    let flag = true //sf_never_touched()
     rdx.store.getState().sf.repo.forEach((el) => {
         let shape = fm.getNodeById(el.id)
         if (!shape) return
         if(!el.businessStatus.value){ //如果没有设置businessStatusId项的话
+            
+            if (fm.multi.is.sf(shape)) return false
             if(fm.next.is("Exclusive gateway",shape)) return false  //三种分支都不显示
             if(fm.next.is("Circulation task",shape)) return false
             if(fm.parallelGate.isShapeIn(shape)) return false

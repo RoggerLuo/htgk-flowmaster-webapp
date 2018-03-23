@@ -37,6 +37,7 @@ const updateBranchText = () => {
             })
         }
         if (shape.properties.defaultflow != 'true') {
+            // shape.setProperty({ key: 'oryx-name', value: displayText })
             window.setPropertyAdvance({ key: 'oryx-name', value: displayText }, shape)
         }
     })

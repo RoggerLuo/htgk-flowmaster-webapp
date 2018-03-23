@@ -7,7 +7,6 @@ const RuleContainer = ({ branch, conditions,/*from redux*/key1, key2, ruleMode, 
     
     const oninput = (inputData) => {
         rdx.dispatch({type:'ruleOnInput',key1,key2,inputData})
-        // window.updateBranchText()
         fm.branch.update()
     }
     
