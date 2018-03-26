@@ -1,4 +1,3 @@
-// import './CirculationTask'
 import start from './start'
 
 export default function(){ //$scope            

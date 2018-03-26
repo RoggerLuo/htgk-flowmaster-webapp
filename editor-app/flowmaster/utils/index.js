@@ -4,7 +4,7 @@ import './inOut'
 import './last.next.is'
 import './previousShape.is'
 import './miscellaneous'
-import './madClick'
+// import './madClick'
 
 export default scope
 

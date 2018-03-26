@@ -1,12 +1,13 @@
 'use strict';
-
-export default function(event,$scope){
+fm.ui = {}
+fm.ui.lastShape = false
+export default function(shape,$scope){
     /* 箭头 变回黑色 */
     (function(){
-        if(window.lastSelectedShape){
-            if (lastSelectedShape && (lastSelectedShape._stencil._jsonStencil.title == 'Sequence flow' )){
-                lastSelectedShape.node.children[0].children[0].children[0].children[0].style.stroke = 'black'
-                var elementId = lastSelectedShape.node.children[0].children[0].children[0].children[0].getAttribute('marker-end')
+        if(fm.ui.lastShape){
+            if (fm.ui.lastShape && (fm.getTitle(fm.ui.lastShape) === 'Sequence flow' )){
+                fm.ui.lastShape.node.children[0].children[0].children[0].children[0].style.stroke = 'black'
+                var elementId = fm.ui.lastShape.node.children[0].children[0].children[0].children[0].getAttribute('marker-end')
                 var jqueryId = elementId.substr(4,elementId.length -5)
                 if(jQuery(jqueryId)[0]){
                     var marker = jQuery(jqueryId)[0].children[0]
@@ -47,34 +48,34 @@ export default function(event,$scope){
 
 
     /* 放在后面，canvas是没有elements的，所以会一直触发false */
-    var selectedShape = event.elements.first()
-    if(!selectedShape){
+    if(!shape){
         return false
     }
-
-    window.lastSelectedShape = selectedShape
+    fm.ui.lastShape = shape
 
     /* 改变 正要选中 边框颜色的代码部分 */   
-    if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'User task' 
-        || selectedShape._stencil._jsonStencil.title == 'Multi user task'
-        || selectedShape._stencil._jsonStencil.title == 'Exclusive gateway'
-        || selectedShape._stencil._jsonStencil.title == 'Manual task'
-        )) {
+    const title = fm.getTitle(shape)
+    if  (
+        title == 'User task' ||
+        title == 'Multi user task'||
+        title == 'Exclusive gateway' ||
+        title == 'Manual task'
+    ){
         //控制边框颜色的办法
-        // jQuery('#' + selectedShape.id)[0].children[1].style.stroke = '#00b0ff' 
-        $scope.lastSelectedUserTaskId = selectedShape.id
+        // jQuery('#' + shape.id)[0].children[1].style.stroke = '#00b0ff' 
+        $scope.lastSelectedUserTaskId = shape.id
     }
-    if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'Exclusive gateway')){
-        // jQuery('#' + selectedShape.id)[0].children[0].style.stroke = '#00b0ff'
+    if (title === 'Exclusive gateway'){
+        // jQuery('#' + shape.id)[0].children[0].style.stroke = '#00b0ff'
     }
 
 
     /* 箭头 变蓝色 */
-    if (selectedShape && (selectedShape._stencil._jsonStencil.title == 'Sequence flow' )){
-        selectedShape.node.children[0].children[0].children[0].children[0].style.stroke = '#00b0ff'
+    if (title === 'Sequence flow' ){
+        shape.node.children[0].children[0].children[0].children[0].style.stroke = '#00b0ff'
 
         /* 箭头是一个叫marker的元素，需要从一个属性中获取id */
-        var elementId = selectedShape.node.children[0].children[0].children[0].children[0].getAttribute('marker-end')
+        var elementId = shape.node.children[0].children[0].children[0].children[0].getAttribute('marker-end')
         var jqueryId = elementId.substr(4,elementId.length -5)
         var marker = jQuery(jqueryId)[0].children[0]
         marker.style.fill = '#00b0ff'

@@ -3,7 +3,7 @@ global.fm = global.fm || {}
 
 export default function($scope) {
     fm.getCanvas = () => $scope.editor.getCanvas()
-    fm.getNodes = () => $scope.editor.getCanvas().getChildNodes()
+    fm.getNodes = () => $scope.editor.getCanvas().getChildNodes() //getNodes 不能拿到sf 注意
     fm.getJson = () => $scope.editor.getJSON()
     fm.getShapeById = (id) => $scope.editor.getCanvas().getChildShapeByResourceId(id)
     fm.getNodeById = fm.getShapeById

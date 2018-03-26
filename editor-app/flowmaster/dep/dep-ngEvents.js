@@ -10,9 +10,5 @@ global.fm = global.fm || {}
 fm.initialize = initialize
 
 fm.ngEvent = ($scope,$http) => {
-   fm.saveModel = save($scope, $http)
-   $scope.propertyTpl = './editor-app/property-tpl/canvas.html'
-   
-   // will be deprecated
-   $scope.lastSelectedUserTaskId = false //???
+  
 }

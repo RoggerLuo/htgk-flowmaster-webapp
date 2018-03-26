@@ -18,9 +18,9 @@ angular.module('activitiModeler')
 
         // Code that is dependent on an initialised Editor is wrapped in a promise for the editor
         $scope.editorFactory.promise.then(function() {
-            fm.ngEvent($scope,$http)
+            // fm.ngEvent($scope,$http)
             // fm.oryxEvent($scope,$http)
-            fm.scopeEvent($scope,$http)
+            fm.scopeAdapter($scope,$http)
 
             window.userGuide()
 
@@ -484,7 +484,7 @@ angular.module('activitiModeler')
 
 
                         $timeout(function() {
-                            fm.after_cmd_executed($scope,event)
+                            fm.onCmdExecuted()
                         })
                     });
 

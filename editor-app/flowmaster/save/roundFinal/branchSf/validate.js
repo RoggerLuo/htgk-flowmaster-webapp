@@ -17,7 +17,7 @@ export default (repo, shape) => {
 function hint(shape){
     const nodeName = fm.getTitle(shape)
     window.showAlert('保存失败，节点"' + nodeName + '"的分支条件和规则不能为空')
-    window.setPropertyAdvance({ key: 'oryx-name', value: '' }, shape)
+    fm.setProperty_and_updateView({ key: 'oryx-name', value: '' }, shape)
     fm.spotlight(shape)
 }
 

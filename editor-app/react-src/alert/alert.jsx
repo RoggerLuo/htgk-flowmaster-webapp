@@ -85,7 +85,7 @@ export default function(){
         store.dispatch({type:'hideAlertAnimation'})
         setTimeout(function(){
             store.dispatch({type:'hideAlert'})
-        },1900)
+        },2400)
     }
 
     render(

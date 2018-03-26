@@ -7,9 +7,9 @@ import propMark from './propMark'
 fm.isCurrentShapeInGates = false
 fm.isIncomingShapeUsertask = false
 
-export default function(event,$scope){
+export default function(shape,$scope){
 
-    if(fm.madClick()) return
+    // if(fm.madClick()) return
 
     // 更新之前的currentSelectedShape
     if(fm.getTitle(fm.currentSelectedShape) == 'Manual task'){
@@ -25,9 +25,8 @@ export default function(event,$scope){
     
     rct.saveBtnInit()
 
-    UIcolor(event, $scope)
+    UIcolor(shape, $scope)
 
-    const shape = event.elements.first()
     if(!shape) return
         
     fm.currentSelectedShape = shape
