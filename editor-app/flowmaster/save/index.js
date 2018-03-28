@@ -1,7 +1,7 @@
 import integrity from './integrity'
 import round1nodes from './round1nodes'
 import repoValidate from './repoValidate'
-import round3nodes from './round3nodes'
+import notInRepoValidate from './notInRepoValidate'
 import roundFinal from './roundFinal'
 import originalSave from './originalSave'
 
@@ -10,8 +10,8 @@ export default function($scope, $http) {
         if ( //这个的顺序很重要
             integrity() &&
             round1nodes() &&
-            repoValidate() &&
-            round3nodes()
+            repoValidate()  &&
+            notInRepoValidate()
         ) {
             roundFinal($scope)
             if (!fm.parallelGate.isReadyForSave()) return rdx.save()

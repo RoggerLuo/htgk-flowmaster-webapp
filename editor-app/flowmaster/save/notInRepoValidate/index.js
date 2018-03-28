@@ -3,8 +3,13 @@ import rulesFactory from './rulesFactory'
 export default () => {
     return !fm.getJson().childShapes.some(_shape => {
         const shape = fm.getShapeById(_shape.resourceId)
-        /* 所以，循环里面，返回false 才通过 */
+        /* 循环里面，返回false 才通过 */
         const title = fm.getTitle(shape)
-        return rulesFactory[title] && rulesFactory[title](shape)
+        const ruleValidate = rulesFactory[title]
+        if(!ruleValidate){
+            return false
+        }else{
+            return !ruleValidate(shape)
+        }
     })
 }
