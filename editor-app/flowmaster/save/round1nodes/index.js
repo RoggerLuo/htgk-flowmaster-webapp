@@ -1,12 +1,16 @@
 import factory from './factory'
 
 export default () => {
-    return !fm.getNodes().some(shape => {
-        /* 返回true说明验证不通过 */
+    /* 返回true通过 */
+    return !fm.getJson().childShapes.some(_shape => {
+        /* 循环内部返回false通过 */
+        const shape = fm.getShapeById(_shape.resourceId)
         const title = fm.getTitle(shape)
-        if(factory[title] && factory[title](shape)){
-            return true
+        if(!factory[title]){
+            return false
         }
-        return false
+        const value = factory[title](shape)
+        console.log(`[round1] ${fm.getTitle(shape)} `,value)
+        return !value
     })
 }

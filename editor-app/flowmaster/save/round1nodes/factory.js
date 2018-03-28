@@ -1,4 +1,4 @@
-import sf_name from './sf_name'
+import sfNameValidate from './sfNameValidate'
 import sf_in_parallel from './sf_in_parallel'
 import exclusive from './exclusive'
 
@@ -6,16 +6,16 @@ import exclusive from './exclusive'
 const factory = {
     'Sequence flow'(shape){
         sf_in_parallel(shape)
-        return sf_name(shape)  
+        return sfNameValidate(shape)  
     },
     'Exclusive gateway'(shape){
         return exclusive(shape) //&& branch(shape)
     },
     'User task'(shape){
-        return false
+        return true
     },
     'Manual task'(shape){
-        return false  
+        return true  
     },
     'Circulation task'(shape){
         // const rolesjson = shape.properties.objData
@@ -27,13 +27,15 @@ const factory = {
         // }else{
         //     return false 
         // }
+        return true
     },
     'Start event'(shape){
-       
+        return true
+
     },
     'Parallel gateway'(shape){
         shape.setProperty('classify', 'ParallelGateway')
-        return false
+        return true
     }
 }
 

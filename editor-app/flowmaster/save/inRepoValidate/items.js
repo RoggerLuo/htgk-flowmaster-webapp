@@ -29,16 +29,12 @@ export default [
 ]
 
 function sf(repo,shape){
-    return fm.save.sfStatusStrategy(shape,()=>{
-        debugger
+    return fm.sf.statusStrategy(shape,(describe)=>{
         if(!repo.businessStatus.value){
-            fm.spotlight(shape)
-            if(!shape.properties["oryx-name"]){
-                window.showAlert(`<span style="color:orange">连线</span>业务状态未设置`)
-            }else{
-                window.showAlert(`连线<span style="color:orange">"${shape.properties["oryx-name"]}"</span>业务状态未设置`)
-            }
+            describe(shape)
             return false
+        }else{
+            return true
         }
     })
 }
@@ -57,8 +53,7 @@ function circulation(repo,shape){
 function usertaskPattern(repo, shape){
     // 不通过要return true
     if (repo.data.length === 0) {
-        window.showAlert('"' + shape.properties['oryx-name'] + '"的审批人员设置不能为空') //审批节点
-        fm.spotlight(shape)
+        fm.save.rolesEmptyWarning(shape)
         return false
     } else {
         return true

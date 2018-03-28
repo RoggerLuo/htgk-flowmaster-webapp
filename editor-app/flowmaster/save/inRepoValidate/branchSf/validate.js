@@ -7,16 +7,9 @@ export default (repo, shape) => {
         return true
     }else{
         /* 如果有一个为为空值，整个条件都为空 */
-        hint(shape)
+        fm.branchSf.emptyWarning(shape)
         return false
     }
-}
-
-function hint(shape){
-    const nodeName = fm.getIncoming(shape).properties['oryx-name']
-    window.showAlert('保存失败，节点<span style="color:gold;">' + nodeName + '</span>的分支条件和规则不能为空')
-    fm.setProperty_and_updateView({ key: 'oryx-name', value: '' }, shape)
-    fm.spotlight(shape)
 }
 
 function valid(repo) {

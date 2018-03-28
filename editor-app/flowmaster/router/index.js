@@ -1,4 +1,5 @@
-import { handleCommon, Blank, tplSrc } from './common'
+import { handleCommon } from './commonShape'
+import { Blank, tplSrc } from './constant'
 import handleSf from './sf'
 import render from './render'
 import handleGateway from './gateway'
@@ -9,6 +10,7 @@ export default function($scope, shape) {
         $scope.propertyTpl = tplSrc + 'canvas.html'
         return 
     }
+    
     const title = fm.getTitle(shape)
     if(title === 'End event'){
         $scope.propertyTpl = tplSrc + 'endnode.html'

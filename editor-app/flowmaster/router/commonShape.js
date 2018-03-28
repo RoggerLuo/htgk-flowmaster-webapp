@@ -1,9 +1,6 @@
-import React from 'react'
+import { Blank, tplSrc } from './constant'
 import render from './render'
 
-export const tplSrc = "./editor-app/property-tpl/"
-
-export const Blank = () => <div></div>
 
 //使用函数是为了 初始化的时候不会报undefined
 export const routeMap = {

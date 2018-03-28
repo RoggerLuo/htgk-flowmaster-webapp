@@ -1,4 +1,4 @@
-import { tplSrc } from './common'
+import { tplSrc } from './constant'
 import render from './render'
 
 export default function handleGateway(shape,$scope){

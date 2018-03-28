@@ -1,4 +1,4 @@
-import validate from './validate'
+// import validate from './validate'
 import Trim from './trim.js'
 
 export default function() {
@@ -6,9 +6,9 @@ export default function() {
         const shape = fm.getNodeById(repo.id)
         if (!shape) return
 
-        if(!validate(repo,shape)){
-            return true
-        }
+        // if(!validate(repo,shape)){
+        //     return true
+        // }
 
         repo.conditions.forEach((condi) => {
             /* 取消删除状态，以免下次加载的时候，一打开就是删除状态 */

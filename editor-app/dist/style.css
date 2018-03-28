@@ -1448,7 +1448,7 @@
   }
 }
 .fadeOutAlert {
-  animation: fadeOut 2s ease-in;
+  animation: fadeOut 2.5s ease-in;
 }
 .myspin {
   position: absolute;
