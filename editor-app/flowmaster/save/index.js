@@ -1,6 +1,6 @@
 import './utils'
 import integrityValidate from './integrityValidate'
-import round1nodes from './round1nodes'
+import preliminaryValidate from './preliminaryValidate'
 import inRepoValidate from './inRepoValidate'
 import notInRepoValidate from './notInRepoValidate'
 import roundFinal from './roundFinal'
@@ -8,20 +8,20 @@ import originalSave from './originalSave'
 
 export default function($scope, $http) {
     return function(callback) {
-
+        //顺序很重要
         const integrity = integrityValidate()
         console.log('integrity',integrity)
         if(!integrity) return 
-
-        const round1 = round1nodes()
-        console.log('round1',round1)
-        if(!round1) return 
-
-        const inRepo = inRepoValidate()
+        
+        const preliminary = preliminaryValidate() //round1
+        console.log('preliminary',preliminary)
+        if(!preliminary) return 
+        
+        const inRepo = inRepoValidate() //round2
         console.log('inRepo',inRepo)
         if(!inRepo) return 
-
-        const notInRepo = notInRepoValidate()
+        
+        const notInRepo = notInRepoValidate() //round3
         console.log('notInRepo',notInRepo)
         if(!notInRepo) return 
 

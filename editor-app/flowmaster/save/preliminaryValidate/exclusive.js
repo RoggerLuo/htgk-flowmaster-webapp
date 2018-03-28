@@ -4,7 +4,7 @@ export default function(shape) {
 
     // 分支数量限制
     if (shape.outgoing.length < 2) {
-        window.showAlert('使用分支节点需要两个以上的分支')
+        window.showAlert('使用分支节点，至少需要两个分支连线')
         fm.spotlight(shape)
         return false
     }   
@@ -14,6 +14,6 @@ export default function(shape) {
     if (fm.manual.is.gateway(shape)) {
         shape.setProperty('classify', 'manual')
     }
+    
     return true
-
 }
