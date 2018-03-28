@@ -1,12 +1,17 @@
 import branch_not_init from './branch_not_init'
 import sf_not_init from './sf_not_init'
 
-/* 返回true说明验证不通过 */
+/* 所以，循环里面，返回false 才通过 */
 const factory = {
     'Sequence flow'(shape){
-        return branch_not_init() && sf_not_init()
+        if(branch_not_init(shape)){
+            return true //不通过
+        }
+        if(sf_not_init(shape)){
+            return true
+        }
+        return false  
     },
-   
 }
 
 export default factory

@@ -1,5 +1,5 @@
-
-export default function(shape) { /* 返回true说明验证不通过 */
+/* 返回true说明验证不通过 */
+export default function(shape) {
     const sfRepo = rdx.store.getState().sf.repo
     const not_in_repo = !sfRepo.some(eachRepo => shape.resourceId == eachRepo.id)
     if (not_in_repo) {

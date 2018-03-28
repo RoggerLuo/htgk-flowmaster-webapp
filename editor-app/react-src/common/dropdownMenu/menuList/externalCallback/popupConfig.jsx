@@ -1,4 +1,4 @@
-import Comp from './ReduxCompGenerator'
+import Comp from './c'
 import confirmButtonEvent from './confirmButtonEvent'
 export default function(cb){
     return {

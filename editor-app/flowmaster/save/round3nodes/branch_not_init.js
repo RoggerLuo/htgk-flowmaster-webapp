@@ -1,5 +1,5 @@
-
-export default function(shape) { /* 返回true说明验证不通过 */
+/* 返回true说明验证不通过 */
+export default function(shape) { 
     if(is_exclusive_gate(shape)){
         if(is_without_click(shape)){
             return true
@@ -13,8 +13,9 @@ export default function(shape) { /* 返回true说明验证不通过 */
 
 
 function is_without_click(shape){
-    if (!shape.properties.defaultflow && !shape.properties.conditionsequenceflow) {
-        window.showAlert('保存失败，节点"' + fm.getTitle(fm.getIncoming(shape)) + '"的分支条件和规则不能为空')
+    const notDefaultflow = (shape.properties.defaultflow == 'false' || !shape.properties.defaultflow)
+    if ( notDefaultflow && !shape.properties.conditionsequenceflow) {
+        window.showAlert('保存失败，节点"' + fm.getIncoming(shape).properties['oryx-name'] + '"的分支条件和规则不能为空')
         fm.spotlight(shape)
         return true
     }else{

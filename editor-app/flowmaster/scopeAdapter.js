@@ -37,9 +37,12 @@ fm.scopeAdapter = function($scope,$http) {
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_EXECUTE_COMMANDS, (event) =>  rdx.save())
     
     $scope.editor.registerOnEvent(ORYX.CONFIG.EVENT_DRAGDOCKER_DOCKED, (event) => {
-        if(fm.getTitle(event.target) === "Exclusive gateway"){
-            window.showAlert(`请从${event.target.properties['oryx-name']}点直接拖拽出连线，分支节点不支持手动连接连线`)
-            fm.undoFlag = true
+
+        if(event.parent.incoming[0].resourceId === event.target.resourceId){
+            if(fm.getTitle(event.target) === "Exclusive gateway"){
+                window.showAlert(`请从${event.target.properties['oryx-name']}点直接拖拽出连线，分支节点不支持手动连接连线`)
+                fm.undoFlag = true
+            }
         }
     })
 

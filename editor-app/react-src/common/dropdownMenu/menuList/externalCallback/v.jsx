@@ -6,7 +6,7 @@ export default ({ value, oninput }) => {
     return (
         <div style={{width:'701px',padding:'0 40px'}}>
                 
-            <div className="row-title" style={{display:'flex',justifyContent:'space-between'}}>
+            <div className="row-title" style={{display:'flex',justifyContent:'space-between',margin:'0'}}>
                 <div style={{lineHeight: '30px'}} className="property-row-title-only-font">
                     {`外部URL`}
                 </div>                
@@ -40,8 +40,9 @@ export default ({ value, oninput }) => {
                 审批规则
             </div>
             <div className="property-row-content" > 
-                用于自定义任务，BPM会通过外部URL推送当前流程相关数据给业务系统，以便定制任务行为
+                BPM通过外部URL推送当前流程相关数据给业务系统，业务系统根据流程数据及相关运算规则，确定审批人并回写到该审批节点
             </div>     
+            <div style={{height:'30px',width:'1px'}}></div>
 
         </div>
     )
