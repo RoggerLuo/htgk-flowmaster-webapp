@@ -1,11 +1,6 @@
 import React from 'react'
 import './style'
-// const Dropdown = createClass({
 export default class Dropdown extends React.Component { 
-    // getInitialState(){
-    //     const choosedOption = this.props.data && this.props.data[0] || []
-    //     return {visibleStatus:'none',zIndex:'1',choosedOption:choosedOption}
-    // },
     constructor(props) {
         super(props)
         this.toggle = this.toggle.bind(this)
@@ -32,7 +27,7 @@ export default class Dropdown extends React.Component {
         let bigcoverstyle = {display:this.state.visibleStatus}
         if(this.props.position) bigcoverstyle = {display:this.state.visibleStatus,position:this.props.position}
         return(
-            <div className="drop-down" style={{flex:'1',margin: this.props.margin||'0 10px'}}>
+            <div className="dropdown-common" style={{flex:'1',margin: this.props.margin||'0 10px'}}>
                 <div style={{width: this.props.width||'152px',display: 'flex',visibility:'hidden'}} className="drop-down-choosed" onClick={this.toggle}>
                     <div className="choosed-text">{this.props.choosedOption && this.props.choosedOption.text}</div>
                     <div className="inverted-triangle" style={color}></div>
@@ -42,7 +37,7 @@ export default class Dropdown extends React.Component {
                     <tbody>
                         <tr className="title-tr" style={{}}>
                             <td className="drop-down-choosed stop-propagation" onClick={this.toggle} style={{width: this.props.width||'152px',color:'black',display:'flex',justifyContent: 'space-between'}}>
-                                <div className="choosed-text" style={{maxWidth:this.props.width||'130px'}}>{this.props.choosedOption && this.props.choosedOption.text}</div> <div className="inverted-triangle"></div>
+                                <div className="choosed-text" style={{maxWidth:this.props.width||'1000px'}}>{this.props.choosedOption && this.props.choosedOption.text}</div> <div className="inverted-triangle"></div>
                             </td>
                         </tr>
                         <tr className="drop-down-options" style={{display:this.state.visibleStatus}}>
@@ -66,7 +61,7 @@ export default class Dropdown extends React.Component {
                                                 }
                                             }
                                         >
-                                            <div style={{maxWidth:this.props.width||'130px'}} className={className}>{el.text}</div>
+                                            <div style={{maxWidth:this.props.width||'1000px'}} className={className}>{el.text}</div>
                                         </div>                                                    
                                     )
                                 })||null}

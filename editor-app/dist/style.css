@@ -1917,15 +1917,7 @@ input:hover {
   width: 100%;
   white-space: normal;
 }
-.big-cover {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 999;
-}
-.drop-down {
+.dropdown-common {
   min-width: 60px;
   cursor: pointer;
   overflow: hidden;
@@ -1939,7 +1931,7 @@ input:hover {
   /* IE 10+ */
   user-select: none;
 }
-.drop-down .checkok {
+.dropdown-common .checkok {
   padding-right: 25px !important;
   background-color: transparent;
   background-image: url(dd26e4fb937d72b565079d3753ba8230.svg);
@@ -1947,7 +1939,7 @@ input:hover {
   background-position: right;
   background-repeat: no-repeat;
 }
-.drop-down .inverted-triangle {
+.dropdown-common .inverted-triangle {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEIAAABCCAYAAADjVADoAAAABGdBTUEAALGPC/xhBQAAAfxJREFUeAHtmU2KwkAQhc1gjuAp5jw6exe60OvMQLJwP3qeOYVHUHD6QQJSTKAMXa8YeIGQv6ar6qM/6FCLhQ4REAEREAEREAEREIH/TaDv+w3O7CqazAROp9Pqfr//IIflcvm+3W6vWfm8ZQVG3ALh6/F4rHDiPjOXtBXRdd26FH42xW/2+/3FvKM8poAYlcBKeK6yaZprliIpatxut08LAUDwDt+e4bDu6SAGJaDF1LEexkx9D3lPVWNKCVtZhiLUFTGlhAWRoQgNhEMJy4OqCEUNrxKWBFMRyorwKmFBMBUJBzFDCcuDokioGnOVsCQYioSuiLlKWBAMRcJAVFDC8ghVJESNWkpYEpGKhKyIWkpYEAxFbEw9i4AIiIAIiIAIiIAIOAmEbLFLC++77AJD2nhlm33e7XYfzvrcw0K22KU3ccR/gTsL58DhX+PoHP7SsBAQ6GGWFXF4KRPHYMwZ1R8NAYGahtZdzfbdJbIdGAYCMNq2PdRQBHNgLswZdYSCqKVIpBIj2FAQCFJBkVAlaCAQaK4iDCWoIOYqwlCCCgLBZihCUYIOAgG9ijCVSAHhVYSpRAoIBHUoQlUiDQQCTymSoUQqiClFMpRIBYHgfyiSokQ6CCQwKpKpxAgi/Ypm8dAwTs9FCYiACIiACIiACIiACIiACIhAbQK/b8odqPZCCPwAAAAASUVORK5CYII=);
   background-repeat: no-repeat;
   background-size: 20px 20px;
@@ -1955,86 +1947,86 @@ input:hover {
   height: 20px;
   margin: auto 0px;
 }
-.drop-down .choosed-text {
+.dropdown-common .choosed-text {
   padding: 0px 10px 0px 0px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
-.drop-down .drop-down-placeholder {
+.dropdown-common .drop-down-placeholder {
   font-size: 13px;
   padding: 0px 14px;
   height: 1px;
   display: hidden;
 }
-.drop-down .title-tr {
+.dropdown-common .title-tr {
   border: 1px solid #DDDDDD;
 }
-.drop-down .title-tr:hover {
+.dropdown-common .title-tr:hover {
   border: 1px solid #00b0ff;
 }
-.drop-down .title-tr:active {
+.dropdown-common .title-tr:active {
   border-color: #00b0ff;
 }
-.drop-down .drop-down-choosed {
+.dropdown-common .drop-down-choosed {
   height: 30px;
   line-height: 30px;
   font-size: 13px;
   padding: 0px 2px 0px 10px;
   justify-content: space-between;
 }
-.drop-down .drop-down-table {
+.dropdown-common .drop-down-table {
   min-width: 60px;
   margin-top: -20px;
   position: absolute;
   text-align: left;
   background-color: white;
 }
-.drop-down .drop-down-table .drop-down-options {
+.dropdown-common .drop-down-table .drop-down-options {
   background-color: white;
   border-left: 1px solid #DDDDDD;
   border-bottom: 1px solid #DDDDDD;
   border-right: 1px solid #DDDDDD;
 }
-.drop-down .drop-down-table .drop-down-options .scrollbar::-webkit-scrollbar {
+.dropdown-common .drop-down-table .drop-down-options .scrollbar::-webkit-scrollbar {
   width: 2px;
   background: rgba(0, 177, 251, 0.1);
 }
-.drop-down .drop-down-table .drop-down-options .scrollbar::-moz-scrollbar {
+.dropdown-common .drop-down-table .drop-down-options .scrollbar::-moz-scrollbar {
   width: 2px;
   background: rgba(0, 177, 251, 0.1);
 }
-.drop-down .drop-down-table .drop-down-options .scrollbar::-ms-scrollbar {
+.dropdown-common .drop-down-table .drop-down-options .scrollbar::-ms-scrollbar {
   width: 2px;
   background: rgba(0, 177, 251, 0.1);
 }
-.drop-down .drop-down-table .drop-down-options .scrollbar::-o-scrollbar {
+.dropdown-common .drop-down-table .drop-down-options .scrollbar::-o-scrollbar {
   width: 2px;
   background: rgba(0, 177, 251, 0.1);
 }
-.drop-down .drop-down-table .drop-down-options .scrollbar::scrollbar {
+.dropdown-common .drop-down-table .drop-down-options .scrollbar::scrollbar {
   width: 2px;
   background: rgba(0, 177, 251, 0.1);
 }
-.drop-down .drop-down-table .drop-down-options .scrollbar::-webkit-scrollbar-thumb {
+.dropdown-common .drop-down-table .drop-down-options .scrollbar::-webkit-scrollbar-thumb {
   background: #00b1fb;
 }
-.drop-down .drop-down-table .drop-down-options .scrollbar::-moz-scrollbar-thumb {
+.dropdown-common .drop-down-table .drop-down-options .scrollbar::-moz-scrollbar-thumb {
   background: #00b1fb;
 }
-.drop-down .drop-down-table .drop-down-options .scrollbar::-ms-scrollbar-thumb {
+.dropdown-common .drop-down-table .drop-down-options .scrollbar::-ms-scrollbar-thumb {
   background: #00b1fb;
 }
-.drop-down .drop-down-table .drop-down-options .scrollbar::-o-scrollbar-thumb {
+.dropdown-common .drop-down-table .drop-down-options .scrollbar::-o-scrollbar-thumb {
   background: #00b1fb;
 }
-.drop-down .drop-down-table .drop-down-options .scrollbar::scrollbar-thumb {
+.dropdown-common .drop-down-table .drop-down-options .scrollbar::scrollbar-thumb {
   background: #00b1fb;
 }
-.drop-down .drop-down-table .drop-down-options .drop-down-option {
+.dropdown-common .drop-down-table .drop-down-options .drop-down-option {
   padding: 3px;
 }
-.drop-down .drop-down-table .drop-down-options .drop-down-option .text-wrap {
+.dropdown-common .drop-down-table .drop-down-options .drop-down-option .text-wrap {
   padding: 0px 13px;
   height: 25px;
   line-height: 25px;
@@ -2043,10 +2035,10 @@ input:hover {
   white-space: nowrap;
   overflow: hidden;
 }
-.drop-down .drop-down-table .drop-down-options .drop-down-option .text-wrap:hover {
+.dropdown-common .drop-down-table .drop-down-options .drop-down-option .text-wrap:hover {
   background-color: #e4f5fb;
 }
-.drop-down .drop-down-table .drop-down-options .drop-down-option + .drop-down-option {
+.dropdown-common .drop-down-table .drop-down-options .drop-down-option + .drop-down-option {
   border-top: 1px solid #DDDDDD;
 }
 .boardbutton {

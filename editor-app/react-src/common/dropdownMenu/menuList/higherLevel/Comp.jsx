@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const Component = ({data,dispatch,put,choosedOption}) => {    
+const Component = ({ data,dispatch,put,choosedOption }) => {    
     const choosed = (item)=>{
         dispatch({type:'dropdown1Choose',item})
     }
@@ -16,7 +16,7 @@ const Component = ({data,dispatch,put,choosedOption}) => {
 }
  
 const mapStateToProps = (state) => {
-    return {data:state.dropdown.dropdown1Data,choosedOption:state.dropdown.dropdown1}
+    return { data:state.dropdown.dropdown1Data, choosedOption:state.dropdown.dropdown1 }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -24,15 +24,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-import connectPut from 'react-put'
-const options = {mapPropToDictionary: (props)=>window.reactI18n}
-const ConnectedApp = connectPut(options)(Component)
-
-
-const ComponentContainer = connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ConnectedApp)
+)(rdx.i18nPut(Component))
 
-export default ComponentContainer
 

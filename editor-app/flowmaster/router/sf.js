@@ -6,7 +6,7 @@ export default function($scope, shape) {
     // 是否显示名字
     $scope.propertyTpl = tplSrc + 'only-id.html'
     fm.sf.nameStrategy(sf,()=>{
-        $scope.propertyTpl = tplSrc + 'node-name.html'        
+        $scope.propertyTpl = tplSrc + 'sf-name.html'        
     })
 
     // 是否显示状态
