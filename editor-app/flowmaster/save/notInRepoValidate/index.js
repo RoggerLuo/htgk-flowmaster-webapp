@@ -1,4 +1,4 @@
-import factory from './factory'
+import switcher from './switcher'
 // 通过返回true 
 export default () => {
     return !fm.getJson().childShapes.some(_shape => {
@@ -6,7 +6,7 @@ export default () => {
         
         /* 循环里面，通过返回false */
         const title = fm.getTitle(shape)
-        const checker = factory[title]
+        const checker = switcher[title]
         if(!checker){
             return false
         }else{

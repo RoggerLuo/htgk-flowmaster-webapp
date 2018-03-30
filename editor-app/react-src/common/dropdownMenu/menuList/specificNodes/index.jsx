@@ -30,8 +30,8 @@ export default function(cb){
         },
         content:Comp,
         type:'callPopup',
-        height:'63%',
+        height:'68%',
         title:'button.option6',
-        width:'550px'
+        width:'580px'
     }
 }

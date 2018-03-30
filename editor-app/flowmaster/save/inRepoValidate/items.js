@@ -8,11 +8,11 @@ export default [
     },
     {
         name: 'usertask',
-        method:usertaskPattern
+        method: usertaskPattern
     },
     {
         name: 'manual',
-        method:usertaskPattern
+        method: usertaskPattern
     },
     {
         name: 'multi',

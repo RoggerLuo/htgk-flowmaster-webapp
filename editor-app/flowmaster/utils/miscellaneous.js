@@ -6,7 +6,7 @@ fm.spotlight = (shape) => {
     fm.editor.setSelection([shape])
     fm.editor.updateSelection()
 }
-
+fm.getName = shape => shape && shape.properties["oryx-name"] || ''
 fm.getTitle = shape =>  shape && shape._stencil && shape._stencil._jsonStencil.title || ''
 
 fm.getUrlQueryParam = (name) => { 

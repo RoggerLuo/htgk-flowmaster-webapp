@@ -2,8 +2,7 @@ import sfNameValidate from './sfNameValidate'
 import sfInGates from './sfInGates'
 import exclusive from './exclusive'
 
-/* 返回true说明验证不通过 */
-const factory = {
+export default {
     /*
         使用分支节点，至少需要两个分支连线
         'classify', 'manual'
@@ -39,4 +38,3 @@ const factory = {
     }
 }
 
-export default factory

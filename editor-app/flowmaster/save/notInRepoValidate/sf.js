@@ -1,22 +1,15 @@
-import isInRepo from './isInRepo'
+import ifNotInRepo from './ifNotInRepo'
 export default function(shape){
     if(fm.branchSf.is(shape)){
-        isInRepo('branch',shape,()=>{
+        return ifNotInRepo('branch',shape,()=>{ //如果不在repo中，又是branchSf，肯定验证不通过
             fm.branchSf.emptyWarning(shape)
             return false
         })
     }
-    if(fm.sf.is(shape)){
-        isInRepo('sf',shape,()=>{
-            return fm.sf.statusStrategy(shape,(describe)=>{
-                if(!repo.businessStatus.value){
-                    describe(shape)
-                    return false
-                }else{
-                    return true
-                }
-            })
+    return ifNotInRepo('sf',shape,()=>{
+        return fm.sf.statusStrategy(shape,(describe)=>{ //如果不在repo中，肯定没有业务状态，不通过
+            describe(shape)
+            return false
         })
-    } 
-    return true  
+    })
 }

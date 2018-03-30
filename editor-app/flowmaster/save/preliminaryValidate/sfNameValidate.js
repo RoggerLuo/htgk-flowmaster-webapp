@@ -1,9 +1,10 @@
 export default (shape) => { 
+    
     return fm.sf.nameStrategy(shape,()=>{
-        if (!shape.properties["oryx-name"]){
+        if (!fm.getName(shape)){
             lastIsUsertask(shape)
         }
-        if(!shape.properties["oryx-name"]){
+        if(!fm.getName(shape)){ //需要第两次动态获取
             window.showAlert(`当前高亮连线<span style="color:orange;">未命名</span>`)
             fm.spotlight(shape)
             return false
