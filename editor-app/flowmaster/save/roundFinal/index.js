@@ -11,14 +11,13 @@ export default function($scope) {
     /* 顺序很重要 */
     const canvas = $scope.editor.getCanvas() 
 
-    if (!branchSf(canvas)) return false //branchSf要放在 branchNode之前， 因为branchNode要清空conditionsequenceflow，不然会报错
+    branchSf(canvas)//if (!branchSf(canvas)) return false //branchSf要放在 branchNode之前， 因为branchNode要清空conditionsequenceflow，不然会报错
     branchNode(canvas) //branchNode要在sf之前，因为要先设置defaultflow
-    if (!subflow(canvas)) return false
-    if (!sf(canvas)) return false
+    //temporary deprecate //if (!subflow(canvas)) return false
+    sf(canvas)
     
     usertaskPattern('usertask')
     usertaskPattern('manual')
-    
     service(canvas)
     multi()
 

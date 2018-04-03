@@ -6,10 +6,11 @@ export default function(canvas) {
     let returnFlag = true
     const procDefKey = window.getQueryString("pid")
     const versionId = window.getQueryString("versionId")
-    const sub_properties = { versionId, procDefKey, subSettings: [] }
+    const sub_properties = { versionId, procDefKey, subSettings: [] } // 有sub properties才赋值, bug     
     
     const subflowReducer = window.reduxStore.getState().subflow
     subflowReducer.repo.forEach((repo) => {
+
         if(!returnFlag) return 
         
         let currentElement = fm.getNodeById(repo.id)

@@ -20,6 +20,7 @@ export default function(canvas) {
         shape.setProperty('servicetaskfields', value)
         shape.setProperty('servicetaskdelegateexpression', "${circulationServiceTask}")
         shape.setProperty('classify', "Circulation")
+        
         if (repo.previousNodeSpecified) {
             shape.setProperty('previousNodeSpecified', true)
         }
