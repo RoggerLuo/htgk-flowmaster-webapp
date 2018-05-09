@@ -1,5 +1,5 @@
 import React from 'react'
-import Sf from './p'
+import Sf from './didMount'
 
 const Container = ({ currentRepo }) => {
     if(!currentRepo) return null

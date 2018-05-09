@@ -8,8 +8,25 @@ export default function(shape){
     }
     return ifNotInRepo('sf',shape,()=>{
         return fm.sf.statusStrategy(shape,(describe)=>{ //如果不在repo中，肯定没有业务状态，不通过
-            describe(shape)
-            return false
+            autoDefaultBusStatus(shape)            
+            return true
         })
     })
 }
+
+function autoDefaultBusStatus(shape){
+    // 自动给予默认值
+    let selectedOption
+    if(connectedToEndEvent()){
+        selectedOption = { text: "审批通过", value:'1002' }
+    }else{
+        selectedOption = { text: "审批中", value:'1001' }
+    }
+    rdx.put('sf','replace',['businessStatus'],selectedOption,'object')
+    function connectedToEndEvent(){
+        return fm.getOutgoing(shape) && (fm.getTitle(fm.getOutgoing(shape)) == 'End event')
+    }   
+}
+
+// describe(shape)
+// return false
