@@ -6,19 +6,19 @@ function Comp({ inputData, oninput, inputCtrlInfoData }){
         inputData = {text:'请选择',value:'initial',data:[]}
     }
     const options = inputCtrlInfoData.options.map(el=>{
-        el.text = el.name || el.text
+        el.text = el.value || el.name || el.text
         return el
     })
     const choose = (item) =>{
-        if(inputData.data.some(el=>el.value == item.value)){
-            inputData.data = inputData.data.filter(el=>el.value!=item.value)
+        if(inputData.data.some(el=>el.name == item.name)){
+            inputData.data = inputData.data.filter(el=>el.name!=item.name)
         }else{
             inputData.data.push(item)            
         }
         const valueArr = inputData.data.sort((a,b)=>a.index - b.index) //.map(el=>'"'+el.value+'"')
         let value = ''
         for (var i = 0; i < valueArr.length; i++) {
-            value += valueArr[i].value
+            value += valueArr[i].name
             if(i+1 != valueArr.length){
                 value += ','
             }

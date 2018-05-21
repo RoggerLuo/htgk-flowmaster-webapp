@@ -8,13 +8,13 @@ function Comp({ inputData, oninput, inputCtrlInfoData }){
         }
     }
     const options = inputCtrlInfoData.options.map(el=>{
-        el.text = el.name || el.text
+        el.text = el.value || el.name || el.text
         return el
     })
     const choose = (item) =>{
         oninput({
             text:item.text,
-            value:'"'+item.value+'"'
+            value:'"'+(item.name||item.value)+'"'
         })
     } 
     return (
