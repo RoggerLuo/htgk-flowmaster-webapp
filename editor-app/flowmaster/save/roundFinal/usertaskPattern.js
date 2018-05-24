@@ -7,17 +7,19 @@ export default function(reduceName) {
         let shape = fm.getNodeById(repo.id)
         if (!shape) return
 
-
         let value = {
             "assignment": {
                 "candidateOwners": rolesJsonSpeller([], repo.data, shape)
             }
         }
-
+        let approveItems = getApproveItems(repo, shape)
+        if(fm.backToLastNotAvailable(shape)) {
+            approveItems = approveItems.filter(item=>item.code != "Back")
+        }
+        shape.setProperty('previousNodeSpecified', !!repo.previousNodeSpecified)            
         shape.setProperty('previousNodeSpecifiedSingle', !!repo.enableSingleSelect)
-        shape.setProperty('previousNodeSpecified', !!repo.previousNodeSpecified)
         shape.setProperty('usertaskassignment', value)
-        shape.setProperty('approveItems', getApproveItems(repo, shape))
+        shape.setProperty('approveItems',approveItems)
         shape.setProperty('reduxData', repo)
         
         if(!fm.approve.is_display_prevShapeSpecify(shape,repo)){
