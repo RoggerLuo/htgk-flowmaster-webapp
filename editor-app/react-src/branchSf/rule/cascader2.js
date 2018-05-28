@@ -14,6 +14,8 @@ export default (currentRuleData, template) => {
             let UsersClone = window.userProperties.map(el => JSON.parse(JSON.stringify(el))) //克隆子对象，断开引用
             template.entry2.options = UsersClone.map(el => {
                 el.text = i18n[el.text]
+                // el.name = el.value
+                // el.value = el.text
                 return el
             })
             template.entry2.options = addUserFieldOptions(template.entry2.options)

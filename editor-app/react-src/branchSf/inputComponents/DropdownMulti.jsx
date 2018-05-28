@@ -6,7 +6,13 @@ function Comp({ inputData, oninput, inputCtrlInfoData }){
         inputData = {text:'请选择',value:'initial',data:[]}
     }
     const options = inputCtrlInfoData.options.map(el=>{
-        el.text = el.value || el.name || el.text
+        // 1.我自己写的 text value的option，2.还有表单传来的name value组件
+        if(!el.name) { 
+            el.name = el.value
+            el.value = el.text
+        }else{
+            el.text = el.value || el.name 
+        }
         return el
     })
     const choose = (item) =>{
