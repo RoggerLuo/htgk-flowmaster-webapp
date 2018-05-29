@@ -21,6 +21,9 @@ export default function(cb){
             rdx.dispatch({type:'getBackToDefaultDp1'})
             return true
         },
+        onCancel(){
+            rdx.dispatch({type:'getBackToDefaultDp1'})
+        },
         content:Comp,
         type:'callPopup',
         height:'300px',

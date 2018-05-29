@@ -39,7 +39,7 @@ export default function(gateway) {
             window.setPropertyAdvance({ key: "conditionsequenceflow", value: "${CBPass}" }, sf_shape)            
         }else{
             window.setPropertyAdvance({ key: 'oryx-name', value: '  会签不通过' }, sf_shape)
-            window.setPropertyAdvance({ key: "conditionsequenceflow", value: "!${CBPass}" }, sf_shape)            
+            window.setPropertyAdvance({ key: "conditionsequenceflow", value: "${!CBPass}" }, sf_shape)            
         }
     }
 }
