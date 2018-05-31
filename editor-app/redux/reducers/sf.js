@@ -12,7 +12,10 @@ export default reduceWrap('Sequence flow', (state, action, ind) => {
 
         case 'sf/init':
             return data.updateIn(['repo'], List(), (a) => a.push(action.data)).toJS()
-
+        case 'sf/defaultForSave':
+            return data.updateIn(['repo'], List(), (a) => {
+                return a.push(fromJS({ id: action.id, businessStatus: action.businessStatus }))
+            }).toJS()                
         default:
             return state
     }
