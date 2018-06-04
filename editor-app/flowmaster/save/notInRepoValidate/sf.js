@@ -22,14 +22,8 @@ function autoDefaultBusStatus(shape){
     }else{
         selectedOption = { text: "审批中", value:'1001' }
     }
-    
-    rdx.dispatch({ type: 'sf/all/defaultForSave', id: shape.resourceId, businessStatus: selectedOption })
-    
-    // rdx.put('sf','replace',['businessStatus'],selectedOption,'object')
+    rdx.dispatch({ type: 'sf/all/defaultForSave', id: shape.resourceId, businessStatus: selectedOption })    
     function connectedToEndEvent(){
         return fm.getOutgoing(shape) && (fm.getTitle(fm.getOutgoing(shape)) == 'End event')
     }   
 }
-
-// describe(shape)
-// return false
