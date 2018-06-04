@@ -1,5 +1,3 @@
-## future dev ..
-迟早要把save和reduce的逻辑内聚过来的
 
 ## didMount中dispatch
 dispatch了一个action,  

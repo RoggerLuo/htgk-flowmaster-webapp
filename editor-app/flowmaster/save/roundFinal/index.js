@@ -14,7 +14,7 @@ export default function($scope) {
     branchSf(canvas)//if (!branchSf(canvas)) return false //branchSf要放在 branchNode之前， 因为branchNode要清空conditionsequenceflow，不然会报错
     branchNode(canvas) //branchNode要在sf之前，因为要先设置defaultflow
     //temporary deprecate //if (!subflow(canvas)) return false
-    sf(canvas)
+    sf()
     
     usertaskPattern('usertask')
     usertaskPattern('manual')
