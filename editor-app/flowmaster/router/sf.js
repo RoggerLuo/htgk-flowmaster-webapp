@@ -1,12 +1,12 @@
 import render from './render'
-import { tplSrc } from './constant'
+import { tplSrc, tplSrcWithV } from './constant'
 
 export default function($scope, shape) {    
     const sf = shape
     // 是否显示名字
-    $scope.propertyTpl = tplSrc + 'only-id.html'
+    $scope.propertyTpl = tplSrcWithV('only-id.html')
     fm.sf.nameStrategy(sf,()=>{
-        $scope.propertyTpl = tplSrc + 'sf-name.html'        
+        $scope.propertyTpl = tplSrcWithV('sf-name.html')
     })
 
     // 是否显示状态

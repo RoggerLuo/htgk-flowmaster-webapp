@@ -1,5 +1,5 @@
 import { handleCommon } from './commonShape'
-import { Blank, tplSrc } from './constant'
+import { Blank, tplSrc, tplSrcWithV } from './constant'
 import handleSf from './sf'
 import render from './render'
 import handleGateway from './gateway'
@@ -7,16 +7,16 @@ import handleGateway from './gateway'
 export default function($scope, shape) {
     render(Blank) //先还原
     if (!shape) {
-        $scope.propertyTpl = tplSrc + 'canvas.html'
+        $scope.propertyTpl = tplSrcWithV('canvas.html')
         return 
     }
     
     const title = fm.getTitle(shape)
     if(title === 'End event'){
-        $scope.propertyTpl = tplSrc + 'endnode.html'
+        $scope.propertyTpl = tplSrcWithV('endnode.html')
     }
     if(title === 'Start event'){
-        $scope.propertyTpl = tplSrc + 'startnode.html'
+        $scope.propertyTpl = tplSrcWithV('startnode.html')
     }
     if (title == 'Sequence flow') {
         handleSf($scope, shape)

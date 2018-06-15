@@ -1,4 +1,4 @@
-import { Blank, tplSrc } from './constant'
+import { Blank, tplSrc, tplSrcWithV } from './constant'
 import render from './render'
 
 
@@ -15,7 +15,7 @@ export const routeMap = {
 
 export function handleCommon(title,$scope) {
     if(routeMap[title]){
-        $scope.propertyTpl = tplSrc + 'node-name.html'
+        $scope.propertyTpl = tplSrcWithV('node-name.html') 
         render(routeMap[title]())
     }
 }
