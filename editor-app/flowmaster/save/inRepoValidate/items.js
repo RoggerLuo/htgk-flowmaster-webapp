@@ -40,7 +40,6 @@ function sf(repo,shape){
 }
 
 function circulation(repo,shape){
-    /* 不通过返回true */
     if (repo.data.length === 0) {
         window.showAlert('"' + shape.properties['oryx-name'] + '"的传阅人员设置不能为空') //审批节点
         fm.spotlight(shape)
@@ -51,7 +50,14 @@ function circulation(repo,shape){
 }
 
 function usertaskPattern(repo, shape){
-    // 不通过要return true
+    
+    if(repo.hasProcessTimeOut) {
+        if(!repo.processTime || !repo.rangeTalkTime) {
+            window.showAlert('流程超时预警不能为空')
+            return false
+        }
+    }
+
     if (repo.data.length === 0) {
         fm.save.rolesEmptyWarning(shape)
         return false

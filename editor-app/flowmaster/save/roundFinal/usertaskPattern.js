@@ -21,6 +21,11 @@ export default function(reduceName) {
         shape.setProperty('usertaskassignment', value)
         shape.setProperty('approveItems',approveItems)
         shape.setProperty('reduxData', repo)
+
+        shape.setProperty('hasProcessTimeOut ', !!repo.hasProcessTimeOut )            
+        shape.setProperty('processTime', repo.processTime)
+        shape.setProperty('rangeTalkTime', repo.rangeTalkTime)
+
         
         if(!fm.approve.is_display_prevShapeSpecify(shape,repo)){
             shape.setProperty('previousNodeSpecifiedSingle', false)

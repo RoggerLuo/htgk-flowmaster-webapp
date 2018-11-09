@@ -3,7 +3,9 @@ var webpackConfig = require('./webpack.build.config.js')
 var exec = require('child_process').exec
 var copyFile = require('./copy.js')
 var src = __dirname + '/..'
+
 var dst = "/Users/RogersMac/WorkHtgk/bpm-frontend/design/editor-app"
+
 console.log('Webpacking...\n')
 webpack(webpackConfig, function(err, stats) {
     if (err) throw err
