@@ -16,13 +16,16 @@ webpack(webpackConfig, function(err, stats) {
         chunks: false,
         chunkModules: false
     }) + '\n')
-    exec('gulp', function(err, stdout, stderr) {
-        if (!err) {
-            console.log('Gulp info:')
-            console.log(stdout)
-            console.log('Copying files to product env...')
-            copyFile(src, dst)
-        }
-        if (err) console.log(err)
-    })
+// return 
+    copyFile(src, dst)
+
+    // exec('gulp', function(err, stdout, stderr) {
+    //     if (!err) {
+    //         console.log('Gulp info:')
+    //         console.log(stdout)
+    //         console.log('Copying files to product env...')
+    //         copyFile(src, dst)
+    //     }
+    //     if (err) console.log(err)
+    // })
 })
