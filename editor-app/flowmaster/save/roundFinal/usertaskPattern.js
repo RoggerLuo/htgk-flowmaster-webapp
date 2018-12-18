@@ -22,7 +22,7 @@ export default function(reduceName) {
         shape.setProperty('approveItems',approveItems)
         shape.setProperty('reduxData', repo)
 
-        shape.setProperty('hasProcessTimeOut ', !!repo.hasProcessTimeOut )            
+        shape.setProperty('hasProcessTimeOut', !!repo.hasProcessTimeOut )            
         shape.setProperty('processTime', repo.processTime)
         shape.setProperty('rangeTalkTime', repo.rangeTalkTime)
 

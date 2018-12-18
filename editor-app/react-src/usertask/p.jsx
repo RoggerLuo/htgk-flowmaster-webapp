@@ -48,7 +48,7 @@ const UsertaskPre = ({ data, put }) => {
 /*
 {
     title:'流程超时预警',
-    oncheck:oncheckFactory('hasProcessTimeOut '),
+    oncheck:oncheckFactory('hasProcessTimeOut'),
     checked:currentRepo.hasProcessTimeOut ||false,
     defaultValue:'流程超时预警',
     inputValue:'currentRepo.allowForceEndText',

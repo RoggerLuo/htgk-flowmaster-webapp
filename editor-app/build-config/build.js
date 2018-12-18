@@ -4,7 +4,7 @@ var exec = require('child_process').exec
 var copyFile = require('./copy.js')
 var src = __dirname + '/..'
 
-var dst = "/Users/RogersMac/WorkHtgk/bpm-frontend/design/editor-app"
+var dst = "/Users/roger/Work/流程大师/bpm-frontend/design/editor-app"
 
 console.log('Webpacking...\n')
 webpack(webpackConfig, function(err, stats) {
