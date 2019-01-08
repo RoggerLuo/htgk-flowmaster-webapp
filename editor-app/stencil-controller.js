@@ -18,6 +18,19 @@ angular.module('activitiModeler')
 
         // Code that is dependent on an initialised Editor is wrapped in a promise for the editor
         $scope.editorFactory.promise.then(function() {
+
+            // 2.3新功能
+            window.fm.zoomOut = function(){
+                var services = { '$scope' : $scope, '$rootScope' : $rootScope, '$http' : $http, '$modal' : $modal, };
+                // KISBPM.TOOLBAR.ACTIONS.undo(services);
+                KISBPM.TOOLBAR.ACTIONS.zoomOut(services)
+            }
+            window.fm.zoomIn = function(){
+                var services = { '$scope' : $scope, '$rootScope' : $rootScope, '$http' : $http, '$modal' : $modal, };
+                // KISBPM.TOOLBAR.ACTIONS.undo(services);
+                KISBPM.TOOLBAR.ACTIONS.zoomIn(services)
+            }
+            
             // fm.ngEvent($scope,$http)
             // fm.oryxEvent($scope,$http)
             fm.scopeAdapter($scope,$http)

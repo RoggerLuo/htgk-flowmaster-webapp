@@ -22,6 +22,7 @@
         <div class="row row-no-gutter" style="height:100%;">
             <div id="paletteHelpWrapper" class="col-xs-2" style="width: 10%;">
                 <div class="stencils canvas-wrapper" id="paletteSection" style="height:100%;margin:0;">
+    
                     <div style="height:100%;margin:0;"> <!-- ng-if="stencilItemGroups.length > 1" -->
                         <div> <!-- style="height:100%;" -->
                             <ul class="stencil-group" class="first" style="height:100%;display:flex;flex-direction:column;padding-bottom: 20px">
@@ -41,6 +42,13 @@
                 </div>
             </div>
             <div id="canvasHelpWrapper" class="col-xs-7" style="width:67%;">
+                <div onClick="window.fm.zoomIn()" style="position: absolute;right: 65px;top: 15px;cursor:pointer"> 
+                    <img width="20px" src="editor-app/images/fangda.png" />
+                </div>
+                <div onClick="window.fm.zoomOut()" style="position: absolute;right: 30px;top: 15px;cursor:pointer"> 
+                    <img width="20px" src="editor-app/images/suoxiao.png" />
+                </div>
+
                 <div class="canvas-wrapper" 
                     id="canvasSection" 
                     ng-model="droppedElement" 

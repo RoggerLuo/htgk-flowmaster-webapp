@@ -178,50 +178,47 @@
 -------------------------------- */
 div.canvas-wrapper {
 	overflow: auto;
-	// background-color: #F8F8F8;
-    // border-right: 12px solid #f1f1f1;
-    // margin-right: -16px;
 
 }
 div.canvas-wrapper::-webkit-scrollbar {
-  height:4px;
-  width: 4px;
-  background: #EDEDED;//rgba(0,177,251, 0.1);
+  height:10px;
+  width: 10px;
+  
 }
 div.canvas-wrapper::-moz-scrollbar {
-  height:4px;
-  width: 4px;
-  background: #EDEDED;//rgba(0,177,251, 0.1);
+  height:10px;
+  width: 10px;
+  
 }
 div.canvas-wrapper::-ms-scrollbar {
-  height:4px;
-  width: 4px;
-  background: #EDEDED;//rgba(0,177,251, 0.1);
+  height:10px;
+  width: 10px;
+  
 }
 div.canvas-wrapper::-o-scrollbar {
-  height:4px;
-  width: 4px;
-  background: #EDEDED;//rgba(0,177,251, 0.1);
+  height:10px;
+  width: 10px;
+  
 }
 div.canvas-wrapper::scrollbar {
-  height:4px;
-  width: 4px;
-  background: #EDEDED;//rgba(0,177,251, 0.1);
+  height:10px;
+  width: 10px;
+  
 }
 div.canvas-wrapper::-webkit-scrollbar-thumb {
-  background: #DDDDDD;// #00b1fb;
+  background: #DDDDDD;
 }
 div.canvas-wrapper::-moz-scrollbar-thumb {
-  background: #DDDDDD;// #00b1fb;
+  background: #DDDDDD;
 }
 div.canvas-wrapper::-ms-scrollbar-thumb {
-  background: #DDDDDD;// #00b1fb;
+  background: #DDDDDD;
 }
 div.canvas-wrapper::-o-scrollbar-thumb {
-  background: #DDDDDD;// #00b1fb;
+  background: #DDDDDD;
 }
 div.canvas-wrapper::scrollbar-thumb {
-  background: #DDDDDD;// #00b1fb;
+  background: #DDDDDD;
 }
 
 
@@ -281,7 +278,7 @@ div.propertySection {
     /*height: 250px;*/
     height: 100%;
     background-color: white;
-    // background-color: #e8edf1;
+    
 	margin-bottom: 0px;
 }
 
@@ -329,7 +326,7 @@ div.propertySection {
 
 .selected-item-title a {
 	display: block;
-	// color: #1a1a1a;
+	
 }
 
 .selected-item-title .glyphicon {
@@ -434,7 +431,6 @@ div.propertySection {
 	padding: 0;	
 	min-height: 25px;
     font-size: 14px;
-    // font-weight: bold;
 }
 
 .property-row span.value {

@@ -40,7 +40,7 @@ ACTIVITI.CONFIG = {
 
 // window.globalHost = '172.16.1.27'
 // window.globalHost = 'bpm.yyang.io'
-window.globalHost = 'http://172.16.1.178:9001'// original
+window.globalHost = 'http://172.16.1.104:9001'// original
 // window.globalHost = 'http://172.16.1.178/~RogersMac/webapp' //本地调试 公司
 // window.globalHost = 'http://localhost/~RogersMac/webapp' //本地调试 家里
 
