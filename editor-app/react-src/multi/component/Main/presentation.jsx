@@ -1,7 +1,8 @@
 import React from 'react'
 import Group from '../Group'
 import './style'
-
+import getSetting from '../../Setting'
+const Setting = getSetting('multi')
 const Component = ({sectionTitleData, data, put}) => {
     const SectionTitle = fm.common.SectionTitle
     const unfold = () => {
@@ -24,6 +25,7 @@ const Component = ({sectionTitleData, data, put}) => {
             >
                 {put('parallel.remark.content')}
             </div>
+            <Setting/>
             <div style={{height:'163px',width:'1px'}}></div>
         </div>
     )

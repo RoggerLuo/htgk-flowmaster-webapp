@@ -10,4 +10,6 @@ export default function(el,index,modelData){
     delete modelData.childShapes[index].properties.multiinstance_cardinality
     delete modelData.childShapes[index].properties.multiinstance_variable
     delete modelData.childShapes[index].properties.usertaskassignment
+    delete modelData.childShapes[index].properties.hasProcessTimeOut
+
 }

@@ -17,5 +17,5 @@ export default function(el,index,modelData){
     delete modelData.childShapes[index].properties.reduxData
     delete modelData.childShapes[index].properties.isInGates
     delete modelData.childShapes[index].properties.previousNodeSpecifiedSingle
-
+    delete modelData.childShapes[index].properties.hasProcessTimeOut
 }

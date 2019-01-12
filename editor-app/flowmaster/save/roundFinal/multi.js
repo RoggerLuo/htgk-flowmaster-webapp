@@ -19,5 +19,7 @@ export default function() {
         shape.setProperty('multiinstance_type', "parallel")
         shape.setProperty('multiinstance_variable', "per")
         shape.setProperty('usertaskassignment', { "assignment": { "candidateOwners": [{ "value": "${per}" }] } })
+        shape.setProperty('hasProcessTimeOut', !!repo.hasProcessTimeOut )            
+
     })
 }
