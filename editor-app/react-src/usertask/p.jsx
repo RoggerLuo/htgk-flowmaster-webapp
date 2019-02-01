@@ -45,18 +45,5 @@ const UsertaskPre = ({ data, put }) => {
         </div>
     )
 }
-/*
-{
-    title:'流程超时预警',
-    oncheck:oncheckFactory('hasProcessTimeOut'),
-    checked:currentRepo.hasProcessTimeOut ||false,
-    defaultValue:'流程超时预警',
-    inputValue:'currentRepo.allowForceEndText',
-    onchange(e){
-        // if(fm.isSpecificVersionEditMode) return
-        // rdx.put(reduceName,'replace',['allowForceEndText'],e.target.value||'')
-    }
 
-}
-*/
 export default rdx.i18nPut(UsertaskPre)
