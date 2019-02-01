@@ -12,7 +12,6 @@ const Component = ({sectionTitleData, data, put}) => {
 
         }
     }
-
     return(
         <div className="react-approve" onClick={unfold}>
             <SectionTitle {...sectionTitleData} text={put('parallel.contentTitle')} /> 
