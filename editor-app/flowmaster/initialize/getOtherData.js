@@ -16,6 +16,10 @@ export const getModel = (callback, $http, pid) => {
     if (fm.isSpecificVersionEditMode) { 
         url = window.globalHost + '/repository/process-definitions/' + pid + `/design?processType=Normal&version=${fm.version}`
     }
+    if(window.getQueryString("option") === 'repair') {
+        url = window.globalHost + `/repository/process-definitions/${pid}/designSingle/${window.getQueryString('instanceId')}?processType=Normal&version=${fm.version}`
+    }
+
     $http({
             method: 'GET',
             // url: window.globalHost+'/resources/model/test.model.json', //本地调试

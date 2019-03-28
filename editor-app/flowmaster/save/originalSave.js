@@ -67,6 +67,10 @@ export default function($scope, $http, callback) {
 
     const version = window.getQueryString("version")
     if(fm.version) url = window.globalHost + '/repository/process-definitions/' + window.getQueryString("pid") + `/design?processType=Normal&version=${fm.version}`
+    //Thu Mar 28 2019, roger
+    if(window.getQueryString("option") === 'repair') {
+        url = window.globalHost + `/repository/process-definitions/${window.getQueryString('pid')}/designSingle/${window.getQueryString('instanceId')}?processType=Normal&version=${fm.version}`
+    }
 
     // if(fm.versionId!='undefined') url = window.globalHost + '/repository/process-definitions/' + window.getQueryString("pid") + `/design?processType=Normal&versionId=${fm.versionId}`
     $http({

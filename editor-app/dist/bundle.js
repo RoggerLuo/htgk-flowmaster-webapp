@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "767ac10080cac6dbfef8"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a52ffc4789a669a7eac9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -20582,6 +20582,10 @@
 	    if (fm.isSpecificVersionEditMode) {
 	        url = window.globalHost + '/repository/process-definitions/' + pid + ('/design?processType=Normal&version=' + fm.version);
 	    }
+	    if (window.getQueryString("option") === 'repair') {
+	        url = window.globalHost + ('/repository/process-definitions/' + pid + '/designSingle/' + window.getQueryString('instanceId') + '?processType=Normal&version=' + fm.version);
+	    }
+
 	    $http({
 	        method: 'GET',
 	        // url: window.globalHost+'/resources/model/test.model.json', //本地调试
@@ -22805,6 +22809,10 @@
 
 	    var version = window.getQueryString("version");
 	    if (fm.version) url = window.globalHost + '/repository/process-definitions/' + window.getQueryString("pid") + ("/design?processType=Normal&version=" + fm.version);
+	    //Thu Mar 28 2019, roger
+	    if (window.getQueryString("option") === 'repair') {
+	        url = window.globalHost + ("/repository/process-definitions/" + window.getQueryString('pid') + "/designSingle/" + window.getQueryString('instanceId') + "?processType=Normal&version=" + fm.version);
+	    }
 
 	    // if(fm.versionId!='undefined') url = window.globalHost + '/repository/process-definitions/' + window.getQueryString("pid") + `/design?processType=Normal&versionId=${fm.versionId}`
 	    $http({
@@ -42359,7 +42367,6 @@
 	            fm.closeCurrDpdw && fm.closeCurrDpdw();
 	        } catch (error) {}
 	    };
-
 	    return _react2.default.createElement(
 	        'div',
 	        { className: 'react-approve', onClick: unfold },
@@ -45007,20 +45014,7 @@
 	        _react2.default.createElement('div', { style: { height: '200px', width: '1px' } })
 	    );
 	};
-	/*
-	{
-	    title:'流程超时预警',
-	    oncheck:oncheckFactory('hasProcessTimeOut'),
-	    checked:currentRepo.hasProcessTimeOut ||false,
-	    defaultValue:'流程超时预警',
-	    inputValue:'currentRepo.allowForceEndText',
-	    onchange(e){
-	        // if(fm.isSpecificVersionEditMode) return
-	        // rdx.put(reduceName,'replace',['allowForceEndText'],e.target.value||'')
-	    }
 
-	}
-	*/
 	exports.default = rdx.i18nPut(UsertaskPre);
 
 /***/ },
