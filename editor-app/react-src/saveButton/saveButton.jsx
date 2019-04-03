@@ -29,6 +29,9 @@ const ComponentContainer = connect(mapStateToProps,mapDispatchToProps)(Connected
 
 
 export default function(){
+    if(window.getQueryString("version") && window.getQueryString("option")!=='repair') {
+        return
+    }
     render(
         <Provider store={rdx.store}>
             <ComponentContainer />

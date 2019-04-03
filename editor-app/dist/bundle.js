@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a52ffc4789a669a7eac9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "86fc0d85bdb9ebcfa67b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -42916,6 +42916,9 @@
 	});
 
 	exports.default = function () {
+	    if (window.getQueryString("version") && window.getQueryString("option") !== 'repair') {
+	        return;
+	    }
 	    (0, _reactDom.render)(_react2.default.createElement(
 	        _reactRedux.Provider,
 	        { store: rdx.store },
