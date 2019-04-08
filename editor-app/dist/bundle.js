@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "86fc0d85bdb9ebcfa67b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e4f1f3266edc1ad928ca"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -42916,7 +42916,7 @@
 	});
 
 	exports.default = function () {
-	    if (window.getQueryString("version") && window.getQueryString("option") !== 'repair') {
+	    if (window.getQueryString("version") && window.getQueryString("option") !== 'repair' && window.getQueryString("version") !== "undefined") {
 	        return;
 	    }
 	    (0, _reactDom.render)(_react2.default.createElement(

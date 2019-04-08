@@ -29,7 +29,7 @@ const ComponentContainer = connect(mapStateToProps,mapDispatchToProps)(Connected
 
 
 export default function(){
-    if(window.getQueryString("version") && window.getQueryString("option")!=='repair') {
+    if(window.getQueryString("version") && window.getQueryString("option")!=='repair' && window.getQueryString("version")!=="undefined") {
         return
     }
     render(
