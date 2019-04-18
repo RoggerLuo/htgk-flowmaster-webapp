@@ -5,8 +5,11 @@ import inRepoValidate from './inRepoValidate'
 import notInRepoValidate from './notInRepoValidate'
 import roundFinal from './roundFinal'
 import originalSave from './originalSave'
-
+import draftSave from './draftSave'
 export default function($scope, $http) {
+    
+
+    global.fm.draftSave = draftSave($scope, $http, ()=>{})
     return function(callback) {
         //顺序很重要
         const integrity = integrityValidate()

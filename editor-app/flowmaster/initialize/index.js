@@ -58,6 +58,14 @@ export default function($http, $rootScope) {
         })
 
 
+        global.fm.draftRead = ()=>{
+            $http({    
+                method: 'GET',
+                url: window.globalHost + '/repository/process-definitions/'+window.getQueryString("pid")+'/getProcessDraftDesign'
+            }).success(function (data) {
+
+            })
+        }
 
 
 
