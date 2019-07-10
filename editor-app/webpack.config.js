@@ -58,6 +58,8 @@ module.exports = {
     devServer: {
         contentBase: './dist',
         hot:true,
+        host: "0.0.0.0"
+
         // proxy:{
         // '/activiti-rest/service/**': {
         //         target: 'http://activiti.ooad.io/activiti-rest/service',

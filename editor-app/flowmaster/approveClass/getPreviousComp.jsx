@@ -34,6 +34,21 @@ export default function(reduceName){
                     </div>
                 </label>
                
+                {/*<label htmlFor={"addtask"} style={{cursor:'pointer'}}> 
+                    <div className="property-row-content"> 
+                        允许加签
+                        &nbsp;
+                        <input 
+                            onChange={change1} 
+                            checked={previousNodeSpecified||false} 
+                            value={previousNodeSpecified||false}
+                            style={{cursor:'pointer'}} 
+                            id="addtask" 
+                            name="addtask" 
+                            type="checkbox" 
+                        />
+                    </div>
+                </label>*/}
                 
 
                 <div style={{height:'1px',width:'100%'}}></div>

@@ -32,15 +32,11 @@ const UsertaskPre = ({ data, put }) => {
                         {put('approveNode.button.add')}
                             <i className="icon iconfont icon-tianjia"></i>
                     </div>
-                </Menu>    
+                </Menu>
             ):null}
 
-            {!isEmpty?(
-                <ApprovePool data={data}/>
-            ):null}
+            {!isEmpty?(<ApprovePool data={data}/>):null}            
             <ApproveSetting/>
-
-
             <div style={{height:'200px',width:'1px'}}></div>
         </div>
     )
